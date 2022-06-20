@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#000000</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="red">@android:color/holo_red_dark</color>
+
+    <color name="app_main_color">#000000</color>
+    <color name="edit_text_border">@color/app_main_color</color>
+
+
+    <color name="background">#FFFFFFFF</color>
+    <color name="box_stroke">#EAEAEE</color>
+    <color name="text_hint">#FAF8F8</color>
+    <color name="text">#FF000000</color>
+    <color name="button_text">#FFFFFFFF</color>
+    <color name="button_next">@color/teal_700</color>
+    <color name="button_background">#000000</color>
+    <color name="text_forgot_change_password">@color/purple_500</color>
+    <color name="header_view_background">@color/box_stroke</color>
+    <color name="devider_background">@color/teal_700</color>
+
+    <color name="text_view_shadow_color">#A9A9A9</color>
+</resources>

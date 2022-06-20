@@ -1,0 +1,51 @@
+<resources>
+    <string name="app_name">JLP_Layouts</string>
+    <string name="title">Delivery Item Tracking System</string>
+
+    <string name="login">Login</string>
+    <string name="question_mark">\?</string>
+    <string name="forget_password">Forget password</string>
+    <string name="forget_password_with_question_mark">Forget password?</string>
+    <string name="change_password">Change password</string>
+    <string name="password">Password</string>
+    <string name="old_password">Old password</string>
+    <string name="confirm_password">Confirm password</string>
+    <string name="new_password">New password</string>
+    <string name="enter_password">Enter password</string>
+    <string name="enter_new_password">Enter new password</string>
+    <string name="enter_confirm_new_password">Enter confirm new password</string>
+    <string name="enter_old_password">Enter old password</string>
+    <string name="email_id">Email Id</string>
+    <string name="username">Username</string>
+    <string name="enter_username">Enter username</string>
+    <string name="mobile_number">Mobile Number</string>
+    <string name="or">OR</string>
+    <string name="resend">Resend</string>
+    <string name="next">Next</string>
+    <string name="congratulations">Congratulations!</string>]
+    <string name="password_changed_successfully">Your password has been changed successfully! \n\n Please login again to return to main menu</string>
+
+    <string name="password_must_be">Password must be\n &#160;&#160;-6-8 Character long \n &#160;&#160;-Only alphanumeric characters allowed\n &#160;&#160;-At least one alphabetic and one numeric character\n &#160;&#160; -Not same as old password</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="previous">Previous</string>
+
+    <string name="hello_first_fragment">Hello first fragment</string>
+    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>'
+
+    <string name="please_enter_user_id_and_password">Please enter User ID and Password</string>
+    <string name="please_enter_user_id">Please enter User ID</string>
+    <string name="please_enter_password">Please enter password</string>
+    <string name="password_should_be">Password should be 6-8 characters long</string>
+
+    <string name="please_enter_old_password">Please enter old password</string>
+    <string name="please_enter_new_password_and_confirm">Please enter new and confirm password</string>
+    <string name="new_password_and_confirm_password_mismatch">New password fields do not match</string>
+    <string name="new_password_should_be">New password should be 6-8 characters long</string>
+    <string name="at_least_one_alpha_one_num_req">at least one alphabetic and one numeric character required</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+</resources>
