@@ -2,8 +2,6 @@ package com.jlp.mvvm_jlp_project.view.auth;/*
  * Created by Sandeep(Techno Learning) on 18,June,2022
  */
 
-import android.content.Context;
-import android.content.res.loader.ResourcesProvider;
 import android.text.TextUtils;
 import android.util.Pair;
 import android.view.View;
@@ -11,17 +9,15 @@ import android.view.View;
 import androidx.lifecycle.MutableLiveData;
 
 import com.jlp.mvvm_jlp_project.R;
-import com.jlp.mvvm_jlp_project.constants.Constants;
-import com.jlp.mvvm_jlp_project.constants.Utils;
+import com.jlp.mvvm_jlp_project.constants.AppConstants;
+import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.model.ChangePasswordRequest;
 import com.jlp.mvvm_jlp_project.model.LoginUserRequest;
 import com.jlp.mvvm_jlp_project.view.base.BaseViewModel;
 
 import javax.inject.Inject;
 
-import dagger.Provides;
 import dagger.hilt.android.lifecycle.HiltViewModel;
-import dagger.hilt.android.qualifiers.ActivityContext;
 
 @HiltViewModel
 public class AuthViewModel extends BaseViewModel {
@@ -53,7 +49,7 @@ public class AuthViewModel extends BaseViewModel {
             result = new Pair(false, R.string.please_enter_user_id);
         }else if(TextUtils.isEmpty(password)){
             result = new Pair(false, R.string.please_enter_password);
-        }else if(password.length() < Constants.MIN_PASSWORD_LENGTH || password.length() > Constants.MAX_PASSWORD_LENGTH){
+        }else if(password.length() < AppConstants.MIN_PASSWORD_LENGTH || password.length() > AppConstants.MAX_PASSWORD_LENGTH){
             result = new Pair(false, R.string.password_should_be);
         }else{
             result = new Pair <Boolean, Integer> (true, 0);
@@ -69,7 +65,7 @@ public class AuthViewModel extends BaseViewModel {
             result = new Pair(false, R.string.please_enter_old_password);
         }if(TextUtils.isEmpty(newPassword) && TextUtils.isEmpty(confirmPassword)){
             result = new Pair(false, R.string.please_enter_new_password_and_confirm);
-        }else if(newPassword.length() < Constants.MIN_PASSWORD_LENGTH || newPassword.length() > Constants.MAX_PASSWORD_LENGTH){
+        }else if(newPassword.length() < AppConstants.MIN_PASSWORD_LENGTH || newPassword.length() > AppConstants.MAX_PASSWORD_LENGTH){
             result = new Pair(false, R.string.new_password_should_be);
         }else if(Utils.isValidPassword(newPassword)){
             result = new Pair(false, R.string.at_least_one_alpha_one_num_req);
