@@ -4,27 +4,21 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.viewbinding.ViewBinding;
 
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.databinding.FragmentChangePasswordBinding;
-import com.jlp.mvvm_jlp_project.databinding.FragmentLoginBinding;
-import com.jlp.mvvm_jlp_project.model.ChangePasswordRequest;
-import com.jlp.mvvm_jlp_project.model.LoginUserRequest;
+import com.jlp.mvvm_jlp_project.model.ChangePasswordRequestModel;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
 import com.jlp.mvvm_jlp_project.view.home.HomeActivity;
+import com.jlp.mvvm_jlp_project.viewmodel.AuthViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -72,7 +66,7 @@ public class ChangePasswordFragment extends BaseFragment {
             @Override
             public void onChanged(Pair<Boolean, Integer> validationResult) {
                 if(validationResult.first){
-                    authViewModel.changePasswordUser(new ChangePasswordRequest(
+                    authViewModel.changePasswordUser(new ChangePasswordRequestModel(
                             binding.inputUsername.getText().toString().trim(),
                             binding.inputOldPassword.getText().toString().trim(),
                             binding.inputNewPassword.getText().toString().trim(),

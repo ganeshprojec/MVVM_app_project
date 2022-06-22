@@ -5,14 +5,14 @@ package com.jlp.mvvm_jlp_project.model;/*
 
 import android.util.Patterns;
 
-public class ChangePasswordRequest {
+public class ChangePasswordRequestModel {
 
     private String strEmailAddress;
     private String strPassword;
     private String strNewPassword;
     private String strConfirmPassword;
 
-    public ChangePasswordRequest(String strEmailAddress, String strPassword, String strNewPassword, String strConfirmPassword) {
+    public ChangePasswordRequestModel(String strEmailAddress, String strPassword, String strNewPassword, String strConfirmPassword) {
         this.strEmailAddress = strEmailAddress;
         this.strPassword = strPassword;
         this.strNewPassword = strNewPassword;

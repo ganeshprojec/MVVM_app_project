@@ -5,12 +5,12 @@ package com.jlp.mvvm_jlp_project.model;/*
 
 import android.util.Patterns;
 
-public class LoginUserRequest {
+public class LoginUserRequestModel {
 
     private String strEmailAddress;
     private String strPassword;
 
-    public LoginUserRequest(String EmailAddress, String Password) {
+    public LoginUserRequestModel(String EmailAddress, String Password) {
         strEmailAddress = EmailAddress;
         strPassword = Password;
     }

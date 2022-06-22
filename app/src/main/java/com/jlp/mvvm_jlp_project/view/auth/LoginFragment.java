@@ -1,6 +1,5 @@
 package com.jlp.mvvm_jlp_project.view.auth;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -17,11 +16,10 @@ import android.view.ViewGroup;
 
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.databinding.FragmentLoginBinding;
-import com.jlp.mvvm_jlp_project.model.LoginUserRequest;
-import com.jlp.mvvm_jlp_project.utils.Helper;
+import com.jlp.mvvm_jlp_project.model.LoginUserRequestModel;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
-import com.jlp.mvvm_jlp_project.view.home.HomeActivity;
+import com.jlp.mvvm_jlp_project.viewmodel.AuthViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -62,7 +60,7 @@ public class LoginFragment extends BaseFragment {
             @Override
             public void onChanged(Pair<Boolean, Integer> validationResult) {
                 if(validationResult.first){
-                    authViewModel.loginUser(new LoginUserRequest(
+                    authViewModel.loginUser(new LoginUserRequestModel(
                             binding.layoutUsername.inputUsername.getText().toString().trim(),
                             binding.layoutPassword.inputPassword.getText().toString().trim()));
                     NavController navController = Navigation.findNavController(view);

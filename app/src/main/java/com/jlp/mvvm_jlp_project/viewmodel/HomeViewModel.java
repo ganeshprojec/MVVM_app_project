@@ -1,8 +1,8 @@
-package com.jlp.mvvm_jlp_project.view.home;/*
+package com.jlp.mvvm_jlp_project.viewmodel;/*
  * Created by Sandeep(Techno Learning) on 18,June,2022
  */
 
-import com.jlp.mvvm_jlp_project.view.base.BaseViewModel;
+import com.jlp.mvvm_jlp_project.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
 

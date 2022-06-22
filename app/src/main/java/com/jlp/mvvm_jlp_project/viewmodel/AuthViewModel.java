@@ -1,4 +1,4 @@
-package com.jlp.mvvm_jlp_project.view.auth;/*
+package com.jlp.mvvm_jlp_project.viewmodel;/*
  * Created by Sandeep(Techno Learning) on 18,June,2022
  */
 
@@ -11,9 +11,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.constants.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Utils;
-import com.jlp.mvvm_jlp_project.model.ChangePasswordRequest;
-import com.jlp.mvvm_jlp_project.model.LoginUserRequest;
-import com.jlp.mvvm_jlp_project.view.base.BaseViewModel;
+import com.jlp.mvvm_jlp_project.model.ChangePasswordRequestModel;
+import com.jlp.mvvm_jlp_project.model.LoginUserRequestModel;
 
 import javax.inject.Inject;
 
@@ -23,13 +22,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 public class AuthViewModel extends BaseViewModel {
 
     public MutableLiveData<Pair<Boolean, Integer>> validationResult = new MutableLiveData<>();
-    private MutableLiveData<LoginUserRequest> userMutableLiveData;
+    private MutableLiveData<LoginUserRequestModel> userMutableLiveData;
 
     @Inject
     AuthViewModel(){
     }
 
-    public MutableLiveData<LoginUserRequest> login() {
+    public MutableLiveData<LoginUserRequestModel> login() {
         if (userMutableLiveData == null) {
             userMutableLiveData = new MutableLiveData<>();
         }
@@ -77,11 +76,11 @@ public class AuthViewModel extends BaseViewModel {
         validationResult.setValue(result);
     }
 
-    void loginUser(LoginUserRequest loginUserRequest){
+    public void loginUser(LoginUserRequestModel loginUserRequest){
         //userRepository.loginUser(loginUserRequest)
     }
 
-    void changePasswordUser(ChangePasswordRequest changePasswordRequest){
+    public void changePasswordUser(ChangePasswordRequestModel changePasswordRequest){
         //userRepository.changePassword(changePasswordRequest)
     }
 

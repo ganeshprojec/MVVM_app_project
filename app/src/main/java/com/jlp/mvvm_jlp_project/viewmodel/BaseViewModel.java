@@ -1,4 +1,4 @@
-package com.jlp.mvvm_jlp_project.view.base;/*
+package com.jlp.mvvm_jlp_project.viewmodel;/*
  * Created by Sandeep(Techno Learning) on 18,June,2022
  */
 
