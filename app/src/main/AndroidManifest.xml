@@ -15,8 +15,13 @@
         android:theme="@style/Theme.JLP_Layouts"
         tools:targetApi="31">
         <activity
-            android:name=".view.home.HomeActivity"
+            android:name=".view.home.MainActivity"
             android:exported="false" />
+
+        <!--<activity
+            android:name=".view.auth.AuthActivity"
+            android:exported="true"/>-->
+
         <activity
             android:name=".view.auth.AuthActivity"
             android:exported="true"
@@ -28,6 +33,20 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".view.home.HomeActivity"
+            android:exported="true"
+            android:theme="@style/Theme.JLP_Layouts.NoActionBar"
+            android:windowSoftInputMode="adjustResize">
+            <!--<intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>-->
+        </activity>
+
+
     </application>
 
 </manifest>

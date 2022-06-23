@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group
+        android:id="@+id/grp_divider1"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_item_enquiry"
+            android:icon="@drawable/ic_1_item_enquiry"
+            android:title="@string/str_item_enquiry" />
+    </group>
+
+    <group
+        android:id="@+id/grp_divider2"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_item_movements"
+            android:icon="@drawable/ic_2_item_movements"
+            android:title="@string/str_item_movements" />
+    </group>
+
+    <group
+        android:id="@+id/grp_divider3"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_movements"
+            android:icon="@drawable/ic_3_movements"
+            android:title="@string/str_movements" />
+    </group>
+
+    <group
+        android:id="@+id/grp_divider4"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_reprint_labels"
+            android:icon="@drawable/ic_4_reprint_labels"
+            android:title="@string/str_reprint_labels" />
+    </group>
+
+
+    <group
+        android:id="@+id/grp_divider5"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_amend_lots"
+            android:icon="@drawable/ic_5_amend_lots"
+            android:title="@string/str_amend_lots" />
+    </group>
+
+    <group
+        android:id="@+id/grp_divider6"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_route_management"
+            android:icon="@drawable/ic_6_route_management"
+            android:title="@string/str_route_management" />
+
+    </group>
+
+    <group
+        android:id="@+id/grp_divider7"
+        android:checkableBehavior="single">
+
+        <item
+            android:id="@+id/nav_track_handover_delivery"
+            android:icon="@drawable/ic_7_carier_collection_details"
+            android:title="@string/str_track_handover_delivery" />
+
+    </group>
+
+    <group
+        android:id="@+id/grp_divider8"
+        android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_handover_delivery_details"
+            android:icon="@drawable/ic_8_carrier_handover_details"
+            android:title="@string/str_handover_delivery" />
+
+    </group>
+
+
+</menu>

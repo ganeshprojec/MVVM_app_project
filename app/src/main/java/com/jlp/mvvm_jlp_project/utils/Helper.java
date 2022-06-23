@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 
-import com.jlp.mvvm_jlp_project.view.home.HomeActivity;
-
 public class Helper {
 
     public static void hideKeyboard(Activity activity) {

@@ -4,12 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.home.HomeActivity">
+    android:background="@color/color_light_gray"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:showIn="@layout/activity_home_app_bar_main">
 
-    <TextView
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyHomeMenu"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:text="Home Screen"/>
+        android:layout_margin="@dimen/dimen_std_page_margin"
+        android:numColumns="2"
+        android:stretchMode="spacingWidth"
+        tools:itemCount="3"
+        tools:listitem="@layout/row_menu_item" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

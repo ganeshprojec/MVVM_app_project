@@ -11,7 +11,7 @@ import com.jlp.mvvm_jlp_project.view.base.BaseActivity;
 import dagger.hilt.android.AndroidEntryPoint;
 
 //@AndroidEntryPoint
-public class HomeActivity extends BaseActivity {
+public class MainActivity extends BaseActivity {
 
     private @NonNull
     ActivityHomeBinding binding;

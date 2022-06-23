@@ -25,4 +25,13 @@
     <color name="devider_background">@color/teal_700</color>
 
     <color name="text_view_shadow_color">#A9A9A9</color>
+
+
+
+    <color name="color_light_gray">@color/box_stroke</color><!--#EEEBF3-->
+    <color name="border_color">#95000000</color>
+    <color name="color_toolbar_bg">@color/white</color>
+    <color name="color_side_nav_bar">@color/color_light_gray</color>
+    <color name="color_toolbar_text">@color/black</color>
+    <color name="color_divider_dark">@color/black</color>
 </resources>

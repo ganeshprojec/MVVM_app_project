@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="@dimen/nav_header_height"
+    android:layout_marginBottom="@dimen/dimen_std_page_margin"
+    android:background="@color/color_side_nav_bar"
+    android:elevation="8dp"
+    android:gravity="bottom"
+    android:orientation="vertical"
+
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:translationZ="8dp">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        style="@style/text_views"
+        android:padding="@dimen/dimen_std_page_margin"
+        android:text="@string/str_welcome"
+        android:textSize="@dimen/textsize_medium"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="@color/black" />
+
+    <TextView
+        android:id="@+id/txtHeaderUsername"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="@dimen/dimen_nav_header_left_margin"
+        android:layout_marginBottom="@dimen/dimen_nav_header_left_margin"
+        style="@style/text_views"
+        android:padding="@dimen/dimen_std_page_margin"
+        android:text="@string/str_dummy_username"
+        android:textColor="@color/black" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:layout_gravity="bottom"
+        android:background="@color/color_divider_dark" />
+
+</LinearLayout>

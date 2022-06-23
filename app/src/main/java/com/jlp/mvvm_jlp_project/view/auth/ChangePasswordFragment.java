@@ -1,5 +1,6 @@
 package com.jlp.mvvm_jlp_project.view.auth;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -14,11 +15,13 @@ import android.view.ViewGroup;
 
 import com.jlp.mvvm_jlp_project.databinding.FragmentChangePasswordBinding;
 import com.jlp.mvvm_jlp_project.model.ChangePasswordRequestModel;
+import com.jlp.mvvm_jlp_project.model.ChangePasswordRequest;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
 import com.jlp.mvvm_jlp_project.view.home.HomeActivity;
 import com.jlp.mvvm_jlp_project.viewmodel.AuthViewModel;
+import com.jlp.mvvm_jlp_project.view.home.MainActivity;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -57,6 +60,8 @@ public class ChangePasswordFragment extends BaseFragment {
                         binding.inputOldPassword.getText().toString().trim(),
                         binding.inputNewPassword.getText().toString().trim(),
                         binding.inputConfirmPassword.getText().toString().trim());
+
+                startHomeActivity();
             }
         });
     }
@@ -73,16 +78,22 @@ public class ChangePasswordFragment extends BaseFragment {
                             binding.inputConfirmPassword.getText().toString().trim()));
 //                    NavController navController = Navigation.findNavController(view);
 //                    navController.navigate(R.id.action_loginFragment_to_changePasswordFragment);
-                    Helper.redirectToActivity(getActivity(), HomeActivity.class, true);
-                }else{
+                    Helper.redirectToActivity(getActivity(), MainActivity.class, true);
+                } else {
                     showErrors(validationResult.second);
                 }
             }
         });
     }
 
-    private void showErrors(Integer errorStrId){
+    private void showErrors(Integer errorStrId) {
         Utils.showErrorMessage(getActivity(), getResources().getString(errorStrId));
+    }
+
+    private void startHomeActivity() {
+        Intent intentHome = new Intent(getActivity(), HomeActivity.class);
+        startActivity(intentHome);
+        getActivity().finish();
     }
 
     @Override

@@ -84,4 +84,22 @@
     <dimen name="fab_margin">16dp</dimen>
 
 
+    <!--toolbar Dimen-->
+    <dimen name="toolbar_height">55dp</dimen>
+    <dimen name="dimen_toolbar_back">@dimen/icon_large</dimen>
+    <dimen name="dimen_toolbar_close">@dimen/icon_large</dimen>
+
+
+    <!-- Drawer Dimen -->
+    <dimen name="nav_header_height">150dp</dimen>
+    <dimen name="dimen_nav_header_left_margin">25dp</dimen>
+
+
+    <!--Standard dimen-->
+    <dimen name="dimen_std_page_margin">8dp</dimen>
+    <dimen name="border_item">1dp</dimen>
+    <dimen name="dimen2dp">2dp</dimen>
+    <dimen name="dimen4dp">4dp</dimen>
+
+
 </resources>
