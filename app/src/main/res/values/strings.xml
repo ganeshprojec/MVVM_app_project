@@ -68,4 +68,15 @@
     <string name="str_debug_error">Set Click event!</string>
     <string name="dummy_item">Item</string>
 
+    <!-- Strings for Item Enquiry -->
+    <string name="item_enquiry_title">Item Enquiry</string>
+    <string name="enter_barcode_number">Enter Barcode Number</string>
+    <string name="enter_item_barcode_number">Enter Item Barcode Number</string>
+    <string name="Next">Next</string>
+    <string name="text_display_item_enquiry_key">Display Key</string>
+    <string name="text_display_item_enquiry_value">Display Value</string>
+    <string name="text_route_number">Route Number</string>
+    <string name="text_route_number1">Route Number1</string>
+    <string name="scan_next_item_barcode">Scan Next Item Barcode</string>
+
 </resources>
