@@ -15,11 +15,10 @@ import android.view.ViewGroup;
 
 import com.jlp.mvvm_jlp_project.databinding.FragmentChangePasswordBinding;
 import com.jlp.mvvm_jlp_project.model.ChangePasswordRequestModel;
-import com.jlp.mvvm_jlp_project.model.ChangePasswordRequest;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
-import com.jlp.mvvm_jlp_project.view.home.HomeActivity;
+import com.jlp.mvvm_jlp_project.view.home.MenuActivity;
 import com.jlp.mvvm_jlp_project.viewmodel.AuthViewModel;
 import com.jlp.mvvm_jlp_project.view.home.MainActivity;
 
@@ -91,7 +90,7 @@ public class ChangePasswordFragment extends BaseFragment {
     }
 
     private void startHomeActivity() {
-        Intent intentHome = new Intent(getActivity(), HomeActivity.class);
+        Intent intentHome = new Intent(getActivity(), MenuActivity.class);
         startActivity(intentHome);
         getActivity().finish();
     }

@@ -17,7 +17,6 @@ import android.view.ViewGroup;
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.databinding.FragmentLoginBinding;
 import com.jlp.mvvm_jlp_project.model.LoginUserRequestModel;
-import com.jlp.mvvm_jlp_project.model.LoginUserRequest;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
 import com.jlp.mvvm_jlp_project.viewmodel.AuthViewModel;
