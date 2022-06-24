@@ -92,6 +92,7 @@
             android:src="@drawable/ic_change_password_24"
             android:visibility="invisible" />-->
 
+
         <ImageView
             android:id="@+id/imgnextscan"
             android:layout_width="@dimen/dimen_toolbar_close"
@@ -103,7 +104,7 @@
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:onClick="onClickNext"
-            android:src="@drawable/text_input_border" />
+            android:src="@drawable/ic_qr_code_scan" />
 
     </RelativeLayout>
 </androidx.appcompat.widget.Toolbar>

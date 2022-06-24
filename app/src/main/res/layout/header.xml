@@ -19,6 +19,7 @@
             android:layout_width="@dimen/icon_xxxl"
             android:layout_height="@dimen/icon_xxxl"
             android:src="@drawable/ic_delivery_truck"
+            android:background="@drawable/circular_background_logo"
             app:layout_constraintBottom_toBottomOf="@+id/headView"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
