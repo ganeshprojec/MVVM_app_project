@@ -27,6 +27,7 @@ import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.utils.SpacesItemDecoration;
 import com.jlp.mvvm_jlp_project.view.auth.AuthActivity;
 import com.jlp.mvvm_jlp_project.view.auth.ChangePasswordFragment;
+import com.jlp.mvvm_jlp_project.view.itemenquiry.ItemEnquiryFragment;
 import com.jlp.mvvm_jlp_project.viewmodel.MenuViewModel;
 
 import java.util.ArrayList;
@@ -242,7 +243,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void onPressItemEnquiry() {
-        addFragment(new MainFragment());
+        addFragment(new ItemEnquiryFragment());
     }
 
     public void onPressItemMovements() {
