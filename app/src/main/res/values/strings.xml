@@ -53,7 +53,7 @@
     <!--Home Screen-->
     <string name="str_item_enquiry">Item Enquiry</string>
     <string name="str_item_movements">Item Movements</string>
-    <string name="str_movements">Movements</string>
+    <string name="str_movements">Multi Movements</string>
     <string name="str_reprint_labels">Reprint Labels</string>
     <string name="str_amend_lots">Amend Lots</string>
     <string name="str_route_management">Route Management</string>
