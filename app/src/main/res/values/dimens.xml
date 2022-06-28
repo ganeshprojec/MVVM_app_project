@@ -100,6 +100,7 @@
     <dimen name="border_item">1dp</dimen>
     <dimen name="dimen2dp">2dp</dimen>
     <dimen name="dimen4dp">4dp</dimen>
+    <dimen name="top_header_fragment_min_height">150dp</dimen>
 
 
 </resources>

@@ -59,7 +59,6 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener, 
     }
 
 
-
     private void initEvents() {
         binding.homeLayout.homeTopheader.imgClose.setImageResource(R.drawable.ic_logout_24);
         binding.homeLayout.homeTopheader.imgCloseSecond.setVisibility(View.VISIBLE);

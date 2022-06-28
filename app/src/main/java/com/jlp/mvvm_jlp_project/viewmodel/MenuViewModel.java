@@ -10,6 +10,7 @@ import com.jlp.mvvm_jlp_project.model.DrawerMenuItem;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.view.home.MainFragment;
 import com.jlp.mvvm_jlp_project.view.itemenquiry.ItemEnquiryFragment;
+import com.jlp.mvvm_jlp_project.view.route_management.RouteSummaryFragment;
 
 import java.util.ArrayList;
 
@@ -115,7 +116,7 @@ public class MenuViewModel extends BaseViewModel {
     }
 
     public void onPressRouteManagement(@ActivityContext Context context) {
-        Helper.addFragment(context, new MainFragment());
+        Helper.addFragment(context, new RouteSummaryFragment());
     }
 
     public void onPressTrackDelivery(@ActivityContext Context context) {

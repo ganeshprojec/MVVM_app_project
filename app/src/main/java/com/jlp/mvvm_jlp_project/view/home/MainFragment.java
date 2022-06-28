@@ -1,18 +1,14 @@
 package com.jlp.mvvm_jlp_project.view.home;
 
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 
+import androidx.fragment.app.Fragment;
+
 import com.jlp.mvvm_jlp_project.R;
-import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -62,27 +58,5 @@ public class MainFragment extends Fragment {
 
         return rootView;
     }
-
-
-    public void addHomeFragment(Fragment fragment) {
-        clearBackStack();
-
-        FragmentTransaction transaction = getActivity().getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.main_fragment_container, fragment);
-        transaction.addToBackStack(getString(R.string.backstack_tag));
-        transaction.commit();
-    }
-
-    private void clearBackStack() {
-        FragmentManager manager = getActivity().getSupportFragmentManager();
-        if (manager.getBackStackEntryCount() > 0) {
-            FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
-            manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }
-    }
-
-
-
-
 
 }
