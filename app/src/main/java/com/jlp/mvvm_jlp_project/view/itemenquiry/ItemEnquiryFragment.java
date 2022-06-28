@@ -12,7 +12,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.jlp.mvvm_jlp_project.R;
-import com.jlp.mvvm_jlp_project.view.home.MainFragment;
+import com.jlp.mvvm_jlp_project.view.home.TemplateFragment;
 
 
 public class ItemEnquiryFragment extends Fragment implements View.OnClickListener {
@@ -29,8 +29,8 @@ public class ItemEnquiryFragment extends Fragment implements View.OnClickListene
 
     }
 
-    public static MainFragment newInstance(String param1, String param2) {
-        MainFragment fragment = new MainFragment();
+    public static TemplateFragment newInstance(String param1, String param2) {
+        TemplateFragment fragment = new TemplateFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);

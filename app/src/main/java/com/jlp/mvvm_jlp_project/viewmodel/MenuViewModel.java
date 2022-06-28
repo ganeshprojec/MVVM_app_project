@@ -8,7 +8,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.model.DrawerMenuItem;
 import com.jlp.mvvm_jlp_project.utils.Helper;
-import com.jlp.mvvm_jlp_project.view.home.MainFragment;
+import com.jlp.mvvm_jlp_project.view.home.TemplateFragment;
 import com.jlp.mvvm_jlp_project.view.itemenquiry.ItemEnquiryFragment;
 import com.jlp.mvvm_jlp_project.view.route_management.RouteSummaryFragment;
 
@@ -100,19 +100,19 @@ public class MenuViewModel extends BaseViewModel {
     }
 
     public void onPressItemMovements(@ActivityContext Context context) {
-        Helper.addFragment(context, new MainFragment());
+        Helper.addFragment(context, new TemplateFragment());
     }
 
     public void onPressMovements(@ActivityContext Context context) {
-        Helper.addFragment(context, new MainFragment());
+        Helper.addFragment(context, new TemplateFragment());
     }
 
     public void onPressReprintLabels(@ActivityContext Context context) {
-        Helper.addFragment(context, new MainFragment());
+        Helper.addFragment(context, new TemplateFragment());
     }
 
     public void onPressAmendLots(@ActivityContext Context context) {
-        Helper.addFragment(context, new MainFragment());
+        Helper.addFragment(context, new TemplateFragment());
     }
 
     public void onPressRouteManagement(@ActivityContext Context context) {
@@ -120,11 +120,11 @@ public class MenuViewModel extends BaseViewModel {
     }
 
     public void onPressTrackDelivery(@ActivityContext Context context) {
-        Helper.addFragment(context, new MainFragment());
+        Helper.addFragment(context, new TemplateFragment());
     }
 
     public void onPressDeliveryDetails(@ActivityContext Context context) {
-        Helper.addFragment(context, new MainFragment());
+        Helper.addFragment(context, new TemplateFragment());
     }
 
 
