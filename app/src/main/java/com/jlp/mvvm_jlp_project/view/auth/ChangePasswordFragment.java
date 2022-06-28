@@ -59,8 +59,6 @@ public class ChangePasswordFragment extends BaseFragment {
                         binding.inputOldPassword.getText().toString().trim(),
                         binding.inputNewPassword.getText().toString().trim(),
                         binding.inputConfirmPassword.getText().toString().trim());
-
-                startHomeActivity();
             }
         });
     }
@@ -77,7 +75,7 @@ public class ChangePasswordFragment extends BaseFragment {
                             binding.inputConfirmPassword.getText().toString().trim()));
 //                    NavController navController = Navigation.findNavController(view);
 //                    navController.navigate(R.id.action_loginFragment_to_changePasswordFragment);
-                    Helper.redirectToActivity(getActivity(), MainActivity.class, true);
+                    Helper.redirectToActivity(getActivity(), MenuActivity.class, true);
                 } else {
                     showErrors(validationResult.second);
                 }
@@ -87,12 +85,6 @@ public class ChangePasswordFragment extends BaseFragment {
 
     private void showErrors(Integer errorStrId) {
         Utils.showErrorMessage(getActivity(), getResources().getString(errorStrId));
-    }
-
-    private void startHomeActivity() {
-        Intent intentHome = new Intent(getActivity(), MenuActivity.class);
-        startActivity(intentHome);
-        getActivity().finish();
     }
 
     @Override
