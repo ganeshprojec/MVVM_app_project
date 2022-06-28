@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jlp.mvvm_jlp_project.R;
+import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,6 +52,7 @@ public class MainFragment extends Fragment {
         }
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -77,7 +79,10 @@ public class MainFragment extends Fragment {
             FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
             manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
         }
-
-
     }
+
+
+
+
+
 }

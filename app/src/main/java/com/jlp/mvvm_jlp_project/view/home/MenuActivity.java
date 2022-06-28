@@ -24,9 +24,12 @@ import com.jlp.mvvm_jlp_project.databinding.ActivityHomeMainBinding;
 import com.jlp.mvvm_jlp_project.interfaces.ClickListener;
 import com.jlp.mvvm_jlp_project.model.DrawerMenuItem;
 import com.jlp.mvvm_jlp_project.R;
+import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.SpacesItemDecoration;
+import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.auth.AuthActivity;
 import com.jlp.mvvm_jlp_project.view.auth.ChangePasswordFragment;
+import com.jlp.mvvm_jlp_project.view.base.BaseActivity;
 import com.jlp.mvvm_jlp_project.view.itemenquiry.ItemEnquiryFragment;
 import com.jlp.mvvm_jlp_project.viewmodel.MenuViewModel;
 
@@ -35,7 +38,7 @@ import java.util.ArrayList;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MenuActivity extends AppCompatActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, ClickListener {
+public class MenuActivity extends BaseActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, ClickListener {
 
     protected final String TAG = getClass().getSimpleName();
     private @NonNull
@@ -46,29 +49,33 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     private ArrayList<DrawerMenuItem> menuList = new ArrayList<>();
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void initViewBinding() {
+
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityHomeMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         menuViewModel = new ViewModelProvider(this).get(MenuViewModel.class);
 
-        initView();
         initEvents();
     }
 
-    private void initView() {
+
+
+    private void initEvents() {
         binding.homeLayout.homeTopheader.imgClose.setImageResource(R.drawable.ic_logout_24);
         binding.homeLayout.homeTopheader.imgCloseSecond.setVisibility(View.VISIBLE);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-    }
 
-    private void initEvents() {
         binding.homeLayout.homeTopheader.imgCloseSecond.setOnClickListener(this);
         binding.homeLayout.homeTopheader.imgClose.setOnClickListener(this);
-        menuList = getMenuList();
+        menuList = MenuViewModel.getMenuList(this);
         adapter = new MenuAdapter(menuList, this, this);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
 
@@ -78,25 +85,6 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
         binding.homeLayout.homeContainer.recyHomeMenu.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
     }
-
-
-    public void showErrorMessage(String message) {
-        if (message == null || message.isEmpty()) return;
-        Toast.makeText(this, message, Toast.LENGTH_LONG).show();
-    }
-
-    public String getXmlString(int strResId) {
-        return getString(strResId);
-    }
-
-
-    public void navigateToHome() {
-        /*Intent intent = new Intent(this, MenuActivity.class);
-        startActivity(intent);*/
-
-        finish();
-    }
-
 
     @Override
     public void onClick(View view) {
@@ -118,9 +106,7 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void onExitApp() {
-        //navigateToHome();
         //logout from Session Management
-        //showErrorMessage("Clicked");
         Intent intent = new Intent(this, AuthActivity.class);
         startActivity(intent);
 
@@ -129,18 +115,18 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
 
 
     public void changePassword() {
-        addFragment(new ChangePasswordFragment());
+        Helper.addFragment(this, new ChangePasswordFragment());
     }
 
 
     public void onClickClose(View view) {
-        // Clear all fragments
-        clearBackStack();
+        // Clear all fragments -default
+        Helper.clearBackStack(this);
     }
 
 
     public void onCloseSecond(View view) {
-        showErrorMessage(getString(R.string.str_debug_error));
+        Utils.showErrorMessage(this, getString(R.string.str_debug_error));
     }
 
 
@@ -150,49 +136,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     }
 
 
-    public void addFragment(Fragment fragment) {
-        clearBackStack();
-
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.frame_container_main, fragment); //main_fragment_container
-        transaction.addToBackStack(getString(R.string.backstack_tag));
-        transaction.commit();
-    }
-
-
-    public void clearBackStack() {
-        FragmentManager manager = getSupportFragmentManager();
-        if (manager.getBackStackEntryCount() > 0) {
-            FragmentManager.BackStackEntry first = manager.getBackStackEntryAt(0);
-            manager.popBackStack(first.getId(), FragmentManager.POP_BACK_STACK_INCLUSIVE);
-        }
-    }
-
-
     @Override
     public void onClickItem(int index, Object model) {
         DrawerMenuItem item = (DrawerMenuItem) model;
-        //showErrorMessage("" + item.getTitle() + " " + index);
 
-        if (getString(R.string.str_item_enquiry).equalsIgnoreCase(item.getTitle())) {
-            onPressItemEnquiry();
-        } else if (getString(R.string.str_item_movements).equalsIgnoreCase(item.getTitle())) {
-            onPressItemMovements();
-        } else if (getString(R.string.str_movements).equalsIgnoreCase(item.getTitle())) {
-            onPressMovements();
-        } else if (getString(R.string.str_reprint_labels).equalsIgnoreCase(item.getTitle())) {
-            onPressReprintLabels();
-        } else if (getString(R.string.str_amend_lots).equalsIgnoreCase(item.getTitle())) {
-            onPressAmendLots();
-        } else if (getString(R.string.str_route_management).equalsIgnoreCase(item.getTitle())) {
-            onPressRouteManagement();
-        } else if (getString(R.string.str_track_handover_delivery).equalsIgnoreCase(item.getTitle())) {
-            onPressTrackDelivery();
-        } else if (getString(R.string.str_handover_delivery).equalsIgnoreCase(item.getTitle())) {
-            onPressDeliveryDetails();
-        } else {
-
-        }
+        menuViewModel.loadListItem(item, this);
 
     }
 
@@ -200,87 +148,11 @@ public class MenuActivity extends AppCompatActivity implements View.OnClickListe
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
 
         int id = item.getItemId();
-
-        if (id == R.id.nav_item_enquiry) {
-            onPressItemEnquiry();
-        } else if (id == R.id.nav_item_movements) {
-            onPressItemMovements();
-        } else if (id == R.id.nav_movements) {
-            onPressMovements();
-        } else if (id == R.id.nav_reprint_labels) {
-            onPressReprintLabels();
-
-        } else if (id == R.id.nav_amend_lots) {
-            onPressAmendLots();
-        } else if (id == R.id.nav_route_management) {
-            onPressRouteManagement();
-        } else if (id == R.id.nav_track_handover_delivery) {
-            onPressTrackDelivery();
-        } else if (id == R.id.nav_handover_delivery_details) {
-            onPressDeliveryDetails();
-        }
+        menuViewModel.loadMenu(id, this);
 
         DrawerLayout drawer = (DrawerLayout) binding.drawerLayout;
         drawer.closeDrawer(Gravity.LEFT);
         return true;
-    }
-
-
-    // Add in navigation also - menu list item
-    public ArrayList<DrawerMenuItem> getMenuList() {
-        ArrayList<DrawerMenuItem> list = new ArrayList<DrawerMenuItem>();
-        list.add(new DrawerMenuItem(getXmlString(R.string.str_item_enquiry),R.drawable.ic_1_item_enquiry));
-        list.add(new DrawerMenuItem(getXmlString(R.string.str_item_movements), R.drawable.ic_2_item_movements));
-        list.add(new DrawerMenuItem(getXmlString(R.string.str_movements), R.drawable.ic_3_movements));
-        list.add(new DrawerMenuItem(getXmlString(R.string.str_reprint_labels), R.drawable.ic_4_reprint_labels));
-        list.add(new DrawerMenuItem(getXmlString(R.string.str_amend_lots), R.drawable.ic_5_amend_lots));
-        list.add(new DrawerMenuItem(getXmlString(R.string.str_route_management), R.drawable.ic_6_route_management));
-        list.add(new DrawerMenuItem(getXmlString(R.string.str_track_handover_delivery), R.drawable.ic_7_carier_collection_details));
-        list.add(new DrawerMenuItem(getXmlString(R.string.str_handover_delivery), R.drawable.ic_8_carrier_handover_details));
-
-        return list;
-    }
-
-
-    public void onPressItemEnquiry() {
-        addFragment(new ItemEnquiryFragment());
-    }
-
-    public void onPressItemMovements() {
-        // Add Fragment
-        addFragment(new MainFragment());
-    }
-
-    public void onPressMovements() {
-        // Add Fragment
-        addFragment(new MainFragment());
-    }
-
-    public void onPressReprintLabels() {
-        // Add Fragment
-        addFragment(new MainFragment());
-    }
-
-    public void onPressAmendLots() {
-        // Add Fragment
-        addFragment(new MainFragment());
-    }
-
-    public void onPressRouteManagement() {
-        // Add Fragment
-        addFragment(new MainFragment());
-
-    }
-
-    public void onPressTrackDelivery() {
-        // Add Fragment
-        addFragment(new MainFragment());
-    }
-
-    public void onPressDeliveryDetails() {
-        // Add Fragment
-        addFragment(new MainFragment());
-
     }
 
 
