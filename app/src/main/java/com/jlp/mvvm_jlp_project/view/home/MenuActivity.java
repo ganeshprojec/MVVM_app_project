@@ -7,30 +7,24 @@ import android.os.Bundle;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.GridLayoutManager;
 
 import com.google.android.material.navigation.NavigationView;
+import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.adapters.MenuAdapter;
 import com.jlp.mvvm_jlp_project.databinding.ActivityHomeMainBinding;
 import com.jlp.mvvm_jlp_project.interfaces.ClickListener;
 import com.jlp.mvvm_jlp_project.model.DrawerMenuItem;
-import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.SpacesItemDecoration;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.auth.AuthActivity;
 import com.jlp.mvvm_jlp_project.view.auth.ChangePasswordFragment;
 import com.jlp.mvvm_jlp_project.view.base.BaseActivity;
-import com.jlp.mvvm_jlp_project.view.itemenquiry.ItemEnquiryFragment;
 import com.jlp.mvvm_jlp_project.viewmodel.MenuViewModel;
 
 import java.util.ArrayList;
