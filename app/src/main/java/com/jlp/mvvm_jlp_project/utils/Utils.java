@@ -81,4 +81,18 @@ public class Utils {
         return false;
     }
 
+    public static ProgressDialog showProgressBar(Context context){
+        ProgressDialog pDialog = ProgressDialog.show(context,
+                "",
+                "Loading...",
+                false);
+        return pDialog;
+    }
+
+    public static void hideProgressDialog(ProgressDialog pDialog) {
+        if (pDialog!=null) {
+            pDialog.dismiss();
+        }
+    }
+
 }

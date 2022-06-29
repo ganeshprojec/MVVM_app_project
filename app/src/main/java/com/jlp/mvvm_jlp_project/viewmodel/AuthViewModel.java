@@ -10,9 +10,11 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.constants.AppConstants;
-import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.model.ChangePasswordRequestModel;
-import com.jlp.mvvm_jlp_project.model.LoginUserRequestModel;
+import com.jlp.mvvm_jlp_project.model.request.EnvelopeRequest;
+import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
+import com.jlp.mvvm_jlp_project.repository.Repository;
+import com.jlp.mvvm_jlp_project.utils.Utils;
 
 import javax.inject.Inject;
 
@@ -21,27 +23,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 @HiltViewModel
 public class AuthViewModel extends BaseViewModel {
 
+    Repository repository;
     public MutableLiveData<Pair<Boolean, Integer>> validationResult = new MutableLiveData<>();
-    private MutableLiveData<LoginUserRequestModel> userMutableLiveData;
 
     @Inject
-    AuthViewModel(){
-    }
-
-    public MutableLiveData<LoginUserRequestModel> login() {
-        if (userMutableLiveData == null) {
-            userMutableLiveData = new MutableLiveData<>();
-        }
-        return userMutableLiveData;
-    }
-
-    public void onClick(View view) {
-        //LoginUserRequest loginUser = new LoginUserRequest(EmailAddress.getValue(), Password.getValue());
-        //userMutableLiveData.setValue(loginUser);
+    public AuthViewModel(Repository repository){
+        this.repository = repository;
     }
 
     public void validateLogin(String username, String password) {
-        Pair<Boolean, Integer> result = null;
+        Pair result = new Pair<> (true, 0);
         if(TextUtils.isEmpty(username) && TextUtils.isEmpty(password)){
             result = new Pair(false, R.string.please_enter_user_id_and_password);
         }if(TextUtils.isEmpty(username)){
@@ -50,8 +41,6 @@ public class AuthViewModel extends BaseViewModel {
             result = new Pair(false, R.string.please_enter_password);
         }else if(password.length() < AppConstants.MIN_PASSWORD_LENGTH || password.length() > AppConstants.MAX_PASSWORD_LENGTH){
             result = new Pair(false, R.string.password_should_be);
-        }else{
-            result = new Pair <Boolean, Integer> (true, 0);
         }
         validationResult.setValue(result);
     }
@@ -76,12 +65,10 @@ public class AuthViewModel extends BaseViewModel {
         validationResult.setValue(result);
     }
 
-    public void loginUser(LoginUserRequestModel loginUserRequest){
-        //userRepository.loginUser(loginUserRequest)
+    public MutableLiveData<ResponseDataAuthenticateUser> authenticateUser(EnvelopeRequest envelope){
+        return repository.authenticateUser(envelope);
     }
 
-    public void changePasswordUser(ChangePasswordRequestModel changePasswordRequest){
-        //userRepository.changePassword(changePasswordRequest)
+    public void changePasswordUser(ChangePasswordRequestModel changePasswordRequestModel) {
     }
-
 }
