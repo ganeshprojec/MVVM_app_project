@@ -115,11 +115,11 @@ public class ItemEnquiryDisplayFragment extends Fragment implements View.OnClick
         list.add(new ItemEnquiryModel("Product Code",
                 "23213"));
         list.add(new ItemEnquiryModel("Product description",
-                "A product description is the marketing copy that explains what a product is and why it's worth purchasing. The purpose of a product description is to supply customers with important information about the features and benefits of the product so they're compelled to buy."));
+                "A product description is the marketing copy. The purpose of the desc is to supply customers with important about the features and benefits of the product."));
         list.add(new ItemEnquiryModel("Lot Number",
                 "2 of 4"));
         list.add(new ItemEnquiryModel("Address",
-                "Mr.John, House number-20, Near road line house, London Road MK 46"));
+                "Mr.John Smart, \nHouse number-20, Near road line house, London Road MK 46"));
 
         return list;
     }
