@@ -82,4 +82,20 @@
     <string name="enter_barcode">Enter Barcode</string>
     <string name="invalid_barcode">Invalid Barcode</string>
     <string name="dummy_header_here">Header Here!</string>
+    <string name="str_route_number">Route Number</string>
+    <string name="str_delivery_date">Delivery Date</string>
+    <string name="str_total_deliveries">Total Deliveries</string>
+    <string name="str_total_lots">Total Lots</string>
+    <string name="dummy_route_number">R380AM20091001T01</string>
+    <string name="dummy_delivery_date">23/05/2009</string>
+    <string name="dummy_total_deliveries">15</string>
+    <string name="dummy_total_lots">10</string>
+    <string name="dummy_total_lots_loaded">16</string>
+    <string name="dummy_delivery_number">12345678</string>
+    <string name="dummy_customer_name">Jon Joe</string>
+    <string name="str_customer_name">Customer Name :</string>
+    <string name="str_delivery_no">Delivery No :</string>
+    <string name="dummy_item_num">81711111</string>
+    <string name="str_product_description">Product Description</string>
+    <string name="dummy_product_desc">XXXXXXX XXXXXXX X \nXXXXXX \nXXXXX XXXXXX XXX X XXX XX</string>
 </resources>

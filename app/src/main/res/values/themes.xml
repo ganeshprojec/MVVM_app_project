@@ -14,7 +14,7 @@
         <!-- Customize your theme here. -->
     </style>
 
-    <style name="fullscreen"  parent="Theme.JLP_Layouts">
+    <style name="fullscreen" parent="Theme.JLP_Layouts">
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowFullscreen">true</item>
     </style>
@@ -22,6 +22,64 @@
     <style name="text_views">
         <item name="android:textColor">@color/text</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
+    </style>
+
+
+    <style name="text_views_cardTitle">
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/material_text_subhead</item>
+        <item name="android:padding">@dimen/margin_padding_tiny</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:gravity">center_vertical</item>
+
+    </style>
+
+
+    <style name="text_views_cardValue">
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/material_text_body2</item>
+        <item name="android:padding">@dimen/margin_padding_tiny</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:gravity">center_vertical</item>
+
+    </style>
+
+    <style name="txt_views_route_cardValue">
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/material_text_body2</item>
+        <!--<item name="android:padding">0dp</item>-->
+        <item name="android:paddingLeft">@dimen/margin_padding_tiny</item>
+        <item name="android:paddingRight">@dimen/margin_padding_tiny</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:gravity">center_vertical</item>
+
+    </style>
+
+
+    <style name="text_views_route_cardTitle">
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/material_text_subhead</item>
+        <item name="android:paddingLeft">@dimen/margin_padding_tiny</item>
+        <item name="android:paddingRight">@dimen/margin_padding_tiny</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLines">2</item>
+        <item name="android:gravity">center_vertical</item>
+
+    </style>
+
+
+    <style name="style_views_divider_black">
+        <item name="android:textColor">@color/text</item>
+        <item name="android:textSize">@dimen/material_text_subhead</item>
+        <item name="android:padding">@dimen/margin_padding_tiny</item>
+        <item name="android:lines">1</item>
+        <item name="android:maxLines">1</item>
+        <item name="android:text"></item>
+        <item name="android:background">@color/black</item>
+        <item name="android:layout_height">1dp</item>
     </style>
 
     <style name="text_input_edittext">
