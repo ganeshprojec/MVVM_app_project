@@ -50,6 +50,7 @@ public class LoginFragment extends BaseFragment {
         binding.btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Helper.hideKeyboard(getActivity());
                 authViewModel.validateLogin(
                         binding.layoutUsername.inputUsername.getText().toString().trim(),
                         binding.layoutPassword.inputPassword.getText().toString().trim());
