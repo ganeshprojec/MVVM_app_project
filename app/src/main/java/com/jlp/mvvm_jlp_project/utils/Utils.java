@@ -39,7 +39,7 @@ public class Utils {
     public static void showErrorMessage(Activity activity, String message) {
         Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
         View snackBarView = snackbar.getView();
-        snackBarView.setBackgroundColor(activity.getResources().getColor(R.color.teal_200));
+        snackBarView.setBackgroundColor(activity.getResources().getColor(R.color.color_light_gray));
         snackbar.setTextColor(activity.getResources().getColor(R.color.red));
         snackbar.show();
     }

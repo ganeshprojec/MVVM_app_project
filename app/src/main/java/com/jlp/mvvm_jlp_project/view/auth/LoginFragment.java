@@ -17,8 +17,10 @@ import android.view.ViewGroup;
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.databinding.FragmentLoginBinding;
 import com.jlp.mvvm_jlp_project.model.LoginUserRequestModel;
+import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
+import com.jlp.mvvm_jlp_project.view.home.MenuActivity;
 import com.jlp.mvvm_jlp_project.viewmodel.AuthViewModel;
 
 import dagger.hilt.android.AndroidEntryPoint;
@@ -63,8 +65,8 @@ public class LoginFragment extends BaseFragment {
                     authViewModel.loginUser(new LoginUserRequestModel(
                             binding.layoutUsername.inputUsername.getText().toString().trim(),
                             binding.layoutPassword.inputPassword.getText().toString().trim()));
-                    NavController navController = Navigation.findNavController(view);
-                    navController.navigate(R.id.action_loginFragment_to_changePasswordFragment);
+                    clearViews();
+                    Helper.redirectToActivity(getActivity(), MenuActivity.class, false);
                 }else{
                     showErrors(validationResult.second);
                 }
@@ -74,6 +76,11 @@ public class LoginFragment extends BaseFragment {
 
     private void showErrors(Integer errorStrId){
         Utils.showErrorMessage(getActivity(), getResources().getString(errorStrId));
+    }
+
+    private void clearViews(){
+        binding.layoutUsername.inputUsername.setText("");
+        binding.layoutPassword.inputPassword.setText("");
     }
 
     @Override

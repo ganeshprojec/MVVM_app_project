@@ -7,12 +7,17 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.databinding.FragmentChangePasswordBinding;
 import com.jlp.mvvm_jlp_project.model.ChangePasswordRequestModel;
 import com.jlp.mvvm_jlp_project.utils.Helper;
@@ -54,6 +59,7 @@ public class ChangePasswordFragment extends BaseFragment {
         binding.btnChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Helper.hideKeyboard(getActivity());
                 authViewModel.validateChangePassword(
                         binding.inputUsername.getText().toString().trim(),
                         binding.inputOldPassword.getText().toString().trim(),
@@ -73,9 +79,19 @@ public class ChangePasswordFragment extends BaseFragment {
                             binding.inputOldPassword.getText().toString().trim(),
                             binding.inputNewPassword.getText().toString().trim(),
                             binding.inputConfirmPassword.getText().toString().trim()));
-//                    NavController navController = Navigation.findNavController(view);
-//                    navController.navigate(R.id.action_loginFragment_to_changePasswordFragment);
-                    Helper.redirectToActivity(getActivity(), MenuActivity.class, true);
+                    Toast.makeText(getActivity(), R.string.password_changed_successfully, Toast.LENGTH_LONG).show();
+//                    NavController navController = Navigation.findNavController(binding.getRoot());
+//                    navController.navigate(R.id.action_changePasswordFragment_to_loginFragment);
+
+                    Helper.addFragment(getActivity(), new LoginFragment());
+
+
+
+//                    NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager()
+//                            .findFragmentById(R.id.nav_auth);
+//                    NavController navCo = navHostFragment.getNavController();
+//                    navCo.navigate(R.id.action_changePasswordFragment_to_loginFragment);
+
                 } else {
                     showErrors(validationResult.second);
                 }
