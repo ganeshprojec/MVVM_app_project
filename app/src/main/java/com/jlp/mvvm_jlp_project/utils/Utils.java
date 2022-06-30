@@ -44,25 +44,8 @@ public class Utils {
         snackbar.show();
     }
 
-
-    /**
-     * Validate the password with at least one alphabet and one number
-     * @param password
-     * @return true or false
-     */
-    public static boolean isValidPassword(final String password) {
-        Pattern pattern;
-        Matcher matcher;
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])$";
-        pattern = Pattern.compile(PASSWORD_PATTERN);
-        matcher = pattern.matcher(password);
-        return matcher.matches();
-
-    }
-
     /**
      * Checks if the Internet connection is available.
-     *
      * @return Returns true if the Internet connection is available. False otherwise.
      **/
     public static boolean isInternetAvailable(Context ctx) {
@@ -77,10 +60,14 @@ public class Utils {
         if (networkInfo != null && networkInfo.isConnected()) {
             return true;
         }
-
         return false;
     }
 
+    /**
+     * Show progressbar for long running tasks like api call
+     * @param context
+     * @return
+     */
     public static ProgressDialog showProgressBar(Context context){
         ProgressDialog pDialog = ProgressDialog.show(context,
                 "",
@@ -89,6 +76,10 @@ public class Utils {
         return pDialog;
     }
 
+    /**
+     * Hide progressbar
+     * @param pDialog Currently visible progress dialog
+     */
     public static void hideProgressDialog(ProgressDialog pDialog) {
         if (pDialog!=null) {
             pDialog.dismiss();

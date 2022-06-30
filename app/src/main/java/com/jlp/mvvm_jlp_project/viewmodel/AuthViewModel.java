@@ -14,6 +14,7 @@ import com.jlp.mvvm_jlp_project.model.ChangePasswordRequestModel;
 import com.jlp.mvvm_jlp_project.model.request.EnvelopeRequest;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
 import com.jlp.mvvm_jlp_project.repository.Repository;
+import com.jlp.mvvm_jlp_project.utils.StringUtils;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 
 import javax.inject.Inject;
@@ -51,11 +52,12 @@ public class AuthViewModel extends BaseViewModel {
         Pair<Boolean, Integer> result = null;
         if(TextUtils.isEmpty(oldPassword)){
             result = new Pair(false, R.string.please_enter_old_password);
+            return;
         }if(TextUtils.isEmpty(newPassword) && TextUtils.isEmpty(confirmPassword)){
             result = new Pair(false, R.string.please_enter_new_password_and_confirm);
         }else if(newPassword.length() < AppConstants.MIN_PASSWORD_LENGTH || newPassword.length() > AppConstants.MAX_PASSWORD_LENGTH){
             result = new Pair(false, R.string.new_password_should_be);
-        }else if(Utils.isValidPassword(newPassword)){
+        }else if(StringUtils.isValidPassword(newPassword)){
             result = new Pair(false, R.string.at_least_one_alpha_one_num_req);
         }else if(!newPassword.equals(confirmPassword)){
             result = new Pair(false, R.string.new_password_and_confirm_password_mismatch);

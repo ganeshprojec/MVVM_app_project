@@ -19,11 +19,22 @@ import dagger.hilt.android.qualifiers.ActivityContext;
 
 public class Helper {
 
+    /**
+     * Hide the keypad once click on button
+     * @param context
+     * @param view
+     */
     public static void hideKeyboard(Context context, View view) {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    /**
+     * 
+     * @param activity
+     * @param redirectTo
+     * @param isFinishCurrentAct
+     */
     public static void redirectToActivity(Activity activity, Class<?> redirectTo, boolean isFinishCurrentAct) {
         Intent intent = new Intent(activity, redirectTo);
         activity.startActivity(intent);

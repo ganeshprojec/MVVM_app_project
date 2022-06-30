@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.databinding.FragmentLoginBinding;
 import com.jlp.mvvm_jlp_project.model.request.EnvelopeRequest;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.AuthenticationDetails;
@@ -69,9 +70,13 @@ public class LoginFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Helper.hideKeyboard(getActivity(), view);
-                authViewModel.validateLogin(
-                        binding.layoutUsername.inputUsername.getText().toString().trim(),
-                        binding.layoutPassword.inputPassword.getText().toString().trim());
+                if(Utils.isInternetAvailable(getContext())){
+                    authViewModel.validateLogin(
+                            binding.layoutUsername.inputUsername.getText().toString().trim(),
+                            binding.layoutPassword.inputPassword.getText().toString().trim());
+                }else{
+                    Utils.showErrorMessage(getActivity(), getResources().getString(R.string.please_check_internet_connection));
+                }
             }
         });
     }
