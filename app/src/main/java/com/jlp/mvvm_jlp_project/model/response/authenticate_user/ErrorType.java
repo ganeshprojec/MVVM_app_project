@@ -10,4 +10,20 @@ public class ErrorType {
 
     @Element(name = "ErrorMessage", required = false)
     public String ErrorMessage;
+
+    public String getErrorNumber() {
+        return ErrorNumber;
+    }
+
+    public void setErrorNumber(String errorNumber) {
+        ErrorNumber = errorNumber;
+    }
+
+    public String getErrorMessage() {
+        return ErrorMessage;
+    }
+
+    public void setErrorMessage(String errorMessage) {
+        ErrorMessage = errorMessage;
+    }
 }

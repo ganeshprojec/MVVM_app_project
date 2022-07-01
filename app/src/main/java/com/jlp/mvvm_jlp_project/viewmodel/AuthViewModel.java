@@ -15,6 +15,7 @@ import com.jlp.mvvm_jlp_project.model.request.change_password.EnvelopeRequestCha
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseDataChangePassword;
 import com.jlp.mvvm_jlp_project.repository.Repository;
+import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.StringUtils;
 
 import javax.inject.Inject;
@@ -23,13 +24,16 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
 public class AuthViewModel extends BaseViewModel {
-
     Repository repository;
     public MutableLiveData<Pair<Boolean, Integer>> validationResult = new MutableLiveData<>();
+    public MutableLiveData<Resource<ResponseDataChangePassword>> responseDataChangePassword;
+    public MutableLiveData<Resource<ResponseDataAuthenticateUser>> responseAuthenticateUser;
 
     @Inject
     public AuthViewModel(Repository repository){
         this.repository = repository;
+        responseDataChangePassword = repository._responseDataChangePassword;
+        responseAuthenticateUser = repository._responseAuthenticateUser;
     }
 
     public void validateLogin(String username, String password) {
@@ -66,11 +70,11 @@ public class AuthViewModel extends BaseViewModel {
         validationResult.setValue(result);
     }
 
-    public MutableLiveData<ResponseDataAuthenticateUser> authenticateUser(EnvelopeRequestAuthenticateUser envelope){
-        return repository.authenticateUser(envelope);
+    public void authenticateUser(EnvelopeRequestAuthenticateUser envelope){
+        repository.authenticateUser(envelope);
     }
 
-    public MutableLiveData<ResponseDataChangePassword> changePasswordAndLogon(EnvelopeRequestChangePassword envelope){
-        return repository.changePasswordAndLogon(envelope);
+    public void changePassword(EnvelopeRequestChangePassword envelope){
+        repository.changePassword(envelope);
     }
 }

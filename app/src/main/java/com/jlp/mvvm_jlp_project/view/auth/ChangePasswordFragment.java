@@ -9,6 +9,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
 import androidx.navigation.Navigation;
+import androidx.navigation.fragment.NavHostFragment;
 
 import android.util.Log;
 import android.util.Pair;
@@ -27,6 +28,7 @@ import com.jlp.mvvm_jlp_project.model.request.change_password.RequestBodyChangeP
 import com.jlp.mvvm_jlp_project.model.request.change_password.RequestDataChangePassword;
 import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseDataChangePassword;
 import com.jlp.mvvm_jlp_project.utils.Helper;
+import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
 import com.jlp.mvvm_jlp_project.view.home.MenuActivity;
@@ -76,7 +78,7 @@ public class ChangePasswordFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Helper.hideKeyboard(getActivity(), view);
-                if(Utils.isInternetAvailable(getContext())){
+                if(isNetworkConnected()){
                     authViewModel.validateChangePassword(
                             binding.inputUsername.getText().toString().trim(),
                             binding.inputOldPassword.getText().toString().trim(),
@@ -90,6 +92,41 @@ public class ChangePasswordFragment extends BaseFragment {
     }
 
     private void initObserver(View view) {
+        authViewModel.responseDataChangePassword.observe(getViewLifecycleOwner(), new Observer<Resource<ResponseDataChangePassword>>() {
+            @Override
+            public void onChanged(Resource<ResponseDataChangePassword> response) {
+                if(response.status != null){
+                    switch (response.status){
+                        case LOADING:{
+                            progressDialog = Utils.showProgressBar(getContext());
+                            break;
+                        }
+
+                        case ERROR:{
+                            Utils.hideProgressDialog(progressDialog);
+                            Utils.showErrorMessage(getActivity(), response.message);
+                            break;
+                        }
+
+                        case SUCCESS:{
+                            clearViews();
+                            Toast.makeText(getContext(), R.string.password_changed_successfully, Toast.LENGTH_LONG).show();
+
+                            Helper.addFragment(getContext(), new LoginFragment());
+
+
+//                            NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager()
+//                                    .findFragmentById(R.id.nav_host_fragment);
+//                            NavController navController = navHostFragment.getNavController();
+//                            navController.navigate(R.id.action_changePasswordFragment_to_loginFragment);
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+
+
         authViewModel.validationResult.observe(getViewLifecycleOwner(), new Observer<Pair<Boolean, Integer>>() {
             @Override
             public void onChanged(Pair<Boolean, Integer> validationResult) {
@@ -106,27 +143,12 @@ public class ChangePasswordFragment extends BaseFragment {
     }
 
     private void changePassword(String userId, String oldPassword, String newPassword) {
-        progressDialog = Utils.showProgressBar(getActivity());
-        prepareRequestData(userId, oldPassword, newPassword);
-        authViewModel.changePasswordAndLogon(envelopeRequestChangePassword).observe(this, new Observer<ResponseDataChangePassword>() {
-            @Override
-            public void onChanged(ResponseDataChangePassword responseData) {
-                try {
-                    Utils.hideProgressDialog(progressDialog);
-                    if (!responseData.getErrorResponse().isError) {
-                        clearViews();
-                        Toast.makeText(getContext(), R.string.password_changed_successfully, Toast.LENGTH_LONG).show();
-                        NavController navController = Navigation.findNavController(binding.getRoot());
-                        navController.navigate(R.id.action_changePasswordFragment_to_loginFragment);
-                    }else{
-                        Log.e(TAG, "Exception: "+responseData.getErrorResponse().getErrorMessage());
-                        Utils.showErrorMessage(getActivity(), responseData.getErrorResponse().getErrorMessageToDisplay());
-                    }
-                }catch (Exception ex){
-                    Log.i(TAG, "Exception: "+ex);
-                }
-            }
-        });
+        if (Utils.isInternetAvailable(getContext())){
+            prepareRequestData(userId, oldPassword, newPassword);
+            authViewModel.changePassword(envelopeRequestChangePassword);
+        }else{
+            Utils.showErrorMessage(getActivity(), getResources().getString(R.string.please_check_internet_connection));
+        }
     }
 
     private void prepareRequestData(String userId, String oldPassword, String newPassword) {
