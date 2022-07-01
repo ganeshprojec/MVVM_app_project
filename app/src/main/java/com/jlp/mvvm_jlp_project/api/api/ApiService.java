@@ -15,16 +15,13 @@ import retrofit2.http.POST;
  */
 
 public interface ApiService {
-//    @Headers({"Content-Type: application/soap+xml", "charset: utf-8", "Content-Length: length"})
-//    @POST("/websamples.countryinfo/CountryInfoService.wso")
-//    Call<ResponseEnvelope> getCapital(@Body Envelope body);
 
     @Headers({"Content-Type: application/soap+xml", "charset: utf-8", "Content-Length: length"})
     @POST("/AuthenticateUser")
     Call<EnvelopeResponseAuthenticateUser> authenticateUser(@Body EnvelopeRequestAuthenticateUser envelope);
 
     @Headers({"Content-Type: application/soap+xml", "charset: utf-8", "Content-Length: length"})
-    @POST("/ChangePasswordAndLogonRequest")
+    @POST("/ChangePassword")
     Call<EnvelopeResponseChangePassword> changePasswordAndLogon(@Body EnvelopeRequestChangePassword envelope);
 
 

@@ -1,6 +1,7 @@
 package com.jlp.mvvm_jlp_project.model.response.authenticate_user;
 
 
+import com.jlp.mvvm_jlp_project.model.response.DITSErrors;
 import com.jlp.mvvm_jlp_project.model.response.ErrorResponse;
 import com.jlp.mvvm_jlp_project.utils.Constants;
 

@@ -2,7 +2,7 @@ package com.jlp.mvvm_jlp_project.model.response.change_password;
 
 
 import com.jlp.mvvm_jlp_project.model.response.ErrorResponse;
-import com.jlp.mvvm_jlp_project.model.response.authenticate_user.DITSErrors;
+import com.jlp.mvvm_jlp_project.model.response.DITSErrors;
 import com.jlp.mvvm_jlp_project.utils.Constants;
 
 import org.simpleframework.xml.Element;

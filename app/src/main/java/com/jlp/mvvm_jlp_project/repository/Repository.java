@@ -32,6 +32,10 @@ public class Repository {
         this.apiService = apiService;
     }
 
+    /**
+     * Api call for change password
+     * @param envelope
+     */
     public void changePassword(EnvelopeRequestChangePassword envelope){
         _responseDataChangePassword.postValue(Resource.loading(null));
         Call<EnvelopeResponseChangePassword> responseEnvelopeCall
@@ -48,6 +52,10 @@ public class Repository {
         });
     }
 
+    /**
+     * Api call for authenticate user
+     * @param envelope
+     */
     public void authenticateUser(EnvelopeRequestAuthenticateUser envelope){
         _responseAuthenticateUser.postValue(Resource.loading(null));
         Call<EnvelopeResponseAuthenticateUser> responseEnvelopeCall
@@ -64,6 +72,11 @@ public class Repository {
         });
     }
 
+
+    /**
+     * handled change password response and did some validation on response
+     * @param response
+     */
     private void handleChangePasswordResponse(Response<EnvelopeResponseChangePassword> response){
         if(response.isSuccessful() && response.body()!=null &&
                 response.body().getResponseBodyChangePassword()!=null &&
@@ -81,6 +94,10 @@ public class Repository {
         }
     }
 
+    /**
+     * handled authenticate user response and did some validation on response
+     * @param response
+     */
     private void handleAuthenticateUserResponse(Response<EnvelopeResponseAuthenticateUser> response){
         if(response.isSuccessful() && response.body()!=null &&
                 response.body().getResponseBodyAuthenticateUser()!=null &&

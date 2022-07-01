@@ -8,8 +8,6 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.jlp.mvvm_jlp_project.utils.Utils;
-
 public abstract class BaseActivity extends AppCompatActivity {
 
     protected abstract void initViewBinding();

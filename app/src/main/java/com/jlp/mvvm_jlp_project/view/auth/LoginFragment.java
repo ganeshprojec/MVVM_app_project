@@ -85,6 +85,11 @@ public class LoginFragment extends BaseFragment {
         });
     }
 
+    /**
+     * Internet check and actual api call
+     * @param userId
+     * @param password
+     */
     private void authenticateUser(String userId, String password) {
         if (Utils.isInternetAvailable(getContext())){
             prepareRequestData(userId, password);
@@ -94,6 +99,11 @@ public class LoginFragment extends BaseFragment {
         }
     }
 
+    /**
+     * Preparing request data envelope, body, data for soap login api
+     * @param userId input userid
+     * @param password input password
+     */
     private void prepareRequestData(String userId, String password) {
         authenticationDetails.setUserId(userId);
         authenticationDetails.setPassword(password);
@@ -102,6 +112,9 @@ public class LoginFragment extends BaseFragment {
         envelopeAuthenticateUser.setRequestBodyAuthenticateUser(bodyAuthenticateUser);
     }
 
+    /**
+     * Added here observer for validation and api call response
+     */
     private void initObserver() {
         authViewModel.validationResult.observe(getViewLifecycleOwner(), new Observer<Pair<Boolean, Integer>>() {
             @Override
@@ -143,6 +156,9 @@ public class LoginFragment extends BaseFragment {
         });
     }
 
+    /**
+     * Clear text of all views when navigating to another screen
+     */
     private void clearViews(){
         binding.layoutUsername.inputUsername.setText("");
         binding.layoutPassword.inputPassword.setText("");

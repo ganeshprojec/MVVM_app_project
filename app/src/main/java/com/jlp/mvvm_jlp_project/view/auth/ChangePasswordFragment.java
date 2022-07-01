@@ -91,6 +91,9 @@ public class ChangePasswordFragment extends BaseFragment {
         });
     }
 
+    /**
+     * Added here observer for validation and api call response
+     */
     private void initObserver(View view) {
         authViewModel.responseDataChangePassword.observe(getViewLifecycleOwner(), new Observer<Resource<ResponseDataChangePassword>>() {
             @Override
@@ -142,6 +145,7 @@ public class ChangePasswordFragment extends BaseFragment {
         });
     }
 
+
     private void changePassword(String userId, String oldPassword, String newPassword) {
         if (Utils.isInternetAvailable(getContext())){
             prepareRequestData(userId, oldPassword, newPassword);
@@ -151,6 +155,11 @@ public class ChangePasswordFragment extends BaseFragment {
         }
     }
 
+    /**
+     * Preparing request data envelope, body, data for soap api call
+     * @param userId input userid
+     * @param password input password
+     */
     private void prepareRequestData(String userId, String oldPassword, String newPassword) {
         changePasswordDetails.setUserId(userId);
         changePasswordDetails.setOldPassword(oldPassword);
@@ -164,6 +173,9 @@ public class ChangePasswordFragment extends BaseFragment {
         Utils.showErrorMessage(getActivity(), getResources().getString(errorStrId));
     }
 
+    /**
+     * Clear text of all views when navigating to another screen
+     */
     private void clearViews(){
         binding.inputOldPassword.setText("");
         binding.inputNewPassword.setText("");

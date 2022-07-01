@@ -1,4 +1,4 @@
-package com.jlp.mvvm_jlp_project.model.response.authenticate_user;/*
+package com.jlp.mvvm_jlp_project.model.response;/*
  * Created by Sandeep(Techno Learning) on 28,June,2022
  */
 

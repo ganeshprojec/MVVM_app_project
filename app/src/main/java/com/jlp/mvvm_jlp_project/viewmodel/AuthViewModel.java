@@ -40,7 +40,7 @@ public class AuthViewModel extends BaseViewModel {
         Pair result = new Pair<> (true, 0);
         if(TextUtils.isEmpty(username) && TextUtils.isEmpty(password)){
             result = new Pair(false, R.string.please_enter_user_id_and_password);
-        }if(TextUtils.isEmpty(username)){
+        }else if(TextUtils.isEmpty(username)){
             result = new Pair(false, R.string.please_enter_user_id);
         }else if(TextUtils.isEmpty(password)){
             result = new Pair(false, R.string.please_enter_password);
@@ -50,13 +50,12 @@ public class AuthViewModel extends BaseViewModel {
         validationResult.setValue(result);
     }
 
-    // TODO: Old password match remaining
     public void validateChangePassword(String username, String oldPassword,
                                        String newPassword, String confirmPassword) {
-        Pair<Boolean, Integer> result = null;
+        Pair result = new Pair<> (true, 0);
         if(TextUtils.isEmpty(oldPassword)){
             result = new Pair(false, R.string.please_enter_old_password);
-        }if(TextUtils.isEmpty(newPassword) && TextUtils.isEmpty(confirmPassword)){
+        }else if(TextUtils.isEmpty(newPassword) && TextUtils.isEmpty(confirmPassword)){
             result = new Pair(false, R.string.please_enter_new_password_and_confirm);
         }else if(newPassword.length() < AppConstants.MIN_PASSWORD_LENGTH || newPassword.length() > AppConstants.MAX_PASSWORD_LENGTH){
             result = new Pair(false, R.string.new_password_should_be);
@@ -64,8 +63,6 @@ public class AuthViewModel extends BaseViewModel {
             result = new Pair(false, R.string.at_least_one_alpha_one_num_req);
         }else if(!newPassword.equals(confirmPassword)){
             result = new Pair(false, R.string.new_password_and_confirm_password_mismatch);
-        }else{
-            result = new Pair <Boolean, Integer> (true, 0);
         }
         validationResult.setValue(result);
     }
