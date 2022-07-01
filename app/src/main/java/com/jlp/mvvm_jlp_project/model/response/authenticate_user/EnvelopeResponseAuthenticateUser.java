@@ -1,6 +1,8 @@
-package com.jlp.mvvm_jlp_project.model.response;
+package com.jlp.mvvm_jlp_project.model.response.authenticate_user;
 
+import com.jlp.mvvm_jlp_project.model.response.Header;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseBodyAuthenticateUser;
+import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseBodyChangePassword;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Namespace;
@@ -18,19 +20,27 @@ import org.simpleframework.xml.Root;
         @Namespace( prefix = "xsd", reference = "http://www.w3.org/2001/XMLSchema"),
         @Namespace( prefix = "xsi", reference = "http://www.w3.org/2001/XMLSchema-instance"),
 })
-public class EnvelopeResponse {
+public class EnvelopeResponseAuthenticateUser {
 
     @Element(name = "Body", required = false)
-    private ResponseBodyAuthenticateUser body = new ResponseBodyAuthenticateUser();
+    private ResponseBodyAuthenticateUser responseBodyAuthenticateUser = new ResponseBodyAuthenticateUser();
 
     @Element(name = "Header", required = true)
     private Header header = new Header();
 
-    public ResponseBodyAuthenticateUser getBody() {
-        return body;
+    public ResponseBodyAuthenticateUser getResponseBodyAuthenticateUser() {
+        return responseBodyAuthenticateUser;
     }
 
-    public void setBody(ResponseBodyAuthenticateUser body) {
-        this.body = body;
+    public void setResponseBodyAuthenticateUser(ResponseBodyAuthenticateUser responseBodyAuthenticateUser) {
+        this.responseBodyAuthenticateUser = responseBodyAuthenticateUser;
+    }
+
+    public Header getHeader() {
+        return header;
+    }
+
+    public void setHeader(Header header) {
+        this.header = header;
     }
 }

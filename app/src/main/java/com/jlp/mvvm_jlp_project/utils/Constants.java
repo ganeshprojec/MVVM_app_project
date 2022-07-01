@@ -14,8 +14,7 @@ public class Constants {
 
 
 
-    public static final String API_BASE_URL = "http://192.168.70.68:8080";
+    public static final String API_BASE_URL = "http://192.168.43.205:8080";
     public static final String NAMESPACE = "http://www.johnlewis.com/cdsdits";
-    public static final String METHOD_AUTHENTICATE_USER = "/AuthenticateUser";
 
 }

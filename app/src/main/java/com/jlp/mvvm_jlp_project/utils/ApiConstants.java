@@ -1,4 +1,4 @@
-package com.jlp.mvvm_jlp_project.constants;/*
+package com.jlp.mvvm_jlp_project.utils;/*
  * Created by Sandeep(Techno Learning) on 15,June,2022
  */
 

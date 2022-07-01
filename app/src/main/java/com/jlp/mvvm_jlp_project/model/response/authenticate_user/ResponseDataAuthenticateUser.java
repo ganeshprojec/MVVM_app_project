@@ -25,13 +25,7 @@ public class ResponseDataAuthenticateUser {
 
     public ErrorResponse errorResponse;
 
-
     @Inject ResponseDataAuthenticateUser(){}
-
-    public ResponseDataAuthenticateUser(User userResponse, ErrorResponse errorResponse) {
-        this.userResponse = userResponse;
-        this.errorResponse = errorResponse;
-    }
 
     public User getUserResponse() {
         return userResponse;

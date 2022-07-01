@@ -44,15 +44,12 @@ public class Helper {
     }
 
     public static void addFragment(@ActivityContext Context context, Fragment fragment) {
-        hideKeyboard((AppCompatActivity) context, fragment.getView());
         clearBackStack(context);
-
         FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.frame_container_main, fragment); //main_fragment_container
+        transaction.replace(R.id.frame_container_main, fragment); //main_fragment_container
         transaction.addToBackStack(((AppCompatActivity) context).getString(R.string.backstack_tag));
         transaction.commit();
     }
-
 
     public static void clearBackStack(@ActivityContext Context context) {
         FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();

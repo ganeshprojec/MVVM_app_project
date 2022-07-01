@@ -1,7 +1,8 @@
-package com.jlp.mvvm_jlp_project.model.request;
+package com.jlp.mvvm_jlp_project.model.request.change_password;
 
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestBodyAuthenticateUser;
 import com.jlp.mvvm_jlp_project.utils.Constants;
+
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Namespace;
 import org.simpleframework.xml.NamespaceList;
@@ -18,19 +19,20 @@ import javax.inject.Inject;
         @Namespace(prefix = "soapenv" ,reference = "http://schemas.xmlsoap.org/soap/envelope/"),
         @Namespace(prefix = "cds" ,reference = Constants.NAMESPACE)
 })
-public class EnvelopeRequest {
+public class EnvelopeRequestChangePassword {
 
     @Inject
-    EnvelopeRequest(){}
+    EnvelopeRequestChangePassword(){}
 
     @Element(name = "soapenv:Body", required = false)
-    private RequestBodyAuthenticateUser requestBodyAuthenticateUser;
+    private RequestBodyChangePassword requestBodyChangePassword;
 
-    public RequestBodyAuthenticateUser getRequestBodyAuthenticateUser() {
-        return requestBodyAuthenticateUser;
+
+    public RequestBodyChangePassword getRequestBodyChangePassword() {
+        return requestBodyChangePassword;
     }
 
-    public void setRequestBodyAuthenticateUser(RequestBodyAuthenticateUser requestBodyAuthenticateUser) {
-        this.requestBodyAuthenticateUser = requestBodyAuthenticateUser;
+    public void setRequestBodyChangePassword(RequestBodyChangePassword requestBodyChangePassword) {
+        this.requestBodyChangePassword = requestBodyChangePassword;
     }
 }

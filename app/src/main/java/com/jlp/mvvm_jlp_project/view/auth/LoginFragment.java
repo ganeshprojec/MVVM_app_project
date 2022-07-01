@@ -13,11 +13,10 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.databinding.FragmentLoginBinding;
-import com.jlp.mvvm_jlp_project.model.request.EnvelopeRequest;
+import com.jlp.mvvm_jlp_project.model.request.authenticate_user.EnvelopeRequestAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.AuthenticationDetails;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestBodyAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestDataAuthenticateUser;
@@ -43,7 +42,7 @@ public class LoginFragment extends BaseFragment {
     private AuthViewModel authViewModel;
 
     @Inject
-    EnvelopeRequest envelopeAuthenticateUser;
+    EnvelopeRequestAuthenticateUser envelopeAuthenticateUser;
     @Inject
     RequestBodyAuthenticateUser bodyAuthenticateUser;
     @Inject

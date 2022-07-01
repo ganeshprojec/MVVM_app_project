@@ -4,18 +4,18 @@ package com.jlp.mvvm_jlp_project.viewmodel;/*
 
 import android.text.TextUtils;
 import android.util.Pair;
-import android.view.View;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.jlp.mvvm_jlp_project.R;
-import com.jlp.mvvm_jlp_project.constants.AppConstants;
+import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.model.ChangePasswordRequestModel;
-import com.jlp.mvvm_jlp_project.model.request.EnvelopeRequest;
+import com.jlp.mvvm_jlp_project.model.request.authenticate_user.EnvelopeRequestAuthenticateUser;
+import com.jlp.mvvm_jlp_project.model.request.change_password.EnvelopeRequestChangePassword;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
+import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseDataChangePassword;
 import com.jlp.mvvm_jlp_project.repository.Repository;
 import com.jlp.mvvm_jlp_project.utils.StringUtils;
-import com.jlp.mvvm_jlp_project.utils.Utils;
 
 import javax.inject.Inject;
 
@@ -52,7 +52,6 @@ public class AuthViewModel extends BaseViewModel {
         Pair<Boolean, Integer> result = null;
         if(TextUtils.isEmpty(oldPassword)){
             result = new Pair(false, R.string.please_enter_old_password);
-            return;
         }if(TextUtils.isEmpty(newPassword) && TextUtils.isEmpty(confirmPassword)){
             result = new Pair(false, R.string.please_enter_new_password_and_confirm);
         }else if(newPassword.length() < AppConstants.MIN_PASSWORD_LENGTH || newPassword.length() > AppConstants.MAX_PASSWORD_LENGTH){
@@ -67,10 +66,11 @@ public class AuthViewModel extends BaseViewModel {
         validationResult.setValue(result);
     }
 
-    public MutableLiveData<ResponseDataAuthenticateUser> authenticateUser(EnvelopeRequest envelope){
+    public MutableLiveData<ResponseDataAuthenticateUser> authenticateUser(EnvelopeRequestAuthenticateUser envelope){
         return repository.authenticateUser(envelope);
     }
 
-    public void changePasswordUser(ChangePasswordRequestModel changePasswordRequestModel) {
+    public MutableLiveData<ResponseDataChangePassword> changePasswordAndLogon(EnvelopeRequestChangePassword envelope){
+        return repository.changePasswordAndLogon(envelope);
     }
 }
