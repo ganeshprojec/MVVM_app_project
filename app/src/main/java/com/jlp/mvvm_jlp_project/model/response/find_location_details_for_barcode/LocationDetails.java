@@ -5,9 +5,9 @@ package com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcod
 import org.simpleframework.xml.Element;
 
 public class LocationDetails {
-    @Element(name = "FindLocationDetailsForBarcodeResponse",required = false)
+    @Element(name = "locationId",required = false)
     public String locationId;
-    @Element(name = "FindLocationDetailsForBarcodeResponse",required = false)
+    @Element(name = "name15",required = false)
     public String name15;
 
     public String getLocationId() {

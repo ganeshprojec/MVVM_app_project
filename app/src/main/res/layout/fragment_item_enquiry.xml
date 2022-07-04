@@ -52,7 +52,7 @@
             app:layout_constraintEnd_toEndOf="@id/guidelineRight"/>
 
         <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btnnext"
+            android:id="@+id/btn_next"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/Next"

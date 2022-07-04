@@ -3,6 +3,6 @@ package com.jlp.mvvm_jlp_project.utils;/*
  */
 
 public class Constants {
-    public static final String API_BASE_URL = "http://192.168.210.68:8080";
+    public static final String API_BASE_URL = "http://192.168.149.68:8080";
     public static final String NAMESPACE = "http://www.johnlewis.com/cdsdits";
 }

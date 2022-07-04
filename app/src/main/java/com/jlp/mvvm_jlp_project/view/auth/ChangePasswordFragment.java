@@ -107,6 +107,7 @@ public class ChangePasswordFragment extends BaseFragment {
                         case SUCCESS:{
                             clearViews();
                             Toast.makeText(getContext(), R.string.password_changed_successfully, Toast.LENGTH_LONG).show();
+                            Utils.hideProgressDialog(progressDialog);
 
                             //Helper.addFragment(getContext(), new LoginFragment());
 

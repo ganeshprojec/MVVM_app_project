@@ -13,7 +13,7 @@ import com.jlp.mvvm_jlp_project.model.request.change_password.RequestEnvelopeCha
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseDataChangePassword;
-import com.jlp.mvvm_jlp_project.repository.Repository;
+import com.jlp.mvvm_jlp_project.repository.UserRepository;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.StringUtils;
 
@@ -23,13 +23,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 
 @HiltViewModel
 public class AuthViewModel extends BaseViewModel {
-    Repository repository;
+    UserRepository repository;
     public MutableLiveData<Pair<Boolean, Integer>> validationResult = new MutableLiveData<>();
     public MutableLiveData<Resource<ResponseDataChangePassword>> responseDataChangePassword;
     public MutableLiveData<Resource<ResponseDataAuthenticateUser>> responseAuthenticateUser;
 
     @Inject
-    public AuthViewModel(Repository repository){
+    public AuthViewModel(UserRepository repository){
         this.repository = repository;
         responseDataChangePassword = repository._responseDataChangePassword;
         responseAuthenticateUser = repository._responseAuthenticateUser;

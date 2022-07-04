@@ -2,16 +2,20 @@ package com.jlp.mvvm_jlp_project.repository;/*
  * Created by Sandeep(Techno Learning) on 21,June,2022
  */
 
+import android.util.Log;
+
 import androidx.lifecycle.MutableLiveData;
 import com.jlp.mvvm_jlp_project.api.ApiService;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.change_password.RequestEnvelopeChangePassword;
+import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseEnvelopeChangePassword;
 import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseDataChangePassword;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Resource;
+import com.jlp.mvvm_jlp_project.view.auth.LoginFragment;
 
 import javax.inject.Inject;
 
@@ -20,12 +24,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class Repository {
+public class UserRepository {
+    private static final String TAG = LoginFragment.class.getSimpleName();
     private ApiService apiService;
     public MutableLiveData<Resource<ResponseDataChangePassword>> _responseDataChangePassword = new MutableLiveData<>();
     public MutableLiveData<Resource<ResponseDataAuthenticateUser>> _responseAuthenticateUser = new MutableLiveData<>();
 
-    @Inject public Repository(ApiService apiService) {
+    @Inject public UserRepository(ApiService apiService) {
         this.apiService = apiService;
     }
 
@@ -69,25 +74,27 @@ public class Repository {
         });
     }
 
-
     /**
      * handled change password response and did some validation on response
      * @param response
      */
     private void handleChangePasswordResponse(Response<ResponseEnvelopeChangePassword> response){
-        if(response.isSuccessful() && response.body()!=null &&
-                response.body().getResponseBodyChangePassword()!=null &&
-                response.body().getResponseBodyChangePassword().getResponseDataChangePassword()!=null &&
-                response.body().getResponseBodyChangePassword().getResponseDataChangePassword().getWasChangePasswordSuccessful()!=null &&
-                response.body().getResponseBodyChangePassword().getResponseDataChangePassword().getWasChangePasswordSuccessful().equals(AppConstants.SUCCESS)) {
-            _responseDataChangePassword.postValue(Resource.success(response.body().getResponseBodyChangePassword().getResponseDataChangePassword()));
-        }else if(response.errorBody()!=null){
-            _responseDataChangePassword.postValue(Resource.error("Error while getting the response", null));
-        }else if(response.body().getResponseBodyChangePassword().getResponseDataChangePassword().getDitsErrors()!=null){
-            _responseDataChangePassword.postValue(Resource.error( response.body().getResponseBodyChangePassword().getResponseDataChangePassword().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
-                    response.body().getResponseBodyChangePassword().getResponseDataChangePassword()));
-        } else{
+        try {
+            if(response.isSuccessful() && response.body()!=null &&
+                    response.body().getResponseBodyChangePassword().getResponseDataChangePassword().getDitsErrors()==null) {
+                _responseDataChangePassword.postValue(Resource.success(response.body().getResponseBodyChangePassword().getResponseDataChangePassword()));
+            }else if(response.errorBody()!=null){
+                _responseDataChangePassword.postValue(Resource.error("Error while getting the response", null));
+            }else if(response.body().getResponseBodyChangePassword().getResponseDataChangePassword().getDitsErrors()!=null){
+                _responseDataChangePassword.postValue(Resource.error( response.body().getResponseBodyChangePassword().getResponseDataChangePassword().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
+                        response.body().getResponseBodyChangePassword().getResponseDataChangePassword()));
+            } else{
+                _responseDataChangePassword.postValue(Resource.error("Something Went Wrong", null));
+                Log.i(TAG ,"Response is neither success nor error");
+            }
+        }catch (Exception ex){
             _responseDataChangePassword.postValue(Resource.error("Something Went Wrong", null));
+            Log.e(TAG ,"Error while handling the response : "+ex);
         }
     }
 
@@ -96,18 +103,22 @@ public class Repository {
      * @param response
      */
     private void handleAuthenticateUserResponse(Response<ResponseEnvelopeAuthenticateUser> response){
-        if(response.isSuccessful() && response.body()!=null &&
-                response.body().getResponseBodyAuthenticateUser()!=null &&
-                response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser()!=null &&
-                response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser().getUserResponse()!=null        ) {
-            _responseAuthenticateUser.postValue(Resource.success(response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser()));
-        }else if(response.errorBody()!=null){
-            _responseDataChangePassword.postValue(Resource.error("Error while getting the response", null));
-        }else if(response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser().getDitsErrors()!=null){
-            _responseAuthenticateUser.postValue(Resource.error( response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
-                    response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser()));
-        } else{
+        try {
+            if(response.isSuccessful() && response.body()!=null &&
+                    response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser().getDitsErrors()==null) {
+                _responseAuthenticateUser.postValue(Resource.success(response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser()));
+            }else if(response.errorBody()!=null){
+                _responseAuthenticateUser.postValue(Resource.error("Error while getting the response", null));
+            }else if(response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser().getDitsErrors()!=null){
+                _responseAuthenticateUser.postValue(Resource.error( response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
+                        response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser()));
+            } else{
+                _responseAuthenticateUser.postValue(Resource.error("Something Went Wrong", null));
+                Log.i(TAG ,"Response is neither success nor error");
+            }
+        }catch (Exception ex){
             _responseAuthenticateUser.postValue(Resource.error("Something Went Wrong", null));
+            Log.e(TAG ,"Error while handling the response : "+ex);
         }
     }
 }
