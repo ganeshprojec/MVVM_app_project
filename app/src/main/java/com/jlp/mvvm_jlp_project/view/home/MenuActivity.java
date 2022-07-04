@@ -134,7 +134,6 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener, 
         DrawerMenuItem item = (DrawerMenuItem) model;
 
         menuViewModel.loadListItem(item, this);
-
     }
 
     @Override

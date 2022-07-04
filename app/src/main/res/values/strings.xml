@@ -98,4 +98,6 @@
     <string name="dummy_item_num">81711111</string>
     <string name="str_product_description">Product Description</string>
     <string name="dummy_product_desc">XXXXXXX XXXXXXX X \nXXXXXX \nXXXXX XXXXXX XXX X XXX XX</string>
+    <string name="dummy_lotSr">L1</string>
+    <string name="dummy_location_b5">Location B5</string>
 </resources>

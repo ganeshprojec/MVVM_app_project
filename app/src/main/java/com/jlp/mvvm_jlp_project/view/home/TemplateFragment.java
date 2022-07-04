@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.jlp.mvvm_jlp_project.databinding.FragmentTemplateBinding;
+import com.jlp.mvvm_jlp_project.databinding.TempFragmentMotionBinding;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
 import com.jlp.mvvm_jlp_project.viewmodel.TemplateViewModel;
 
@@ -26,7 +26,8 @@ public class TemplateFragment extends BaseFragment implements View.OnClickListen
     private String mParam1;
     private String mParam2;
     private @NonNull
-    FragmentTemplateBinding binding;
+    //FragmentTemplateBinding binding;
+    TempFragmentMotionBinding binding;
     private TemplateViewModel templateViewModel;
 
     public TemplateFragment() {
@@ -79,7 +80,7 @@ public class TemplateFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     protected View initViewBinding(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        binding = FragmentTemplateBinding.inflate(inflater, container, false);
+        binding = TempFragmentMotionBinding.inflate(inflater, container, false);
         return binding.getRoot();
 
     }
