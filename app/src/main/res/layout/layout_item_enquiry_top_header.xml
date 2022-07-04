@@ -69,7 +69,6 @@
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="@dimen/dimen_std_page_margin"
             android:layout_toRightOf="@id/layLinOptions"
-
             android:lines="1"
             android:maxLines="1"
             android:padding="@dimen/dimen4dp"
