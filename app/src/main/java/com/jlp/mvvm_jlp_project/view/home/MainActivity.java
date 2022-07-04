@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import android.os.Bundle;
 
 import com.jlp.mvvm_jlp_project.R;
+import com.jlp.mvvm_jlp_project.databinding.ActivityAuthBinding;
 import com.jlp.mvvm_jlp_project.databinding.ActivityHomeBinding;
 import com.jlp.mvvm_jlp_project.view.base.BaseActivity;
 
@@ -19,7 +20,6 @@ public class MainActivity extends BaseActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
     }
 
     @Override

@@ -47,6 +47,9 @@
     <string name="new_password_should_be">New password should be 6-8 characters long</string>
     <string name="at_least_one_alpha_one_num_req">at least one alphabetic and one numeric character required</string>
 
+
+    <string name="please_check_internet_connection">Please check internet connection</string>
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello Blank Fragment!</string>
 

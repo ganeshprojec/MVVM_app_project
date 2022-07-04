@@ -1,4 +1,4 @@
-package com.jlp.mvvm_jlp_project.constants;/*
+package com.jlp.mvvm_jlp_project.utils;/*
  * Created by Sandeep(Techno Learning) on 17,June,2022
  */
 
@@ -9,4 +9,7 @@ public class AppConstants {
 
     public static final int MIN_PASSWORD_LENGTH = 6;
     public static final int MAX_PASSWORD_LENGTH = 8;
+
+    public static final String SUCCESS = "SUCCESS";
+    public static final String ERROR = "ERROR";
 }

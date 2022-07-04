@@ -19,17 +19,22 @@ import dagger.hilt.android.qualifiers.ActivityContext;
 
 public class Helper {
 
-    public static void hideKeyboard(Activity activity) {
-        InputMethodManager imm = (InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE);
-        //Find the currently focused view, so we can grab the correct window token from it.
-        View view = activity.getCurrentFocus();
-        //If no view currently has focus, create a new one, just so we can grab a window token from it
-        if (view == null) {
-            view = new View(activity);
-        }
+    /**
+     * Hide the keypad once click on button
+     * @param context
+     * @param view
+     */
+    public static void hideKeyboard(Context context, View view) {
+        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.hideSoftInputFromWindow(view.getWindowToken(), 0);
     }
 
+    /**
+     * 
+     * @param activity
+     * @param redirectTo
+     * @param isFinishCurrentAct
+     */
     public static void redirectToActivity(Activity activity, Class<?> redirectTo, boolean isFinishCurrentAct) {
         Intent intent = new Intent(activity, redirectTo);
         activity.startActivity(intent);
@@ -39,15 +44,12 @@ public class Helper {
     }
 
     public static void addFragment(@ActivityContext Context context, Fragment fragment) {
-        hideKeyboard((AppCompatActivity) context);
         clearBackStack(context);
-
         FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
-        transaction.add(R.id.frame_container_main, fragment); //main_fragment_container
+        transaction.replace(R.id.frame_container_main, fragment); //main_fragment_container
         transaction.addToBackStack(((AppCompatActivity) context).getString(R.string.backstack_tag));
         transaction.commit();
     }
-
 
     public static void clearBackStack(@ActivityContext Context context) {
         FragmentManager manager = ((AppCompatActivity) context).getSupportFragmentManager();

@@ -69,13 +69,13 @@ public class ItemEnquiryFragment extends Fragment implements View.OnClickListene
     public void onClick(View view){
         switch(view.getId()){
             case R.id.btnnext:
+                Helper.hideKeyboard(getActivity(), view);
                 redirect();
                 break;
         }
     }
 
     private void redirect() {
-        Helper.hideKeyboard(getActivity());
         Fragment fragment=null;
         if(TextUtils.isEmpty(inputBarcode.getText().toString().trim())){
             Utils.showErrorMessage(getActivity(), getResources().getString(R.string.enter_barcode));

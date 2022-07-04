@@ -105,21 +105,21 @@ public class ItemEnquiryDisplayFragment extends Fragment implements View.OnClick
                 "R34567"
         ));
         list.add(new ItemEnquiryModel("Delivery Date",
-                "24/7/2022"));
+                "24 July 2022"));
         list.add(new ItemEnquiryModel("Last Recorded Location",
                 "JLP building 1"));
         list.add(new ItemEnquiryModel("Time of last move",
-                "23/5/2022 12:23"));
+                "23 May 2022 - 12:23:11 AM"));
         list.add(new ItemEnquiryModel("Last UserId",
-                "JL123"));
+                "JLP123"));
         list.add(new ItemEnquiryModel("Product Code",
                 "23213"));
-        list.add(new ItemEnquiryModel("Product Description",
-                "It contains papers and books "));
+        list.add(new ItemEnquiryModel("Product description",
+                "A product description is the marketing copy. The purpose of the desc is to supply customers with important about the features and benefits of the product."));
         list.add(new ItemEnquiryModel("Lot Number",
                 "2 of 4"));
         list.add(new ItemEnquiryModel("Address",
-                "Mr.John,20 London Road MK 46"));
+                "Mr.John Smart, \nHouse number-20, Near road line house, London Road MK 46"));
 
         return list;
     }
