@@ -43,7 +43,7 @@ public class DeliveryDetailsLotsAdapter extends RecyclerView.Adapter<DeliveryDet
         LotsInfo data = list.get(position);
 
         //holder.view.txtLotNumber.setText(list.get(position).getLotNumber());
-        holder.view.txtLotNumber.setText("L" + index);
+        holder.view.txtLotNumber.setText("L" + (index + 1));
         holder.view.txtLotLocation.setText(list.get(position).getLotLocation());
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
