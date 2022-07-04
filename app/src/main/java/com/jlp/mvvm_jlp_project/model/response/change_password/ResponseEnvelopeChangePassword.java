@@ -19,7 +19,7 @@ import org.simpleframework.xml.Root;
         @Namespace( prefix = "xsd", reference = "http://www.w3.org/2001/XMLSchema"),
         @Namespace( prefix = "xsi", reference = "http://www.w3.org/2001/XMLSchema-instance"),
 })
-public class EnvelopeResponseChangePassword {
+public class ResponseEnvelopeChangePassword {
 
     @Element(name = "Body", required = false)
     private ResponseBodyChangePassword responseBodyChangePassword;

@@ -20,10 +20,10 @@ import org.simpleframework.xml.Root;
         @Namespace( prefix = "xsd", reference = "http://www.w3.org/2001/XMLSchema"),
         @Namespace( prefix = "xsi", reference = "http://www.w3.org/2001/XMLSchema-instance"),
 })
-public class EnvelopeResponseAuthenticateUser {
+public class ResponseEnvelopeAuthenticateUser {
 
     @Element(name = "Body", required = false)
-    private ResponseBodyAuthenticateUser responseBodyAuthenticateUser = new ResponseBodyAuthenticateUser();
+    private ResponseBodyAuthenticateUser responseBodyAuthenticateUser;
 
     @Element(name = "Header", required = true)
     private Header header = new Header();

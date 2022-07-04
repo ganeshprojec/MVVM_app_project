@@ -7,11 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
-import androidx.navigation.fragment.NavHostFragment;
 
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,10 +16,8 @@ import android.widget.Toast;
 
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.databinding.FragmentChangePasswordBinding;
-import com.jlp.mvvm_jlp_project.model.ChangePasswordRequestModel;
-import com.jlp.mvvm_jlp_project.model.request.authenticate_user.EnvelopeRequestAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.change_password.ChangePasswordDetails;
-import com.jlp.mvvm_jlp_project.model.request.change_password.EnvelopeRequestChangePassword;
+import com.jlp.mvvm_jlp_project.model.request.change_password.RequestEnvelopeChangePassword;
 import com.jlp.mvvm_jlp_project.model.request.change_password.RequestBodyChangePassword;
 import com.jlp.mvvm_jlp_project.model.request.change_password.RequestDataChangePassword;
 import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseDataChangePassword;
@@ -31,7 +25,6 @@ import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
-import com.jlp.mvvm_jlp_project.view.home.MenuActivity;
 import com.jlp.mvvm_jlp_project.viewmodel.AuthViewModel;
 
 import javax.inject.Inject;
@@ -49,7 +42,7 @@ public class ChangePasswordFragment extends BaseFragment {
     private ProgressDialog progressDialog;
 
     @Inject
-    EnvelopeRequestChangePassword envelopeRequestChangePassword;
+    RequestEnvelopeChangePassword envelopeRequestChangePassword;
     @Inject
     RequestBodyChangePassword requestBodyChangePassword;
     @Inject
@@ -115,7 +108,7 @@ public class ChangePasswordFragment extends BaseFragment {
                             clearViews();
                             Toast.makeText(getContext(), R.string.password_changed_successfully, Toast.LENGTH_LONG).show();
 
-                            Helper.addFragment(getContext(), new LoginFragment());
+                            //Helper.addFragment(getContext(), new LoginFragment());
 
 
 //                            NavHostFragment navHostFragment = (NavHostFragment) getActivity().getSupportFragmentManager()

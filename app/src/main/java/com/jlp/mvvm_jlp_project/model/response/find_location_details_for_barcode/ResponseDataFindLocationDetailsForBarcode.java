@@ -1,4 +1,4 @@
-package com.jlp.mvvm_jlp_project.model.response.authenticate_user;
+package com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode;
 
 
 import com.jlp.mvvm_jlp_project.model.response.DITSErrors;
@@ -14,22 +14,24 @@ import javax.inject.Inject;
  *  Created by Sandeep(Techno Learning) on 16,June,2022
  */
 
-@Root(name = "AuthenticateUserResponse", strict = false)
+@Root(name = "FindLocationDetailsForBarcodeResponse", strict = false)
 @Namespace(reference = Constants.NAMESPACE)
-public class ResponseDataAuthenticateUser {
-    @Element(name = "AuthenticationDetails", required = false)
-    public User userResponse;
+public class ResponseDataFindLocationDetailsForBarcode {
+    @Element(name = "LocationDetails", required = false)
+    public LocationDetails locationDetails;
 
     @Element(name = "DITSErrors",required = false)
     private DITSErrors ditsErrors;
-    @Inject ResponseDataAuthenticateUser(){}
 
-    public User getUserResponse() {
-        return userResponse;
+    @Inject
+    ResponseDataFindLocationDetailsForBarcode(){}
+
+    public LocationDetails getLocationDetails() {
+        return locationDetails;
     }
 
-    public void setUserResponse(User userResponse) {
-        this.userResponse = userResponse;
+    public void setLocationDetails(LocationDetails locationDetails) {
+        this.locationDetails = locationDetails;
     }
 
     public DITSErrors getDitsErrors() {

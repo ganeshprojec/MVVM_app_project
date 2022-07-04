@@ -3,7 +3,6 @@ package com.jlp.mvvm_jlp_project.api;
 
 import androidx.annotation.NonNull;
 
-import com.jlp.mvvm_jlp_project.api.api.ApiService;
 import com.jlp.mvvm_jlp_project.utils.Constants;
 
 import org.simpleframework.xml.Serializer;

@@ -7,24 +7,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.navigation.NavController;
-import androidx.navigation.Navigation;
 
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.databinding.FragmentLoginBinding;
-import com.jlp.mvvm_jlp_project.model.request.authenticate_user.EnvelopeRequestAuthenticateUser;
+import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.AuthenticationDetails;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestBodyAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestDataAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
-import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseDataChangePassword;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.Utils;
@@ -47,7 +42,7 @@ public class LoginFragment extends BaseFragment {
     private AuthViewModel authViewModel;
 
     @Inject
-    EnvelopeRequestAuthenticateUser envelopeAuthenticateUser;
+    RequestEnvelopeAuthenticateUser envelopeAuthenticateUser;
     @Inject
     RequestBodyAuthenticateUser bodyAuthenticateUser;
     @Inject

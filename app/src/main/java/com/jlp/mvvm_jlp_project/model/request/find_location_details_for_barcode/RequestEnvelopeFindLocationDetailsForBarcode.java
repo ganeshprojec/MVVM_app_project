@@ -1,4 +1,4 @@
-package com.jlp.mvvm_jlp_project.model.request.change_password;
+package com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode;
 
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestBodyAuthenticateUser;
 import com.jlp.mvvm_jlp_project.utils.Constants;
@@ -19,20 +19,19 @@ import javax.inject.Inject;
         @Namespace(prefix = "soapenv" ,reference = "http://schemas.xmlsoap.org/soap/envelope/"),
         @Namespace(prefix = "cds" ,reference = Constants.NAMESPACE)
 })
-public class EnvelopeRequestChangePassword {
+public class RequestEnvelopeFindLocationDetailsForBarcode {
 
     @Inject
-    EnvelopeRequestChangePassword(){}
+    RequestEnvelopeFindLocationDetailsForBarcode(){}
 
     @Element(name = "soapenv:Body", required = false)
-    private RequestBodyChangePassword requestBodyChangePassword;
+    private RequestBodyFindLocationDetailsForBarcode requestBodyFindLocationDetailsForBarcode;
 
-
-    public RequestBodyChangePassword getRequestBodyChangePassword() {
-        return requestBodyChangePassword;
+    public RequestBodyFindLocationDetailsForBarcode getRequestBodyFindLocationDetailsForBarcode() {
+        return requestBodyFindLocationDetailsForBarcode;
     }
 
-    public void setRequestBodyChangePassword(RequestBodyChangePassword requestBodyChangePassword) {
-        this.requestBodyChangePassword = requestBodyChangePassword;
+    public void setRequestBodyFindLocationDetailsForBarcode(RequestBodyFindLocationDetailsForBarcode requestBodyFindLocationDetailsForBarcode) {
+        this.requestBodyFindLocationDetailsForBarcode = requestBodyFindLocationDetailsForBarcode;
     }
 }

@@ -1,7 +1,6 @@
 package com.jlp.mvvm_jlp_project.model.response.change_password;
 
 
-import com.jlp.mvvm_jlp_project.model.response.ErrorResponse;
 import com.jlp.mvvm_jlp_project.model.response.DITSErrors;
 import com.jlp.mvvm_jlp_project.utils.Constants;
 
@@ -24,8 +23,6 @@ public class ResponseDataChangePassword {
     @Element(name = "DITSErrors",required = false)
     private DITSErrors ditsErrors;
 
-    public ErrorResponse errorResponse;
-
 
     @Inject ResponseDataChangePassword(){}
 
@@ -45,11 +42,4 @@ public class ResponseDataChangePassword {
         this.ditsErrors = ditsErrors;
     }
 
-    public ErrorResponse getErrorResponse() {
-        return errorResponse;
-    }
-
-    public void setErrorResponse(ErrorResponse errorResponse) {
-        this.errorResponse = errorResponse;
-    }
 }

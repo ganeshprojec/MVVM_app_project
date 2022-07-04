@@ -7,7 +7,7 @@ import org.simpleframework.xml.Root;
 
 import javax.inject.Inject;
 
-@Root(name = "ChangePasswordAndLogonDetails", strict = false)
+@Root(name = "ChangePasswordDetails", strict = false)
 public class ChangePasswordDetails {
 
     @Inject
