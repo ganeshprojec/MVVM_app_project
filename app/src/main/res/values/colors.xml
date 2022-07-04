@@ -19,7 +19,7 @@
     <color name="text">#FF000000</color>
     <color name="button_text">#FFFFFFFF</color>
     <color name="button_next">@color/teal_700</color>
-    <color name="button_background">#817F7F</color>
+    <color name="button_background">#000000</color>
     <color name="text_forgot_change_password">@color/purple_500</color>
     <color name="header_view_background">@color/box_stroke</color>
     <color name="devider_background">@color/teal_700</color>

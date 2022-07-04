@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.utils.Helper;
@@ -27,6 +28,7 @@ public class ItemMovementFragment extends Fragment implements View.OnClickListen
     ImageView imgClose, imgCloseSecond;
     EditText inputBarcode;
     AppCompatButton button;
+    TextView txtToolbarTitle;
 
     private String mParam1;
     private String mParam2;
@@ -58,6 +60,8 @@ public class ItemMovementFragment extends Fragment implements View.OnClickListen
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_item_movement, container, false);
+        txtToolbarTitle=rootView.findViewById(R.id.txtToolbarTitle);
+        txtToolbarTitle.setText(R.string.str_item_movements);
         imgClose = rootView.findViewById(R.id.imgClose);
         imgCloseSecond = rootView.findViewById(R.id.imgCloseSecond);
         button = rootView.findViewById(R.id.btnnext);

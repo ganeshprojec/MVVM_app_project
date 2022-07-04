@@ -18,9 +18,10 @@
         android:theme="@style/Theme.JLP_Layouts.AppBarOverlay"
         tools:ignore="MissingConstraints">
 
+       <!-- layout="@layout/layout_item_enquiry_top_header"-->
         <include
             android:id="@+id/item_movement_top_header"
-            layout="@layout/layout_common_top_bar" />
+            layout="@layout/layout_item_enquiry_top_header" />
 
     </com.google.android.material.appbar.AppBarLayout>
 
