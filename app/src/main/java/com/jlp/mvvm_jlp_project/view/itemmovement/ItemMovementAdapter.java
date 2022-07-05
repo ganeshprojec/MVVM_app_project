@@ -4,13 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.jlp.mvvm_jlp_project.R;
-import com.jlp.mvvm_jlp_project.model.ItemEnquiryModel;
 import com.jlp.mvvm_jlp_project.model.ItemMovementModel;
-import com.jlp.mvvm_jlp_project.view.itemenquiry.ItemEnquiryViewHolder;
 
 import java.util.List;
 

@@ -32,30 +32,6 @@
             app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
             app:layout_constraintEnd_toEndOf="@id/guidelineRight"/>
 
-        <TextView
-            android:id="@+id/textTitle"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:text="@string/username"
-            style="@style/text_views"
-            android:layout_marginTop="@dimen/margin_padding_normal"
-            app:layout_constraintTop_toBottomOf="@+id/guidelineTop"
-            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-            app:layout_constraintEnd_toEndOf="@id/guidelineRight"/>
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/inputUsername"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_tiny"
-            android:hint="@string/enter_username"
-            android:imeOptions="actionNext"
-            style="@style/text_input_edittext"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textTitle" />
-
         <include
             android:id="@+id/layoutPassword"
             layout="@layout/input_field_password"
