@@ -9,7 +9,7 @@
     android:background="@color/color_light_gray"
     android:clickable="true"
     android:orientation="vertical"
-    tools:context=".view.itemmovement.ItemMovementFragment">
+    tools:context=".view.item_movement.ItemMovementFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/top_appBar"

@@ -1,4 +1,4 @@
-package com.jlp.mvvm_jlp_project.view.itemmovement;
+package com.jlp.mvvm_jlp_project.view.item_movement;
 
 import android.view.View;
 import android.widget.TextView;

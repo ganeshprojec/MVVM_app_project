@@ -1,4 +1,4 @@
-package com.jlp.mvvm_jlp_project.view.itemmovement;
+package com.jlp.mvvm_jlp_project.view.item_movement;
 
 import android.os.Bundle;
 
@@ -87,7 +87,7 @@ public class ItemMovementFragment extends Fragment implements View.OnClickListen
         }else if(inputBarcode.getText().toString().trim().length()<6){
             Utils.showErrorMessage(getActivity(), getResources().getString(R.string.invalid_barcode));
         }else{
-            fragment=new com.jlp.mvvm_jlp_project.view.itemmovement.ItemMovementDisplayFragment();
+            fragment=new com.jlp.mvvm_jlp_project.view.item_movement.ItemMovementDisplayFragment();
             replaceFragment(fragment);
         }
     }

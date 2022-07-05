@@ -1,4 +1,4 @@
-package com.jlp.mvvm_jlp_project.view.itemmovement;
+package com.jlp.mvvm_jlp_project.view.item_movement;
 
 import android.os.Bundle;
 
@@ -14,7 +14,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.jlp.mvvm_jlp_project.R;
-import com.jlp.mvvm_jlp_project.view.itemenquiry.ItemEnquiryFragment;
 
 public class ItemMovementDisplayFragment extends Fragment implements View.OnClickListener {
 
