@@ -40,9 +40,6 @@ public class ItemEnquiryFragment extends BaseFragment {
 
     private static final String TAG = LoginFragment.class.getSimpleName();
     private ProgressDialog progressDialog;
-
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
     private String mParam1;
     private String mParam2;
     private FragmentItemEnquiryBinding binding;
@@ -57,15 +54,6 @@ public class ItemEnquiryFragment extends BaseFragment {
 
     public ItemEnquiryFragment() {}
 
-    public static TemplateFragment newInstance(String param1, String param2) {
-        TemplateFragment fragment = new TemplateFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
     @Override
     protected View initViewBinding(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentItemEnquiryBinding.inflate(inflater, container, false);
@@ -75,10 +63,6 @@ public class ItemEnquiryFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
         itemEnquiryViewModel = new ViewModelProvider(this).get(ItemEnquiryViewModel.class);
         initObserver();
         initListener();
@@ -132,11 +116,11 @@ public class ItemEnquiryFragment extends BaseFragment {
         }else if(barcode.length()<6){
             Utils.showErrorMessage(getActivity(), getResources().getString(R.string.invalid_barcode));
         }else{
-            findLocationDetailsForBarcode(barcode);
+            findDeliveryDetailsForComponentBarcode(barcode);
         }
     }
 
-    private void findLocationDetailsForBarcode(String barcode) {
+    private void findDeliveryDetailsForComponentBarcode(String barcode) {
         prepareRequestData(barcode);
         itemEnquiryViewModel.findDeliveryDetailsForComponentBarcode(requestEnvelopeFindDeliveryDetailsForComponentBarcode);
     }

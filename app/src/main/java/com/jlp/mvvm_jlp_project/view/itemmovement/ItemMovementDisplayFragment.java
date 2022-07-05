@@ -7,14 +7,11 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-
 import com.jlp.mvvm_jlp_project.R;
-import com.jlp.mvvm_jlp_project.view.item_enquiry.ItemEnquiryFragment;
 
 public class ItemMovementDisplayFragment extends Fragment implements View.OnClickListener {
 

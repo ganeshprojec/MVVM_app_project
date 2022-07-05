@@ -3,28 +3,28 @@ package com.jlp.mvvm_jlp_project.model;/*
  */
 
 public class ItemEnquiryModel {
-    private String deliveryNumber;
-    private String deliveryNumbers;
+    private String title;
+    private String value;
 
 
     public ItemEnquiryModel(String deliveryNumber,
                             String deliveryNumbers
     )
     {
-        this.deliveryNumber = deliveryNumber;
-        this.deliveryNumbers = deliveryNumbers;
+        this.title = deliveryNumber;
+        this.value = deliveryNumbers;
 
     }
-    public String getDeliveryNumber() {
-        return deliveryNumber;
+    public String getTitle() {
+        return title;
     }
-    public void setDeliveryNumber(String deliveryNumber) {
-        this.deliveryNumber = deliveryNumber;
+    public void setTitle(String title) {
+        this.title = title;
     }
-    public String getDeliveryNumbers() {
-        return deliveryNumbers;
+    public String getValue() {
+        return value;
     }
-    public void setDeliveryNumbers(String deliveryNumbers) {
-        this.deliveryNumbers = deliveryNumbers;
+    public void setValue(String value) {
+        this.value = value;
     }
 }

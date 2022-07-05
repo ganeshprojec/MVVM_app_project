@@ -33,7 +33,7 @@ import java.util.List;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
-//TODO:Use viewModel for data manipulation, Manage condotions to handle the data
+//TODO:Use viewModel for data manipulation, Manage conditions to handle the data
 @AndroidEntryPoint
 public class ItemEnquiryDetailsFragment extends BaseFragment implements View.OnClickListener {
     private static final String TAG = LoginFragment.class.getSimpleName();
@@ -57,16 +57,12 @@ public class ItemEnquiryDetailsFragment extends BaseFragment implements View.OnC
             Log.e(TAG, "Exception: "+ex.getMessage());
         }
         itemEnquiryViewModel = new ViewModelProvider(this).get(ItemEnquiryViewModel.class);
-
         List<ItemEnquiryModel> list = new ArrayList<>();
         list = getData(response.getDeliveryItemProductDetails());
         ItemEnquiryAdapter adapter;
-        adapter
-                = new ItemEnquiryAdapter(
-                list, getContext());
+        adapter = new ItemEnquiryAdapter(list, getContext());
         binding.recyclerView.setAdapter(adapter);
-        binding.recyclerView.setLayoutManager(
-                new LinearLayoutManager(getContext()));
+        binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
     }
 
     @Override
@@ -119,6 +115,4 @@ public class ItemEnquiryDetailsFragment extends BaseFragment implements View.OnC
 
         return list;
     }
-
-
 }

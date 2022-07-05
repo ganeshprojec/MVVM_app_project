@@ -36,7 +36,7 @@ public class ItemMovementAdapter extends RecyclerView.Adapter<ItemMovementViewHo
 
         View photoView
                 = inflater
-                .inflate(R.layout.item_enquiry_display_cards,
+                .inflate(R.layout.item_enquiry_single_item,
                         parent, false);
 
         ItemMovementViewHolder viewHolder
