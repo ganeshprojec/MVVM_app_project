@@ -33,4 +33,5 @@
     <color name="color_toolbar_text">@color/black</color>
     <color name="color_divider_dark">@color/black</color>
     <color name="snackbar_background">#ddd</color>
+    <color name="alert_dialog_title_background">#D4D7DF</color>
 </resources>
