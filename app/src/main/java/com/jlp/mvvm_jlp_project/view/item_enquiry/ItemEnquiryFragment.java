@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
@@ -21,12 +22,12 @@ import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_componen
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestDataFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestEnvelopeFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.ResponseDataFindDeliveryDetailsForComponentBarcode;
+import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.auth.LoginFragment;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
-import com.jlp.mvvm_jlp_project.view.home.MenuActivity;
 import com.jlp.mvvm_jlp_project.view.home.TemplateFragment;
 import com.jlp.mvvm_jlp_project.viewmodel.ItemEnquiryViewModel;
 
@@ -66,15 +67,6 @@ public class ItemEnquiryFragment extends BaseFragment {
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
-    }
-
-    @Override
     protected View initViewBinding(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentItemEnquiryBinding.inflate(inflater, container, false);
         return binding.getRoot();
@@ -83,6 +75,10 @@ public class ItemEnquiryFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
+        if (getArguments() != null) {
+            mParam1 = getArguments().getString(ARG_PARAM1);
+            mParam2 = getArguments().getString(ARG_PARAM2);
+        }
         itemEnquiryViewModel = new ViewModelProvider(this).get(ItemEnquiryViewModel.class);
         initObserver();
         initListener();
@@ -105,10 +101,8 @@ public class ItemEnquiryFragment extends BaseFragment {
                         }
                         case SUCCESS:{
                             clearViews();
-                            Toast.makeText(getContext(), response.data.deliveryItemProductDetails.getCurrentLotNumber()+
-                                    "-"+response.data.deliveryItemProductDetails.currentLotNumber, Toast.LENGTH_LONG).show();
                             Utils.hideProgressDialog(progressDialog);
-                            replaceFragment(new ItemEnquiryDisplayFragment(), response.data);
+                            replaceFragment(new ItemEnquiryDetailsFragment(), response.data);
                             break;
                         }
                     }
@@ -155,14 +149,12 @@ public class ItemEnquiryFragment extends BaseFragment {
 
     public void replaceFragment(Fragment fragment,
                                 ResponseDataFindDeliveryDetailsForComponentBarcode responseData){
-
         Bundle bundle = new Bundle();
-        bundle.putParcelable("message", responseData);
+        bundle.putParcelable(AppConstants.ITEM_ENQUIRY_DETAILS_DATA, responseData);
         fragment.setArguments(bundle);
-
         FragmentTransaction transaction= getFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container_main,fragment);
-        transaction.addToBackStack(null);
+        transaction.addToBackStack(getResources().getString(R.string.backstack_tag));
         transaction.commit();
     }
 }
