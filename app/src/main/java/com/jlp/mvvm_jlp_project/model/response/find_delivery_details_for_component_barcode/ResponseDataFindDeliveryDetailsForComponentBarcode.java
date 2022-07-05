@@ -1,6 +1,9 @@
 package com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.jlp.mvvm_jlp_project.model.response.DITSErrors;
 import com.jlp.mvvm_jlp_project.utils.Constants;
 
@@ -16,7 +19,7 @@ import javax.inject.Inject;
 
 @Root(name = "FindLocationDetailsForBarcodeResponse", strict = false)
 @Namespace(reference = Constants.NAMESPACE)
-public class ResponseDataFindDeliveryDetailsForComponentBarcode {
+public class ResponseDataFindDeliveryDetailsForComponentBarcode implements Parcelable {
     @Element(name = "DeliveryItemProductDetails", required = false)
     public DeliveryItemProductDetails deliveryItemProductDetails;
 
@@ -40,5 +43,15 @@ public class ResponseDataFindDeliveryDetailsForComponentBarcode {
 
     public void setDitsErrors(DITSErrors ditsErrors) {
         this.ditsErrors = ditsErrors;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+
     }
 }

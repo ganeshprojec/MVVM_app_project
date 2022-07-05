@@ -24,7 +24,7 @@
     <color name="header_view_background">@color/box_stroke</color>
     <color name="devider_background">@color/teal_700</color>
 
-    <color name="text_view_shadow_color">#A9A9A9</color>
+    <color name="text_view_shadow_color">#F0F1F1</color>
 
     <color name="color_light_gray">@color/box_stroke</color><!--#EEEBF3-->
     <color name="border_color">#95000000</color>

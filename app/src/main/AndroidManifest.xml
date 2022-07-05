@@ -26,8 +26,10 @@
             android:name=".view.auth.AuthActivity"
             android:exported="true"/>-->
 
+          <!--Before commit change to auth activity -->
         <activity
-            android:name=".view.auth.AuthActivity"
+            android:name=".view.home.MenuActivity"
+
             android:exported="true"
             android:theme="@style/fullscreen"
             android:windowSoftInputMode="adjustResize">
@@ -39,7 +41,7 @@
         </activity>
 
         <activity
-            android:name=".view.home.MenuActivity"
+            android:name=".view.auth.AuthActivity"
             android:exported="true"
             android:theme="@style/Theme.JLP_Layouts.NoActionBar"
             android:windowSoftInputMode="adjustResize">

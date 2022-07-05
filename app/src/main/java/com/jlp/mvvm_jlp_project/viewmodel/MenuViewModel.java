@@ -10,6 +10,7 @@ import com.jlp.mvvm_jlp_project.model.DrawerMenuItem;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.view.home.TemplateFragment;
 import com.jlp.mvvm_jlp_project.view.item_enquiry.ItemEnquiryFragment;
+import com.jlp.mvvm_jlp_project.view.itemmovement.ItemMovementFragment;
 import com.jlp.mvvm_jlp_project.view.route_management.RouteSummaryFragment;
 
 
@@ -101,7 +102,7 @@ public class MenuViewModel extends BaseViewModel {
     }
 
     public void onPressItemMovements(@ActivityContext Context context) {
-        Helper.addFragment(context, new TemplateFragment());
+        Helper.addFragment(context, new ItemMovementFragment());
     }
 
     public void onPressMovements(@ActivityContext Context context) {

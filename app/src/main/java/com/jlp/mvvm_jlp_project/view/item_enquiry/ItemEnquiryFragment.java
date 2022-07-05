@@ -11,6 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
@@ -107,7 +108,7 @@ public class ItemEnquiryFragment extends BaseFragment {
                             Toast.makeText(getContext(), response.data.deliveryItemProductDetails.getCurrentLotNumber()+
                                     "-"+response.data.deliveryItemProductDetails.currentLotNumber, Toast.LENGTH_LONG).show();
                             Utils.hideProgressDialog(progressDialog);
-                            Helper.redirectToActivity(getActivity(), MenuActivity.class, true);
+                            replaceFragment(new ItemEnquiryDisplayFragment(), response.data);
                             break;
                         }
                     }
@@ -131,7 +132,6 @@ public class ItemEnquiryFragment extends BaseFragment {
     }
 
     private void validate() {
-        Fragment fragment=null;
         String barcode = binding.itemenquiryinputfield.inputBarcode.getText().toString().trim();
         if(TextUtils.isEmpty(barcode)){
             Utils.showErrorMessage(getActivity(), getResources().getString(R.string.enter_barcode));
@@ -139,8 +139,6 @@ public class ItemEnquiryFragment extends BaseFragment {
             Utils.showErrorMessage(getActivity(), getResources().getString(R.string.invalid_barcode));
         }else{
             findLocationDetailsForBarcode(barcode);
-//            fragment=new com.jlp.mvvm_jlp_project.view.itemenquiry.ItemEnquiryDisplayFragment();
-//            replaceFragment(fragment);
         }
     }
 
@@ -153,5 +151,18 @@ public class ItemEnquiryFragment extends BaseFragment {
         requestDataFindDeliveryDetailsForComponentBarcode.setBarcode(barcode);
         requestBodyFindDeliveryDetailsForComponentBarcode.setRequestDataFindDeliveryDetailsForComponentBarcode(requestDataFindDeliveryDetailsForComponentBarcode);
         requestEnvelopeFindDeliveryDetailsForComponentBarcode.setRequestBodyFindDeliveryDetailsForComponentBarcode(requestBodyFindDeliveryDetailsForComponentBarcode);
+    }
+
+    public void replaceFragment(Fragment fragment,
+                                ResponseDataFindDeliveryDetailsForComponentBarcode responseData){
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable("message", responseData);
+        fragment.setArguments(bundle);
+
+        FragmentTransaction transaction= getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container_main,fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
     }
 }

@@ -72,7 +72,7 @@
             android:lines="1"
             android:maxLines="1"
             android:padding="@dimen/dimen4dp"
-            android:text="@string/item_enquiry_title"
+            android:text="@string/str_item_movements"
             android:textColor="@color/color_toolbar_text"
             android:textSize="@dimen/textsize_small"
             android:textStyle="bold" />
