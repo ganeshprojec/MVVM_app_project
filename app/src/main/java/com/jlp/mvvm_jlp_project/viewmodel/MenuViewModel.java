@@ -10,7 +10,7 @@ import com.jlp.mvvm_jlp_project.model.DrawerMenuItem;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.view.home.TemplateFragment;
 import com.jlp.mvvm_jlp_project.view.item_enquiry.ItemEnquiryFragment;
-import com.jlp.mvvm_jlp_project.view.itemmovement.ItemMovementFragment;
+import com.jlp.mvvm_jlp_project.view.item_movement.ItemMovementFragment;
 import com.jlp.mvvm_jlp_project.view.route_management.RouteSummaryFragment;
 
 

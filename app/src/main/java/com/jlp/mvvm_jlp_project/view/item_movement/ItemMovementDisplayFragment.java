@@ -1,4 +1,4 @@
-package com.jlp.mvvm_jlp_project.view.itemmovement;
+package com.jlp.mvvm_jlp_project.view.item_movement;
 
 import android.os.Bundle;
 

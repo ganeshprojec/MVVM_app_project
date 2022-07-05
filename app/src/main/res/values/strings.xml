@@ -46,6 +46,7 @@
     <string name="new_password_and_confirm_password_mismatch">New password fields do not match</string>
     <string name="new_password_should_be">New password should be 6-8 characters long</string>
     <string name="at_least_one_alpha_one_num_req">at least one alphabetic and one numeric character required</string>
+    <string name="alert_error_message">Some Warning data not found..!</string>
 
 
     <string name="please_check_internet_connection">Please check internet connection</string>
@@ -101,4 +102,5 @@
     <string name="dummy_item_num">81711111</string>
     <string name="str_product_description">Product Description</string>
     <string name="dummy_product_desc">XXXXXXX XXXXXXX X \nXXXXXX \nXXXXX XXXXXX XXX X XXX XX</string>
+    <string name="ok">OK</string>
 </resources>
