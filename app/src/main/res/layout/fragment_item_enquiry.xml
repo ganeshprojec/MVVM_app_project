@@ -8,7 +8,7 @@
     android:background="@color/color_light_gray"
     android:clickable="true"
     android:orientation="vertical"
-    tools:context=".view.itemenquiry.ItemEnquiryFragment">
+    tools:context=".view.item_enquiry.ItemEnquiryFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"

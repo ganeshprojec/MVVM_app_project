@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.model.ItemEnquiryModel;
-import com.jlp.mvvm_jlp_project.view.itemenquiry.ItemEnquiryViewHolder;
+import com.jlp.mvvm_jlp_project.view.item_enquiry.ItemEnquiryViewHolder;
 
 import java.util.List;
 

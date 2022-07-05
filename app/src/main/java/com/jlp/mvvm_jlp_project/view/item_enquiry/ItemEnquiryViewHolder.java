@@ -1,4 +1,4 @@
-package com.jlp.mvvm_jlp_project.view.itemenquiry;
+package com.jlp.mvvm_jlp_project.view.item_enquiry;
 
 import android.view.View;
 import android.widget.TextView;

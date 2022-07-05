@@ -1,4 +1,4 @@
-package com.jlp.mvvm_jlp_project.view.itemenquiry;
+package com.jlp.mvvm_jlp_project.view.item_enquiry;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -6,35 +6,20 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.widget.AppCompatButton;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.databinding.FragmentItemEnquiryBinding;
-import com.jlp.mvvm_jlp_project.databinding.FragmentLoginBinding;
-import com.jlp.mvvm_jlp_project.model.request.authenticate_user.AuthenticationDetails;
-import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestBodyAuthenticateUser;
-import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestDataAuthenticateUser;
-import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestBodyFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestDataFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestEnvelopeFindDeliveryDetailsForComponentBarcode;
-import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestBodyFindLocationDetailsForBarcode;
-import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestDataFindLocationDetailsForBarcode;
-import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
-import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.ResponseDataFindDeliveryDetailsForComponentBarcode;
-import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseDataFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.Utils;
@@ -42,7 +27,6 @@ import com.jlp.mvvm_jlp_project.view.auth.LoginFragment;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
 import com.jlp.mvvm_jlp_project.view.home.MenuActivity;
 import com.jlp.mvvm_jlp_project.view.home.TemplateFragment;
-import com.jlp.mvvm_jlp_project.viewmodel.AuthViewModel;
 import com.jlp.mvvm_jlp_project.viewmodel.ItemEnquiryViewModel;
 
 import javax.inject.Inject;
@@ -113,13 +97,11 @@ public class ItemEnquiryFragment extends BaseFragment {
                             progressDialog = Utils.showProgressBar(getContext());
                             break;
                         }
-
                         case ERROR:{
                             Utils.hideProgressDialog(progressDialog);
                             Utils.showErrorMessage(getActivity(), response.message);
                             break;
                         }
-
                         case SUCCESS:{
                             clearViews();
                             Toast.makeText(getContext(), response.data.deliveryItemProductDetails.getCurrentLotNumber()+
