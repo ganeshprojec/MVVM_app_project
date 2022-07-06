@@ -1,6 +1,9 @@
 package com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode;
 
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.jlp.mvvm_jlp_project.model.response.DITSErrors;
 import com.jlp.mvvm_jlp_project.utils.Constants;
 
@@ -16,7 +19,7 @@ import javax.inject.Inject;
 
 @Root(name = "FindLocationDetailsForBarcodeResponse", strict = false)
 @Namespace(reference = Constants.NAMESPACE)
-public class ResponseDataFindLocationDetailsForBarcode {
+public class ResponseDataFindLocationDetailsForBarcode implements Parcelable {
     @Element(name = "LocationDetails", required = false)
     public LocationDetails locationDetails;
 
@@ -25,6 +28,30 @@ public class ResponseDataFindLocationDetailsForBarcode {
 
     @Inject
     ResponseDataFindLocationDetailsForBarcode(){}
+
+    protected ResponseDataFindLocationDetailsForBarcode(Parcel in) {
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<ResponseDataFindLocationDetailsForBarcode> CREATOR = new Creator<ResponseDataFindLocationDetailsForBarcode>() {
+        @Override
+        public ResponseDataFindLocationDetailsForBarcode createFromParcel(Parcel in) {
+            return new ResponseDataFindLocationDetailsForBarcode(in);
+        }
+
+        @Override
+        public ResponseDataFindLocationDetailsForBarcode[] newArray(int size) {
+            return new ResponseDataFindLocationDetailsForBarcode[size];
+        }
+    };
 
     public LocationDetails getLocationDetails() {
         return locationDetails;

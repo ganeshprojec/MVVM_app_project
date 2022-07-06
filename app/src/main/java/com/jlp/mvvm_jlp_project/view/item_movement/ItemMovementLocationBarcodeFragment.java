@@ -1,4 +1,4 @@
-package com.jlp.mvvm_jlp_project.view.itemmovement;
+package com.jlp.mvvm_jlp_project.view.item_movement;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -17,24 +17,23 @@ import android.view.ViewGroup;
 
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.databinding.FragmentItemMovementBinding;
-import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestBodyFindDeliveryDetailsForComponentBarcode;
-import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestDataFindDeliveryDetailsForComponentBarcode;
-import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestEnvelopeFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestBodyFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestDataFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
-import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.ResponseDataFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseDataFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
-import com.jlp.mvvm_jlp_project.view.item_enquiry.ItemEnquiryDetailsFragment;
+import com.jlp.mvvm_jlp_project.view.item_enquiry.CommonBarCodeLocationScannerDetailsFragment;
 import com.jlp.mvvm_jlp_project.viewmodel.ItemMovementViewModel;
 
 import javax.inject.Inject;
 
-public class ItemMovementFragment extends BaseFragment {
+import dagger.hilt.android.AndroidEntryPoint;
+
+@AndroidEntryPoint
+public class ItemMovementLocationBarcodeFragment extends BaseFragment {
     private FragmentItemMovementBinding binding;
     private ItemMovementViewModel itemMovementViewModel;
     private ProgressDialog progressDialog;
@@ -46,7 +45,7 @@ public class ItemMovementFragment extends BaseFragment {
     @Inject
     RequestDataFindLocationDetailsForBarcode requestDataFindLocationDetailsForBarcode;
 
-    public ItemMovementFragment() {}
+    public ItemMovementLocationBarcodeFragment() {}
 
     @Override
     protected View initViewBinding(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -80,7 +79,7 @@ public class ItemMovementFragment extends BaseFragment {
                         case SUCCESS:{
                             clearViews();
                             Utils.hideProgressDialog(progressDialog);
-                            replaceFragment(new ItemEnquiryDetailsFragment(), response.data);
+                            replaceFragment(new CommonBarCodeLocationScannerDetailsFragment(""), response.data);
                             break;
                         }
                     }
@@ -90,11 +89,11 @@ public class ItemMovementFragment extends BaseFragment {
     }
 
     private void clearViews() {
-        binding.itemenquiryinputfield.inputBarcode.setText("");
+        binding.itemEnquiryInputField.inputBarcode.setText("");
     }
 
     private void initListener() {
-        binding.btnnext.setOnClickListener(new View.OnClickListener() {
+        binding.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Helper.hideKeyboard(getActivity(), view);
@@ -115,12 +114,12 @@ public class ItemMovementFragment extends BaseFragment {
     }
 
     private void redirect() {
-        if(TextUtils.isEmpty(binding.itemenquiryinputfield.inputBarcode.getText().toString().trim())){
+        if(TextUtils.isEmpty(binding.itemEnquiryInputField.inputBarcode.getText().toString().trim())){
             Utils.showErrorMessage(getActivity(), getResources().getString(R.string.enter_barcode));
-        }else if(binding.itemenquiryinputfield.inputBarcode.getText().toString().trim().length()<6){
+        }else if(binding.itemEnquiryInputField.inputBarcode.getText().toString().trim().length()<6){
             Utils.showErrorMessage(getActivity(), getResources().getString(R.string.invalid_barcode));
         }else{
-            findLocationDetailsForBarcode(binding.itemenquiryinputfield.inputBarcode.getText().toString().trim());
+            findLocationDetailsForBarcode(binding.itemEnquiryInputField.inputBarcode.getText().toString().trim());
         }
     }
 

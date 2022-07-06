@@ -7,10 +7,10 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.model.DrawerMenuItem;
+import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.view.home.TemplateFragment;
-import com.jlp.mvvm_jlp_project.view.item_enquiry.ItemEnquiryFragment;
-import com.jlp.mvvm_jlp_project.view.item_movement.ItemMovementFragment;
+import com.jlp.mvvm_jlp_project.view.item_enquiry.CommonBarCodeLocationScannerFragment;
 import com.jlp.mvvm_jlp_project.view.route_management.RouteSummaryFragment;
 
 
@@ -96,13 +96,12 @@ public class MenuViewModel extends BaseViewModel {
         }
     }
 
-
     public void onPressItemEnquiry(@ActivityContext Context context) {
-        Helper.addFragment(context, new ItemEnquiryFragment());
+        Helper.addFragment(context, new CommonBarCodeLocationScannerFragment(AppConstants.FRAGMENT_ITEM_ENQUIRY));
     }
 
     public void onPressItemMovements(@ActivityContext Context context) {
-        Helper.addFragment(context, new ItemMovementFragment());
+        Helper.addFragment(context, new CommonBarCodeLocationScannerFragment(AppConstants.FRAGMENT_ITEM_MOVEMENT));
     }
 
     public void onPressMovements(@ActivityContext Context context) {

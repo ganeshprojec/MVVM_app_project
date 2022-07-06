@@ -44,10 +44,10 @@ public class Helper {
     }
 
     public static void addFragment(@ActivityContext Context context, Fragment fragment) {
-        clearBackStack(context);
+        //clearBackStack(context);
         FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container_main, fragment); //main_fragment_container
-        transaction.addToBackStack(((AppCompatActivity) context).getString(R.string.backstack_tag));
+        transaction.replace(R.id.frame_container_main, fragment);
+        transaction.addToBackStack(null);
         transaction.commit();
     }
 

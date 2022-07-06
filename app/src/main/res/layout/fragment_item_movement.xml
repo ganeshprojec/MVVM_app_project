@@ -9,7 +9,7 @@
     android:background="@color/color_light_gray"
     android:clickable="true"
     android:orientation="vertical"
-    tools:context=".view.item_movement.ItemMovementFragment">
+    tools:context=".view.item_movement.ItemMovementLocationBarcodeFragment">
 
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/top_appBar"
@@ -27,7 +27,7 @@
 
 
     <TextView
-        android:id="@+id/itemenquirytitle"
+        android:id="@+id/item_enquiry_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/str_item_movements"
@@ -43,24 +43,24 @@
         app:layout_constraintStart_toStartOf="parent"
         tools:ignore="MissingConstraints" />
     <include
-        android:id="@+id/itemenquiryinputfield"
-        layout="@layout/input_field_barcodescan"
+        android:id="@+id/item_enquiry_input_field"
+        layout="@layout/input_field_barcode_scan"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_padding_normal"
-        app:layout_constraintTop_toBottomOf="@+id/itemenquirytitle"
+        app:layout_constraintTop_toBottomOf="@+id/item_enquiry_title"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
         app:layout_constraintEnd_toEndOf="@id/guidelineRight"/>
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btnnext"
+        android:id="@+id/btn_next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Next"
         style="@style/button"
         android:layout_marginTop="@dimen/margin_padding_normal"
         app:layout_constraintEnd_toEndOf="@id/guidelineRight"
-        app:layout_constraintTop_toBottomOf="@+id/itemenquiryinputfield"/>
+        app:layout_constraintTop_toBottomOf="@+id/item_enquiry_input_field"/>
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guidelineRight"

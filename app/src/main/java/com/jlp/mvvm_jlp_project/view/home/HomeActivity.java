@@ -32,7 +32,7 @@ import java.util.ArrayList;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class MenuActivity extends BaseActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, ClickListener {
+public class HomeActivity extends BaseActivity implements View.OnClickListener, NavigationView.OnNavigationItemSelectedListener, ClickListener {
 
     protected final String TAG = getClass().getSimpleName();
     private @NonNull
@@ -44,30 +44,27 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener, 
 
     @Override
     protected void initViewBinding() {
-
+        binding = ActivityHomeMainBinding.inflate(getLayoutInflater());
+        setContentView(binding.getRoot());
     }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        binding = ActivityHomeMainBinding.inflate(getLayoutInflater());
-        setContentView(binding.getRoot());
-
         menuViewModel = new ViewModelProvider(this).get(MenuViewModel.class);
-
         initEvents();
     }
 
 
     private void initEvents() {
-        binding.homeLayout.homeTopheader.imgClose.setImageResource(R.drawable.ic_logout_24);
-        binding.homeLayout.homeTopheader.imgCloseSecond.setVisibility(View.VISIBLE);
+        binding.homeLayout.homeTopHeader.imgClose.setImageResource(R.drawable.ic_logout_24);
+        binding.homeLayout.homeTopHeader.imgCloseSecond.setVisibility(View.VISIBLE);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        binding.homeLayout.homeTopheader.imgCloseSecond.setOnClickListener(this);
-        binding.homeLayout.homeTopheader.imgClose.setOnClickListener(this);
+        binding.homeLayout.homeTopHeader.imgCloseSecond.setOnClickListener(this);
+        binding.homeLayout.homeTopHeader.imgClose.setOnClickListener(this);
         menuList = MenuViewModel.getMenuList(this);
         adapter = new MenuAdapter(menuList, this, this);
         GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
@@ -132,9 +129,7 @@ public class MenuActivity extends BaseActivity implements View.OnClickListener, 
     @Override
     public void onClickItem(int index, Object model) {
         DrawerMenuItem item = (DrawerMenuItem) model;
-
         menuViewModel.loadListItem(item, this);
-
     }
 
     @Override
