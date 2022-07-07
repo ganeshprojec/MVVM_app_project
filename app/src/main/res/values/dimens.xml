@@ -49,11 +49,13 @@
 
 
     <!-- Margin & padding -->
+    <dimen name="margin_padding_tiny_min">2dp</dimen>
     <dimen name="margin_padding_tiny">4dp</dimen>
     <dimen name="margin_padding_xtiny">6dp</dimen>
     <dimen name="margin_padding_small">9dp</dimen>
     <dimen name="margin_padding_x_small">12dp</dimen>
-    <dimen name="margin_padding_normal">15dp</dimen>     <!-- Top margin for views used in login and change password -->
+    <dimen name="margin_padding_normal">15dp
+    </dimen>     <!-- Top margin for views used in login and change password -->
     <dimen name="margin_padding_xnormal">20dp</dimen>
     <dimen name="margin_padding_xxnormal">25dp</dimen>
     <dimen name="margin_padding_large">30dp</dimen>
@@ -105,6 +107,7 @@
     <dimen name="dimen2dp">2dp</dimen>
     <dimen name="dimen4dp">4dp</dimen>
     <dimen name="top_header_fragment_min_height">150dp</dimen>
+    <dimen name="dimen_lots_height_min">35dp</dimen>
 
 
 </resources>

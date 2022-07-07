@@ -19,6 +19,7 @@
         <item name="android:windowFullscreen">true</item>
     </style>
 
+    <!--Normal TextView-->
     <style name="text_views">
         <item name="android:textColor">@color/text</item>
         <item name="android:textSize">@dimen/text_size_normal</item>
