@@ -31,13 +31,14 @@ import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.auth.LoginFragment;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
+import com.jlp.mvvm_jlp_project.view.carrier_handover_details.CarrierHandoverDetailsFragment;
 import com.jlp.mvvm_jlp_project.viewmodel.CommonBarCodeLocationScannerViewModel;
 
 import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
-// This fragment is common for Item enquiry, Item movement and for Location barcode
+// This fragment is common for Item enquiry, Item movement and for Location barcode and others in progress
 @AndroidEntryPoint
 public class CommonBarCodeLocationScannerFragment extends BaseFragment {
 
@@ -45,7 +46,7 @@ public class CommonBarCodeLocationScannerFragment extends BaseFragment {
     private ProgressDialog progressDialog;
     private FragmentCommonBarcodeLocationScannerBinding binding;
     private CommonBarCodeLocationScannerViewModel itemEnquiryViewModel;
-    private String callFor;
+    private final String callFor;
 
     @Inject
     RequestEnvelopeFindDeliveryDetailsForComponentBarcode requestEnvelopeFindDeliveryDetailsForComponentBarcode;
@@ -92,11 +93,28 @@ public class CommonBarCodeLocationScannerFragment extends BaseFragment {
                 }
                 case AppConstants.FRAGMENT_LOCATION_SCAN:{
                     binding.actionbar.txtToolbarTitle.setText(getResources().getString(R.string.item_movement_title));
-                    binding.itemEnquiryInputField.inputBarcode.setHint(getResources().getString(R.string.enter_location_barcode_number));
-                    binding.itemEnquiryInputField.textTitle.setText(getResources().getString(R.string.enter_location_barcode_number_or_scan));
+                    setLocationBarcodeFragmentTextTitles();
+                    break;
+                }
+                case AppConstants.FRAGMENT_HAND_OVER_DELIVERY_DETAILS:{
+                    binding.actionbar.txtToolbarTitle.setText(getResources().getString(R.string.handover_delivery_title));
+                    break;
+                }case AppConstants.FRAGMENT_MULTI_MOVEMENT:{
+                    binding.actionbar.txtToolbarTitle.setText(getResources().getString(R.string.multi_movement_title));
+                    setLocationBarcodeFragmentTextTitles();
                     break;
                 }
             }
+    }
+
+    private void setLocationBarcodeFragmentTextTitles() {
+        binding.itemEnquiryInputField.inputBarcode.setHint(getResources().getString(R.string.enter_location_barcode_number));
+        binding.itemEnquiryInputField.textTitle.setText(getResources().getString(R.string.enter_location_barcode_number_or_scan));
+    }
+
+    private void setComponentBarcodeFragmentTextTitles() {
+        binding.itemEnquiryInputField.inputBarcode.setHint(getResources().getString(R.string.enter_location_barcode_number));
+        binding.itemEnquiryInputField.textTitle.setText(getResources().getString(R.string.enter_location_barcode_number_or_scan));
     }
 
     private void initListener() {
@@ -152,8 +170,11 @@ public class CommonBarCodeLocationScannerFragment extends BaseFragment {
                         case SUCCESS:{
                             clearViews();
                             Utils.hideProgressDialog(progressDialog);
-                            //TODO: Handle response data
-                            setBundleDataForFindLocationDetailsForBarcode(new CommonBarCodeLocationScannerDetailsFragment(callFor), response.data);
+                            if(callFor.equals(AppConstants.FRAGMENT_MULTI_MOVEMENT)){
+                                setComponentBarcodeFragmentTextTitles();
+                            }else{
+                                setBundleDataForFindLocationDetailsForBarcode(new CommonBarCodeLocationScannerDetailsFragment(callFor), response.data);
+                            }
                             break;
                         }
                     }
@@ -162,6 +183,7 @@ public class CommonBarCodeLocationScannerFragment extends BaseFragment {
         });
     }
 
+    //TODO it should be from ViewModel
     private void validate() {
         String barcode = binding.itemEnquiryInputField.inputBarcode.getText().toString().trim();
         if(TextUtils.isEmpty(barcode)){
@@ -180,8 +202,13 @@ public class CommonBarCodeLocationScannerFragment extends BaseFragment {
                 findDeliveryDetailsForComponentBarcode(barcode);
                 break;
             }
+            case AppConstants.FRAGMENT_MULTI_MOVEMENT:
             case AppConstants.FRAGMENT_LOCATION_SCAN:{
                 findLocationDetailsForBarcode(barcode);
+                break;
+            }
+            case AppConstants.FRAGMENT_HAND_OVER_DELIVERY_DETAILS:{
+                replaceFragment(new CarrierHandoverDetailsFragment());
                 break;
             }
         }
@@ -230,6 +257,7 @@ public class CommonBarCodeLocationScannerFragment extends BaseFragment {
         replaceFragment(fragment);
     }
 
+    // TODO: NavController we have to use for this
     private void replaceFragment(Fragment fragment){
         FragmentTransaction transaction = ((AppCompatActivity) getActivity()).getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container_main, fragment); //main_fragment_container

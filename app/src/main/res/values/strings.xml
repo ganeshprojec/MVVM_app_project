@@ -110,4 +110,19 @@
 
     <string name="enter_location_barcode_number">Enter location barcode number</string>
     <string name="enter_location_barcode_number_or_scan">Enter location barcode number/scan</string>
+
+    <!-- Strings for carrier handover details -->
+    <string name="please_enter_details_for_handover">Please enter details for handover</string>
+    <string name="to_be_collected_and_delivered_by">To be collected and delivered by</string>
+    <string name="on">On</string>
+    <string name="delivery_to_the_customer_on">Delivery to the customer on</string>
+    <string name="latest_delivery_time">Latest delivery time</string>
+    <string name="onward_tracking_reference">Onward tracking reference</string>
+    <string name="confirm">Confirm</string>
+    <string name="handover_delivery_title">Carrier Handover Details</string>
+
+    <!-- Strings for Multi Movement -->
+    <string name="multi_movement_title">Multi Movements</string>
+
+
 </resources>

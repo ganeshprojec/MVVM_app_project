@@ -105,7 +105,7 @@ public class MenuViewModel extends BaseViewModel {
     }
 
     public void onPressMovements(@ActivityContext Context context) {
-        Helper.addFragment(context, new TemplateFragment());
+        Helper.addFragment(context, new CommonBarCodeLocationScannerFragment(AppConstants.FRAGMENT_MULTI_MOVEMENT));
     }
 
     public void onPressReprintLabels(@ActivityContext Context context) {
@@ -125,7 +125,9 @@ public class MenuViewModel extends BaseViewModel {
     }
 
     public void onPressDeliveryDetails(@ActivityContext Context context) {
-        Helper.addFragment(context, new TemplateFragment());
+        Helper.addFragment(context, new CommonBarCodeLocationScannerFragment(AppConstants.FRAGMENT_HAND_OVER_DELIVERY_DETAILS));
+
+        //Helper.addFragment(context, new TemplateFragment());
     }
 
 

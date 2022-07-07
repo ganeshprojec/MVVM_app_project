@@ -23,7 +23,6 @@ import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_compone
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.LocationDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseDataFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
-import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.auth.LoginFragment;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
@@ -134,6 +133,7 @@ public class CommonBarCodeLocationScannerDetailsFragment extends BaseFragment{
         return binding.getRoot();
     }
 
+    //TODO it should be from ViewModel
     public List<ItemEnquiryModel> getComponentBarcodeData(DeliveryItemProductDetails itemEnquiryDetailsData)
     {
         List<ItemEnquiryModel> list = new ArrayList<>();
@@ -162,6 +162,7 @@ public class CommonBarCodeLocationScannerDetailsFragment extends BaseFragment{
         return list;
     }
 
+    //TODO it should be from ViewModel
     private List<ItemEnquiryModel> getLocationBarcodeData(LocationDetails locationDetails) {
         List<ItemEnquiryModel> list = new ArrayList<>();
         list.add(new ItemEnquiryModel("Delivery Number",
@@ -189,6 +190,7 @@ public class CommonBarCodeLocationScannerDetailsFragment extends BaseFragment{
         return list;
     }
 
+    // TODO: NavController we have to use for this
     public void replaceFragment(Fragment fragment){
         FragmentTransaction transaction = ((AppCompatActivity) getActivity()).getSupportFragmentManager().beginTransaction();
         transaction.replace(R.id.frame_container_main, fragment); //main_fragment_container

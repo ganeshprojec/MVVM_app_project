@@ -80,6 +80,10 @@
     <dimen name="edit_padding_left_right">10dp</dimen>
     <dimen name="edit_padding_top_bottom">15dp</dimen>
 
+    <dimen name="small_edit_text_border_size">1dp</dimen>
+    <dimen name="small_edit_padding_left_right">2dp</dimen>
+    <dimen name="small_edit_padding_top_bottom">5dp</dimen>
+
     <dimen name="edit_padding_top_bo">0.98</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
