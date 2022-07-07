@@ -75,8 +75,8 @@
 
     <!-- Strings for Item Enquiry -->
     <string name="item_enquiry_title">Item Enquiry</string>
-    <string name="enter_barcode_number">Enter Barcode Number</string>
-    <string name="enter_item_barcode_number">Enter Item Barcode Number</string>
+    <string name="enter_barcode_number">Enter Barcode Number/Scan</string>
+    <string name="enter_item_barcode_number">Enter Item Barcode Number/Scan</string>
     <string name="Next">Next</string>
     <string name="text_display_item_enquiry_key">Display Key</string>
     <string name="text_display_item_enquiry_value">Display Value</string>

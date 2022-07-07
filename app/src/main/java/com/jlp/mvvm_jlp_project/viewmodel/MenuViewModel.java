@@ -105,7 +105,7 @@ public class MenuViewModel extends BaseViewModel {
     }
 
     public void onPressMovements(@ActivityContext Context context) {
-        Helper.addFragment(context, new CommonBarCodeLocationScannerFragment(AppConstants.FRAGMENT_MULTI_MOVEMENT));
+        Helper.addFragment(context, new CommonBarCodeLocationScannerFragment(AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE));
     }
 
     public void onPressReprintLabels(@ActivityContext Context context) {

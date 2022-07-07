@@ -11,6 +11,7 @@ import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestEnvelopeA
 import com.jlp.mvvm_jlp_project.model.request.change_password.RequestEnvelopeChangePassword;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestEnvelopeFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
+import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.RequestEnvelopeRecordLocationOfItem;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseDataChangePassword;
@@ -19,6 +20,8 @@ import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_compone
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.ResponseEnvelopeFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseDataFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseEnvelopeFindLocationDetailsForBarcode;
+import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseDataRecordLocationOfItem;
+import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseEnvelopeRecordLocationOfItem;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.view.auth.LoginFragment;
@@ -31,11 +34,11 @@ import retrofit2.Response;
 
 
 public class CommonBarCodeLocationScannerRepository {
-    private static final String TAG = LoginFragment.class.getSimpleName();
+    private static final String TAG = CommonBarCodeLocationScannerRepository.class.getSimpleName();
     private final ApiService apiService;
     public MutableLiveData<Resource<ResponseDataFindDeliveryDetailsForComponentBarcode>> _responseFindDeliveryDetailsForComponentBarcode = new MutableLiveData<>();
     public MutableLiveData<Resource<ResponseDataFindLocationDetailsForBarcode>> _responseFindLocationDetailsForBarcode = new MutableLiveData<>();
-
+    public MutableLiveData<Resource<ResponseDataRecordLocationOfItem>> _responseDataRecordLocationOfItem = new MutableLiveData<>();
 
     @Inject public CommonBarCodeLocationScannerRepository(ApiService apiService) {
         this.apiService = apiService;
@@ -133,6 +136,52 @@ public class CommonBarCodeLocationScannerRepository {
             }
         }catch (Exception ex){
             _responseFindLocationDetailsForBarcode.postValue(Resource.error("Something Went Wrong", null));
+            Log.e(TAG ,"Error while handling the response : "+ex);
+        }
+    }
+
+
+
+    /**
+     * Api call for recordLocationOfItem
+     * @param envelope RequestEnvelopeFindLocationDetailsForBarcode
+     */
+    public void recordLocationOfItem(RequestEnvelopeRecordLocationOfItem envelope){
+        _responseFindLocationDetailsForBarcode.postValue(Resource.loading(null));
+        Call<ResponseEnvelopeRecordLocationOfItem> responseEnvelopeCall
+                = apiService.recordLocationOfItem(envelope);
+        responseEnvelopeCall.enqueue(new Callback<ResponseEnvelopeRecordLocationOfItem>() {
+            @Override
+            public void onResponse(Call<ResponseEnvelopeRecordLocationOfItem> call, Response<ResponseEnvelopeRecordLocationOfItem> response) {
+                handleRecordLocationOfItemResponse(response);
+            }
+            @Override
+            public void onFailure(Call<ResponseEnvelopeRecordLocationOfItem> call, Throwable t) {
+                _responseDataRecordLocationOfItem.postValue(Resource.error(t.getMessage(), null));
+            }
+        });
+    }
+
+    /**
+     * handled find location details for barcode response and did some validation on response
+     * @param response ResponseEnvelopeFindLocationDetailsForBarcode to manipulate the error data
+     */
+    private void handleRecordLocationOfItemResponse(Response<ResponseEnvelopeRecordLocationOfItem> response){
+        try {
+            if(response.isSuccessful() && response.body()!=null &&
+                    response.body().getResponseBodyRecordLocationOfItem().getResponseDataRecordLocationOfItem().getDitsErrors()==null) {
+                _responseDataRecordLocationOfItem.postValue(Resource.success(response.body().getResponseBodyRecordLocationOfItem().getResponseDataRecordLocationOfItem()));
+            }else if(response.errorBody()!=null){
+                _responseDataRecordLocationOfItem.postValue(Resource.error("Error while getting the response", null));
+            }else if(response.body().getResponseBodyRecordLocationOfItem().getResponseDataRecordLocationOfItem().getDitsErrors()!=null){
+                _responseDataRecordLocationOfItem.postValue(Resource.error( response.body().getResponseBodyRecordLocationOfItem().getResponseDataRecordLocationOfItem().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
+                        response.body().getResponseBodyRecordLocationOfItem().getResponseDataRecordLocationOfItem()));
+            } else{
+                _responseDataRecordLocationOfItem.postValue(Resource.error("Something Went Wrong", null));
+                Log.i(TAG ,"Response is neither success nor error");
+            }
+        }catch (Exception ex){
+            _responseDataRecordLocationOfItem.postValue(Resource.error("Something Went Wrong", null));
             Log.e(TAG ,"Error while handling the response : "+ex);
         }
     }

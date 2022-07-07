@@ -23,7 +23,10 @@ import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_componen
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestBodyFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestDataFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
+import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.LocationItemDetails;
+import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.DeliveryItemProductDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.ResponseDataFindDeliveryDetailsForComponentBarcode;
+import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.LocationDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseDataFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
@@ -45,8 +48,11 @@ public class CommonBarCodeLocationScannerFragment extends BaseFragment {
     private static final String TAG = LoginFragment.class.getSimpleName();
     private ProgressDialog progressDialog;
     private FragmentCommonBarcodeLocationScannerBinding binding;
-    private CommonBarCodeLocationScannerViewModel itemEnquiryViewModel;
-    private final String callFor;
+    private CommonBarCodeLocationScannerViewModel commonBarCodeLocationScannerViewModel;
+    private String callFor;
+
+    private DeliveryItemProductDetails deliveryItemProductDetails;
+    private LocationDetails locationDetails;
 
     @Inject
     RequestEnvelopeFindDeliveryDetailsForComponentBarcode requestEnvelopeFindDeliveryDetailsForComponentBarcode;
@@ -75,7 +81,7 @@ public class CommonBarCodeLocationScannerFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        itemEnquiryViewModel = new ViewModelProvider(this).get(CommonBarCodeLocationScannerViewModel.class);
+        commonBarCodeLocationScannerViewModel = new ViewModelProvider(this).get(CommonBarCodeLocationScannerViewModel.class);
         updateActionbarTitle();
         initObserver();
         initListener();
@@ -99,7 +105,9 @@ public class CommonBarCodeLocationScannerFragment extends BaseFragment {
                 case AppConstants.FRAGMENT_HAND_OVER_DELIVERY_DETAILS:{
                     binding.actionbar.txtToolbarTitle.setText(getResources().getString(R.string.handover_delivery_title));
                     break;
-                }case AppConstants.FRAGMENT_MULTI_MOVEMENT:{
+                }
+                case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE:
+                case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE:{
                     binding.actionbar.txtToolbarTitle.setText(getResources().getString(R.string.multi_movement_title));
                     setLocationBarcodeFragmentTextTitles();
                     break;
@@ -113,8 +121,8 @@ public class CommonBarCodeLocationScannerFragment extends BaseFragment {
     }
 
     private void setComponentBarcodeFragmentTextTitles() {
-        binding.itemEnquiryInputField.inputBarcode.setHint(getResources().getString(R.string.enter_location_barcode_number));
-        binding.itemEnquiryInputField.textTitle.setText(getResources().getString(R.string.enter_location_barcode_number_or_scan));
+        binding.itemEnquiryInputField.inputBarcode.setHint(getResources().getString(R.string.enter_barcode_number));
+        binding.itemEnquiryInputField.textTitle.setText(getResources().getString(R.string.enter_item_barcode_number));
     }
 
     private void initListener() {
@@ -128,7 +136,7 @@ public class CommonBarCodeLocationScannerFragment extends BaseFragment {
     }
 
     private void initObserver() {
-        itemEnquiryViewModel.responseFindDeliveryDetailsForComponentBarcode.observe(getViewLifecycleOwner(), new Observer<Resource<ResponseDataFindDeliveryDetailsForComponentBarcode>>() {
+        commonBarCodeLocationScannerViewModel.responseFindDeliveryDetailsForComponentBarcode.observe(getViewLifecycleOwner(), new Observer<Resource<ResponseDataFindDeliveryDetailsForComponentBarcode>>() {
             @Override
             public void onChanged(Resource<ResponseDataFindDeliveryDetailsForComponentBarcode> response) {
                 if(response.status != null){
@@ -145,6 +153,7 @@ public class CommonBarCodeLocationScannerFragment extends BaseFragment {
                         case SUCCESS:{
                             clearViews();
                             Utils.hideProgressDialog(progressDialog);
+                            deliveryItemProductDetails = response.data.getDeliveryItemProductDetails();
                             setBundleDataForFindDeliveryDetailsForComponentBarcode(new CommonBarCodeLocationScannerDetailsFragment(callFor), response.data);
                             break;
                         }
@@ -153,7 +162,7 @@ public class CommonBarCodeLocationScannerFragment extends BaseFragment {
             }
         });
 
-        itemEnquiryViewModel.responseFindLocationDetailsForBarcode.observe(getViewLifecycleOwner(), new Observer<Resource<ResponseDataFindLocationDetailsForBarcode>>() {
+        commonBarCodeLocationScannerViewModel.responseFindLocationDetailsForBarcode.observe(getViewLifecycleOwner(), new Observer<Resource<ResponseDataFindLocationDetailsForBarcode>>() {
             @Override
             public void onChanged(Resource<ResponseDataFindLocationDetailsForBarcode> response) {
                 if(response.status != null){
@@ -170,8 +179,10 @@ public class CommonBarCodeLocationScannerFragment extends BaseFragment {
                         case SUCCESS:{
                             clearViews();
                             Utils.hideProgressDialog(progressDialog);
-                            if(callFor.equals(AppConstants.FRAGMENT_MULTI_MOVEMENT)){
+                            locationDetails = response.data.getLocationDetails();
+                            if(callFor.equals(AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE)){
                                 setComponentBarcodeFragmentTextTitles();
+                                callFor = AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE;
                             }else{
                                 setBundleDataForFindLocationDetailsForBarcode(new CommonBarCodeLocationScannerDetailsFragment(callFor), response.data);
                             }
@@ -197,12 +208,13 @@ public class CommonBarCodeLocationScannerFragment extends BaseFragment {
 
     private void findDetailsOfScannedBarcode(String barcode) {
         switch (callFor){
+            case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE:
             case AppConstants.FRAGMENT_ITEM_ENQUIRY:
             case AppConstants.FRAGMENT_ITEM_MOVEMENT: {
                 findDeliveryDetailsForComponentBarcode(barcode);
                 break;
             }
-            case AppConstants.FRAGMENT_MULTI_MOVEMENT:
+            case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE:
             case AppConstants.FRAGMENT_LOCATION_SCAN:{
                 findLocationDetailsForBarcode(barcode);
                 break;
@@ -216,7 +228,7 @@ public class CommonBarCodeLocationScannerFragment extends BaseFragment {
 
     private void findDeliveryDetailsForComponentBarcode(String barcode) {
         prepareRequestDataForFindDeliveryDetailsForComponentBarcode(barcode);
-        itemEnquiryViewModel.findDeliveryDetailsForComponentBarcode(requestEnvelopeFindDeliveryDetailsForComponentBarcode);
+        commonBarCodeLocationScannerViewModel.findDeliveryDetailsForComponentBarcode(requestEnvelopeFindDeliveryDetailsForComponentBarcode);
     }
 
     private void prepareRequestDataForFindDeliveryDetailsForComponentBarcode(String barcode) {
@@ -227,7 +239,7 @@ public class CommonBarCodeLocationScannerFragment extends BaseFragment {
 
     private void findLocationDetailsForBarcode(String barcode) {
         prepareRequestDataForFindLocationDetailsForBarcode(barcode);
-        itemEnquiryViewModel.findLocationDetailsForBarcode(requestEnvelopeFindLocationDetailsForBarcode);
+        commonBarCodeLocationScannerViewModel.findLocationDetailsForBarcode(requestEnvelopeFindLocationDetailsForBarcode);
     }
 
     private void prepareRequestDataForFindLocationDetailsForBarcode(String barcode) {
@@ -244,7 +256,8 @@ public class CommonBarCodeLocationScannerFragment extends BaseFragment {
     private void setBundleDataForFindDeliveryDetailsForComponentBarcode(Fragment fragment,
                                                                         ResponseDataFindDeliveryDetailsForComponentBarcode responseData){
         Bundle bundle = new Bundle();
-        bundle.putParcelable(AppConstants.COMPONENT_BARCODE_DETAILS_DATA, responseData);
+        bundle.putParcelable(AppConstants.COMPONENT_BARCODE_DETAILS_DATA, deliveryItemProductDetails);
+        bundle.putParcelable(AppConstants.LOCATION_BARCODE_DETAILS_DATA, locationDetails);
         fragment.setArguments(bundle);
         replaceFragment(fragment);
     }
@@ -252,7 +265,8 @@ public class CommonBarCodeLocationScannerFragment extends BaseFragment {
     private void setBundleDataForFindLocationDetailsForBarcode(Fragment fragment,
                                                                ResponseDataFindLocationDetailsForBarcode responseData){
         Bundle bundle = new Bundle();
-        bundle.putParcelable(AppConstants.LOCATION_BARCODE_DETAILS_DATA, responseData);
+        bundle.putParcelable(AppConstants.LOCATION_BARCODE_DETAILS_DATA, locationDetails);
+        bundle.putParcelable(AppConstants.COMPONENT_BARCODE_DETAILS_DATA, deliveryItemProductDetails);
         fragment.setArguments(bundle);
         replaceFragment(fragment);
     }

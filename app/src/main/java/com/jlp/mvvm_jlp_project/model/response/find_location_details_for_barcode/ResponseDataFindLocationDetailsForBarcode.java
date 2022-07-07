@@ -17,9 +17,9 @@ import javax.inject.Inject;
  *  Created by Sandeep(Techno Learning) on 16,June,2022
  */
 
-@Root(name = "FindLocationDetailsForBarcodeResponse", strict = false)
+@Root(name = "RecordLocationOfItemResponse", strict = false)
 @Namespace(reference = Constants.NAMESPACE)
-public class ResponseDataFindLocationDetailsForBarcode implements Parcelable {
+public class ResponseDataFindLocationDetailsForBarcode {
     @Element(name = "LocationDetails", required = false)
     public LocationDetails locationDetails;
 
@@ -31,27 +31,6 @@ public class ResponseDataFindLocationDetailsForBarcode implements Parcelable {
 
     protected ResponseDataFindLocationDetailsForBarcode(Parcel in) {
     }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<ResponseDataFindLocationDetailsForBarcode> CREATOR = new Creator<ResponseDataFindLocationDetailsForBarcode>() {
-        @Override
-        public ResponseDataFindLocationDetailsForBarcode createFromParcel(Parcel in) {
-            return new ResponseDataFindLocationDetailsForBarcode(in);
-        }
-
-        @Override
-        public ResponseDataFindLocationDetailsForBarcode[] newArray(int size) {
-            return new ResponseDataFindLocationDetailsForBarcode[size];
-        }
-    };
 
     public LocationDetails getLocationDetails() {
         return locationDetails;
