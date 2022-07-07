@@ -24,7 +24,7 @@ import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
-import com.jlp.mvvm_jlp_project.view.home.MenuActivity;
+import com.jlp.mvvm_jlp_project.view.home.HomeActivity;
 import com.jlp.mvvm_jlp_project.viewmodel.AuthViewModel;
 
 import javax.inject.Inject;
@@ -142,7 +142,7 @@ public class LoginFragment extends BaseFragment {
                         case SUCCESS:{
                             clearViews();
                             Utils.hideProgressDialog(progressDialog);
-                            Helper.redirectToActivity(getActivity(), MenuActivity.class, true);
+                            Helper.redirectToActivity(getActivity(), HomeActivity.class, true);
                             break;
                         }
                     }

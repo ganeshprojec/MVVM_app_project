@@ -9,9 +9,7 @@
     app:layout_constraintStart_toStartOf="parent"
     app:layout_constraintTop_toTopOf="parent">
 
-
     <androidx.appcompat.widget.Toolbar
-
         android:id="@+id/toolbarTop"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_height"
@@ -21,7 +19,6 @@
         android:contentInsetEnd="0dp"
         android:contentInsetRight="0dp"
         android:elevation="8dp"
-
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
         app:contentInsetEnd="0dp"
         app:contentInsetLeft="0dp"
@@ -63,7 +60,6 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_horizontal|center_vertical"
-
                     android:maxWidth="@dimen/dimen_toolbar_back"
                     android:maxHeight="@dimen/dimen_toolbar_back"
                     android:onClick="onOptionMenu"
@@ -80,7 +76,6 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/dimen_std_page_margin"
                 android:layout_toRightOf="@id/layLinOptions"
-
                 android:lines="1"
                 android:maxLines="1"
                 android:padding="@dimen/dimen4dp"

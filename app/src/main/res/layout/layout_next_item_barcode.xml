@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:background="@color/text_view_shadow_color">
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/toolbarTop"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_margin="@dimen/margin_padding_tiny"
+            android:padding="@dimen/margin_padding_tiny"
+            android:background="@color/text_view_shadow_color"
+            android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/txtToolbarTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="@string/scan_next_item_barcode"
+                    style="@style/text_views" />
+
+                <ImageView
+                    android:id="@+id/img_next_scan"
+                    android:layout_width="@dimen/dimen_toolbar_close"
+                    android:layout_height="@dimen/dimen_toolbar_close"
+                    android:src="@drawable/ic_qr_code_scan" />
+
+        </LinearLayout>
+
+
+
+
+</LinearLayout>
+

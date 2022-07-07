@@ -30,12 +30,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class ItemEnquiryRepository {
+public class CommonBarCodeLocationScannerRepository {
     private static final String TAG = LoginFragment.class.getSimpleName();
     private final ApiService apiService;
     public MutableLiveData<Resource<ResponseDataFindDeliveryDetailsForComponentBarcode>> _responseFindDeliveryDetailsForComponentBarcode = new MutableLiveData<>();
+    public MutableLiveData<Resource<ResponseDataFindLocationDetailsForBarcode>> _responseFindLocationDetailsForBarcode = new MutableLiveData<>();
 
-    @Inject public ItemEnquiryRepository(ApiService apiService) {
+
+    @Inject public CommonBarCodeLocationScannerRepository(ApiService apiService) {
         this.apiService = apiService;
     }
 
@@ -50,7 +52,7 @@ public class ItemEnquiryRepository {
         responseEnvelopeCall.enqueue(new Callback<ResponseEnvelopeFindDeliveryDetailsForComponentBarcode>() {
             @Override
             public void onResponse(Call<ResponseEnvelopeFindDeliveryDetailsForComponentBarcode> call, Response<ResponseEnvelopeFindDeliveryDetailsForComponentBarcode> response) {
-                handleFindLocationDetailsForBarcodeResponse(response);
+                handleFindDeliveryDetailsForComponentBarcode(response);
             }
             @Override
             public void onFailure(Call<ResponseEnvelopeFindDeliveryDetailsForComponentBarcode> call, Throwable t) {
@@ -63,7 +65,7 @@ public class ItemEnquiryRepository {
      * handled find location details for barcode response and did some validation on response
      * @param response ResponseEnvelopeFindLocationDetailsForBarcode to manipulate the error data
      */
-    private void handleFindLocationDetailsForBarcodeResponse(Response<ResponseEnvelopeFindDeliveryDetailsForComponentBarcode> response){
+    private void handleFindDeliveryDetailsForComponentBarcode(Response<ResponseEnvelopeFindDeliveryDetailsForComponentBarcode> response){
         try {
             if(response.isSuccessful() && response.body()!=null &&
                     response.body().getResponseBodyFindDeliveryDetailsForComponentBarcode().
@@ -83,6 +85,54 @@ public class ItemEnquiryRepository {
             }
         }catch (Exception ex){
             _responseFindDeliveryDetailsForComponentBarcode.postValue(Resource.error("Something Went Wrong", null));
+            Log.e(TAG ,"Error while handling the response : "+ex);
+        }
+    }
+
+
+
+
+
+    /**
+     * Api call for findLocationDetailsForBarcode
+     * @param envelope RequestEnvelopeFindLocationDetailsForBarcode
+     */
+    public void findLocationDetailsForBarcode(RequestEnvelopeFindLocationDetailsForBarcode envelope){
+        _responseFindLocationDetailsForBarcode.postValue(Resource.loading(null));
+        Call<ResponseEnvelopeFindLocationDetailsForBarcode> responseEnvelopeCall
+                = apiService.findLocationDetailsForBarcode(envelope);
+        responseEnvelopeCall.enqueue(new Callback<ResponseEnvelopeFindLocationDetailsForBarcode>() {
+            @Override
+            public void onResponse(Call<ResponseEnvelopeFindLocationDetailsForBarcode> call, Response<ResponseEnvelopeFindLocationDetailsForBarcode> response) {
+                handleFindLocationDetailsForBarcodeResponse(response);
+            }
+            @Override
+            public void onFailure(Call<ResponseEnvelopeFindLocationDetailsForBarcode> call, Throwable t) {
+                _responseFindLocationDetailsForBarcode.postValue(Resource.error(t.getMessage(), null));
+            }
+        });
+    }
+
+    /**
+     * handled find location details for barcode response and did some validation on response
+     * @param response ResponseEnvelopeFindLocationDetailsForBarcode to manipulate the error data
+     */
+    private void handleFindLocationDetailsForBarcodeResponse(Response<ResponseEnvelopeFindLocationDetailsForBarcode> response){
+        try {
+            if(response.isSuccessful() && response.body()!=null &&
+                    response.body().getFindLocationDetailsForBarcode().getResponseDataFindLocationDetailsForBarcode().getDitsErrors()==null) {
+                _responseFindLocationDetailsForBarcode.postValue(Resource.success(response.body().getFindLocationDetailsForBarcode().getResponseDataFindLocationDetailsForBarcode()));
+            }else if(response.errorBody()!=null){
+                _responseFindLocationDetailsForBarcode.postValue(Resource.error("Error while getting the response", null));
+            }else if(response.body().getFindLocationDetailsForBarcode().getResponseDataFindLocationDetailsForBarcode().getDitsErrors()!=null){
+                _responseFindLocationDetailsForBarcode.postValue(Resource.error( response.body().getFindLocationDetailsForBarcode().getResponseDataFindLocationDetailsForBarcode().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
+                        response.body().getFindLocationDetailsForBarcode().getResponseDataFindLocationDetailsForBarcode()));
+            } else{
+                _responseFindLocationDetailsForBarcode.postValue(Resource.error("Something Went Wrong", null));
+                Log.i(TAG ,"Response is neither success nor error");
+            }
+        }catch (Exception ex){
+            _responseFindLocationDetailsForBarcode.postValue(Resource.error("Something Went Wrong", null));
             Log.e(TAG ,"Error while handling the response : "+ex);
         }
     }

@@ -19,9 +19,6 @@
         android:theme="@style/Theme.JLP_Layouts"
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
-        <activity
-            android:name=".view.home.MainActivity"
-            android:exported="false" />
 
         <!--<activity
             android:name=".view.auth.AuthActivity"
@@ -29,7 +26,7 @@
 
           <!--Before commit change to auth activity -->
         <activity
-            android:name=".view.home.MenuActivity"
+            android:name=".view.home.HomeActivity"
 
             android:exported="true"
             android:theme="@style/fullscreen"

@@ -107,4 +107,11 @@
     <string name="selected_printer">Selected Printer</string>
     <string name="delivery_number">Delivery Number</string>
     <string name="pls_attach_lable">Please attach labels and store items using Movements option</string>
+
+    <!-- Strings for Item Movement -->
+    <string name="item_movement_title">Item Movement</string>
+
+
+    <string name="enter_location_barcode_number">Enter location barcode number</string>
+    <string name="enter_location_barcode_number_or_scan">Enter location barcode number/scan</string>
 </resources>

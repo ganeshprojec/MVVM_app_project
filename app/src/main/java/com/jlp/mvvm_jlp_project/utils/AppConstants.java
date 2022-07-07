@@ -13,5 +13,10 @@ public class AppConstants {
     public static final String SUCCESS = "SUCCESS";
     public static final String ERROR = "ERROR";
 
+    public static final String COMPONENT_BARCODE_DETAILS_DATA = "Barcode Details Data";
+    public static final String LOCATION_BARCODE_DETAILS_DATA = "Location Details Data";
     public static final String ITEM_ENQUIRY_DETAILS_DATA = "Item Enquiry Details Data";
+    public static final String FRAGMENT_ITEM_ENQUIRY = "Fragment Item Enquiry";
+    public static final String FRAGMENT_ITEM_MOVEMENT = "Fragment Item Movement";
+    public static final String FRAGMENT_LOCATION_SCAN = "Fragment Location Scan";
 }

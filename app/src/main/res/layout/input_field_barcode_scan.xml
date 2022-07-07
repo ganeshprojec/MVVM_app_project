@@ -24,7 +24,7 @@
         tools:ignore="MissingConstraints" />
 
     <TextView
-        android:id="@+id/textTitle"
+        android:id="@+id/text_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/enter_barcode_number"
@@ -36,7 +36,7 @@
         />
 
     <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/inputBarcode"
+        android:id="@+id/input_barcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
 
@@ -48,7 +48,7 @@
 
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+        app:layout_constraintTop_toBottomOf="@+id/text_title" />
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnnext"

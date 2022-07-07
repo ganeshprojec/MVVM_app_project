@@ -29,6 +29,21 @@ public class ResponseDataFindDeliveryDetailsForComponentBarcode implements Parce
     @Inject
     ResponseDataFindDeliveryDetailsForComponentBarcode(){}
 
+    protected ResponseDataFindDeliveryDetailsForComponentBarcode(Parcel in) {
+    }
+
+    public static final Creator<ResponseDataFindDeliveryDetailsForComponentBarcode> CREATOR = new Creator<ResponseDataFindDeliveryDetailsForComponentBarcode>() {
+        @Override
+        public ResponseDataFindDeliveryDetailsForComponentBarcode createFromParcel(Parcel in) {
+            return new ResponseDataFindDeliveryDetailsForComponentBarcode(in);
+        }
+
+        @Override
+        public ResponseDataFindDeliveryDetailsForComponentBarcode[] newArray(int size) {
+            return new ResponseDataFindDeliveryDetailsForComponentBarcode[size];
+        }
+    };
+
     public DeliveryItemProductDetails getDeliveryItemProductDetails() {
         return deliveryItemProductDetails;
     }
@@ -52,6 +67,5 @@ public class ResponseDataFindDeliveryDetailsForComponentBarcode implements Parce
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-
     }
 }
