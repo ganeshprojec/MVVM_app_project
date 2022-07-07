@@ -1,4 +1,4 @@
-package com.jlp.mvvm_jlp_project.view.itemmovement;
+package com.jlp.mvvm_jlp_project.view.item_movement;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -94,7 +94,7 @@ public class ItemMovementFragment extends BaseFragment {
     }
 
     private void initListener() {
-        binding.btnnext.setOnClickListener(new View.OnClickListener() {
+        binding.itemenquiryinputfield.btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Helper.hideKeyboard(getActivity(), view);

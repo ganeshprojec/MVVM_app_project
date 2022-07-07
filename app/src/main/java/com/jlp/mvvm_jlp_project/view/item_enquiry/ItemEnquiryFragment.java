@@ -100,13 +100,15 @@ public class ItemEnquiryFragment extends BaseFragment {
     }
 
     private void initListener() {
-        binding.btnNext.setOnClickListener(new View.OnClickListener() {
+        binding.itemenquiryinputfield.btnnext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Helper.hideKeyboard(getActivity(), view);
                 validate();
             }
         });
+
+
     }
 
     private void validate() {

@@ -6,29 +6,59 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+    <TextView
+        android:id="@+id/itemenquirytitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/str_item_movements"
+        android:visibility="invisible"
+        android:textAlignment="center"
+        android:textColor="@color/text"
+        android:textSize="@dimen/text_size_x_large"
+        android:textStyle="bold"
+        android:layout_marginTop="@dimen/margin_padding_x_small"
+        android:layout_marginBottom="@dimen/margin_padding_x_small"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints" />
+
     <TextView
         android:id="@+id/textTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="@string/enter_barcode_number"
         style="@style/text_views"
+        android:layout_marginTop="@dimen/margin_padding_large"
+        app:layout_constraintTop_toBottomOf="@+id/itemenquirytitle"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        />
 
     <com.google.android.material.textfield.TextInputEditText
         android:id="@+id/inputBarcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_padding_tiny"
+
         android:hint="@string/enter_item_barcode_number"
         android:imeOptions="actionNext"
         android:inputType="number"
         android:maxLength="6"
         style="@style/text_input_edittext"
-        app:layout_constraintBottom_toBottomOf="parent"
+
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnnext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/Next"
+        style="@style/button"
+        android:layout_marginTop="@dimen/margin_padding_normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginRight="@dimen/margin_padding_large"
+        app:layout_constraintTop_toBottomOf="@+id/inputBarcode"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
