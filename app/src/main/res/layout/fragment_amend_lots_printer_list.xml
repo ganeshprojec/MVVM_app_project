@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.amend_lots.AmendLotsPrinterListFragment">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:id="@+id/top_appBar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/Theme.JLP_Layouts.AppBarOverlay"
+        tools:ignore="MissingConstraints">
+
+        <!-- layout="@layout/layout_item_enquiry_top_header"-->
+        <include
+            android:id="@+id/item_movement_top_header"
+            layout="@layout/layout_item_enquiry_top_header" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <TextView
+        android:id="@+id/dummy"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:textSize="@dimen/margin_padding_normal"
+        android:text=" Dummy Redirect"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView_amend_lot_printerList"
+        tools:ignore="MissingConstraints" />
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_amend_lot_printerList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/margin_padding_large"
+        android:layout_marginLeft="@dimen/margin_padding_xnormal"
+        android:layout_marginRight="@dimen/margin_padding_xnormal"
+        app:layout_constraintTop_toBottomOf="@+id/top_appBar"
+        tools:ignore="MissingConstraints"
+        />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

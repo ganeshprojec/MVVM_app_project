@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".view.amend_lots.AmendLotDetailDisplayFragment">
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView_amend_lot_display"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="@dimen/margin_padding_large"
+        android:layout_marginLeft="@dimen/margin_padding_xnormal"
+        android:layout_marginRight="@dimen/margin_padding_xnormal"
+        android:nestedScrollingEnabled="false"
+        android:overScrollMode="never"
+        tools:ignore="MissingConstraints"
+         />
+
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/enter_lots_required"
+        style="@style/text_views"
+        android:layout_marginLeft="@dimen/margin_padding_xnormal"
+        android:layout_marginRight="@dimen/margin_padding_xnormal"
+        android:layout_marginTop="@dimen/margin_padding_large"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView_amend_lot_display"
+
+        />
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/inputBarcode"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_lots_required"
+        android:imeOptions="actionNext"
+        android:inputType="number"
+        android:maxLength="6"
+        style="@style/text_input_edittext"
+        android:layout_marginLeft="@dimen/margin_padding_xnormal"
+        android:layout_marginRight="@dimen/margin_padding_xnormal"
+        app:layout_constraintTop_toBottomOf="@+id/textTitle" />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
