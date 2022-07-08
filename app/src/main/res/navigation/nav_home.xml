@@ -7,9 +7,9 @@
 
     <fragment
         android:id="@+id/itemEnquiryFragment"
-        android:name="com.jlp.mvvm_jlp_project.view.item_enquiry.CommonBarCodeLocationScannerFragment"
+        android:name="com.jlp.mvvm_jlp_project.view.item_enquiry.CommonBarcodeScannerFragment"
         android:label="Item Enquiry"
-        tools:layout="@layout/fragment_common_barcode_location_scanner" >
+        tools:layout="@layout/fragment_common_barcode_scanner" >
         <action
             android:id="@+id/action_itemEnquiryFragment_to_itemEnquiryDetailsFragment"
             app:destination="@id/itemEnquiryDetailsFragment" />
@@ -17,9 +17,9 @@
 
     <fragment
         android:id="@+id/itemEnquiryDetailsFragment"
-        android:name="com.jlp.mvvm_jlp_project.view.item_enquiry.CommonBarCodeLocationScannerDetailsFragment"
+        android:name="com.jlp.mvvm_jlp_project.view.item_enquiry.CommonBarcodeScannerDetailsFragment"
         android:label="fragment_item_enquiry_details"
-        tools:layout="@layout/fragment_common_barcode_location_scanner_details" >
+        tools:layout="@layout/fragment_common_barcode_scanner_details" >
         <action
             android:id="@+id/action_itemEnquiryDetailsFragment_to_itemEnquiryFragment"
             app:destination="@id/itemEnquiryFragment" />

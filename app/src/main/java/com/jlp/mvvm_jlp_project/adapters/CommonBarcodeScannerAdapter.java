@@ -6,30 +6,30 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jlp.mvvm_jlp_project.databinding.ItemEnquirySingleItemBinding;
+import com.jlp.mvvm_jlp_project.databinding.CommonBarcodeScannerSingleItemBinding;
 import com.jlp.mvvm_jlp_project.model.ItemEnquiryModel;
-import com.jlp.mvvm_jlp_project.view.item_enquiry.CommonBarCodeLocationScannerViewHolder;
+import com.jlp.mvvm_jlp_project.view.item_enquiry.CommonBarcodeLocationScannerViewHolder;
 
 import java.util.List;
 
-public class ItemEnquiryAdapter extends RecyclerView.Adapter<CommonBarCodeLocationScannerViewHolder> {
+public class CommonBarcodeScannerAdapter extends RecyclerView.Adapter<CommonBarcodeLocationScannerViewHolder> {
     private List<ItemEnquiryModel> list;
-    private ItemEnquirySingleItemBinding binding;
-    public ItemEnquiryAdapter(List<ItemEnquiryModel> list, Context context) {
+    private CommonBarcodeScannerSingleItemBinding binding;
+    public CommonBarcodeScannerAdapter(List<ItemEnquiryModel> list, Context context) {
         this.list = list;
     }
 
     @Override
-    public CommonBarCodeLocationScannerViewHolder
+    public CommonBarcodeLocationScannerViewHolder
     onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        binding = ItemEnquirySingleItemBinding.inflate(inflater, parent, false);
-        return new CommonBarCodeLocationScannerViewHolder(binding.getRoot());
+        binding = CommonBarcodeScannerSingleItemBinding.inflate(inflater, parent, false);
+        return new CommonBarcodeLocationScannerViewHolder(binding.getRoot());
     }
 
     @Override
     public void
-    onBindViewHolder(final CommonBarCodeLocationScannerViewHolder viewHolder, final int position) {
+    onBindViewHolder(final CommonBarcodeLocationScannerViewHolder viewHolder, final int position) {
         viewHolder.title.setText(list.get(position).getTitle());
         viewHolder.value.setText(list.get(position).getValue());
     }

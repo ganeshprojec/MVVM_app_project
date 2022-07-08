@@ -7,15 +7,15 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jlp.mvvm_jlp_project.R;
 
-public class CommonBarCodeLocationScannerViewHolder extends RecyclerView.ViewHolder {
+public class CommonBarcodeLocationScannerViewHolder extends RecyclerView.ViewHolder {
     public TextView title;
     public TextView value;
     View view;
 
-    public CommonBarCodeLocationScannerViewHolder(View itemView) {
+    public CommonBarcodeLocationScannerViewHolder(View itemView) {
         super(itemView);
-        title = itemView.findViewById(R.id.deliverynumber);
-        value = itemView.findViewById(R.id.deliverynumber1);
+        title = itemView.findViewById(R.id.tv_list_item_title);
+        value = itemView.findViewById(R.id.tv_list_item_value);
         view  = itemView;
     }
 }

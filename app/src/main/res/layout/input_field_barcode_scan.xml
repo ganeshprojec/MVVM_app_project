@@ -20,7 +20,7 @@
         android:id="@+id/input_barcode"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_padding_tiny"
+        android:layout_marginTop="@dimen/margin_padding_small"
         android:hint="@string/enter_item_barcode_number"
         android:imeOptions="actionNext"
         android:inputType="number"

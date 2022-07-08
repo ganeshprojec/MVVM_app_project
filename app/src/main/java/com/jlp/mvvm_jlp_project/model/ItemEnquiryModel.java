@@ -6,15 +6,11 @@ public class ItemEnquiryModel {
     private String title;
     private String value;
 
-
-    public ItemEnquiryModel(String deliveryNumber,
-                            String deliveryNumbers
-    )
-    {
-        this.title = deliveryNumber;
-        this.value = deliveryNumbers;
-
+    public ItemEnquiryModel(String title, String value) {
+        this.title = title;
+        this.value = value;
     }
+
     public String getTitle() {
         return title;
     }
