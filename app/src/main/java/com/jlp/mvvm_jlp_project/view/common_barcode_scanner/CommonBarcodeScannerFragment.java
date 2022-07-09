@@ -127,6 +127,10 @@ public class CommonBarcodeScannerFragment extends BaseFragment {
                     actionBarTitle = getResources().getString(R.string.handover_delivery_title);
                     break;
                 }
+                case AppConstants.FRAGMENT_CARRIER_COLLECTION_DETAILS:{
+                    actionBarTitle = getResources().getString(R.string.carrier_collection_details);
+                    break;
+                }
             }
             if(locationLayoutFlag){
                 binding.scanNextItemBarcode.scanItemBarcode.setVisibility(View.VISIBLE);

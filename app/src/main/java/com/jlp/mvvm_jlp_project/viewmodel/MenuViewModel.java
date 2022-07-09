@@ -121,7 +121,7 @@ public class MenuViewModel extends BaseViewModel {
     }
 
     public void onPressTrackDelivery(@ActivityContext Context context) {
-        Helper.addFragment(context, new TemplateFragment());
+        Helper.addFragment(context, new CommonBarcodeScannerFragment(AppConstants.FRAGMENT_CARRIER_COLLECTION_DETAILS));
     }
 
     public void onPressDeliveryDetails(@ActivityContext Context context) {

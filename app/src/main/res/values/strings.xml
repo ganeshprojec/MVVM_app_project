@@ -143,4 +143,7 @@
     <string name="last_user_id">Last user id</string>
     <string name="address">Address</string>
     <string name="product_code">Product code</string>
+
+    <!-- Strings for Carrier Handover Details Fragment -->
+    <string name="carrier_collection_details">Carrier collection details</string>
 </resources>
