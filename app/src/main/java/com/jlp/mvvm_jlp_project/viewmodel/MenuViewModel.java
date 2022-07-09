@@ -10,7 +10,7 @@ import com.jlp.mvvm_jlp_project.model.DrawerMenuItem;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.view.home.TemplateFragment;
-import com.jlp.mvvm_jlp_project.view.item_enquiry.CommonBarcodeScannerFragment;
+import com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScannerFragment;
 import com.jlp.mvvm_jlp_project.view.route_management.RouteSummaryFragment;
 
 

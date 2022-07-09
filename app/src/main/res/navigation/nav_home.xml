@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/itemEnquiryFragment"
-        android:name="com.jlp.mvvm_jlp_project.view.item_enquiry.CommonBarcodeScannerFragment"
+        android:name="com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScannerFragment"
         android:label="Item Enquiry"
         tools:layout="@layout/fragment_common_barcode_scanner" >
         <action
@@ -17,7 +17,7 @@
 
     <fragment
         android:id="@+id/itemEnquiryDetailsFragment"
-        android:name="com.jlp.mvvm_jlp_project.view.item_enquiry.CommonBarcodeScannerDetailsFragment"
+        android:name="com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScannerDetailsFragment"
         android:label="fragment_item_enquiry_details"
         tools:layout="@layout/fragment_common_barcode_scanner_details" >
         <action

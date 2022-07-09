@@ -1,4 +1,4 @@
-package com.jlp.mvvm_jlp_project.view.item_enquiry;
+package com.jlp.mvvm_jlp_project.view.common_barcode_scanner;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -40,7 +40,6 @@ import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
-//TODO:Use viewModel for data manipulation, Manage conditions to handle the data
 @AndroidEntryPoint
 public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
     private static final String TAG = LoginFragment.class.getSimpleName();
@@ -48,17 +47,18 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
     private DeliveryItemProductDetails deliveryItemProductDetails = CommonBarcodeScannerFragment.deliveryItemProductDetails;
     private LocationDetails locationDetails = CommonBarcodeScannerFragment.locationDetails;
     private FragmentCommonBarcodeScannerDetailsBinding binding;
-    private CommonBarCodeLocationScannerViewModel commonBarCodeLocationScannerViewModel;
+    private CommonBarCodeLocationScannerViewModel viewModel;
     private String callFor;
+    // Used for adapter and list to setup
     private CommonBarcodeScannerAdapter adapter;
     private List<ItemEnquiryModel> detailsDataList =  new ArrayList<>();
 
     @Inject
-    RequestEnvelopeRecordLocationOfItem requestEnvelopeRecordLocationOfItem;
+    RequestEnvelopeRecordLocationOfItem requestEnvelopeRecordLocation;
     @Inject
-    RequestBodyRecordLocationOfItem requestBodyRecordLocationOfItem;
+    RequestBodyRecordLocationOfItem requestBodyRecordLocation;
     @Inject
-    RequestDataRecordLocationOfItem requestDataRecordLocationOfItem;
+    RequestDataRecordLocationOfItem requestDataRecordLocation;
     @Inject
     LocationItemDetails locationItemDetails;
 
@@ -75,31 +75,37 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        commonBarCodeLocationScannerViewModel = new ViewModelProvider(this).get(CommonBarCodeLocationScannerViewModel.class);
+        viewModel = new ViewModelProvider(this).get(CommonBarCodeLocationScannerViewModel.class);
         updateActionbarTitleAndLocationLayout();
         initListener();
         initObserver();
         recordLocationOfItem(deliveryItemProductDetails, locationDetails);
         initListAndRecyclerView();
+        setupAdapter();
     }
 
+    /**
+     * Prepare the data list for recycler view depending on fragment from which it calls
+     */
     private void initListAndRecyclerView() {
         switch (callFor){
             case AppConstants.FRAGMENT_ITEM_MOVEMENT_FOR_COMPONENT_BARCODE:
             case AppConstants.FRAGMENT_ITEM_ENQUIRY:{
-                detailsDataList.addAll(getComponentBarcodeData(deliveryItemProductDetails));
+                viewModel.getComponentBarcodeData(deliveryItemProductDetails);
                 break;
             }
             case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE:
             case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE:
             case AppConstants.FRAGMENT_ITEM_MOVEMENT_FOR_LOCATION_BARCODE:{
-                detailsDataList.addAll(getLocationBarcodeData(deliveryItemProductDetails, locationDetails));
+                viewModel.getLocationBarcodeData(deliveryItemProductDetails, locationDetails);
                 break;
             }
         }
-        setupAdapter();
     }
 
+    /**
+     * Set up the adapter and set the data for list items
+     */
     private void setupAdapter(){
         if(detailsDataList!=null){
             adapter = new CommonBarcodeScannerAdapter(detailsDataList, getContext());
@@ -110,6 +116,9 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
         }
     }
 
+    /**
+     * Initialization of next button click listener and handle as per the fragment from which it calling
+     */
     private void initListener() {
         binding.scanNextItemBarcode.imgNextScan.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -137,16 +146,26 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
         });
     }
 
+    /**
+     * Actual API call for record location of item  from view depending on the condition from which this fragment is calling
+     * @param deliveryItemProductDetails to make the request for api call
+     * @param locationDetails to make the request for api call
+     */
     private void recordLocationOfItem(DeliveryItemProductDetails deliveryItemProductDetails,
                                       LocationDetails locationDetails){
         if(callFor.equals(AppConstants.FRAGMENT_ITEM_MOVEMENT_FOR_LOCATION_BARCODE)
         || callFor.equals(AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE)
         || callFor.equals(AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE)){
             prepareRequestDataForRecordLocationOfItem(deliveryItemProductDetails, locationDetails);
-            commonBarCodeLocationScannerViewModel.recordLocationOfItem(requestEnvelopeRecordLocationOfItem);
+            viewModel.recordLocationOfItem(requestEnvelopeRecordLocation);
         }
     }
 
+    /**
+     * Preparing the request envelope, body, data for api call for record location of item
+     * @param deliveryItemProductDetails
+     * @param locationDetails
+     */
     private void prepareRequestDataForRecordLocationOfItem(DeliveryItemProductDetails deliveryItemProductDetails,
                                                            LocationDetails locationDetails) {
         if(deliveryItemProductDetails!=null && locationDetails!=null){
@@ -159,11 +178,15 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
             locationItemDetails.setDeliveryId(deliveryItemProductDetails.getDeliveryId());
             locationItemDetails.setComponentId(deliveryItemProductDetails.getComponentId());
         }
-        requestDataRecordLocationOfItem.setLocationItemDetails(locationItemDetails);
-        requestBodyRecordLocationOfItem.setRequestDataRecordLocationOfItem(requestDataRecordLocationOfItem);
-        requestEnvelopeRecordLocationOfItem.setRequestBodyRecordLocationOfItem(requestBodyRecordLocationOfItem);
+        requestDataRecordLocation.setLocationItemDetails(locationItemDetails);
+        requestBodyRecordLocation.setRequestDataRecordLocationOfItem(requestDataRecordLocation);
+        requestEnvelopeRecordLocation.setRequestBodyRecordLocationOfItem(requestBodyRecordLocation);
     }
 
+    /**
+     * Set actionbar title and update location layout items if call is for multi movement feature
+     * @param locationDetails shown location name from this object
+     */
     private void updateActionbarTitleAndLocationLayout() {
         binding.itemEnquiryHeader.txtToolbarTitle.setText(CommonBarcodeScannerFragment.actionBarTitle);
         if(CommonBarcodeScannerFragment.locationLayoutFlag){
@@ -171,56 +194,11 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
         }
     }
 
-    //TODO it should be from ViewModel
-    public List<ItemEnquiryModel> getComponentBarcodeData(DeliveryItemProductDetails deliveryItemProductDetails)
-    {
-        List<ItemEnquiryModel> list = new ArrayList<>();
-        list.add(new ItemEnquiryModel(getResources().getString(R.string.delivery_number),
-                deliveryItemProductDetails.getDeliveryId()
-        ));
-        list.add(new ItemEnquiryModel(getResources().getString(R.string.route_number),
-                deliveryItemProductDetails.getRouteResourceKey()
-        ));
-        list.add(new ItemEnquiryModel(getResources().getString(R.string.delivery_date),
-                deliveryItemProductDetails.getDeliveryDate()));
-        list.add(new ItemEnquiryModel(getResources().getString(R.string.last_recorded_location),
-                deliveryItemProductDetails.getDeliveryAddressPremise()));
-        list.add(new ItemEnquiryModel(getResources().getString(R.string.time_of_last_move),
-                deliveryItemProductDetails.getLastUpdatedTimeStamp()));
-        list.add(new ItemEnquiryModel(getResources().getString(R.string.last_user_id),
-                deliveryItemProductDetails.getLastUpdatedUserId()));
-        list.add(new ItemEnquiryModel(getResources().getString(R.string.product_code),
-                deliveryItemProductDetails.getProductCode()));
-        list.add(new ItemEnquiryModel(getResources().getString(R.string.product_description),
-                deliveryItemProductDetails.getOrderDescriptionClean()));
-        list.add(new ItemEnquiryModel(getResources().getString(R.string.lot_number),
-                deliveryItemProductDetails.getCurrentLotNumber()));
-        list.add(new ItemEnquiryModel(getResources().getString(R.string.address),
-                deliveryItemProductDetails.getDeliveryAddressLocality()));
-        return list;
-    }
-
-    //TODO it should be from ViewModel
-    private List<ItemEnquiryModel> getLocationBarcodeData(DeliveryItemProductDetails deliveryItemProductDetails, LocationDetails locationDetails) {
-        List<ItemEnquiryModel> list = new ArrayList<>();
-        list.add(new ItemEnquiryModel(getResources().getString(R.string.delivery_number),
-                deliveryItemProductDetails.getDeliveryId()
-        ));
-        list.add(new ItemEnquiryModel(getResources().getString(R.string.route_number),
-                deliveryItemProductDetails.getRouteResourceKey()
-        ));
-        list.add(new ItemEnquiryModel(getResources().getString(R.string.item),
-                "08 Aug 2022"));
-        list.add(new ItemEnquiryModel(getResources().getString(R.string.product_description),
-                deliveryItemProductDetails.getOrderDescriptionClean()));
-        return list;
-    }
-
     /**
-     * setup all the observer of app for api call
+     * setup all the observer of app for api call and adapter list data
      */
     private void initObserver() {
-        commonBarCodeLocationScannerViewModel.responseDataRecordLocationOfItem.observe(getViewLifecycleOwner(), new Observer<Resource<ResponseDataRecordLocationOfItem>>() {
+        viewModel.responseDataRecordLocationOfItem.observe(getViewLifecycleOwner(), new Observer<Resource<ResponseDataRecordLocationOfItem>>() {
             @Override
             public void onChanged(Resource<ResponseDataRecordLocationOfItem> response) {
                 if(response.status != null){
@@ -236,11 +214,19 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
                         }
                         case SUCCESS:{
                             Utils.hideProgressDialog(progressDialog);
-                            updateAdapter(response.data.locationItemDetails, locationDetails);
+                            viewModel.updateAdapterData(response.data.locationItemDetails, locationDetails);
                             break;
                         }
                     }
                 }
+            }
+        });
+
+        viewModel.itemEnquiry.observe(getViewLifecycleOwner(), new Observer<List<ItemEnquiryModel>>() {
+            @Override
+            public void onChanged(List<ItemEnquiryModel> itemEnquiryModels) {
+                detailsDataList.addAll(itemEnquiryModels);
+                adapter.notifyDataSetChanged();
             }
         });
     }
@@ -253,23 +239,6 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
     private void updateLocationLayout(LocationDetails locationDetails) {
         binding.scanNextItemBarcode.tvSelectedLocation.setVisibility(View.VISIBLE);
         binding.scanNextItemBarcode.tvSelectedLocation.setText(getResources().getString(R.string.selected_location)+": "+locationDetails.name15);
-    }
-
-    /**
-     * Update lot number and stored location once api call is success
-     * @param locationItemDetails
-     * @param locationDetails
-     */
-    private void updateAdapter(LocationItemDetails locationItemDetails, LocationDetails locationDetails) {
-        List<ItemEnquiryModel> list = new ArrayList<>();
-        list.add(new ItemEnquiryModel(getResources().getString(R.string.lot_number),
-                locationItemDetails.getCurrentLotNumber()+" of "+locationItemDetails.getTotalLotNumber()
-        ));
-        list.add(new ItemEnquiryModel(getResources().getString(R.string.stored_in_location),
-                locationDetails.getName15()
-        ));
-        detailsDataList.addAll(list);
-        adapter.notifyDataSetChanged();
     }
 
     // TODO: NavController we have to use for this

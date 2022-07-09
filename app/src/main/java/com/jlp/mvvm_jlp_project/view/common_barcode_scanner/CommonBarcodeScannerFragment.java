@@ -1,4 +1,4 @@
-package com.jlp.mvvm_jlp_project.view.item_enquiry;
+package com.jlp.mvvm_jlp_project.view.common_barcode_scanner;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
@@ -120,6 +120,7 @@ public class CommonBarcodeScannerFragment extends BaseFragment {
                 case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE:{
                     actionBarTitle = getResources().getString(R.string.multi_movement_title);
                     setLocationBarcodeFragmentTextTitles();
+                    locationLayoutFlag = true;
                     break;
                 }
                 case AppConstants.FRAGMENT_HAND_OVER_DELIVERY_DETAILS:{

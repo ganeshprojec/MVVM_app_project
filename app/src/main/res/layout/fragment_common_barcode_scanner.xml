@@ -8,7 +8,7 @@
     android:background="@color/white"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".view.item_enquiry.CommonBarcodeScannerFragment">
+    tools:context=".view.common_barcode_scanner.CommonBarcodeScannerFragment">
 
     <include layout="@layout/layout_guideline_std"/>
 
