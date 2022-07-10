@@ -10,7 +10,7 @@ import com.jlp.mvvm_jlp_project.model.DrawerMenuItem;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.view.home.TemplateFragment;
-import com.jlp.mvvm_jlp_project.view.item_enquiry.CommonBarCodeLocationScannerFragment;
+import com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScannerFragment;
 import com.jlp.mvvm_jlp_project.view.route_management.RouteSummaryFragment;
 
 import java.util.ArrayList;
@@ -96,15 +96,15 @@ public class MenuViewModel extends BaseViewModel {
     }
 
     public void onPressItemEnquiry(@ActivityContext Context context) {
-        Helper.addFragment(context, new CommonBarCodeLocationScannerFragment(AppConstants.FRAGMENT_ITEM_ENQUIRY));
+        Helper.addFragment(context, new CommonBarcodeScannerFragment(AppConstants.FRAGMENT_ITEM_ENQUIRY));
     }
 
     public void onPressItemMovements(@ActivityContext Context context) {
-        Helper.addFragment(context, new CommonBarCodeLocationScannerFragment(AppConstants.FRAGMENT_ITEM_MOVEMENT));
+        Helper.addFragment(context, new CommonBarcodeScannerFragment(AppConstants.FRAGMENT_ITEM_MOVEMENT_FOR_COMPONENT_BARCODE));
     }
 
     public void onPressMovements(@ActivityContext Context context) {
-        Helper.addFragment(context, new CommonBarCodeLocationScannerFragment(AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE));
+        Helper.addFragment(context, new CommonBarcodeScannerFragment(AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE));
     }
 
     public void onPressReprintLabels(@ActivityContext Context context) {
@@ -120,11 +120,11 @@ public class MenuViewModel extends BaseViewModel {
     }
 
     public void onPressTrackDelivery(@ActivityContext Context context) {
-        Helper.addFragment(context, new TemplateFragment());
+        Helper.addFragment(context, new CommonBarcodeScannerFragment(AppConstants.FRAGMENT_CARRIER_COLLECTION_DETAILS));
     }
 
     public void onPressDeliveryDetails(@ActivityContext Context context) {
-        Helper.addFragment(context, new CommonBarCodeLocationScannerFragment(AppConstants.FRAGMENT_HAND_OVER_DELIVERY_DETAILS));
+        Helper.addFragment(context, new CommonBarcodeScannerFragment(AppConstants.FRAGMENT_HAND_OVER_DELIVERY_DETAILS));
 
         //Helper.addFragment(context, new TemplateFragment());
     }

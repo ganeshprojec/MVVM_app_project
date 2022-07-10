@@ -7,24 +7,16 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.jlp.mvvm_jlp_project.api.ApiService;
-import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestEnvelopeAuthenticateUser;
-import com.jlp.mvvm_jlp_project.model.request.change_password.RequestEnvelopeChangePassword;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestEnvelopeFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.RequestEnvelopeRecordLocationOfItem;
-import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
-import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseEnvelopeAuthenticateUser;
-import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseDataChangePassword;
-import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseEnvelopeChangePassword;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.ResponseDataFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.ResponseEnvelopeFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseDataFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseEnvelopeFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseDataRecordLocationOfItem;
 import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseEnvelopeRecordLocationOfItem;
-import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Resource;
-import com.jlp.mvvm_jlp_project.view.auth.LoginFragment;
 
 import javax.inject.Inject;
 
@@ -33,14 +25,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class CommonBarCodeLocationScannerRepository {
-    private static final String TAG = CommonBarCodeLocationScannerRepository.class.getSimpleName();
+public class CommonBarcodeScannerRepository {
+    private static final String TAG = CommonBarcodeScannerRepository.class.getSimpleName();
     private final ApiService apiService;
     public MutableLiveData<Resource<ResponseDataFindDeliveryDetailsForComponentBarcode>> _responseFindDeliveryDetailsForComponentBarcode = new MutableLiveData<>();
     public MutableLiveData<Resource<ResponseDataFindLocationDetailsForBarcode>> _responseFindLocationDetailsForBarcode = new MutableLiveData<>();
     public MutableLiveData<Resource<ResponseDataRecordLocationOfItem>> _responseDataRecordLocationOfItem = new MutableLiveData<>();
 
-    @Inject public CommonBarCodeLocationScannerRepository(ApiService apiService) {
+    @Inject public CommonBarcodeScannerRepository(ApiService apiService) {
         this.apiService = apiService;
     }
 
@@ -147,7 +139,7 @@ public class CommonBarCodeLocationScannerRepository {
      * @param envelope RequestEnvelopeFindLocationDetailsForBarcode
      */
     public void recordLocationOfItem(RequestEnvelopeRecordLocationOfItem envelope){
-        _responseFindLocationDetailsForBarcode.postValue(Resource.loading(null));
+        _responseDataRecordLocationOfItem.postValue(Resource.loading(null));
         Call<ResponseEnvelopeRecordLocationOfItem> responseEnvelopeCall
                 = apiService.recordLocationOfItem(envelope);
         responseEnvelopeCall.enqueue(new Callback<ResponseEnvelopeRecordLocationOfItem>() {
@@ -163,8 +155,8 @@ public class CommonBarCodeLocationScannerRepository {
     }
 
     /**
-     * handled find location details for barcode response and did some validation on response
-     * @param response ResponseEnvelopeFindLocationDetailsForBarcode to manipulate the error data
+     * handled Record Location Of Item  response and did some validation on response
+     * @param response ResponseEnvelopeRecordLocationOfItem to manipulate the error data
      */
     private void handleRecordLocationOfItemResponse(Response<ResponseEnvelopeRecordLocationOfItem> response){
         try {

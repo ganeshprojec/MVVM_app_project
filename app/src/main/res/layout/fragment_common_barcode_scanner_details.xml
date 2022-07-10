@@ -5,8 +5,12 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/background"
-    tools:context=".view.item_enquiry.CommonBarCodeLocationScannerDetailsFragment">
+    android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true"
+    tools:context=".view.common_barcode_scanner.CommonBarcodeScannerDetailsFragment">
+
+    <include layout="@layout/layout_guideline_std"/>
 
     <include
         android:id="@+id/item_enquiry_header"
@@ -28,13 +32,13 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/margin_padding_small"
         android:nestedScrollingEnabled="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/guidelineBottom"
+        app:layout_constraintEnd_toEndOf="@id/guidelineRight"
+        app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
         app:layout_constraintTop_toBottomOf="@+id/scan_next_item_barcode" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
