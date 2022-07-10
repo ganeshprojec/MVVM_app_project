@@ -3,8 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.jlp.mvvm_jlp_project">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".app.App"
@@ -23,16 +23,14 @@
             android:name=".view.auth.AuthActivity"
             android:exported="true"/>-->
 
-          <!--Before commit change to auth activity -->
+        <!--Before commit change to auth activity -->
         <activity
             android:name=".view.home.HomeActivity"
-
             android:exported="true"
-            android:theme="@style/fullscreen"
+            android:theme="@style/Theme.JLP_Layouts.NoActionBar"
             android:windowSoftInputMode="adjustResize">
-            <intent-filter>
+            <intent-filter><!--fullscreen-->
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
@@ -42,11 +40,11 @@
             android:exported="true"
             android:theme="@style/Theme.JLP_Layouts.NoActionBar"
             android:windowSoftInputMode="adjustResize">
-            <!--<intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
 
 

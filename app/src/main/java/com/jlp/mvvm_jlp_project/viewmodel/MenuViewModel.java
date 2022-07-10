@@ -13,7 +13,6 @@ import com.jlp.mvvm_jlp_project.view.home.TemplateFragment;
 import com.jlp.mvvm_jlp_project.view.item_enquiry.CommonBarCodeLocationScannerFragment;
 import com.jlp.mvvm_jlp_project.view.route_management.RouteSummaryFragment;
 
-
 import java.util.ArrayList;
 
 import javax.inject.Inject;

@@ -1,6 +1,7 @@
 package com.jlp.mvvm_jlp_project.view.route_management;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,8 +18,12 @@ import com.jlp.mvvm_jlp_project.adapters.RouteDeliveryDetailsAdapter;
 import com.jlp.mvvm_jlp_project.databinding.FragmentRouteSummaryNewBinding;
 import com.jlp.mvvm_jlp_project.interfaces.AppBarStateChangeListener;
 import com.jlp.mvvm_jlp_project.interfaces.ClickListener;
+import com.jlp.mvvm_jlp_project.interfaces.DialogListener;
 import com.jlp.mvvm_jlp_project.model.DeliveryDetails;
+import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.SpacesItemDecoration;
+import com.jlp.mvvm_jlp_project.utils.Utils;
+import com.jlp.mvvm_jlp_project.view.base.BaseDialogFragment;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
 import com.jlp.mvvm_jlp_project.viewmodel.RouteSummaryViewModel;
 
@@ -27,7 +32,7 @@ import java.util.ArrayList;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class RouteSummaryFragment extends BaseFragment implements ClickListener {
+public class RouteSummaryFragment extends BaseFragment implements ClickListener, View.OnClickListener, DialogListener {
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -64,11 +69,14 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener 
 
     private void initObserver(View view) {
 
-
     }
 
 
     private void initListener() {
+
+        showIconToolbar();
+
+
         // Dummy list funciton
         listDeliveryDetails = summaryViewModel.getDummyList(getActivity());
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -84,7 +92,27 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener 
 
         binding.appbarLayoutRoute.addOnOffsetChangedListener(appBarStateChangeListener);
 
+    }
 
+
+    private void showIconToolbar() {
+
+        // Second Done Icon Enable
+        binding.homeTopheader1.imgCloseSecond.setVisibility(View.VISIBLE);
+        binding.homeTopheader.imgCloseSecond.setVisibility(View.VISIBLE);
+        binding.homeTopheader1.imgCloseSecond.setImageResource(R.drawable.ic_done_24);
+        binding.homeTopheader.imgCloseSecond.setImageResource(R.drawable.ic_done_24);
+        binding.homeTopheader1.imgCloseSecond.setOnClickListener(this);
+        binding.homeTopheader.imgCloseSecond.setOnClickListener(this);
+
+
+        // Third Filter Icon Enable
+        binding.homeTopheader1.imgCloseThird.setVisibility(View.VISIBLE);
+        binding.homeTopheader.imgCloseThird.setVisibility(View.VISIBLE);
+        binding.homeTopheader1.imgCloseThird.setImageResource(R.drawable.ic_filter_alt_24);
+        binding.homeTopheader.imgCloseThird.setImageResource(R.drawable.ic_filter_alt_24);
+        binding.homeTopheader1.imgCloseThird.setOnClickListener(this);
+        binding.homeTopheader.imgCloseThird.setOnClickListener(this);
     }
 
 
@@ -137,4 +165,38 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener 
     };
 
 
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.imgCloseSecond:
+
+                // Check is this partial commit.
+                Helper.addFragment(getActivity(), new SummaryFragment());
+                break;
+
+            case R.id.imgCloseThird:
+                FilterByLocationDialogFragment dialogFragment = new FilterByLocationDialogFragment();
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(BaseDialogFragment.PARAM_NOT_ALERT_DIALOG, true);
+
+                Helper.startDialogFragment(getActivity(), dialogFragment, bundle, this);
+                break;
+        }
+    }
+
+
+    @Override
+    public void onFinishDialog(String inputText, Boolean flag) {
+
+        // Apply Filter
+        if (!flag) {
+            if (TextUtils.isEmpty(inputText)) {
+                Utils.showErrorMessage(getActivity(), "Location was not entered");
+            } else
+                Utils.showErrorMessage(getActivity(), "Location entered : " + inputText);
+        } else {
+            // clear filter
+            Utils.showErrorMessage(getActivity(), "Filter Cleared : ");
+        }
+    }
 }
