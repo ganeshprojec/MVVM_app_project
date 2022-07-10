@@ -1,7 +1,6 @@
 package com.jlp.mvvm_jlp_project.view.route_management;
 
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,7 +21,6 @@ import com.jlp.mvvm_jlp_project.interfaces.DialogListener;
 import com.jlp.mvvm_jlp_project.model.DeliveryDetails;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.SpacesItemDecoration;
-import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseDialogFragment;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
 import com.jlp.mvvm_jlp_project.viewmodel.RouteSummaryViewModel;
@@ -190,13 +188,15 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
 
         // Apply Filter
         if (!flag) {
-            if (TextUtils.isEmpty(inputText)) {
-                Utils.showErrorMessage(getActivity(), "Location was not entered");
-            } else
-                Utils.showErrorMessage(getActivity(), "Location entered : " + inputText);
+            listDeliveryDetails.clear();
+            listDeliveryDetails.addAll(summaryViewModel.getFilterByLocation(inputText));
+            adapter.notifyDataSetChanged();
         } else {
             // clear filter
-            Utils.showErrorMessage(getActivity(), "Filter Cleared : ");
+            listDeliveryDetails.clear();
+            listDeliveryDetails.addAll(summaryViewModel.getBackupList());
+            adapter.notifyDataSetChanged();
+            //Utils.showErrorMessage(getActivity(), "Filter Cleared : ");
         }
     }
 }

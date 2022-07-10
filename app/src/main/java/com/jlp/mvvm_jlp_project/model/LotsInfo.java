@@ -18,6 +18,11 @@ public class LotsInfo {
         return lotNumber;
     }
 
+
+    public static LotsInfo getCopy(LotsInfo lot) {
+        return new LotsInfo(lot.lotNumber, lot.lotLocation);
+    }
+
     public void setLotNumber(String lotNumber) {
         this.lotNumber = lotNumber;
     }

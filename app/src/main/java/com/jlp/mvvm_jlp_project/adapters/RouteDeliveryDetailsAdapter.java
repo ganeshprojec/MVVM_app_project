@@ -63,8 +63,10 @@ public class RouteDeliveryDetailsAdapter extends RecyclerView.Adapter<RouteDeliv
         DeliveryDetailsLotsAdapter secondAdapter = new DeliveryDetailsLotsAdapter(list.get(position).getLotsList(), mcontext, childListener);
         GridLayoutManager layoutManager = new GridLayoutManager(mcontext, 2);
 
-        int spacingInPixels = mcontext.getResources().getDimensionPixelSize(R.dimen.margin_padding_tiny);
-        holder.view.recyLotsList.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
+        if (!(holder.view.recyLotsList.getItemDecorationCount() > 0)) {
+            int spacingInPixels = mcontext.getResources().getDimensionPixelSize(R.dimen.margin_padding_tiny);
+            holder.view.recyLotsList.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
+        }
 
         holder.view.recyLotsList.setLayoutManager(layoutManager);
         holder.view.recyLotsList.setAdapter(secondAdapter);

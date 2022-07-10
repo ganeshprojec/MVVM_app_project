@@ -127,7 +127,7 @@
     <string name="multi_movement_title">Multi Movements</string>
     <string name="selected_location">Selected location</string>
 
-    <string name="dummy_lotSr">L1</string>
+    <string name="dummy_lotSr">L</string>
     <string name="dummy_location_b5">Location B5</string>
     <string name="str_route_summary">Route Summary</string>
     <string name="str_ok">Ok</string>

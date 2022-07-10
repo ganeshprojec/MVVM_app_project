@@ -3,6 +3,7 @@ package com.jlp.mvvm_jlp_project.view.route_management;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -108,11 +109,12 @@ public class FilterByLocationDialogFragment extends BaseDialogFragment implement
         switch (view.getId()) {
             case R.id.btnOk:
 
-                if (getListener() != null)
-                    getListener().onFinishDialog(binding.inputBarcode.getText().toString(), false);
+                if (!(TextUtils.isEmpty(binding.inputBarcode.getText().toString().trim()))) {
+                    if (getListener() != null)
+                        getListener().onFinishDialog(binding.inputBarcode.getText().toString(), false);
 
-                dismiss();
-
+                    dismiss();
+                }
                 break;
 
             case R.id.btnClear:
