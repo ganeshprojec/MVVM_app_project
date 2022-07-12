@@ -21,7 +21,11 @@ public class DeliveryDetails {
         this.itemNumber = itemNum;
         this.productDescription = productDesc;
         this.lotsList = list;
+    }
 
+    public static DeliveryDetails getCopy(DeliveryDetails details) {
+        return new DeliveryDetails(details.deliveryNumber, details.customerName, details.getItemNumber(),
+                details.getProductDescription(), details.getLotsList());
     }
 
     public String getDeliveryNumber() {

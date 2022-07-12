@@ -127,8 +127,14 @@
     <string name="multi_movement_title">Multi Movements</string>
     <string name="selected_location">Selected location</string>
 
-    <string name="dummy_lotSr">L1</string>
+    <string name="dummy_lotSr">L</string>
     <string name="dummy_location_b5">Location B5</string>
+    <string name="str_route_summary">Route Summary</string>
+    <string name="str_ok">Ok</string>
+    <string name="str_cancel">Cancel</string>
+    <string name="str_clear_filter">Clear Filter</string>
+    <string name="str_dummy_enter_input">Enter input Text:</string>
+    <string name="dummy_dialog_title">Dialog</string>
 
     <!-- Strings for Common detail Fragment -->
     <string name="stored_in_location">Stored in location</string>

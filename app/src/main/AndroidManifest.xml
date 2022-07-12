@@ -27,9 +27,9 @@
         <activity
             android:name=".view.home.HomeActivity"
             android:exported="true"
-            android:theme="@style/fullscreen"
+            android:theme="@style/Theme.JLP_Layouts.NoActionBar"
             android:windowSoftInputMode="adjustResize"
-            android:screenOrientation="portrait">
+            android:screenOrientation="portrait"><!--@style/fullscreen-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
