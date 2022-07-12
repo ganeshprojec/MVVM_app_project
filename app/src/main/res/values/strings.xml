@@ -75,8 +75,8 @@
 
     <!-- Strings for Item Enquiry -->
     <string name="item_enquiry_title">Item Enquiry</string>
-    <string name="enter_barcode_number">Enter Barcode Number/Scan</string>
-    <string name="enter_item_barcode_number">Enter Item Barcode Number/Scan</string>
+    <string name="enter_barcode_number">Enter barcode number/scan</string>
+    <string name="enter_item_barcode_number">Enter item barcode number/scan</string>
     <string name="Next">Next</string>
     <string name="text_display_item_enquiry_key">Display Key</string>
     <string name="text_display_item_enquiry_value">Display Value</string>
@@ -145,5 +145,7 @@
     <string name="product_code">Product code</string>
 
     <!-- Strings for Carrier Handover Details Fragment -->
-    <string name="carrier_collection_details">Carrier collection details</string>
+    <string name="carrier_collection_details">Enter delivery number/scan</string>
+    <string name="enter_delivery_barcode_number">Enter delivery barcode number/scan</string>
+    <string name="enter_delivery_barcode_number_or_scan">Enter delivery barcode number/scan</string>
 </resources>

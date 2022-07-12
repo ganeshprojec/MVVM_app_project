@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -24,6 +25,7 @@ import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.RequestBod
 import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.RequestDataRecordLocationOfItem;
 import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.RequestEnvelopeRecordLocationOfItem;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.DeliveryItemProductDetails;
+import com.jlp.mvvm_jlp_project.model.response.find_delivery_item_details_for_component_barcode.DeliveryItemDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.LocationDetails;
 import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseDataRecordLocationOfItem;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
@@ -46,6 +48,7 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
     private ProgressDialog progressDialog;
     private DeliveryItemProductDetails deliveryItemProductDetails = CommonBarcodeScannerFragment.deliveryItemProductDetails;
     private LocationDetails locationDetails = CommonBarcodeScannerFragment.locationDetails;
+    private DeliveryItemDetails deliveryItemDetails = CommonBarcodeScannerFragment.deliveryItemDetails;
     private FragmentCommonBarcodeScannerDetailsBinding binding;
     private CommonBarCodeLocationScannerViewModel viewModel;
     private String callFor;
@@ -61,6 +64,7 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
     RequestDataRecordLocationOfItem requestDataRecordLocation;
     @Inject
     LocationItemDetails locationItemDetails;
+
 
     public CommonBarcodeScannerDetailsFragment(String callFor) {
         this.callFor = callFor;
@@ -94,8 +98,11 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
                 viewModel.getComponentBarcodeData(deliveryItemProductDetails);
                 break;
             }
+            case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE:{
+                viewModel.getItemDetailsComponentBarcodeData(deliveryItemDetails);
+                break;
+            }
             case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE:
-            case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE:
             case AppConstants.FRAGMENT_ITEM_MOVEMENT_FOR_LOCATION_BARCODE:{
                 viewModel.getLocationBarcodeData(deliveryItemProductDetails, locationDetails);
                 break;

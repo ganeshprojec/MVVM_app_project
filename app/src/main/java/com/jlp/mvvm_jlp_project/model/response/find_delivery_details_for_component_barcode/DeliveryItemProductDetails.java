@@ -9,7 +9,7 @@ import org.simpleframework.xml.Element;
 
 import javax.inject.Inject;
 
-public class DeliveryItemProductDetails implements Parcelable {
+public class DeliveryItemProductDetails{
 
     @Inject public DeliveryItemProductDetails() {}
 
@@ -53,41 +53,6 @@ public class DeliveryItemProductDetails implements Parcelable {
     public String deliveryAddressPostCode;
     @Element(name = "deliveryAddressCounty",required = false)
     public String deliveryAddressCounty;
-
-    protected DeliveryItemProductDetails(Parcel in) {
-        routeResourceKey = in.readString();
-        deliveryId = in.readString();
-        deliveryDate = in.readString();
-        componentId = in.readString();
-        productCode = in.readString();
-        orderDescriptionClean = in.readString();
-        name15 = in.readString();
-        currentLotNumber = in.readString();
-        totalLotNumber = in.readString();
-        lastUpdatedUserId = in.readString();
-        lastUpdatedTimeStamp = in.readString();
-        deliveryRecipientName = in.readString();
-        deliveryAddressCompanyName = in.readString();
-        deliveryAddressBuildingName = in.readString();
-        deliveryAddressPremise = in.readString();
-        deliveryAddressThoroughFare = in.readString();
-        deliveryAddressLocality = in.readString();
-        deliveryAddressPostTown = in.readString();
-        deliveryAddressPostCode = in.readString();
-        deliveryAddressCounty = in.readString();
-    }
-
-    public static final Creator<DeliveryItemProductDetails> CREATOR = new Creator<DeliveryItemProductDetails>() {
-        @Override
-        public DeliveryItemProductDetails createFromParcel(Parcel in) {
-            return new DeliveryItemProductDetails(in);
-        }
-
-        @Override
-        public DeliveryItemProductDetails[] newArray(int size) {
-            return new DeliveryItemProductDetails[size];
-        }
-    };
 
     public String getRouteResourceKey() {
         return routeResourceKey;
@@ -247,34 +212,5 @@ public class DeliveryItemProductDetails implements Parcelable {
 
     public void setDeliveryAddressCounty(String deliveryAddressCounty) {
         this.deliveryAddressCounty = deliveryAddressCounty;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(routeResourceKey);
-        parcel.writeString(deliveryId);
-        parcel.writeString(deliveryDate);
-        parcel.writeString(componentId);
-        parcel.writeString(productCode);
-        parcel.writeString(orderDescriptionClean);
-        parcel.writeString(name15);
-        parcel.writeString(currentLotNumber);
-        parcel.writeString(totalLotNumber);
-        parcel.writeString(lastUpdatedUserId);
-        parcel.writeString(lastUpdatedTimeStamp);
-        parcel.writeString(deliveryRecipientName);
-        parcel.writeString(deliveryAddressCompanyName);
-        parcel.writeString(deliveryAddressBuildingName);
-        parcel.writeString(deliveryAddressPremise);
-        parcel.writeString(deliveryAddressThoroughFare);
-        parcel.writeString(deliveryAddressLocality);
-        parcel.writeString(deliveryAddressPostTown);
-        parcel.writeString(deliveryAddressPostCode);
-        parcel.writeString(deliveryAddressCounty);
     }
 }
