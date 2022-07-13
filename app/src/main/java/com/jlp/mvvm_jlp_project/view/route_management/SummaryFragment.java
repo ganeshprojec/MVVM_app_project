@@ -1,5 +1,6 @@
 package com.jlp.mvvm_jlp_project.view.route_management;
 
+import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,11 +8,21 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.jlp.mvvm_jlp_project.databinding.FragmentSummaryBinding;
+import com.jlp.mvvm_jlp_project.model.RouteSummary;
+import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestBodyRouteManagementSummary;
+import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestDataRouteManagementSummary;
+import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestEnvelopRouteManagementSummary;
+import com.jlp.mvvm_jlp_project.model.response.route_management_summary.ResponseDataRouteManagementSummary;
+import com.jlp.mvvm_jlp_project.utils.Resource;
+import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
 import com.jlp.mvvm_jlp_project.viewmodel.SummaryViewModel;
+
+import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -26,6 +37,18 @@ public class SummaryFragment extends BaseFragment implements View.OnClickListene
     private @NonNull
     FragmentSummaryBinding binding;
     private SummaryViewModel summaryViewModel;
+    private ProgressDialog progressDialog;
+    private RouteSummary summary;
+
+
+    @Inject
+    RequestEnvelopRouteManagementSummary requestEnvelop;
+
+    @Inject
+    RequestBodyRouteManagementSummary requestBody;
+
+    @Inject
+    RequestDataRouteManagementSummary requestData;
 
     public SummaryFragment() {
 
@@ -54,6 +77,8 @@ public class SummaryFragment extends BaseFragment implements View.OnClickListene
 
         initObserver(view);
         initListener();
+
+        findSummaryDetails("R38AM20080913T2");
     }
 
 
@@ -64,8 +89,66 @@ public class SummaryFragment extends BaseFragment implements View.OnClickListene
         }
     }
 
+
+    private void findSummaryDetails(String routeId) {
+        prepareEnvelopSummaryDetails(routeId);
+        summaryViewModel.findSummaryDetails(requestEnvelop);
+    }
+
+
+    /**
+     * Prepared Data set for api call RouteSummary
+     *
+     * @param routeId
+     */
+    private void prepareEnvelopSummaryDetails(String routeId) {
+        requestData.setRouteId(routeId);
+        requestBody.setRequestDataRouteManagementSummary(requestData);
+        requestEnvelop.setRequestBodyRouteManagementSummary(requestBody);
+    }
+
+
     private void initObserver(View view) {
 
+        summaryViewModel.responseSummaryDetails.observe(getViewLifecycleOwner(), new Observer<Resource<ResponseDataRouteManagementSummary>>() {
+            @Override
+            public void onChanged(Resource<ResponseDataRouteManagementSummary> response) {
+                if (response.status != null) {
+                    switch (response.status) {
+                        case LOADING: {
+                            progressDialog = Utils.showProgressBar(getContext());
+                            break;
+                        }
+                        case ERROR: {
+                            Utils.hideProgressDialog(progressDialog);
+                            //Log.e("errorSummary",""+response.message);
+                            Utils.showErrorMessage(getActivity(), response.message);
+                            break;
+                        }
+                        case SUCCESS: {
+
+                            Utils.hideProgressDialog(progressDialog);
+                            summary = response.data.getRouteSummary();
+                            updateSummaryOnView();
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+
+
+    }
+
+    public void updateSummaryOnView() {
+        // Header
+        binding.layoutSummaryInclHeader.txtRouteNumberValue.setText("" + summary.getRouteNumber());
+        binding.layoutSummaryInclHeader.txtDeliveryDateValue.setText("" + summary.getDeliveryDate());
+
+        // Summary
+        binding.layoutSummaryIncl.txTotalDeliveriesValue.setText("" + summary.getTotalNumberOfDeliveriesCount());//summary.getTotalDeliveries()
+        binding.layoutSummaryIncl.txTotalLotsValue.setText("" + summary.getTotalLots());
+        binding.layoutSummaryIncl.txTotalLotsLoadedValue.setText("" + summary.getDeliveryLotsLoaded());
     }
 
 
