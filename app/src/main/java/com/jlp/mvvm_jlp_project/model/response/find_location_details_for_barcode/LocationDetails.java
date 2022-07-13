@@ -11,7 +11,7 @@ import org.simpleframework.xml.Root;
 import javax.inject.Inject;
 
 @Root(name = "LocationDetails", strict = false)
-public class LocationDetails implements Parcelable {
+public class LocationDetails {
 
     @Inject public LocationDetails() {}
 
@@ -24,18 +24,6 @@ public class LocationDetails implements Parcelable {
         locationId = in.readString();
         name15 = in.readString();
     }
-
-    public static final Creator<LocationDetails> CREATOR = new Creator<LocationDetails>() {
-        @Override
-        public LocationDetails createFromParcel(Parcel in) {
-            return new LocationDetails(in);
-        }
-
-        @Override
-        public LocationDetails[] newArray(int size) {
-            return new LocationDetails[size];
-        }
-    };
 
     public String getLocationId() {
         return locationId;
@@ -51,16 +39,5 @@ public class LocationDetails implements Parcelable {
 
     public void setName15(String name15) {
         this.name15 = name15;
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(locationId);
-        parcel.writeString(name15);
     }
 }

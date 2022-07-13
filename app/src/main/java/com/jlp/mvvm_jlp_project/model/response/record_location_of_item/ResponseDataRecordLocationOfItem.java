@@ -21,7 +21,7 @@ import javax.inject.Inject;
 
 @Root(name = "FindLocationDetailsForBarcodeResponse", strict = false)
 @Namespace(reference = Constants.NAMESPACE)
-public class ResponseDataRecordLocationOfItem implements Parcelable {
+public class ResponseDataRecordLocationOfItem {
     @Element(name = "LocationItemDetails", required = false)
     public LocationItemDetails locationItemDetails;
 
@@ -30,30 +30,6 @@ public class ResponseDataRecordLocationOfItem implements Parcelable {
 
     @Inject
     ResponseDataRecordLocationOfItem(){}
-
-    protected ResponseDataRecordLocationOfItem(Parcel in) {
-    }
-
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-    }
-
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    public static final Creator<ResponseDataRecordLocationOfItem> CREATOR = new Creator<ResponseDataRecordLocationOfItem>() {
-        @Override
-        public ResponseDataRecordLocationOfItem createFromParcel(Parcel in) {
-            return new ResponseDataRecordLocationOfItem(in);
-        }
-
-        @Override
-        public ResponseDataRecordLocationOfItem[] newArray(int size) {
-            return new ResponseDataRecordLocationOfItem[size];
-        }
-    };
 
     public LocationItemDetails getLocationItemDetails() {
         return locationItemDetails;

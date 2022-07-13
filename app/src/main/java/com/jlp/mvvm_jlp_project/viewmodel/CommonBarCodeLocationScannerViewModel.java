@@ -7,11 +7,14 @@ import androidx.lifecycle.MutableLiveData;
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.model.ItemEnquiryModel;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestEnvelopeFindDeliveryDetailsForComponentBarcode;
+import com.jlp.mvvm_jlp_project.model.request.find_delivery_item_details_for_component_barcode.RequestEnvelopeFindDeliveryItemDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.LocationItemDetails;
 import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.RequestEnvelopeRecordLocationOfItem;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.DeliveryItemProductDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.ResponseDataFindDeliveryDetailsForComponentBarcode;
+import com.jlp.mvvm_jlp_project.model.response.find_delivery_item_details_for_component_barcode.DeliveryItemDetails;
+import com.jlp.mvvm_jlp_project.model.response.find_delivery_item_details_for_component_barcode.ResponseDataFindDeliveryItemDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.LocationDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseDataFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseDataRecordLocationOfItem;
@@ -46,12 +49,16 @@ public class CommonBarCodeLocationScannerViewModel extends BaseViewModel {
     public MutableLiveData<Resource<ResponseDataRecordLocationOfItem>> responseDataRecordLocationOfItem
             = new MutableLiveData<>();
 
+    public MutableLiveData<Resource<ResponseDataFindDeliveryItemDetailsForComponentBarcode>> responseFindDeliveryItemDetailsForComponentBarcode
+            = new MutableLiveData<>();
+
     @Inject
     public CommonBarCodeLocationScannerViewModel(CommonBarcodeScannerRepository repository) {
         this.repository = repository;
         this.responseFindDeliveryDetailsForComponentBarcode = repository._responseFindDeliveryDetailsForComponentBarcode;
         this.responseFindLocationDetailsForBarcode = repository._responseFindLocationDetailsForBarcode;
         this.responseDataRecordLocationOfItem = repository._responseDataRecordLocationOfItem;
+        this.responseFindDeliveryItemDetailsForComponentBarcode = repository._responseFindDeliveryItemDetailsForComponentBarcode;
     }
 
     public void findDeliveryDetailsForComponentBarcode(RequestEnvelopeFindDeliveryDetailsForComponentBarcode envelope){
@@ -60,6 +67,10 @@ public class CommonBarCodeLocationScannerViewModel extends BaseViewModel {
 
     public void findLocationDetailsForBarcode(RequestEnvelopeFindLocationDetailsForBarcode envelope){
         repository.findLocationDetailsForBarcode(envelope);
+    }
+
+    public void findDeliveryItemDetailsForComponentBarcode(RequestEnvelopeFindDeliveryItemDetailsForComponentBarcode envelope){
+        repository.findDeliveryItemDetailsForComponentBarcode(envelope);
     }
 
     public void recordLocationOfItem(RequestEnvelopeRecordLocationOfItem envelope){
@@ -100,6 +111,21 @@ public class CommonBarCodeLocationScannerViewModel extends BaseViewModel {
                 deliveryItemProductDetails.getCurrentLotNumber()));
         itemEnquiryModels.add(new ItemEnquiryModel(R.string.address,
                 deliveryItemProductDetails.getDeliveryAddressLocality()));
+        itemEnquiry.setValue(itemEnquiryModels);
+    }
+
+    public void getItemDetailsComponentBarcodeData(DeliveryItemDetails deliveryItemDetails){
+        List<ItemEnquiryModel> itemEnquiryModels = new ArrayList<>();
+        itemEnquiryModels.add(new ItemEnquiryModel(R.string.delivery_number,
+                deliveryItemDetails.getDeliveryId()
+        ));
+        itemEnquiryModels.add(new ItemEnquiryModel(R.string.route_number,
+                deliveryItemDetails.getRouteResourceKey()
+        ));
+        itemEnquiryModels.add(new ItemEnquiryModel(R.string.item,
+                deliveryItemDetails.getGoodId()));
+        itemEnquiryModels.add(new ItemEnquiryModel(R.string.product_description,
+                deliveryItemDetails.getOrderDescriptionClean()));
         itemEnquiry.setValue(itemEnquiryModels);
     }
 

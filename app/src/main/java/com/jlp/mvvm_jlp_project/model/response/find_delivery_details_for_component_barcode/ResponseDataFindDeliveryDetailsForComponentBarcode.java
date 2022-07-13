@@ -17,7 +17,7 @@ import javax.inject.Inject;
  *  Created by Sandeep(Techno Learning) on 16,June,2022
  */
 
-@Root(name = "FindLocationDetailsForBarcodeResponse", strict = false)
+@Root(name = "FindDeliveryDetailsForComponentBarcodeResponse", strict = false)
 @Namespace(reference = Constants.NAMESPACE)
 public class ResponseDataFindDeliveryDetailsForComponentBarcode {
     @Element(name = "DeliveryItemProductDetails", required = false)

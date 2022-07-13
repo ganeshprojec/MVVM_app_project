@@ -15,7 +15,7 @@ public class RequestBodyFindDeliveryDetailsForComponentBarcode {
     @Inject
     RequestBodyFindDeliveryDetailsForComponentBarcode(){}
 
-    @Element(name = "cds:FindDeliveryItemDetailsForComponentBarcodeRequest",required = false)
+    @Element(name = "cds:FindDeliveryDetailsForComponentBarcodeRequest",required = false)
     private RequestDataFindDeliveryDetailsForComponentBarcode requestDataFindDeliveryDetailsForComponentBarcode;
 
     public RequestDataFindDeliveryDetailsForComponentBarcode getRequestDataFindDeliveryDetailsForComponentBarcode() {
