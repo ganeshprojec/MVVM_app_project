@@ -117,7 +117,7 @@ public class MenuViewModel extends BaseViewModel {
 
     public void onPressAmendLots(@ActivityContext Context context) {
         Helper.addFragment(context, new AmendLotsBarcodeScanFragment());
-        Log.d("MENUMENU","MENUMENU");
+
     }
 
     public void onPressRouteManagement(@ActivityContext Context context) {
