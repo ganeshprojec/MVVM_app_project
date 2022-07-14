@@ -79,6 +79,8 @@
     <string name="enter_barcode_number">Enter Barcode Number</string>
     <string name="enter_lots_required">Enter  Number of Lots Required</string>
     <string name="enter_item_barcode_number">Enter Item Barcode Number</string>
+    <string name="enter_barcode_number">Enter barcode number/scan</string>
+    <string name="enter_item_barcode_number">Enter item barcode number/scan</string>
     <string name="Next">Next</string>
     <string name="text_display_item_enquiry_key">Display Key</string>
     <string name="text_display_item_enquiry_value">Display Value</string>
@@ -105,9 +107,6 @@
     <string name="str_product_description">Product Description</string>
     <string name="dummy_product_desc">XXXXXXX XXXXXXX X \nXXXXXX \nXXXXX XXXXXX XXX X XXX XX</string>
     <string name="ok">OK</string>
-    <string name="selected_printer">Selected Printer</string>
-    <string name="delivery_number">Delivery Number</string>
-    <string name="pls_attach_lable">Please attach labels and store items using Movements option</string>
 
     <!-- Strings for Item Movement -->
     <string name="item_movement_title">Item Movement</string>

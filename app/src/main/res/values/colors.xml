@@ -34,6 +34,6 @@
     <color name="color_divider_dark">@color/black</color>
     <color name="snackbar_background">#ddd</color>
     <color name="alert_dialog_title_background">#D4D7DF</color>
-    <color name="view_divider">#D4D7DF</color>
-    <color name="text_view_">#67686A</color>
+
+    <color name="secondary_text_color"> #757575</color>
 </resources>

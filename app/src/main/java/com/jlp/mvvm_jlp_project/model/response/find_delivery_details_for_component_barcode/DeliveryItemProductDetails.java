@@ -2,9 +2,17 @@ package com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_compon
  * Created by Sandeep(Techno Learning) on 04,July,2022
  */
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import org.simpleframework.xml.Element;
 
-public class DeliveryItemProductDetails {
+import javax.inject.Inject;
+
+public class DeliveryItemProductDetails{
+
+    @Inject public DeliveryItemProductDetails() {}
+
     @Element(name = "routeResourceKey",required = false)
     public String routeResourceKey;
     @Element(name = "deliveryId",required = false)

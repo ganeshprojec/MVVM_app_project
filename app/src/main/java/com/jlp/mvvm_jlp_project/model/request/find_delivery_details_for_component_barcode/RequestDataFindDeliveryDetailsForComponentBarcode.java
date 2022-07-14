@@ -10,7 +10,7 @@ import org.simpleframework.xml.Root;
 
 import javax.inject.Inject;
 
-@Root(name = "FindDeliveryItemDetailsForComponentBarcodeRequest", strict = false)
+@Root(name = "FindDeliveryDetailsForComponentBarcodeRequest", strict = false)
 public class RequestDataFindDeliveryDetailsForComponentBarcode {
     @Inject
     RequestDataFindDeliveryDetailsForComponentBarcode(){}

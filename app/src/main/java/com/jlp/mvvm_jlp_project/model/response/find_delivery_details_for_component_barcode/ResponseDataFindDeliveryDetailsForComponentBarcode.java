@@ -17,9 +17,9 @@ import javax.inject.Inject;
  *  Created by Sandeep(Techno Learning) on 16,June,2022
  */
 
-@Root(name = "FindLocationDetailsForBarcodeResponse", strict = false)
+@Root(name = "FindDeliveryDetailsForComponentBarcodeResponse", strict = false)
 @Namespace(reference = Constants.NAMESPACE)
-public class ResponseDataFindDeliveryDetailsForComponentBarcode implements Parcelable {
+public class ResponseDataFindDeliveryDetailsForComponentBarcode {
     @Element(name = "DeliveryItemProductDetails", required = false)
     public DeliveryItemProductDetails deliveryItemProductDetails;
 
@@ -31,18 +31,6 @@ public class ResponseDataFindDeliveryDetailsForComponentBarcode implements Parce
 
     protected ResponseDataFindDeliveryDetailsForComponentBarcode(Parcel in) {
     }
-
-    public static final Creator<ResponseDataFindDeliveryDetailsForComponentBarcode> CREATOR = new Creator<ResponseDataFindDeliveryDetailsForComponentBarcode>() {
-        @Override
-        public ResponseDataFindDeliveryDetailsForComponentBarcode createFromParcel(Parcel in) {
-            return new ResponseDataFindDeliveryDetailsForComponentBarcode(in);
-        }
-
-        @Override
-        public ResponseDataFindDeliveryDetailsForComponentBarcode[] newArray(int size) {
-            return new ResponseDataFindDeliveryDetailsForComponentBarcode[size];
-        }
-    };
 
     public DeliveryItemProductDetails getDeliveryItemProductDetails() {
         return deliveryItemProductDetails;
@@ -60,12 +48,4 @@ public class ResponseDataFindDeliveryDetailsForComponentBarcode implements Parce
         this.ditsErrors = ditsErrors;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
-    }
-
-    @Override
-    public void writeToParcel(Parcel parcel, int i) {
-    }
 }

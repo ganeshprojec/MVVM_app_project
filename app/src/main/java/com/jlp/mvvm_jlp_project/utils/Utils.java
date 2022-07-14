@@ -8,13 +8,9 @@ import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.jlp.mvvm_jlp_project.R;
-
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
 
 public class Utils {
 
@@ -37,7 +33,7 @@ public class Utils {
      * @param message error message
      */
     public static void showErrorMessage(Activity activity, String message) {
-        Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE);
         View snackBarView = snackbar.getView();
         snackBarView.setBackgroundColor(activity.getResources().getColor(R.color.snackbar_background));
         snackbar.setTextColor(activity.getResources().getColor(R.color.red));
