@@ -1,6 +1,7 @@
 package com.jlp.mvvm_jlp_project.viewmodel;
 
 import android.content.Context;
+import android.util.Log;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.MutableLiveData;
@@ -9,6 +10,8 @@ import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.model.DrawerMenuItem;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
+import com.jlp.mvvm_jlp_project.view.amend_lots.AmendLotsBarcodeScanFragment;
+import com.jlp.mvvm_jlp_project.view.amend_lots.AmendLotsPrinterListFragment;
 import com.jlp.mvvm_jlp_project.view.home.TemplateFragment;
 import com.jlp.mvvm_jlp_project.view.item_enquiry.CommonBarCodeLocationScannerFragment;
 import com.jlp.mvvm_jlp_project.view.route_management.RouteSummaryFragment;
@@ -113,7 +116,8 @@ public class MenuViewModel extends BaseViewModel {
     }
 
     public void onPressAmendLots(@ActivityContext Context context) {
-        Helper.addFragment(context, new TemplateFragment());
+        Helper.addFragment(context, new AmendLotsBarcodeScanFragment());
+        Log.d("MENUMENU","MENUMENU");
     }
 
     public void onPressRouteManagement(@ActivityContext Context context) {

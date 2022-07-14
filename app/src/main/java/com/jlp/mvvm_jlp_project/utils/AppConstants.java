@@ -19,4 +19,5 @@ public class AppConstants {
     public static final String FRAGMENT_ITEM_ENQUIRY = "Fragment Item Enquiry";
     public static final String FRAGMENT_ITEM_MOVEMENT = "Fragment Item Movement";
     public static final String FRAGMENT_LOCATION_SCAN = "Fragment Location Scan";
+    public static final String PRINTER_NAME = "Printer Name";
 }

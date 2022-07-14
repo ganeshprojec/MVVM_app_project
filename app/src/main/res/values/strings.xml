@@ -64,6 +64,7 @@
     <string name="str_route_management">Route Management</string>
     <string name="str_track_handover_delivery">Carrier Collection Details</string>
     <string name="str_handover_delivery">Carrier Handover Details</string>
+    <string name="str_selected_printer">Selected Printer:</string>
 
     <string name="str_welcome">Welcome</string>
     <string name="str_dummy_username">ganesh123</string>

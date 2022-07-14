@@ -2,65 +2,55 @@ package com.jlp.mvvm_jlp_project.view.amend_lots;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.jlp.mvvm_jlp_project.R;
+import com.jlp.mvvm_jlp_project.databinding.FragmentAmendLotDetailDisplayBinding;
+import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
+import com.jlp.mvvm_jlp_project.viewmodel.AmendLotDetailDisplayViewModel;
+import com.jlp.mvvm_jlp_project.viewmodel.AmendLotsPrinterViewModel;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link AmendLotDetailDisplayFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
-public class AmendLotDetailDisplayFragment extends Fragment {
+public class AmendLotDetailDisplayFragment extends BaseFragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+      FragmentAmendLotDetailDisplayBinding binding;
+     AmendLotDetailDisplayViewModel AmendLotDetailDisplayViewModel;
 
     public AmendLotDetailDisplayFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment AmendLotDetailDisplayFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static AmendLotDetailDisplayFragment newInstance(String param1, String param2) {
-        AmendLotDetailDisplayFragment fragment = new AmendLotDetailDisplayFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
+
+    @Override
+    protected View initViewBinding(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        binding = FragmentAmendLotDetailDisplayBinding.inflate(inflater, container, false);
+
+        replaceFragment(new AmendLotDetailDisplayFragment());
+
+        return binding.getRoot();
     }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        AmendLotDetailDisplayViewModel = new ViewModelProvider(this).get(AmendLotDetailDisplayViewModel.class);
+      //  initObserver();
+       // initListener();
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_amend_lot_detail_display, container, false);
+    public void replaceFragment(Fragment fragment){
+
+        FragmentTransaction transaction= getFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container_main,fragment);
+        transaction.addToBackStack(getResources().getString(R.string.backstack_tag));
+        transaction.commit();
     }
 }
