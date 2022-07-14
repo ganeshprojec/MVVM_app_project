@@ -42,7 +42,7 @@
         android:id="@+id/layDialogContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_padding_xtiny"
+        android:layout_margin="@dimen/margin_padding_x_tiny"
         android:minHeight="@dimen/toolbar_height"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialogHeader">

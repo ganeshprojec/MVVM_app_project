@@ -6,32 +6,32 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.jlp.mvvm_jlp_project.databinding.CommonBarcodeScannerSingleItemBinding;
-import com.jlp.mvvm_jlp_project.model.ItemEnquiryModel;
-import com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScannerViewHolder;
+import com.jlp.mvvm_jlp_project.databinding.ItemRowTitleAndValueBinding;
+import com.jlp.mvvm_jlp_project.model.TitleValueDataModel;
+import com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonViewHolder;
 
 import java.util.List;
 
-public class CommonBarcodeScannerAdapter extends RecyclerView.Adapter<CommonBarcodeScannerViewHolder> {
-    private List<ItemEnquiryModel> list;
-    private CommonBarcodeScannerSingleItemBinding binding;
+public class CommonAdapter extends RecyclerView.Adapter<CommonViewHolder> {
+    private List<TitleValueDataModel> list;
+    private ItemRowTitleAndValueBinding binding;
     private Context context;
-    public CommonBarcodeScannerAdapter(List<ItemEnquiryModel> list, Context context) {
+    public CommonAdapter(List<TitleValueDataModel> list, Context context) {
         this.list = list;
         this.context = context;
     }
 
     @Override
-    public CommonBarcodeScannerViewHolder
+    public CommonViewHolder
     onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        binding = CommonBarcodeScannerSingleItemBinding.inflate(inflater, parent, false);
-        return new CommonBarcodeScannerViewHolder(binding.getRoot());
+        binding = ItemRowTitleAndValueBinding.inflate(inflater, parent, false);
+        return new CommonViewHolder(binding.getRoot());
     }
 
     @Override
     public void
-    onBindViewHolder(final CommonBarcodeScannerViewHolder viewHolder, final int position) {
+    onBindViewHolder(final CommonViewHolder viewHolder, final int position) {
         viewHolder.title.setText(context.getResources().getString(list.get(position).getTitle()));
         viewHolder.value.setText(list.get(position).getValue());
     }

@@ -54,7 +54,7 @@
 
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_padding_xxnormal"
+        android:layout_marginTop="@dimen/margin_padding_xx_normal"
         android:text="@string/ok"
         android:padding="@dimen/margin_padding_normal"
         app:layout_constraintTop_toBottomOf="@+id/message_Alert_Dialog"

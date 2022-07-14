@@ -40,7 +40,7 @@
         layout="@layout/input_field_barcode_scan"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_padding_xxnormal"
+        android:layout_marginTop="@dimen/margin_padding_xx_normal"
         app:layout_constraintTop_toBottomOf="@+id/scan_next_item_barcode"
         app:layout_constraintEnd_toEndOf="@id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"/>
