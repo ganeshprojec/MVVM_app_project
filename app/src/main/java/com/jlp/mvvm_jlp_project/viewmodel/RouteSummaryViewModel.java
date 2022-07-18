@@ -2,10 +2,25 @@ package com.jlp.mvvm_jlp_project.viewmodel;
 
 import android.content.Context;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.model.DeliveryDetails;
+import com.jlp.mvvm_jlp_project.model.ItemStatusDetails;
 import com.jlp.mvvm_jlp_project.model.LotsInfo;
+import com.jlp.mvvm_jlp_project.model.request.route_details.RequestBodyRouteDetails;
+import com.jlp.mvvm_jlp_project.model.request.route_details.RequestDataRouteDetails;
+import com.jlp.mvvm_jlp_project.model.request.route_details.RequestEnvelopeRouteDetails;
+import com.jlp.mvvm_jlp_project.model.request.route_item_update_status.RequestBodyUpdateItemStatus;
+import com.jlp.mvvm_jlp_project.model.request.route_item_update_status.RequestDataUpdateItemStatus;
+import com.jlp.mvvm_jlp_project.model.request.route_item_update_status.RequestEnvelopeUpdateItemStatus;
+import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestEnvelopRouteManagementSummary;
+import com.jlp.mvvm_jlp_project.model.response.route_details.ResponseDataRouteDetails;
+import com.jlp.mvvm_jlp_project.model.response.route_item_update_status.ResponseDataUpdateItemStatus;
+import com.jlp.mvvm_jlp_project.model.response.route_management_summary.ResponseDataRouteManagementSummary;
+import com.jlp.mvvm_jlp_project.repository.RouteManagementSummaryRepository;
 import com.jlp.mvvm_jlp_project.utils.Helper;
+import com.jlp.mvvm_jlp_project.utils.Resource;
 
 import java.util.ArrayList;
 
@@ -18,11 +33,24 @@ import dagger.hilt.android.qualifiers.ActivityContext;
 public class RouteSummaryViewModel extends BaseViewModel {
 
     private ArrayList<DeliveryDetails> backupList = new ArrayList<>();
+    RouteManagementSummaryRepository repository;
+
+    public MutableLiveData<Resource<ResponseDataRouteManagementSummary>> responseSummaryDetails
+            = new MutableLiveData<>();
+
+    public MutableLiveData<Resource<ResponseDataRouteDetails>> responseRouteDeliveryDetails
+            = new MutableLiveData<>();
+
+    public MutableLiveData<Resource<ResponseDataUpdateItemStatus>> responseUpdateItemStatus
+            = new MutableLiveData<>();
 
 
     @Inject
-    public RouteSummaryViewModel() {
-
+    public RouteSummaryViewModel(RouteManagementSummaryRepository repository) {
+        this.repository = repository;
+        this.responseSummaryDetails = repository._responseSummary;
+        this.responseRouteDeliveryDetails = repository._responseRouteDetails;
+        this.responseUpdateItemStatus = repository._responseUpdateStatus;
     }
 
     public ArrayList<DeliveryDetails> getBackupList() {
@@ -81,6 +109,45 @@ public class RouteSummaryViewModel extends BaseViewModel {
         }
 
         return tempList;
+    }
+
+
+    public void callFindSummaryDetails(RequestEnvelopRouteManagementSummary envelope) {
+        repository.callFindRouteManagementSummary(envelope);
+    }
+
+    public void callRouteDetails(String deliveryId) {
+        repository.callFindRouteManagementDetails(getEnvelop(deliveryId));
+    }
+
+    public void callUpdateStatus(ItemStatusDetails itemUpdateStatus) {
+        repository.callUpdateItemStatus(getEnvelop(itemUpdateStatus));
+    }
+
+    private RequestEnvelopeUpdateItemStatus getEnvelop(ItemStatusDetails itemUpdateStatus) {
+
+        RequestEnvelopeUpdateItemStatus requestEnvelop = new RequestEnvelopeUpdateItemStatus();
+        RequestBodyUpdateItemStatus requestBody = new RequestBodyUpdateItemStatus();
+        RequestDataUpdateItemStatus requestData = new RequestDataUpdateItemStatus();
+
+        requestData.setItemStatus(itemUpdateStatus);
+        requestBody.setRequestData(requestData);
+        requestEnvelop.setRequestBody(requestBody);
+
+        return requestEnvelop;
+    }
+
+
+    private RequestEnvelopeRouteDetails getEnvelop(String deliveryId) {
+
+        RequestEnvelopeRouteDetails requestEnvelop = new RequestEnvelopeRouteDetails();
+        RequestBodyRouteDetails requestBody = new RequestBodyRouteDetails();
+        RequestDataRouteDetails requestData = new RequestDataRouteDetails();
+        requestData.setDeliveryId(deliveryId);
+        requestBody.setRequestData(requestData);
+        requestEnvelop.setRequestBody(requestBody);
+
+        return requestEnvelop;
     }
 
 

@@ -6,6 +6,8 @@ import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_componen
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_item_details_for_component_barcode.RequestEnvelopeFindDeliveryItemDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.RequestEnvelopeRecordLocationOfItem;
+import com.jlp.mvvm_jlp_project.model.request.route_details.RequestEnvelopeRouteDetails;
+import com.jlp.mvvm_jlp_project.model.request.route_item_update_status.RequestEnvelopeUpdateItemStatus;
 import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestEnvelopRouteManagementSummary;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseEnvelopeChangePassword;
@@ -13,6 +15,8 @@ import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_compone
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_item_details_for_component_barcode.ResponseEnvelopeFindDeliveryItemDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseEnvelopeFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseEnvelopeRecordLocationOfItem;
+import com.jlp.mvvm_jlp_project.model.response.route_details.ResponseEnvelopeRouteDetails;
+import com.jlp.mvvm_jlp_project.model.response.route_item_update_status.ResponseEnvelopeUpdateItemStatus;
 import com.jlp.mvvm_jlp_project.model.response.route_management_summary.ResponseEnvelopeRouteManagementSummary;
 
 import retrofit2.Call;
@@ -68,7 +72,20 @@ public interface ApiService {
     // Summary Details
     @Headers({"Content-Type: application/soap+xml", "charset: utf-8", "Content-Length: length"})
     @POST("/FindSummaryOfDeliveriesAndDeliveryItems")
-    Call<ResponseEnvelopeRouteManagementSummary> summaryDetailsApi(@Body RequestEnvelopRouteManagementSummary envelope);
+    Call<ResponseEnvelopeRouteManagementSummary> serviceSummaryDetailsApi(@Body RequestEnvelopRouteManagementSummary envelope);
+
+
+    //call from screen
+    // Summary Details
+    @Headers({"Content-Type: application/soap+xml", "charset: utf-8", "Content-Length: length"})
+    @POST("/FindDeliveriesAndDeliveryItems")
+    Call<ResponseEnvelopeRouteDetails> serviceRouteDetailsApi(@Body RequestEnvelopeRouteDetails envelope);
+
+    //call from screen
+    // Summary Details
+    @Headers({"Content-Type: application/soap+xml", "charset: utf-8", "Content-Length: length"})
+    @POST("/UpdateItemStatus")
+    Call<ResponseEnvelopeUpdateItemStatus> serviceUpdateItemStatus(@Body RequestEnvelopeUpdateItemStatus envelope);
 
 
 }

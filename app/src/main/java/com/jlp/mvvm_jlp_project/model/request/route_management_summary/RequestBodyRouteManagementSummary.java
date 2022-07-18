@@ -10,7 +10,7 @@ import javax.inject.Inject;
 public class RequestBodyRouteManagementSummary {
 
     @Inject
-    RequestBodyRouteManagementSummary() {
+    public RequestBodyRouteManagementSummary() {
     }
 
     @Element(name = "cds:FindSummaryOfDeliveriesAndDeliveryItemsRequest", required = false)

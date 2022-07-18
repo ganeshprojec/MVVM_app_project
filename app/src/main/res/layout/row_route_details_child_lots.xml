@@ -28,14 +28,14 @@
         android:gravity="center_vertical"
         android:text="@string/dummy_location_b5"
         app:layout_constraintBottom_toBottomOf="@+id/txtLotNumber"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/txtLotNumber"
         app:layout_constraintTop_toTopOf="@+id/txtLotNumber" />
 
     <View
-        style="@style/style_views_divider_black"
-        android:layout_width="match_parent"
+        style="@style/style_views_divider_gray"
+        android:layout_width="0dp"
         android:layout_marginTop="@dimen/dimen4dp"
+        app:layout_constraintEnd_toEndOf="@+id/txtLotLocation"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

@@ -1,4 +1,4 @@
-package com.jlp.mvvm_jlp_project.model.request.route_management_summary;
+package com.jlp.mvvm_jlp_project.model.request.route_item_update_status;
 
 import com.jlp.mvvm_jlp_project.utils.Constants;
 
@@ -15,21 +15,20 @@ import javax.inject.Inject;
         @Namespace(prefix = "soapenv", reference = "http://schemas.xmlsoap.org/soap/envelope/"),
         @Namespace(prefix = "cds", reference = Constants.NAMESPACE)
 })
-public class RequestEnvelopRouteManagementSummary {
+public class RequestEnvelopeUpdateItemStatus {
 
     @Inject
-    public RequestEnvelopRouteManagementSummary() {
+    public RequestEnvelopeUpdateItemStatus() {
     }
 
     @Element(name = "soapenv:Body", required = false)
-    private RequestBodyRouteManagementSummary requestBody;
+    private RequestBodyUpdateItemStatus requestBody;
 
-    public RequestBodyRouteManagementSummary getRequestBodyRouteManagementSummary() {
+    public RequestBodyUpdateItemStatus getRequestBody() {
         return requestBody;
     }
 
-    public void setRequestBodyRouteManagementSummary(RequestBodyRouteManagementSummary requestBody) {
+    public void setRequestBody(RequestBodyUpdateItemStatus requestBody) {
         this.requestBody = requestBody;
     }
 }
-

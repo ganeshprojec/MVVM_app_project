@@ -28,7 +28,7 @@ public class SummaryViewModel extends BaseViewModel {
 
 
     public void findSummaryDetails(RequestEnvelopRouteManagementSummary envelope) {
-        repository.findRouteManagementSummary(envelope);
+        repository.callFindRouteManagementSummary(envelope);
     }
 
 
