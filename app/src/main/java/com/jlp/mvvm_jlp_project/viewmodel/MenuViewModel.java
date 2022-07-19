@@ -9,9 +9,8 @@ import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.model.DrawerMenuItem;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
-import com.jlp.mvvm_jlp_project.view.home.TemplateFragment;
 import com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScannerFragment;
-import com.jlp.mvvm_jlp_project.view.route_management.RouteSummaryFragment;
+import com.jlp.mvvm_jlp_project.view.home.TemplateFragment;
 
 import java.util.ArrayList;
 
@@ -116,11 +115,13 @@ public class MenuViewModel extends BaseViewModel {
     }
 
     public void onPressRouteManagement(@ActivityContext Context context) {
-        Helper.addFragment(context, new RouteSummaryFragment());
+        //Helper.addFragment(context, new RouteSummaryFragment());
+        Helper.addFragment(context, new CommonBarcodeScannerFragment(AppConstants.FRAGMENT_ROUTE_MANAGEMENT));
     }
 
     public void onPressTrackDelivery(@ActivityContext Context context) {
         Helper.addFragment(context, new CommonBarcodeScannerFragment(AppConstants.FRAGMENT_CARRIER_COLLECTION_DETAILS));
+
     }
 
     public void onPressDeliveryDetails(@ActivityContext Context context) {

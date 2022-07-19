@@ -2,6 +2,8 @@ package com.jlp.mvvm_jlp_project.viewmodel;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestBodyRouteManagementSummary;
+import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestDataRouteManagementSummary;
 import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestEnvelopRouteManagementSummary;
 import com.jlp.mvvm_jlp_project.model.response.route_management_summary.ResponseDataRouteManagementSummary;
 import com.jlp.mvvm_jlp_project.repository.RouteManagementSummaryRepository;
@@ -27,8 +29,21 @@ public class SummaryViewModel extends BaseViewModel {
     }
 
 
-    public void findSummaryDetails(RequestEnvelopRouteManagementSummary envelope) {
-        repository.callFindRouteManagementSummary(envelope);
+    public void findSummaryDetails(String barcodeRoute) {
+        repository.callFindRouteManagementSummary(getEnvelopSummaryDetails(barcodeRoute));
+    }
+
+    private RequestEnvelopRouteManagementSummary getEnvelopSummaryDetails(String routeId) {
+
+        RequestEnvelopRouteManagementSummary requestEnvelop = new RequestEnvelopRouteManagementSummary();
+        RequestBodyRouteManagementSummary requestBody = new RequestBodyRouteManagementSummary();
+        RequestDataRouteManagementSummary requestData = new RequestDataRouteManagementSummary();
+
+        requestData.setRouteId(routeId);
+        requestBody.setRequestDataRouteManagementSummary(requestData);
+        requestEnvelop.setRequestBodyRouteManagementSummary(requestBody);
+
+        return requestEnvelop;
     }
 
 

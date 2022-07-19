@@ -24,4 +24,5 @@ public class AppConstants {
     public static final String FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE = "Fragment Multi Movement For Component Barcode";
     public static final String FRAGMENT_CARRIER_HANDOVER_DETAILS = "Fragment Carrier Handover Details";
     public static final String FRAGMENT_CARRIER_COLLECTION_DETAILS = "Fragment Carrier Collection Details";
+    public static final String FRAGMENT_ROUTE_MANAGEMENT = "Fragment Route Management";
 }

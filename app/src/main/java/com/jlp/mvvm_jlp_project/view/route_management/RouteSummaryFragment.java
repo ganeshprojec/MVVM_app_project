@@ -24,7 +24,6 @@ import com.jlp.mvvm_jlp_project.interfaces.DialogListener;
 import com.jlp.mvvm_jlp_project.model.DeliveryDetails;
 import com.jlp.mvvm_jlp_project.model.ItemStatusDetails;
 import com.jlp.mvvm_jlp_project.model.RouteDeliveryDetails;
-import com.jlp.mvvm_jlp_project.model.response.DeliveryNum;
 import com.jlp.mvvm_jlp_project.model.response.route_details.ResponseDataRouteDetails;
 import com.jlp.mvvm_jlp_project.model.response.route_item_update_status.ResponseDataUpdateItemStatus;
 import com.jlp.mvvm_jlp_project.utils.Helper;
@@ -33,6 +32,7 @@ import com.jlp.mvvm_jlp_project.utils.SpacesItemDecoration;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseDialogFragment;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
+import com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScannerFragment;
 import com.jlp.mvvm_jlp_project.viewmodel.RouteSummaryViewModel;
 
 import java.util.ArrayList;
@@ -56,7 +56,6 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     private RouteDeliveryDetails details = new RouteDeliveryDetails();
     private ItemStatusDetails itemStatusDetails = new ItemStatusDetails();
 
-
     private int currentPosition = 0;
 
     public RouteSummaryFragment() {
@@ -79,6 +78,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
         initObserver(view);
         initListener();
 
+
         currentPosition = 0;
         dummySummary();
         //dummyDeliveries();
@@ -88,7 +88,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
 
 
     private void dummySummary() {
-        viewModel.summary.setRouteNumber("" + getString(R.string.dummy_route_number));
+        /*viewModel.summary.setRouteNumber("" + getString(R.string.dummy_route_number));
         viewModel.summary.setDeliveryDate("" + getString(R.string.dummy_delivery_date));
         viewModel.summary.setTotalDeliveries("" + getString(R.string.dummy_total_deliveries));
         viewModel.summary.setTotalLots("" + getString(R.string.dummy_total_lots));
@@ -98,9 +98,11 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
         deliveryNum.getDeliveryIds().clear();
         deliveryNum.getDeliveryIds().add("39721571");
         deliveryNum.getDeliveryIds().add("39721571");
-        deliveryNum.getDeliveryIds().add("39721571");
+        deliveryNum.getDeliveryIds().add("39721571");*/
 
-        viewModel.summary.setDeliveryNum(deliveryNum);
+        viewModel.summary = CommonBarcodeScannerFragment.routeSummary;
+        //viewModel.summary.setDeliveryNum(deliveryNum);
+        updateSummaryOnView();
     }
 
 
@@ -178,9 +180,10 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     }
 
     public void updateSummaryOnView() {
+
         // Summary
         binding.layoutSummaryIncl.txtRouteNumberValue.setText("" + viewModel.summary.getRouteNumber());
-        binding.layoutSummaryIncl.txtDeliveryDateValue.setText("" + viewModel.summary.getDeliveryDate());
+        binding.layoutSummaryIncl.txtDeliveryDateValue.setText("" + viewModel.summary.getFormattedDeliveryDate());
         binding.layoutSummaryIncl.txTotalDeliveriesValue.setText("" + viewModel.summary.getTotalNumberOfDeliveriesCount());//summary.getTotalDeliveries()
         binding.layoutSummaryIncl.txTotalLotsValue.setText("" + viewModel.summary.getTotalLots());
         binding.layoutSummaryIncl.txTotalLotsLoadedValue.setText("" + viewModel.summary.getDeliveryLotsLoaded());
@@ -218,6 +221,8 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     private void initListener() {
         showIconToolbar();
 
+        setToolTitle(getString(R.string.str_route_management));
+
         //Dummy list funciton
         listDeliveryDetails = viewModel.getDummyList(getActivity());
         LinearLayoutManager llm = new LinearLayoutManager(getActivity());
@@ -232,6 +237,11 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
         binding.recyList.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
 
         binding.appbarLayoutRoute.addOnOffsetChangedListener(appBarStateChangeListener);
+    }
+
+    private void setToolTitle(String title) {
+        binding.homeTopheader1.txtToolbarTitle.setText("" + title);
+        binding.homeTopheader.txtToolbarTitle.setText("" + title);
     }
 
     public void callRouteDeliveryDetails(String deliveryId) {

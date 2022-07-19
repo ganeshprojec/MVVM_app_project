@@ -1,4 +1,5 @@
 package com.jlp.mvvm_jlp_project.viewmodel;
+
 import android.text.TextUtils;
 import android.util.Pair;
 
@@ -11,6 +12,9 @@ import com.jlp.mvvm_jlp_project.model.request.find_delivery_item_details_for_com
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.LocationItemDetails;
 import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.RequestEnvelopeRecordLocationOfItem;
+import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestBodyRouteManagementSummary;
+import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestDataRouteManagementSummary;
+import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestEnvelopRouteManagementSummary;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.DeliveryItemProductDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.ResponseDataFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_item_details_for_component_barcode.DeliveryItemDetails;
@@ -18,7 +22,9 @@ import com.jlp.mvvm_jlp_project.model.response.find_delivery_item_details_for_co
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.LocationDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseDataFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseDataRecordLocationOfItem;
+import com.jlp.mvvm_jlp_project.model.response.route_management_summary.ResponseDataRouteManagementSummary;
 import com.jlp.mvvm_jlp_project.repository.CommonBarcodeScannerRepository;
+import com.jlp.mvvm_jlp_project.repository.RouteManagementSummaryRepository;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 
 import java.util.ArrayList;
@@ -32,6 +38,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 @HiltViewModel
 public class CommonBarcodeScannerViewModel extends BaseViewModel {
     CommonBarcodeScannerRepository repository;
+    RouteManagementSummaryRepository routeSummayRepo;
 
     public MutableLiveData<Pair<Boolean, Integer>> validationResult = new MutableLiveData<>();
 
@@ -50,42 +57,47 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
     public MutableLiveData<Resource<ResponseDataFindDeliveryItemDetailsForComponentBarcode>> responseFindDeliveryItemDetailsForComponentBarcode
             = new MutableLiveData<>();
 
+    public MutableLiveData<Resource<ResponseDataRouteManagementSummary>> responseSummaryDetails
+            = new MutableLiveData<>();
+
     @Inject
-    public CommonBarcodeScannerViewModel(CommonBarcodeScannerRepository repository) {
+    public CommonBarcodeScannerViewModel(CommonBarcodeScannerRepository repository, RouteManagementSummaryRepository routeSummayRepo) {
+        this.routeSummayRepo = routeSummayRepo;
         this.repository = repository;
+        this.responseSummaryDetails = routeSummayRepo._responseSummary;
         this.responseFindDeliveryDetailsForComponentBarcode = repository._responseFindDeliveryDetailsForComponentBarcode;
         this.responseFindLocationDetailsForBarcode = repository._responseFindLocationDetailsForBarcode;
         this.responseDataRecordLocationOfItem = repository._responseDataRecordLocationOfItem;
         this.responseFindDeliveryItemDetailsForComponentBarcode = repository._responseFindDeliveryItemDetailsForComponentBarcode;
     }
 
-    public void findDeliveryDetailsForComponentBarcode(RequestEnvelopeFindDeliveryDetailsForComponentBarcode envelope){
+    public void findDeliveryDetailsForComponentBarcode(RequestEnvelopeFindDeliveryDetailsForComponentBarcode envelope) {
         repository.findDeliveryDetailsForComponentBarcode(envelope);
     }
 
-    public void findLocationDetailsForBarcode(RequestEnvelopeFindLocationDetailsForBarcode envelope){
+    public void findLocationDetailsForBarcode(RequestEnvelopeFindLocationDetailsForBarcode envelope) {
         repository.findLocationDetailsForBarcode(envelope);
     }
 
-    public void findDeliveryItemDetailsForComponentBarcode(RequestEnvelopeFindDeliveryItemDetailsForComponentBarcode envelope){
+    public void findDeliveryItemDetailsForComponentBarcode(RequestEnvelopeFindDeliveryItemDetailsForComponentBarcode envelope) {
         repository.findDeliveryItemDetailsForComponentBarcode(envelope);
     }
 
-    public void recordLocationOfItem(RequestEnvelopeRecordLocationOfItem envelope){
+    public void recordLocationOfItem(RequestEnvelopeRecordLocationOfItem envelope) {
         repository.recordLocationOfItem(envelope);
     }
 
     public void validateBarcode(String barcode) {
-        Pair result = new Pair<> (true, 0);
-        if(TextUtils.isEmpty(barcode)){
+        Pair result = new Pair<>(true, 0);
+        if (TextUtils.isEmpty(barcode)) {
             result = new Pair(false, R.string.enter_barcode);
-        }else if(barcode.length()<6){
+        } else if (barcode.length() < 6) {
             result = new Pair(false, R.string.please_enter_password);
         }
         validationResult.setValue(result);
     }
 
-    public void getComponentBarcodeData(DeliveryItemProductDetails deliveryItemProductDetails){
+    public void getComponentBarcodeData(DeliveryItemProductDetails deliveryItemProductDetails) {
         List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
         itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_number,
                 deliveryItemProductDetails.getDeliveryId()
@@ -112,7 +124,7 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
         itemEnquiry.setValue(itemEnquiryModels);
     }
 
-    public void getItemDetailsComponentBarcodeData(DeliveryItemDetails deliveryItemDetails){
+    public void getItemDetailsComponentBarcodeData(DeliveryItemDetails deliveryItemDetails) {
         List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
         itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_number,
                 deliveryItemDetails.getDeliveryId()
@@ -128,7 +140,7 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
     }
 
     public void getLocationBarcodeData(DeliveryItemProductDetails deliveryItemProductDetails,
-                                       LocationDetails locationDetails){
+                                       LocationDetails locationDetails) {
         List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
         itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_number,
                 deliveryItemProductDetails.getDeliveryId()
@@ -146,11 +158,30 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
     public void updateAdapterData(LocationItemDetails locationItemDetails, LocationDetails locationDetails) {
         List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
         itemEnquiryModels.add(new TitleValueDataModel(R.string.lot_number,
-                locationItemDetails.getCurrentLotNumber()+" of "+locationItemDetails.getTotalLotNumber()
+                locationItemDetails.getCurrentLotNumber() + " of " + locationItemDetails.getTotalLotNumber()
         ));
         itemEnquiryModels.add(new TitleValueDataModel(R.string.stored_in_location,
                 locationDetails.getName15()
         ));
         itemEnquiry.setValue(itemEnquiryModels);
+    }
+
+
+    public void callSummaryDetails(String barcodeRoute) {
+
+        routeSummayRepo.callFindRouteManagementSummary(getEnvelopSummaryDetails(barcodeRoute));
+    }
+
+
+    private RequestEnvelopRouteManagementSummary getEnvelopSummaryDetails(String routeId) {
+
+        RequestEnvelopRouteManagementSummary requestEnvelop = new RequestEnvelopRouteManagementSummary();
+        RequestBodyRouteManagementSummary requestBody = new RequestBodyRouteManagementSummary();
+        RequestDataRouteManagementSummary requestData = new RequestDataRouteManagementSummary();
+
+        requestData.setRouteId(routeId);
+        requestBody.setRequestDataRouteManagementSummary(requestData);
+        requestEnvelop.setRequestBodyRouteManagementSummary(requestBody);
+        return requestEnvelop;
     }
 }
