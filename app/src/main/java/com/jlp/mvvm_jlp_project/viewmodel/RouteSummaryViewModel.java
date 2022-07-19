@@ -8,6 +8,7 @@ import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.model.DeliveryDetails;
 import com.jlp.mvvm_jlp_project.model.ItemStatusDetails;
 import com.jlp.mvvm_jlp_project.model.LotsInfo;
+import com.jlp.mvvm_jlp_project.model.RouteSummary;
 import com.jlp.mvvm_jlp_project.model.request.route_details.RequestBodyRouteDetails;
 import com.jlp.mvvm_jlp_project.model.request.route_details.RequestDataRouteDetails;
 import com.jlp.mvvm_jlp_project.model.request.route_details.RequestEnvelopeRouteDetails;
@@ -32,7 +33,10 @@ import dagger.hilt.android.qualifiers.ActivityContext;
 @HiltViewModel
 public class RouteSummaryViewModel extends BaseViewModel {
 
+
     private ArrayList<DeliveryDetails> backupList = new ArrayList<>();
+    public RouteSummary summary = new RouteSummary();
+
     RouteManagementSummaryRepository repository;
 
     public MutableLiveData<Resource<ResponseDataRouteManagementSummary>> responseSummaryDetails
@@ -102,8 +106,13 @@ public class RouteSummaryViewModel extends BaseViewModel {
         ArrayList<LotsInfo> tempList = new ArrayList<>();
 
         for (int i = 0; i < lots.size(); i++) {
-            String tempLocation = lots.get(i).getLotNumber();
+            /*String tempLocation = lots.get(i).getLotNumber();
             if (!(tempLocation.equalsIgnoreCase(location))) {
+                tempList.add(LotsInfo.getCopy(lots.get(i)));
+            }*/
+            //TODO: Check condition for NOT STORED & LOADED once text available
+            String tempLocationName = lots.get(i).getLotLocation();
+            if (!(tempLocationName.toLowerCase().contains(location.trim().toLowerCase()))) {
                 tempList.add(LotsInfo.getCopy(lots.get(i)));
             }
         }

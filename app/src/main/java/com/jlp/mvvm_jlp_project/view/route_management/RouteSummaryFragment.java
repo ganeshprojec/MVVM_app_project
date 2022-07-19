@@ -24,6 +24,7 @@ import com.jlp.mvvm_jlp_project.interfaces.DialogListener;
 import com.jlp.mvvm_jlp_project.model.DeliveryDetails;
 import com.jlp.mvvm_jlp_project.model.ItemStatusDetails;
 import com.jlp.mvvm_jlp_project.model.RouteDeliveryDetails;
+import com.jlp.mvvm_jlp_project.model.response.DeliveryNum;
 import com.jlp.mvvm_jlp_project.model.response.route_details.ResponseDataRouteDetails;
 import com.jlp.mvvm_jlp_project.model.response.route_item_update_status.ResponseDataUpdateItemStatus;
 import com.jlp.mvvm_jlp_project.utils.Helper;
@@ -55,6 +56,9 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     private RouteDeliveryDetails details = new RouteDeliveryDetails();
     private ItemStatusDetails itemStatusDetails = new ItemStatusDetails();
 
+
+    private int currentPosition = 0;
+
     public RouteSummaryFragment() {
 
     }
@@ -75,11 +79,33 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
         initObserver(view);
         initListener();
 
-        callRouteDeliveryDetails("39721571");
+        currentPosition = 0;
+        dummySummary();
+        //dummyDeliveries();
+        callRouteDeliveryDetails(viewModel.summary.getDeliveryNum().getDeliveryIds().get(currentPosition));
+
+    }
+
+
+    private void dummySummary() {
+        viewModel.summary.setRouteNumber("" + getString(R.string.dummy_route_number));
+        viewModel.summary.setDeliveryDate("" + getString(R.string.dummy_delivery_date));
+        viewModel.summary.setTotalDeliveries("" + getString(R.string.dummy_total_deliveries));
+        viewModel.summary.setTotalLots("" + getString(R.string.dummy_total_lots));
+        viewModel.summary.setDeliveryLotsLoaded("" + getString(R.string.dummy_total_lots_loaded));
+
+        DeliveryNum deliveryNum = new DeliveryNum();
+        deliveryNum.getDeliveryIds().clear();
+        deliveryNum.getDeliveryIds().add("39721571");
+        deliveryNum.getDeliveryIds().add("39721571");
+        deliveryNum.getDeliveryIds().add("39721571");
+
+        viewModel.summary.setDeliveryNum(deliveryNum);
     }
 
 
     private void initObserver(View view) {
+
         viewModel.responseRouteDeliveryDetails.observe(getViewLifecycleOwner(), new Observer<Resource<ResponseDataRouteDetails>>() {
 
             @Override
@@ -87,7 +113,9 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
                 if (response.status != null) {
                     switch (response.status) {
                         case LOADING: {
-                            progressDialog = Utils.showProgressBar(getContext());
+                            if (currentPosition == 0) {
+                                progressDialog = Utils.showProgressBar(getContext());
+                            }
                             break;
                         }
                         case ERROR: {
@@ -97,11 +125,19 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
                             break;
                         }
                         case SUCCESS: {
-
-                            Utils.hideProgressDialog(progressDialog);
                             details = response.data.getRouteDeliveryDetails();
-
                             showRouteDeliveryDetailsOnView();
+
+                            currentPosition++;
+                            if (currentPosition < viewModel.summary.getDeliveryNum().getDeliveryIds().size()) {
+                                callRouteDeliveryDetails(viewModel.summary.getDeliveryNum().getDeliveryIds().get(currentPosition));
+                                //viewModel.callUpdateStatus();
+                            } else {
+                                Utils.hideProgressDialog(progressDialog);
+                                viewModel.getBackupList().clear();
+                                viewModel.getBackupList().addAll(listDeliveryDetails);
+                            }
+
                             break;
                         }
                     }
@@ -141,16 +177,14 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
 
     }
 
-    /*public void updateSummaryOnView() {
-        // Header
-        binding.layoutSummaryInclHeader.txtRouteNumberValue.setText("" + summary.getRouteNumber());
-        binding.layoutSummaryInclHeader.txtDeliveryDateValue.setText("" + summary.getDeliveryDate());
-
+    public void updateSummaryOnView() {
         // Summary
-        binding.layoutSummaryIncl.txTotalDeliveriesValue.setText("" + summary.getTotalNumberOfDeliveriesCount());//summary.getTotalDeliveries()
-        binding.layoutSummaryIncl.txTotalLotsValue.setText("" + summary.getTotalLots());
-        binding.layoutSummaryIncl.txTotalLotsLoadedValue.setText("" + summary.getDeliveryLotsLoaded());
-    }*/
+        binding.layoutSummaryIncl.txtRouteNumberValue.setText("" + viewModel.summary.getRouteNumber());
+        binding.layoutSummaryIncl.txtDeliveryDateValue.setText("" + viewModel.summary.getDeliveryDate());
+        binding.layoutSummaryIncl.txTotalDeliveriesValue.setText("" + viewModel.summary.getTotalNumberOfDeliveriesCount());//summary.getTotalDeliveries()
+        binding.layoutSummaryIncl.txTotalLotsValue.setText("" + viewModel.summary.getTotalLots());
+        binding.layoutSummaryIncl.txTotalLotsLoadedValue.setText("" + viewModel.summary.getDeliveryLotsLoaded());
+    }
 
     public void showRouteDeliveryDetailsOnView() {
         // Header
@@ -158,8 +192,11 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
         // Add List to existing arrayList & notifydataset changed
 
         ArrayList<DeliveryDetails> tempList = details.getDetailsList();
-        listDeliveryDetails.clear();
+        if (currentPosition == 0) {
+            listDeliveryDetails.clear();
+        }
         listDeliveryDetails.addAll(tempList);
+
         adapter.notifyDataSetChanged();
         Log.e("Response", "" + details.toString());
         // Adapter change Listener
@@ -199,7 +236,13 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
 
     public void callRouteDeliveryDetails(String deliveryId) {
         // check Is empty, It will not empty maximum case
-        viewModel.callRouteDetails(deliveryId);
+
+        if (Utils.isInternetAvailable(getActivity())) {
+            viewModel.callRouteDetails(deliveryId);
+        } else {
+            Utils.hideProgressDialog(progressDialog);
+            Utils.showErrorMessage(getActivity(), getResources().getString(R.string.please_check_internet_connection));
+        }
     }
 
     public void callUpdateItemStatus() {

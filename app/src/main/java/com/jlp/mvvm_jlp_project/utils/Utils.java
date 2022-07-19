@@ -7,15 +7,20 @@ import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.net.ParseException;
 import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.jlp.mvvm_jlp_project.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class Utils {
 
     /**
      * Create a progress bar which shows the progress
+     *
      * @param context
      * @return Progress Dialog to hide from where it is called
      */
@@ -74,12 +79,40 @@ public class Utils {
 
     /**
      * Hide progressbar
+     *
      * @param pDialog Currently visible progress dialog
      */
     public static void hideProgressDialog(ProgressDialog pDialog) {
-        if (pDialog!=null) {
+        if (pDialog != null) {
             pDialog.dismiss();
         }
     }
+
+    /**
+     * Convert date into format
+     *
+     * @param inputDate input date that is to be converted in format dd/MM/YYYY
+     */
+    public static String formatDate(String inputDate) {
+
+        String formattedDate = "";
+        try {
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = null;
+            //date = inputFormat.parse("2020-05-03T00:00:00");
+            date = inputFormat.parse(inputDate);
+            formattedDate = outputFormat.format(date);
+            if (formattedDate == null || formattedDate.length() == 0) {
+                formattedDate = inputDate;
+            }
+            //System.out.println("coverted: "+formattedDate);
+        } catch (ParseException | java.text.ParseException e) {
+            e.printStackTrace();
+        }
+
+        return "" + formattedDate;
+    }
+
 
 }

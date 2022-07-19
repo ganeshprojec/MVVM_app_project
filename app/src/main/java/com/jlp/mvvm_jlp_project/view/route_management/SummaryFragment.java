@@ -11,6 +11,7 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.databinding.FragmentSummaryBinding;
 import com.jlp.mvvm_jlp_project.model.RouteSummary;
 import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestBodyRouteManagementSummary;
@@ -91,8 +92,15 @@ public class SummaryFragment extends BaseFragment implements View.OnClickListene
 
 
     private void findSummaryDetails(String routeId) {
-        prepareEnvelopSummaryDetails(routeId);
-        summaryViewModel.findSummaryDetails(requestEnvelop);
+
+        if (Utils.isInternetAvailable(getActivity())) {
+            prepareEnvelopSummaryDetails(routeId);
+            summaryViewModel.findSummaryDetails(requestEnvelop);
+        } else {
+            Utils.hideProgressDialog(progressDialog);
+            Utils.showErrorMessage(getActivity(), getResources().getString(R.string.please_check_internet_connection));
+        }
+
     }
 
 
@@ -143,7 +151,7 @@ public class SummaryFragment extends BaseFragment implements View.OnClickListene
     public void updateSummaryOnView() {
         // Header
         binding.layoutSummaryInclHeader.txtRouteNumberValue.setText("" + summary.getRouteNumber());
-        binding.layoutSummaryInclHeader.txtDeliveryDateValue.setText("" + summary.getDeliveryDate());
+        binding.layoutSummaryInclHeader.txtDeliveryDateValue.setText("" + summary.getFormattedDeliveryDate());
 
         // Summary
         binding.layoutSummaryIncl.txTotalDeliveriesValue.setText("" + summary.getTotalNumberOfDeliveriesCount());//summary.getTotalDeliveries()

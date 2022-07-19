@@ -1,6 +1,7 @@
 package com.jlp.mvvm_jlp_project.model;
 
 import com.jlp.mvvm_jlp_project.model.response.DeliveryNum;
+import com.jlp.mvvm_jlp_project.utils.Utils;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
@@ -25,8 +26,16 @@ public class RouteSummary {
     @Element(name = "totalNumberOfDeliveryLotsLoaded", required = false)
     private String deliveryLotsLoaded = new String();
 
+    public DeliveryNum getDeliveryNum() {
+        return deliveryNum;
+    }
+
+    public void setDeliveryNum(DeliveryNum deliveryNum) {
+        this.deliveryNum = deliveryNum;
+    }
+
     @Element(name = "DeliveryIdForDelivery", required = false)
-    public DeliveryNum deliveryCollection = new DeliveryNum();
+    public DeliveryNum deliveryNum = new DeliveryNum();
 
     @Inject
     public RouteSummary() {
@@ -43,6 +52,10 @@ public class RouteSummary {
 
     public String getDeliveryDate() {
         return deliveryDate;
+    }
+
+    public String getFormattedDeliveryDate() {
+        return Utils.formatDate(deliveryDate);
     }
 
     public void setDeliveryDate(String deliveryDate) {
@@ -74,6 +87,6 @@ public class RouteSummary {
     }
 
     public Integer getTotalNumberOfDeliveriesCount() {
-        return deliveryCollection.getDeliveryIds().size();
+        return deliveryNum.getDeliveryIds().size();
     }
 }
