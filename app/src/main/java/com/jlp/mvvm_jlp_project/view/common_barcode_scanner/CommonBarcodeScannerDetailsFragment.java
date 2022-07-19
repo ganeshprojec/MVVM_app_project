@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,9 +16,9 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.jlp.mvvm_jlp_project.R;
-import com.jlp.mvvm_jlp_project.adapters.CommonBarcodeScannerAdapter;
+import com.jlp.mvvm_jlp_project.adapters.CommonAdapter;
 import com.jlp.mvvm_jlp_project.databinding.FragmentCommonBarcodeScannerDetailsBinding;
-import com.jlp.mvvm_jlp_project.model.ItemEnquiryModel;
+import com.jlp.mvvm_jlp_project.model.TitleValueDataModel;
 import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.LocationItemDetails;
 import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.RequestBodyRecordLocationOfItem;
 import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.RequestDataRecordLocationOfItem;
@@ -33,7 +32,7 @@ import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.auth.LoginFragment;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
-import com.jlp.mvvm_jlp_project.viewmodel.CommonBarCodeLocationScannerViewModel;
+import com.jlp.mvvm_jlp_project.viewmodel.CommonBarcodeScannerViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,11 +49,11 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
     private LocationDetails locationDetails = CommonBarcodeScannerFragment.locationDetails;
     private DeliveryItemDetails deliveryItemDetails = CommonBarcodeScannerFragment.deliveryItemDetails;
     private FragmentCommonBarcodeScannerDetailsBinding binding;
-    private CommonBarCodeLocationScannerViewModel viewModel;
+    private CommonBarcodeScannerViewModel viewModel;
     private String callFor;
     // Used for adapter and list to setup
-    private CommonBarcodeScannerAdapter adapter;
-    private List<ItemEnquiryModel> detailsDataList =  new ArrayList<>();
+    private CommonAdapter adapter;
+    private List<TitleValueDataModel> detailsDataList =  new ArrayList<>();
 
     @Inject
     RequestEnvelopeRecordLocationOfItem requestEnvelopeRecordLocation;
@@ -79,7 +78,7 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(CommonBarCodeLocationScannerViewModel.class);
+        viewModel = new ViewModelProvider(this).get(CommonBarcodeScannerViewModel.class);
         updateActionbarTitleAndLocationLayout();
         initListener();
         initObserver();
@@ -115,7 +114,7 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
      */
     private void setupAdapter(){
         if(detailsDataList!=null){
-            adapter = new CommonBarcodeScannerAdapter(detailsDataList, getContext());
+            adapter = new CommonAdapter(detailsDataList, getContext());
             binding.recyclerView.setAdapter(adapter);
             binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         }else{
@@ -229,9 +228,9 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
             }
         });
 
-        viewModel.itemEnquiry.observe(getViewLifecycleOwner(), new Observer<List<ItemEnquiryModel>>() {
+        viewModel.itemEnquiry.observe(getViewLifecycleOwner(), new Observer<List<TitleValueDataModel>>() {
             @Override
-            public void onChanged(List<ItemEnquiryModel> itemEnquiryModels) {
+            public void onChanged(List<TitleValueDataModel> itemEnquiryModels) {
                 detailsDataList.addAll(itemEnquiryModels);
                 adapter.notifyDataSetChanged();
             }

@@ -3,8 +3,4 @@
     <solid android:color="#00000000" />
     <stroke android:width="@dimen/small_edit_text_border_size"
         android:color="@color/edit_text_border" />
-    <padding android:bottom="@dimen/small_edit_padding_top_bottom"
-        android:left="@dimen/small_edit_padding_left_right"
-        android:right="@dimen/small_edit_padding_left_right"
-        android:top="@dimen/small_edit_padding_top_bottom"/>
 </shape>

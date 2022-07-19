@@ -38,8 +38,8 @@ import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.auth.LoginFragment;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
-import com.jlp.mvvm_jlp_project.view.carrier_handover_details.CarrierHandoverDetailsFragment;
-import com.jlp.mvvm_jlp_project.viewmodel.CommonBarCodeLocationScannerViewModel;
+import com.jlp.mvvm_jlp_project.view.carrier_handover_details.CarrierCollectionAndHandoverDetailsFragment;
+import com.jlp.mvvm_jlp_project.viewmodel.CommonBarcodeScannerViewModel;
 
 import javax.inject.Inject;
 
@@ -55,7 +55,7 @@ public class CommonBarcodeScannerFragment extends BaseFragment {
     private static final String TAG = LoginFragment.class.getSimpleName();
     private ProgressDialog progressDialog;
     private FragmentCommonBarcodeScannerBinding binding;
-    private CommonBarCodeLocationScannerViewModel viewModel;
+    private CommonBarcodeScannerViewModel viewModel;
     private String callFor;
 
     public static DeliveryItemProductDetails deliveryItemProductDetails;
@@ -99,7 +99,7 @@ public class CommonBarcodeScannerFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(CommonBarCodeLocationScannerViewModel.class);
+        viewModel = new ViewModelProvider(this).get(CommonBarcodeScannerViewModel.class);
         updateActionbarTitle();
         initObserver();
         initListener();
@@ -133,16 +133,16 @@ public class CommonBarcodeScannerFragment extends BaseFragment {
                 case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE:{
                     actionBarTitle = getResources().getString(R.string.multi_movement_title);
                     setLocationBarcodeFragmentTextTitles();
-                    locationLayoutFlag = true;
                     break;
                 }
-                case AppConstants.FRAGMENT_HAND_OVER_DELIVERY_DETAILS:{
+                case AppConstants.FRAGMENT_CARRIER_HANDOVER_DETAILS:{
                     actionBarTitle = getResources().getString(R.string.handover_delivery_title);
                     setDeliveryBarcodeFragmentTextTitles();
                     break;
                 }
                 case AppConstants.FRAGMENT_CARRIER_COLLECTION_DETAILS:{
-                    actionBarTitle = getResources().getString(R.string.carrier_collection_details);
+                    actionBarTitle = getResources().getString(R.string.carrier_collection_details_title);
+                    setDeliveryBarcodeFragmentTextTitles();
                     break;
                 }
             }
@@ -202,8 +202,9 @@ public class CommonBarcodeScannerFragment extends BaseFragment {
                 findLocationDetailsForBarcode(barcode);
                 break;
             }
-            case AppConstants.FRAGMENT_HAND_OVER_DELIVERY_DETAILS:{
-                replaceFragment(new CarrierHandoverDetailsFragment());
+            case AppConstants.FRAGMENT_CARRIER_COLLECTION_DETAILS:
+            case AppConstants.FRAGMENT_CARRIER_HANDOVER_DETAILS:{
+                replaceFragment(new CarrierCollectionAndHandoverDetailsFragment(callFor));
                 break;
             }
         }
@@ -356,6 +357,7 @@ public class CommonBarcodeScannerFragment extends BaseFragment {
                             if(callFor.equals(AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE)){
                                 updateLocationLayout(locationDetails);
                                 setComponentBarcodeFragmentTextTitles();
+                                locationLayoutFlag = true;
                                 callFor = AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE;
                             }else{
                                 replaceFragment(new CommonBarcodeScannerDetailsFragment(callFor));

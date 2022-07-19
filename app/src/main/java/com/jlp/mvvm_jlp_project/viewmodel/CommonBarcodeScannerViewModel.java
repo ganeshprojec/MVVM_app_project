@@ -5,7 +5,7 @@ import android.util.Pair;
 import androidx.lifecycle.MutableLiveData;
 
 import com.jlp.mvvm_jlp_project.R;
-import com.jlp.mvvm_jlp_project.model.ItemEnquiryModel;
+import com.jlp.mvvm_jlp_project.model.TitleValueDataModel;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestEnvelopeFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_item_details_for_component_barcode.RequestEnvelopeFindDeliveryItemDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
@@ -19,9 +19,7 @@ import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseDataFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseDataRecordLocationOfItem;
 import com.jlp.mvvm_jlp_project.repository.CommonBarcodeScannerRepository;
-import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Resource;
-import com.jlp.mvvm_jlp_project.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,13 +30,13 @@ import dagger.hilt.android.lifecycle.HiltViewModel;
 
 
 @HiltViewModel
-public class CommonBarCodeLocationScannerViewModel extends BaseViewModel {
+public class CommonBarcodeScannerViewModel extends BaseViewModel {
     CommonBarcodeScannerRepository repository;
 
     public MutableLiveData<Pair<Boolean, Integer>> validationResult = new MutableLiveData<>();
 
 
-    public MutableLiveData<List<ItemEnquiryModel>> itemEnquiry = new MutableLiveData<>();
+    public MutableLiveData<List<TitleValueDataModel>> itemEnquiry = new MutableLiveData<>();
 
     public MutableLiveData<Resource<ResponseDataFindDeliveryDetailsForComponentBarcode>> responseFindDeliveryDetailsForComponentBarcode
             = new MutableLiveData<>();
@@ -53,7 +51,7 @@ public class CommonBarCodeLocationScannerViewModel extends BaseViewModel {
             = new MutableLiveData<>();
 
     @Inject
-    public CommonBarCodeLocationScannerViewModel(CommonBarcodeScannerRepository repository) {
+    public CommonBarcodeScannerViewModel(CommonBarcodeScannerRepository repository) {
         this.repository = repository;
         this.responseFindDeliveryDetailsForComponentBarcode = repository._responseFindDeliveryDetailsForComponentBarcode;
         this.responseFindLocationDetailsForBarcode = repository._responseFindLocationDetailsForBarcode;
@@ -88,69 +86,69 @@ public class CommonBarCodeLocationScannerViewModel extends BaseViewModel {
     }
 
     public void getComponentBarcodeData(DeliveryItemProductDetails deliveryItemProductDetails){
-        List<ItemEnquiryModel> itemEnquiryModels = new ArrayList<>();
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.delivery_number,
+        List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_number,
                 deliveryItemProductDetails.getDeliveryId()
         ));
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.route_number,
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.route_number,
                 deliveryItemProductDetails.getRouteResourceKey()
         ));
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.delivery_date,
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_date,
                 deliveryItemProductDetails.getDeliveryDate()));
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.last_recorded_location,
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.last_recorded_location,
                 deliveryItemProductDetails.getDeliveryAddressPremise()));
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.time_of_last_move,
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.time_of_last_move,
                 deliveryItemProductDetails.getLastUpdatedTimeStamp()));
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.last_user_id,
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.last_user_id,
                 deliveryItemProductDetails.getLastUpdatedUserId()));
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.product_code,
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.product_code,
                 deliveryItemProductDetails.getProductCode()));
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.product_description,
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.product_description,
                 deliveryItemProductDetails.getOrderDescriptionClean()));
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.lot_number,
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.lot_number,
                 deliveryItemProductDetails.getCurrentLotNumber()));
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.address,
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.address,
                 deliveryItemProductDetails.getDeliveryAddressLocality()));
         itemEnquiry.setValue(itemEnquiryModels);
     }
 
     public void getItemDetailsComponentBarcodeData(DeliveryItemDetails deliveryItemDetails){
-        List<ItemEnquiryModel> itemEnquiryModels = new ArrayList<>();
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.delivery_number,
+        List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_number,
                 deliveryItemDetails.getDeliveryId()
         ));
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.route_number,
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.route_number,
                 deliveryItemDetails.getRouteResourceKey()
         ));
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.item,
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.item,
                 deliveryItemDetails.getGoodId()));
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.product_description,
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.product_description,
                 deliveryItemDetails.getOrderDescriptionClean()));
         itemEnquiry.setValue(itemEnquiryModels);
     }
 
     public void getLocationBarcodeData(DeliveryItemProductDetails deliveryItemProductDetails,
                                        LocationDetails locationDetails){
-        List<ItemEnquiryModel> itemEnquiryModels = new ArrayList<>();
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.delivery_number,
+        List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_number,
                 deliveryItemProductDetails.getDeliveryId()
         ));
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.route_number,
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.route_number,
                 deliveryItemProductDetails.getRouteResourceKey()
         ));
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.item,
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.item,
                 "08 Aug 2022"));
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.product_description,
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.product_description,
                 deliveryItemProductDetails.getOrderDescriptionClean()));
         itemEnquiry.setValue(itemEnquiryModels);
     }
 
     public void updateAdapterData(LocationItemDetails locationItemDetails, LocationDetails locationDetails) {
-        List<ItemEnquiryModel> itemEnquiryModels = new ArrayList<>();
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.lot_number,
+        List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.lot_number,
                 locationItemDetails.getCurrentLotNumber()+" of "+locationItemDetails.getTotalLotNumber()
         ));
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.stored_in_location,
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.stored_in_location,
                 locationDetails.getName15()
         ));
         itemEnquiry.setValue(itemEnquiryModels);

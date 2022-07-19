@@ -25,7 +25,7 @@
                     style="@style/text_views"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_padding_xtiny"
+                    android:layout_marginLeft="@dimen/margin_padding_x_tiny"
                     android:text="@string/scan_next_item_barcode"
                     android:textStyle="bold" />
 
@@ -34,8 +34,8 @@
                     style="@style/text_views"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_padding_xtiny"
-                    android:layout_marginTop="@dimen/margin_padding_xtiny"
+                    android:layout_marginLeft="@dimen/margin_padding_x_tiny"
+                    android:layout_marginTop="@dimen/margin_padding_x_tiny"
                     android:text="@string/scan_next_item_barcode"
                     android:visibility="gone" />
 

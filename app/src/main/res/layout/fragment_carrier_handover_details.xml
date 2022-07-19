@@ -8,7 +8,7 @@
     android:background="@color/white"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".view.carrier_handover_details.CarrierHandoverDetailsFragment">
+    tools:context=".view.carrier_handover_details.CarrierCollectionAndHandoverDetailsFragment">
 
     <include layout="@layout/layout_guideline_std" />
 
@@ -17,274 +17,431 @@
         layout="@layout/layout_top_header"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
 
-    <!--TODO : Included layouts have issues when added here in terms of height, width and alignment-->
-    <LinearLayout
-        android:id="@+id/container"
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_margin="@dimen/margin_padding_small"
-        android:background="@color/white"
-        android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@+id/btn_confirm"
+        android:layout_margin="@dimen/margin_padding_x_tiny"
+        android:padding="@dimen/margin_padding_x_tiny"
+        app:layout_constraintBottom_toTopOf="@id/btn_confirm"
         app:layout_constraintEnd_toEndOf="@id/guidelineRight"
         app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
-        app:layout_constraintTop_toBottomOf="@+id/home_top_header">
+        app:layout_constraintTop_toBottomOf="@+id/home_top_header"
+        tools:listitem="@layout/item_row_title_and_value">
 
-        <include
-            layout="@layout/layout_summary"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="parent" />
-
-
-        <TextView
-            android:id="@+id/tv_title"
-            style="@style/text_views"
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_padding_normal"
-            android:text="@string/please_enter_details_for_handover"
-            android:textStyle="bold"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layout_summary" />
+            android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_padding_small"
-            android:gravity="center"
-            android:orientation="horizontal">
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recycler_view_sub_header"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/margin_padding_tiny"
+                android:background="@color/color_light_gray"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:itemCount="5"
+                tools:listitem="@layout/item_row_title_and_value" />
 
             <TextView
+                android:id="@+id/tv_layout_header"
                 style="@style/text_views"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:text="@string/to_be_collected_and_delivered_by" />
-
-            <EditText
-                style="@style/small_text_input_edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="1" />
-
-        </LinearLayout>
-
-        <include
-            layout="@layout/devider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="10dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_padding_tiny"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/text_views"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:text="@string/on" />
+                android:layout_marginTop="@dimen/margin_padding_normal"
+                android:text="@string/please_enter_details_for_handover"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toTopOf="@+id/layout"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/recycler_view_sub_header" />
 
             <LinearLayout
-                android:layout_width="match_parent"
+                android:id="@+id/layout"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="vertical"
+                android:layout_marginTop="@dimen/margin_padding_small"
+                app:layout_constraintBottom_toTopOf="@+id/btn_confirm"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tv_layout_header">
 
-                <EditText
-                    style="@style/small_text_input_edittext"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1" />
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/tv_to_collected"
+                        style="@style/text_views"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:text="@string/to_be_collected_and_delivered_by"
+                        app:layout_constraintBottom_toBottomOf="@+id/divider1"
+                        app:layout_constraintEnd_toEndOf="@+id/guideline40percent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_to_be"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_padding_normal"
+                        android:layout_weight="2"
+                        android:background="@drawable/text_input_and_dropdown_layout_border"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="@+id/divider1"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/guideline40percent"
+                        app:layout_constraintTop_toTopOf="parent">
+
+                        <EditText
+                            android:id="@+id/et_to_be"
+                            style="@style/text_input_edittext_without_border"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/margin_padding_x_tiny"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/ic_arrow_top"
+                            android:visibility="invisible" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <include
+                    android:id="@+id/divider1"
+                    layout="@layout/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:layout_marginTop="@dimen/margin_padding_x_small"
+                    android:layout_marginBottom="@dimen/margin_padding_x_small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_to_collected" />
+
+                <LinearLayout
+                    android:id="@+id/layout_on_with_tv_and_et"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="2dp"
-                    android:rotation="180"
-                    android:src="@drawable/ic_arrow_top"
-                    android:background="@drawable/drop_down_background"/>
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_on"
+                        style="@style/text_views"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:text="@string/on"
+                        app:layout_constraintBottom_toBottomOf="@+id/divider2"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline40percent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/divider1" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_on"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_padding_normal"
+                        android:layout_weight="2"
+                        android:background="@drawable/text_input_and_dropdown_layout_border"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toTopOf="@+id/divider2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/guideline40percent"
+                        app:layout_constraintTop_toBottomOf="@+id/divider1">
+
+                        <EditText
+                            android:id="@+id/et_on"
+                            style="@style/text_input_edittext_without_border"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:padding="@dimen/margin_padding_x_tiny"
+                            android:hint="DD/MM/YYYY"
+                            android:inputType="date"
+                            android:focusable="false"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/black" />
+
+                        <ImageView
+                            android:id="@+id/drop_down_on"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_margin="2dp"
+                            android:rotation="180"
+                            android:src="@drawable/ic_arrow_top" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <include
+                    android:id="@+id/divider2"
+                    layout="@layout/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:layout_marginTop="@dimen/margin_padding_x_small"
+                    android:layout_marginBottom="@dimen/margin_padding_x_small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_on" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_delivery_to"
+                        style="@style/text_views"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:text="@string/delivery_to_the_customer_on"
+                        app:layout_constraintBottom_toBottomOf="@+id/divider3"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline40percent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_delivery_to"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_padding_normal"
+                        android:layout_weight="2"
+                        android:background="@drawable/text_input_and_dropdown_layout_border"
+                        app:layout_constraintBottom_toTopOf="@+id/divider3"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/guideline40percent"
+                        app:layout_constraintTop_toBottomOf="@+id/divider2">
+
+                        <EditText
+                            android:id="@+id/et_delivery_to"
+                            style="@style/text_input_edittext_without_border"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:padding="@dimen/margin_padding_x_tiny"
+                            android:hint="DD/MM/YYYY"
+                            android:inputType="date"
+                            android:focusable="false"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/black" />
+
+                        <ImageView
+                            android:id="@+id/drop_down_delivery_to"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_margin="2dp"
+                            android:rotation="180"
+                            android:src="@drawable/ic_arrow_top" />
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
+                <include
+                    android:id="@+id/divider3"
+                    layout="@layout/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:layout_marginTop="@dimen/margin_padding_x_small"
+                    android:layout_marginBottom="@dimen/margin_padding_x_small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_delivery_to" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_latest_delivery"
+                        style="@style/text_views"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:text="@string/latest_delivery_time"
+                        app:layout_constraintBottom_toBottomOf="@+id/divider4"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline40percent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/divider3" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_latest_delivery"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_padding_normal"
+                        android:layout_weight="2"
+                        android:background="@drawable/text_input_and_dropdown_layout_border"
+                        app:layout_constraintBottom_toTopOf="@+id/divider4"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/guideline40percent"
+                        app:layout_constraintTop_toBottomOf="@+id/divider3">
+
+                        <EditText
+                            android:id="@+id/et_latest_delivery"
+                            style="@style/text_input_edittext_without_border"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:focusable="false"
+                            android:hint="00:00"
+                            android:inputType="time"
+                            android:padding="@dimen/margin_padding_x_tiny"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/black" />
+
+                        <ImageView
+                            android:id="@+id/drop_down_latest_delivery"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_margin="2dp"
+                            android:rotation="180"
+                            android:src="@drawable/ic_arrow_top" />
+
+                        <View
+                            android:layout_width="1dp"
+                            android:layout_height="match_parent"
+                            android:background="@color/black" />
+
+                        <ImageView
+                            android:id="@+id/drop_up_latest_delivery"
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/ic_arrow_top" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <include
+                    android:id="@+id/divider4"
+                    layout="@layout/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:layout_marginTop="@dimen/margin_padding_x_small"
+                    android:layout_marginBottom="@dimen/margin_padding_x_small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_latest_delivery" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_onward_tracking"
+                        style="@style/text_views"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.2"
+                        android:text="@string/onward_tracking_reference"
+                        app:layout_constraintBottom_toBottomOf="@+id/divider5"
+                        app:layout_constraintEnd_toStartOf="@+id/guideline40percent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/divider4" />
+
+                    <LinearLayout
+                        android:id="@+id/layout_onward_tracking"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_padding_normal"
+                        android:layout_weight="2"
+                        android:background="@drawable/text_input_and_dropdown_layout_border"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="@+id/divider5"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/guideline40percent"
+                        app:layout_constraintTop_toBottomOf="@+id/divider4">
+
+                        <EditText
+                            android:id="@+id/et_onward_tracking"
+                            style="@style/text_input_edittext_without_border"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:padding="@dimen/margin_padding_x_tiny"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="parent" />
+
+                        <ImageView
+                            android:layout_width="32dp"
+                            android:layout_height="32dp"
+                            android:layout_margin="2dp"
+                            android:src="@drawable/ic_arrow_top"
+                            android:visibility="invisible" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+                <include
+                    android:id="@+id/divider5"
+                    layout="@layout/divider"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.8dp"
+                    android:layout_marginTop="@dimen/margin_padding_x_small"
+                    android:layout_marginBottom="@dimen/margin_padding_x_small"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/tv_onward_tracking" />
 
             </LinearLayout>
 
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
-        </LinearLayout>
-
-        <include
-            layout="@layout/devider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="10dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_padding_tiny"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/text_views"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:text="@string/delivery_to_the_customer_on" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <EditText
-                    style="@style/small_text_input_edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1" />
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_margin="2dp"
-                    android:rotation="180"
-                    android:src="@drawable/ic_arrow_top"
-                    android:background="@drawable/drop_down_background"/>
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <include
-            layout="@layout/devider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="10dp" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_padding_tiny"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/text_views"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:text="@string/latest_delivery_time" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <EditText
-                    style="@style/small_text_input_edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1" />
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_margin="2dp"
-                    android:src="@drawable/ic_arrow_top"
-                    android:background="@drawable/drop_down_background"/>
-
-                <ImageView
-                    android:layout_width="24dp"
-                    android:layout_height="24dp"
-                    android:layout_margin="2dp"
-                    android:rotation="180"
-                    android:src="@drawable/ic_arrow_top"
-                    android:background="@drawable/drop_down_background"/>
-
-            </LinearLayout>
-
-
-        </LinearLayout>
-
-        <include
-            layout="@layout/devider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="10dp" />
-
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_padding_tiny"
-            android:gravity="center"
-            android:orientation="horizontal">
-
-            <TextView
-                style="@style/text_views"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="10dp"
-                android:layout_weight="1"
-                android:text="@string/onward_tracking_reference" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
-                <EditText
-                    style="@style/small_text_input_edittext"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1" />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <include
-            layout="@layout/devider"
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_margin="10dp" />
-
-    </LinearLayout>
-
+    </ScrollView>
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_confirm"
         style="@style/button"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_padding_small"
+        android:layout_marginTop="@dimen/margin_padding_small"
+        android:layout_marginBottom="@dimen/margin_padding_small"
+        android:layout_marginLeft="@dimen/margin_padding_xx_large"
+        android:layout_marginRight="@dimen/margin_padding_xx_large"
         android:text="@string/confirm"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
-
-
-
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

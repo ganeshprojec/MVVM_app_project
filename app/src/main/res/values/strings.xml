@@ -154,4 +154,12 @@
     <string name="carrier_collection_details">Enter delivery number/scan</string>
     <string name="enter_delivery_barcode_number">Enter delivery barcode number/scan</string>
     <string name="enter_delivery_barcode_number_or_scan">Enter delivery barcode number/scan</string>
+    <string name="no_of_delivery_items">Number of delivery items</string>
+    <string name="customer_name">Customer name</string>
+    <string name="total_number_of_parts_lots">Total number of parts lots</string>
+
+    <!-- Strings for Carrier Collection Details Fragment -->
+    <string name="carrier_collection_details_title">Carrier Collection Details</string>
+
+
 </resources>

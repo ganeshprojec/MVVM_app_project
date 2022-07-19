@@ -10,12 +10,12 @@ import com.jlp.mvvm_jlp_project.R;
 /**
  * ViewHolder for list items which shown data at details fragment
  */
-public class CommonBarcodeScannerViewHolder extends RecyclerView.ViewHolder {
+public class CommonViewHolder extends RecyclerView.ViewHolder {
     public TextView title;
     public TextView value;
     View view;
 
-    public CommonBarcodeScannerViewHolder(View itemView) {
+    public CommonViewHolder(View itemView) {
         super(itemView);
         title = itemView.findViewById(R.id.tv_list_item_title);
         value = itemView.findViewById(R.id.tv_list_item_value);
