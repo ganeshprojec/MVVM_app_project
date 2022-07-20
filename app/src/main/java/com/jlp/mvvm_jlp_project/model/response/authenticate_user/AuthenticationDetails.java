@@ -3,15 +3,20 @@ package com.jlp.mvvm_jlp_project.model.response.authenticate_user;/*
  */
 
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementArray;
+import org.simpleframework.xml.ElementList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public
-class User {
+class AuthenticationDetails {
     @Element(name = "userId", required = false)
     public String userId;
     @Element(name = "userName", required = false)
     public String userName;
-    @Element(name = "deliveryCentreNumber", required = false)
-    public DeliveryCentreNumber deliveryCentreNumber;
+    @ElementList(name = "deliveryCentreNumber", inline=true)
+    public List<DeliveryCentreNumber> deliveryCentreNumber = new ArrayList<>();
 
     public String getUserId() {
         return userId;
@@ -29,11 +34,11 @@ class User {
         this.userName = userName;
     }
 
-    public DeliveryCentreNumber getDeliveryCentreNumber() {
+    public List<DeliveryCentreNumber> getDeliveryCentreNumber() {
         return deliveryCentreNumber;
     }
 
-    public void setDeliveryCentreNumber(DeliveryCentreNumber deliveryCentreNumber) {
+    public void setDeliveryCentreNumber(List<DeliveryCentreNumber> deliveryCentreNumber) {
         this.deliveryCentreNumber = deliveryCentreNumber;
     }
 }

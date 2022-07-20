@@ -38,7 +38,7 @@ public class Utils {
      * @param message error message
      */
     public static void showErrorMessage(Activity activity, String message) {
-        Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_INDEFINITE);
+        Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
         View snackBarView = snackbar.getView();
         snackBarView.setBackgroundColor(activity.getResources().getColor(R.color.snackbar_background));
         snackbar.setTextColor(activity.getResources().getColor(R.color.red));

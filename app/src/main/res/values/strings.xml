@@ -116,9 +116,11 @@
     <!-- Strings for carrier handover details -->
     <string name="please_enter_details_for_handover">Please enter details for handover</string>
     <string name="to_be_collected_and_delivered_by">To be collected and delivered by</string>
+    <string name="to_be_delivered_by">To be delivered by</string>
     <string name="on">On</string>
     <string name="delivery_to_the_customer_on">Delivery to the customer on</string>
     <string name="latest_delivery_time">Latest delivery time</string>
+    <string name="latest_earliest_time">Earliest delivery time</string>
     <string name="onward_tracking_reference">Onward tracking reference</string>
     <string name="confirm">Confirm</string>
     <string name="handover_delivery_title">Carrier Handover Details</string>
@@ -163,6 +165,9 @@
 
     <!-- Strings for Carrier Collection Details Fragment -->
     <string name="carrier_collection_details_title">Carrier Collection Details</string>
+
+
+    <string name="choose_delivery_center">Choose delivery center</string>
 
 
 </resources>

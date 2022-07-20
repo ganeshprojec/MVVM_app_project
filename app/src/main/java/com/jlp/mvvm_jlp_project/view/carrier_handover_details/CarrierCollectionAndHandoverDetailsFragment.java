@@ -3,12 +3,14 @@ package com.jlp.mvvm_jlp_project.view.carrier_handover_details;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -109,16 +111,67 @@ public class CarrierCollectionAndHandoverDetailsFragment extends BaseFragment{
         binding.dropDownLatestDelivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //pickTimeAndSetToView(binding.etLatestDelivery);
+                decreaseTimeByOneHrs(binding.etLatestDelivery);
             }
         });
 
         binding.dropUpLatestDelivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //pickTimeAndSetToView(binding.etLatestDelivery);
+                increaseTimeByOneHrs(binding.etLatestDelivery);
             }
         });
+
+        binding.etEarliestDelivery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pickTimeAndSetToView(binding.etEarliestDelivery);
+            }
+        });
+
+        binding.dropDownEarliestDelivery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                decreaseTimeByOneHrs(binding.etEarliestDelivery);
+            }
+        });
+
+        binding.dropUpEarliestDelivery.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                increaseTimeByOneHrs(binding.etEarliestDelivery);
+            }
+        });
+    }
+
+    private void increaseTimeByOneHrs(EditText et){
+        try {
+            if(et.getText().toString().trim().equals("")) et.setText("00:00");
+            int hrs = Integer.parseInt(et.getText().toString().trim().split(":")[0]);
+            if(hrs < 24){
+                hrs++;
+            }
+            String hour = String.valueOf(hrs);
+            if(hrs<=9) hour = "0"+hrs;
+            et.setText(hour+":00");
+        }catch (Exception ex){
+            Log.e(TAG, "Exception : "+ex);
+        }
+    }
+
+    private void decreaseTimeByOneHrs(EditText et){
+        try {
+            if(et.getText().toString().trim().equals("")) et.setText("00:00");
+            int hrs = Integer.parseInt(et.getText().toString().trim().split(":")[0]);
+            if(hrs > 0){
+                hrs--;
+            }
+            String hour = String.valueOf(hrs);
+            if(hrs<=9) hour = "0"+hrs;
+            et.setText(hour+":00");
+        }catch (Exception ex){
+            Log.e(TAG, "Exception : "+ex);
+        }
     }
 
     private void pickTimeAndSetToView(EditText etLatestDelivery) {
@@ -167,21 +220,39 @@ public class CarrierCollectionAndHandoverDetailsFragment extends BaseFragment{
         binding.homeTopHeader.txtToolbarTitle.setText(CommonBarcodeScannerFragment.actionBarTitle);
         switch (callFor){
             case AppConstants.FRAGMENT_CARRIER_COLLECTION_DETAILS:{
-                binding.btnConfirm.setText(getResources().getText(R.string.confirm));
-                updateOnLayout(View.GONE);
+                updateOnLayoutForCarrieCollectionDetails();
                 break;
             }
             case AppConstants.FRAGMENT_CARRIER_HANDOVER_DETAILS:{
-                binding.btnConfirm.setText(getResources().getText(R.string.next));
-                updateOnLayout(View.VISIBLE);
+                updateOnLayoutForCarrieHandoverDetails();
                 break;
             }
         }
     }
 
-    private void updateOnLayout(int visibility) {
-        binding.layoutOnWithTvAndEt.setVisibility(visibility);
-        binding.divider1.divider.setVisibility(visibility);
+    private void updateOnLayoutForCarrieCollectionDetails() {
+        binding.tvToCollected.setText(getResources().getString(R.string.to_be_collected_and_delivered_by));
+
+        binding.layoutOnWithTvAndEt.setVisibility(View.VISIBLE);
+        binding.divider2.divider.setVisibility(View.VISIBLE);
+
+        binding.layoutEarliestDelivery.setVisibility(View.GONE);
+        binding.divider4.divider.setVisibility(View.GONE);
+
+        binding.btnConfirm.setText(getResources().getText(R.string.confirm));
+    }
+
+    private void updateOnLayoutForCarrieHandoverDetails() {
+        binding.tvToCollected.setText(getResources().getString(R.string.to_be_delivered_by));
+        binding.tvOn.setText(getResources().getString(R.string.on));
+
+        binding.layoutOnWithTvAndEt.setVisibility(View.GONE);
+        binding.divider2.divider.setVisibility(View.GONE);
+
+        binding.layoutEarliestDelivery.setVisibility(View.VISIBLE);
+        binding.divider4.divider.setVisibility(View.VISIBLE);
+
+        binding.btnConfirm.setText(getResources().getText(R.string.next));
     }
 
     @Override

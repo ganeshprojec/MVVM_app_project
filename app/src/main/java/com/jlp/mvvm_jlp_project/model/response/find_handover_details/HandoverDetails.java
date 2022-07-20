@@ -1,9 +1,8 @@
-package com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode;/*
+package com.jlp.mvvm_jlp_project.model.response.find_handover_details;/*
  * Created by Sandeep(Techno Learning) on 04,July,2022
  */
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
@@ -11,9 +10,9 @@ import org.simpleframework.xml.Root;
 import javax.inject.Inject;
 
 @Root(name = "LocationDetails", strict = false)
-public class LocationDetails {
+public class HandoverDetails {
 
-    @Inject public LocationDetails() {}
+    @Inject public HandoverDetails() {}
 
     @Element(name = "locationId",required = false)
     public String locationId;
