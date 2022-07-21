@@ -110,8 +110,13 @@ public class RouteDeliveryDetails {
 
             ArrayList<LotsInfo> listLot = new ArrayList<>();
             for (int j = 0; j < getGoods().get(i).getLotInfo().size(); j++) {
-                listLot.add(new LotsInfo("L" + getGoods().get(i).getLotInfo().get(j).getNumber(),
-                        "" + getGoods().get(i).getLotInfo().get(j).getStatusText()));
+                DeliveryLotDetails lot = getGoods().get(i).getLotInfo().get(j);
+                if (lot.getStatusText().trim().equalsIgnoreCase("in bay")) {
+                    // TODO: set name15 as labelText
+                    // second param to be set as name15 text
+                }
+                listLot.add(new LotsInfo("L" + lot.getNumber(),
+                        "" + lot.getStatusText(), lot.number, lot.lotId, lot.lotBarcode, lot.status, lot.statusText));
             }
 
             detail.setLotsList(listLot);

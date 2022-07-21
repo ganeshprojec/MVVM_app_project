@@ -23,6 +23,7 @@ import com.jlp.mvvm_jlp_project.interfaces.ClickListener;
 import com.jlp.mvvm_jlp_project.interfaces.DialogListener;
 import com.jlp.mvvm_jlp_project.model.DeliveryDetails;
 import com.jlp.mvvm_jlp_project.model.ItemStatusDetails;
+import com.jlp.mvvm_jlp_project.model.LotsInfo;
 import com.jlp.mvvm_jlp_project.model.RouteDeliveryDetails;
 import com.jlp.mvvm_jlp_project.model.response.route_details.ResponseDataRouteDetails;
 import com.jlp.mvvm_jlp_project.model.response.route_item_update_status.ResponseDataUpdateItemStatus;
@@ -54,9 +55,11 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     private ArrayList<DeliveryDetails> listDeliveryDetails = new ArrayList<>();
     private ProgressDialog progressDialog;
     private RouteDeliveryDetails details = new RouteDeliveryDetails();
-    private ItemStatusDetails itemStatusDetails = new ItemStatusDetails();
+    private ArrayList<ItemStatusDetails> missingItemsList = new ArrayList<>();
 
     private int currentPosition = 0;
+    private int missingListPosition = -1;
+    private String userAuthorizationId = "";
 
     public RouteSummaryFragment() {
 
@@ -155,20 +158,39 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
                 if (response.status != null) {
                     switch (response.status) {
                         case LOADING: {
-                            progressDialog = Utils.showProgressBar(getContext());
+                            if (missingListPosition <= 0)
+                                progressDialog = Utils.showProgressBar(getContext());
                             break;
                         }
                         case ERROR: {
                             Utils.hideProgressDialog(progressDialog);
-                            //Log.e("errorSummary",""+response.message);
                             Utils.showErrorMessage(getActivity(), response.message);
                             break;
                         }
                         case SUCCESS: {
-                            Utils.hideProgressDialog(progressDialog);
-                            itemStatusDetails = response.data.getModel();
 
-                            updateRouteDeliveryDetailsOnView();
+                            ItemStatusDetails itemStatusDetails = response.data.getModel();
+                            if (missingListPosition == -1) {
+                                updateRouteDeliveryDetailsOnView(itemStatusDetails);
+                            } else if (missingListPosition < missingItemsList.size()) {
+                                missingListPosition++;
+                                if (missingListPosition != missingItemsList.size()) {
+                                    ItemStatusDetails itemStatusUpdate = missingItemsList.get(missingListPosition);
+                                    //TODO: SetUsername after session management
+                                    itemStatusUpdate.setUserName("ganesh123");
+                                    itemStatusUpdate.setUserId("TPU111");
+                                    itemStatusUpdate.setUserIdAuthorized("" + userAuthorizationId);
+                                    itemStatusUpdate.setComponentStatus(LotsInfo.MISSING);
+
+                                    callUpdateItemStatus(itemStatusUpdate);
+                                } else {
+                                    Utils.hideProgressDialog(progressDialog);
+                                    missingListPosition = -1;
+                                    Helper.addFragment(getActivity(), new SummaryFragment());
+                                }
+                            }
+
+
                             break;
                         }
                     }
@@ -190,31 +212,19 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     }
 
     public void showRouteDeliveryDetailsOnView() {
-        // Header
-
         // Add List to existing arrayList & notifydataset changed
-
         ArrayList<DeliveryDetails> tempList = details.getDetailsList();
         if (currentPosition == 0) {
             listDeliveryDetails.clear();
         }
         listDeliveryDetails.addAll(tempList);
-
         adapter.notifyDataSetChanged();
-        Log.e("Response", "" + details.toString());
-        // Adapter change Listener
-
     }
 
-    public void updateRouteDeliveryDetailsOnView() {
-        // Header
-
-        // Notify Adapter
-
+    public void updateRouteDeliveryDetailsOnView(ItemStatusDetails itemStatusDetails) {
+        // TODO: Notify Adapter
 
         Log.e("Response", "" + itemStatusDetails.toString());
-        // Adapter change Listener
-
     }
 
 
@@ -246,7 +256,6 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
 
     public void callRouteDeliveryDetails(String deliveryId) {
         // check Is empty, It will not empty maximum case
-
         if (Utils.isInternetAvailable(getActivity())) {
             viewModel.callRouteDetails(deliveryId);
         } else {
@@ -255,20 +264,15 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
         }
     }
 
-    public void callUpdateItemStatus() {
-        // Get this created from List
+    public void callUpdateItemStatus(ItemStatusDetails itemUpdateStatus) {
 
-        ItemStatusDetails itemUpdateStatus = new ItemStatusDetails();
-        itemUpdateStatus.setDeliveryId("13177609");
-        itemUpdateStatus.setComponentId("DpobygNy");
-        itemUpdateStatus.setComponentNum("1");
-        itemUpdateStatus.setComponentStatus("Missing");
-        itemUpdateStatus.setProductCode("13177609");
-        itemUpdateStatus.setUserId("TPUXXX");
-        itemUpdateStatus.setUserIdAuthorized("TPUXXX");
-        itemUpdateStatus.setUserName("DD");
+        if (Utils.isInternetAvailable(getActivity())) {
+            viewModel.callUpdateStatus(itemUpdateStatus);
+        } else {
+            Utils.hideProgressDialog(progressDialog);
+            Utils.showErrorMessage(getActivity(), getResources().getString(R.string.please_check_internet_connection));
+        }
 
-        viewModel.callUpdateStatus(itemUpdateStatus);
     }
 
 
@@ -319,14 +323,100 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     @Override
     public void onClickItem(int index, Object model) {
 
-
     }
+
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.imgCloseSecond:
+
+                // Check is this partial commit.
+                if (DeliveryDetails.missingItemCount(listDeliveryDetails) <= 0) {
+
+                    Helper.addFragment(getActivity(), new SummaryFragment());
+                } else {
+                    FilterByLocationDialogFragment dialogPartialSubmitFragment = new FilterByLocationDialogFragment();
+                    Bundle bundlePartial = new Bundle();
+                    bundlePartial.putBoolean(BaseDialogFragment.PARAM_NOT_ALERT_DIALOG, true);
+                    //bundle.putString(BaseDialogFragment.PARAM_PAGE_NAME, getString(R.string.str_route_management));
+                    bundlePartial.putString(BaseDialogFragment.PARAM_TITLE, getString(R.string.str_partial_sumit_title));
+                    bundlePartial.putString(BaseDialogFragment.PARAM_MESSAGE, getString(R.string.str_partial_submit_message));
+                    bundlePartial.putString(BaseDialogFragment.PARAM_HINT, getString(R.string.str_enter_authorization));
+                    bundlePartial.putString(BaseDialogFragment.PARAM_POSITIVE_BUTTON, getString(R.string.str_ok));
+                    bundlePartial.putString(BaseDialogFragment.PARAM_NEGATIVE_BUTTON, getString(R.string.str_cancel));
+
+                    Helper.startDialogFragment(getActivity(), dialogPartialSubmitFragment, bundlePartial, partialSubmitDialogListener);
+                }
+
+
+                break;
+
+            case R.id.imgCloseThird:
+                FilterByLocationDialogFragment dialogFragment = new FilterByLocationDialogFragment();
+                Bundle bundle = new Bundle();
+                bundle.putBoolean(BaseDialogFragment.PARAM_NOT_ALERT_DIALOG, true);
+                bundle.putString(BaseDialogFragment.PARAM_PAGE_NAME, getString(R.string.str_route_management));
+                bundle.putString(BaseDialogFragment.PARAM_TITLE, getString(R.string.dummy_route_number));
+
+                Helper.startDialogFragment(getActivity(), dialogFragment, bundle, this);
+                break;
+        }
+    }
+
+
+    @Override
+    public void onFinishDialog(String inputText, Boolean flag) {
+        // Apply Filter
+        if (!flag) {
+            listDeliveryDetails.clear();
+            listDeliveryDetails.addAll(viewModel.getFilterByLocation(inputText));
+            adapter.notifyDataSetChanged();
+        } else {
+            // clear filter
+            listDeliveryDetails.clear();
+            listDeliveryDetails.addAll(viewModel.getBackupList());
+            adapter.notifyDataSetChanged();
+            //Utils.showErrorMessage(getActivity(), "Filter Cleared : ");
+        }
+    }
+
+
+    DialogListener partialSubmitDialogListener = new DialogListener() {
+        @Override
+        public void onFinishDialog(String inputText, Boolean flag) {
+            // check for ok
+            // Update status of All NOT_LOADED item as missing using for loop & then open Summary fragment
+            userAuthorizationId = inputText;
+            missingListPosition = 0;
+            missingItemsList = DeliveryDetails.getAllMissingItems(listDeliveryDetails);
+            ItemStatusDetails firstUpdate = missingItemsList.get(missingListPosition);
+            firstUpdate.setUserIdAuthorized(userAuthorizationId);
+            firstUpdate.setUserName("ganesh123");
+            firstUpdate.setUserId("TPU111");
+            firstUpdate.setComponentStatus(LotsInfo.MISSING);
+            callUpdateItemStatus(firstUpdate);
+
+            //Utils.showErrorMessage(getActivity(), "Authorization taken.");
+        }
+    };
 
     ClickListener childListener = new ClickListener() {
         @Override
         public void onClickItem(int index, Object model) {
             // Lots click listener
-            callUpdateItemStatus();
+            // Get this created from List
+            ItemStatusDetails itemUpdateStatus = new ItemStatusDetails();
+            itemUpdateStatus.setDeliveryId("13177609");
+            itemUpdateStatus.setComponentId("DpobygNy");
+            itemUpdateStatus.setComponentNum("1");
+            itemUpdateStatus.setComponentStatus("Missing");
+            itemUpdateStatus.setProductCode("13177609");
+            itemUpdateStatus.setUserId("TPUXXX");
+            itemUpdateStatus.setUserIdAuthorized("TPUXXX");
+            itemUpdateStatus.setUserName("DD");
+
+            callUpdateItemStatus(itemUpdateStatus);
         }
     };
 
@@ -341,41 +431,4 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
         }
     };
 
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.imgCloseSecond:
-
-                // Check is this partial commit.
-                Helper.addFragment(getActivity(), new SummaryFragment());
-                break;
-
-            case R.id.imgCloseThird:
-                FilterByLocationDialogFragment dialogFragment = new FilterByLocationDialogFragment();
-                Bundle bundle = new Bundle();
-                bundle.putBoolean(BaseDialogFragment.PARAM_NOT_ALERT_DIALOG, true);
-
-                Helper.startDialogFragment(getActivity(), dialogFragment, bundle, this);
-                break;
-        }
-    }
-
-
-    @Override
-    public void onFinishDialog(String inputText, Boolean flag) {
-
-        // Apply Filter
-        if (!flag) {
-            listDeliveryDetails.clear();
-            listDeliveryDetails.addAll(viewModel.getFilterByLocation(inputText));
-            adapter.notifyDataSetChanged();
-        } else {
-            // clear filter
-            listDeliveryDetails.clear();
-            listDeliveryDetails.addAll(viewModel.getBackupList());
-            adapter.notifyDataSetChanged();
-            //Utils.showErrorMessage(getActivity(), "Filter Cleared : ");
-        }
-    }
 }

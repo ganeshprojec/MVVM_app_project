@@ -163,6 +163,9 @@
 
     <!-- Strings for Carrier Collection Details Fragment -->
     <string name="carrier_collection_details_title">Carrier Collection Details</string>
+    <string name="str_partial_submit_message">All items are not loaded, Still do you want to continue submitting?</string>
+    <string name="str_partial_sumit_title">Authorization Needed</string>
+    <string name="str_enter_authorization">Enter Authorization ID</string>
 
 
 </resources>
