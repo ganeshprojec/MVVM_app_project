@@ -37,14 +37,7 @@ public class SummaryFragment extends BaseFragment implements View.OnClickListene
     private RouteSummary summary;
 
 
-    /*@Inject
-    RequestEnvelopRouteManagementSummary requestEnvelop;
 
-    @Inject
-    RequestBodyRouteManagementSummary requestBody;
-
-    @Inject
-    RequestDataRouteManagementSummary requestData;*/
 
     public SummaryFragment() {
 
@@ -104,16 +97,6 @@ public class SummaryFragment extends BaseFragment implements View.OnClickListene
     }
 
 
-    /**
-     * Prepared Data set for api call RouteSummary
-     *
-     * @param
-     */
-   /* private void prepareEnvelopSummaryDetails(String routeId) {
-        requestData.setRouteId(routeId);
-        requestBody.setRequestDataRouteManagementSummary(requestData);
-        requestEnvelop.setRequestBodyRouteManagementSummary(requestBody);
-    }*/
     private void initObserver(View view) {
 
         summaryViewModel.responseSummaryDetails.observe(getViewLifecycleOwner(), new Observer<Resource<ResponseDataRouteManagementSummary>>() {

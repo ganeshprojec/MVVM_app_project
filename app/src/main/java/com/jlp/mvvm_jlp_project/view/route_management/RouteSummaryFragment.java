@@ -2,7 +2,6 @@ package com.jlp.mvvm_jlp_project.view.route_management;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -171,6 +170,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
 
                             ItemStatusDetails itemStatusDetails = response.data.getModel();
                             if (missingListPosition == -1) {
+                                Utils.hideProgressDialog(progressDialog);
                                 updateRouteDeliveryDetailsOnView(itemStatusDetails);
                             } else if (missingListPosition < missingItemsList.size()) {
                                 missingListPosition++;
@@ -224,7 +224,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     public void updateRouteDeliveryDetailsOnView(ItemStatusDetails itemStatusDetails) {
         // TODO: Notify Adapter
 
-        Log.e("Response", "" + itemStatusDetails.toString());
+        //Log.e("Response", "" + itemStatusDetails.toString());
     }
 
 
