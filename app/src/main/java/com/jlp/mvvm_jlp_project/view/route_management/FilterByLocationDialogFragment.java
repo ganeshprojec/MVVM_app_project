@@ -21,6 +21,14 @@ public class FilterByLocationDialogFragment extends BaseDialogFragment implement
 
     private DialogFragmentFilterByLocationBinding binding;
 
+    private String pageName = new String();
+    private String title = new String();
+    private String message = new String();
+    private String hint = new String();
+
+    private String positiveButton = new String();
+    private String negativeButton = new String();
+
 
     @NonNull
     @Override
@@ -31,6 +39,8 @@ public class FilterByLocationDialogFragment extends BaseDialogFragment implement
                 return super.onCreateDialog(savedInstanceState);
             }
         }
+
+        loadArguments();
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         builder.setTitle(R.string.dummy_dialog_title);
         builder.setMessage(R.string.str_dummy_enter_input);
@@ -68,6 +78,7 @@ public class FilterByLocationDialogFragment extends BaseDialogFragment implement
         if (getArguments() != null && !TextUtils.isEmpty(getArguments().getString("email")))
             editText.setText(getArguments().getString("email"));*/
 
+        initLabels();
         binding.btnOk.setOnClickListener(this);
         binding.btnClear.setOnClickListener(this);
     }
@@ -86,11 +97,15 @@ public class FilterByLocationDialogFragment extends BaseDialogFragment implement
         if (getArguments() != null) {
             setFullScreen = getArguments().getBoolean(PARAM_BUNDLE_FULLSCREEN);
         }
+        loadArguments();
+
 
         if (setFullScreen) {
             setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
             //setStyle(DialogFragment.STYLE_NO_FRAME, R.style.FullScreenDialog);
         }
+
+
     }
 
     @Override
@@ -127,6 +142,55 @@ public class FilterByLocationDialogFragment extends BaseDialogFragment implement
 
 
         }
+    }
+
+    private void loadArguments() {
+        if (getArguments() != null) {
+            pageName = getArguments().getString(PARAM_PAGE_NAME);
+            title = getArguments().getString(PARAM_TITLE);
+            message = getArguments().getString(PARAM_MESSAGE);
+            hint = getArguments().getString(PARAM_HINT);
+            positiveButton = getArguments().getString(PARAM_POSITIVE_BUTTON);
+            negativeButton = getArguments().getString(PARAM_NEGATIVE_BUTTON);
+        }
+    }
+
+    private void initLabels() {
+        if (!TextUtils.isEmpty(title)) {
+            binding.txtDialogTitleValue.setText(title);
+        }
+
+        if (!TextUtils.isEmpty(pageName)) {
+            binding.txtDialogTitle.setText(pageName);
+        } else {
+            binding.txtDialogTitle.setVisibility(View.GONE);
+        }
+
+        if (!TextUtils.isEmpty(message)) {
+            binding.txtDialogMessage.setText(message);
+            binding.txtDialogMessage.setVisibility(View.VISIBLE);
+        } else {
+            binding.txtDialogMessage.setVisibility(View.GONE);
+        }
+
+
+        if (!TextUtils.isEmpty(hint)) {
+            binding.txtDialogHint.setText(hint);
+            binding.inputBarcode.setHint(hint);
+        }
+
+        if (!TextUtils.isEmpty(message)) {
+            binding.txtDialogMessage.setText(message);
+        }
+
+        if (!TextUtils.isEmpty(positiveButton)) {
+            binding.btnOk.setText(positiveButton);
+        }
+
+        if (!TextUtils.isEmpty(negativeButton)) {
+            binding.btnClear.setText(negativeButton);
+        }
+
     }
 
 

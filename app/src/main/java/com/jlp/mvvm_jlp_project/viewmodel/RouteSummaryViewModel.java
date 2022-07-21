@@ -68,7 +68,7 @@ public class RouteSummaryViewModel extends BaseViewModel {
         for (int j = 0; j < 10; j++) {
 
             lots.add(new LotsInfo(Helper.getXmlString(context, R.string.dummy_lotSr) + (j + 1),
-                    Helper.getXmlString(context, R.string.dummy_location_b5)));
+                    Helper.getXmlString(context, R.string.dummy_location_b5), "", "", "", "", ""));
         }
 
         for (int i = 0; i < 15; i++) {

@@ -47,6 +47,20 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialogHeader">
 
+
+        <TextView
+            android:id="@+id/txtDialogMessage"
+            style="@style/text_views_message_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_std_page_margin"
+            android:layout_marginBottom="@dimen/dimen_std_page_margin"
+            android:text="@string/str_partial_submit_message"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+
         <TextView
             android:id="@+id/txtDialogHint"
             style="@style/text_views_cardTitle"
@@ -56,7 +70,7 @@
             android:layout_marginBottom="@dimen/dimen_std_page_margin"
             android:text="@string/enter_location_barcode_number_or_scan"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/txtDialogMessage" />
 
 
         <com.google.android.material.textfield.TextInputEditText
