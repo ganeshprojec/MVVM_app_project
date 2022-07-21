@@ -1,8 +1,7 @@
-package com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode;
+package com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items;
 
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.jlp.mvvm_jlp_project.model.response.DITSErrors;
 import com.jlp.mvvm_jlp_project.utils.Constants;
@@ -17,24 +16,27 @@ import javax.inject.Inject;
  *  Created by Sandeep(Techno Learning) on 16,June,2022
  */
 
-@Root(name = "RecordLocationOfItemResponse", strict = false)
+@Root(name = "FindDeliveriesAndDeliveryItemsResponse", strict = false)
 @Namespace(reference = Constants.NAMESPACE)
-public class ResponseDataFindLocationDetailsForBarcode {
-    @Element(name = "LocationDetails", required = false)
-    public LocationDetails locationDetails;
+public class ResponseDataFindDeliveriesAndDeliveryItems {
+    @Element(name = "HandoverDetails", required = false)
+    public HandoverDetails handoverDetails;
 
     @Element(name = "DITSErrors",required = false)
     private DITSErrors ditsErrors;
 
     @Inject
-    ResponseDataFindLocationDetailsForBarcode(){}
+    ResponseDataFindDeliveriesAndDeliveryItems(){}
 
-    public LocationDetails getLocationDetails() {
-        return locationDetails;
+    protected ResponseDataFindDeliveriesAndDeliveryItems(Parcel in) {
     }
 
-    public void setLocationDetails(LocationDetails locationDetails) {
-        this.locationDetails = locationDetails;
+    public HandoverDetails getHandoverDetails() {
+        return handoverDetails;
+    }
+
+    public void setHandoverDetails(HandoverDetails handoverDetails) {
+        this.handoverDetails = handoverDetails;
     }
 
     public DITSErrors getDitsErrors() {

@@ -18,18 +18,18 @@ import javax.inject.Inject;
 @Namespace(reference = Constants.NAMESPACE)
 public class ResponseDataAuthenticateUser {
     @Element(name = "AuthenticationDetails", required = false)
-    public User userResponse;
+    public AuthenticationDetails authenticationDetails;
 
     @Element(name = "DITSErrors",required = false)
     private DITSErrors ditsErrors;
     @Inject ResponseDataAuthenticateUser(){}
 
-    public User getUserResponse() {
-        return userResponse;
+    public AuthenticationDetails getAuthenticationDetails() {
+        return authenticationDetails;
     }
 
-    public void setUserResponse(User userResponse) {
-        this.userResponse = userResponse;
+    public void setAuthenticationDetails(AuthenticationDetails authenticationDetails) {
+        this.authenticationDetails = authenticationDetails;
     }
 
     public DITSErrors getDitsErrors() {

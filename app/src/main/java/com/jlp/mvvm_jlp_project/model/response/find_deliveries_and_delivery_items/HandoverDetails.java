@@ -1,19 +1,18 @@
-package com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode;/*
+package com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items;/*
  * Created by Sandeep(Techno Learning) on 04,July,2022
  */
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
 import javax.inject.Inject;
 
-@Root(name = "LocationDetails", strict = false)
-public class LocationDetails {
+@Root(name = "HandoverDetails", strict = false)
+public class HandoverDetails {
 
-    @Inject public LocationDetails() {}
+    @Inject public HandoverDetails() {}
 
     @Element(name = "locationId",required = false)
     public String locationId;

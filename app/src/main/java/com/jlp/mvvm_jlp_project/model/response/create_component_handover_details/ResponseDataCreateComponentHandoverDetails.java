@@ -1,10 +1,10 @@
-package com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode;
+package com.jlp.mvvm_jlp_project.model.response.create_component_handover_details;
 
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.jlp.mvvm_jlp_project.model.response.DITSErrors;
+import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items.HandoverDetails;
 import com.jlp.mvvm_jlp_project.utils.Constants;
 
 import org.simpleframework.xml.Element;
@@ -17,25 +17,15 @@ import javax.inject.Inject;
  *  Created by Sandeep(Techno Learning) on 16,June,2022
  */
 
-@Root(name = "RecordLocationOfItemResponse", strict = false)
+@Root(name = "CreateComponentHandoverDetailsResponse", strict = false)
 @Namespace(reference = Constants.NAMESPACE)
-public class ResponseDataFindLocationDetailsForBarcode {
-    @Element(name = "LocationDetails", required = false)
-    public LocationDetails locationDetails;
+public class ResponseDataCreateComponentHandoverDetails {
 
     @Element(name = "DITSErrors",required = false)
     private DITSErrors ditsErrors;
 
     @Inject
-    ResponseDataFindLocationDetailsForBarcode(){}
-
-    public LocationDetails getLocationDetails() {
-        return locationDetails;
-    }
-
-    public void setLocationDetails(LocationDetails locationDetails) {
-        this.locationDetails = locationDetails;
-    }
+    ResponseDataCreateComponentHandoverDetails(){}
 
     public DITSErrors getDitsErrors() {
         return ditsErrors;
