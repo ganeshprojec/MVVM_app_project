@@ -7,14 +7,20 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.jlp.mvvm_jlp_project.api.ApiService;
+import com.jlp.mvvm_jlp_project.model.request.find_deliveries_and_delivery_items.RequestEnvelopeFindDeliveriesAndDeliveryItems;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestEnvelopeFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_item_details_for_component_barcode.RequestEnvelopeFindDeliveryItemDetailsForComponentBarcode;
+import com.jlp.mvvm_jlp_project.model.request.find_handover_details.RequestEnvelopeFindHandoverDetails;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.RequestEnvelopeRecordLocationOfItem;
+import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items.ResponseDataFindDeliveriesAndDeliveryItems;
+import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items.ResponseEnvelopeFindDeliveriesAndDeliveryItems;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.ResponseDataFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.ResponseEnvelopeFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_item_details_for_component_barcode.ResponseDataFindDeliveryItemDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_item_details_for_component_barcode.ResponseEnvelopeFindDeliveryItemDetailsForComponentBarcode;
+import com.jlp.mvvm_jlp_project.model.response.find_handover_details.ResponseDataFindHandoverDetails;
+import com.jlp.mvvm_jlp_project.model.response.find_handover_details.ResponseEnvelopeFindHandoverDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseDataFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseEnvelopeFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseDataRecordLocationOfItem;
@@ -35,6 +41,8 @@ public class CommonBarcodeScannerRepository {
     public MutableLiveData<Resource<ResponseDataFindLocationDetailsForBarcode>> _responseFindLocationDetailsForBarcode = new MutableLiveData<>();
     public MutableLiveData<Resource<ResponseDataRecordLocationOfItem>> _responseDataRecordLocationOfItem = new MutableLiveData<>();
     public MutableLiveData<Resource<ResponseDataFindDeliveryItemDetailsForComponentBarcode>> _responseFindDeliveryItemDetailsForComponentBarcode = new MutableLiveData<>();
+    public MutableLiveData<Resource<ResponseDataFindHandoverDetails>> _responseFindHandoverDetails = new MutableLiveData<>();
+    public MutableLiveData<Resource<ResponseDataFindDeliveriesAndDeliveryItems>> _responseFindDeliveriesAndDeliveryItems = new MutableLiveData<>();
 
 
     @Inject public CommonBarcodeScannerRepository(ApiService apiService) {
@@ -224,6 +232,96 @@ public class CommonBarcodeScannerRepository {
             }
         }catch (Exception ex){
             _responseDataRecordLocationOfItem.postValue(Resource.error("Something Went Wrong", null));
+            Log.e(TAG ,"Error while handling the response : "+ex);
+        }
+    }
+
+
+    /**
+     * Api call for findLocationDetailsForBarcode
+     * @param envelope RequestEnvelopeFindLocationDetailsForBarcode
+     */
+    public void findHanoverDetails(RequestEnvelopeFindHandoverDetails envelope){
+        _responseFindHandoverDetails.postValue(Resource.loading(null));
+        Call<ResponseEnvelopeFindHandoverDetails> responseEnvelopeCall
+                = apiService.findHandoverDetails(envelope);
+        responseEnvelopeCall.enqueue(new Callback<ResponseEnvelopeFindHandoverDetails>() {
+            @Override
+            public void onResponse(Call<ResponseEnvelopeFindHandoverDetails> call, Response<ResponseEnvelopeFindHandoverDetails> response) {
+                handleFindHanoverDetailsResponse(response);
+            }
+            @Override
+            public void onFailure(Call<ResponseEnvelopeFindHandoverDetails> call, Throwable t) {
+                _responseFindHandoverDetails.postValue(Resource.error(t.getMessage(), null));
+            }
+        });
+    }
+
+    /**
+     * handled find location details for barcode response and did some validation on response
+     * @param response ResponseEnvelopeFindLocationDetailsForBarcode to manipulate the error data
+     */
+    private void handleFindHanoverDetailsResponse(Response<ResponseEnvelopeFindHandoverDetails> response){
+        try {
+            if(response.isSuccessful() && response.body()!=null &&
+                    response.body().getResponseBodyFindHandoverDetails().getResponseDataFindHandoverDetails().getDitsErrors()==null) {
+                _responseFindHandoverDetails.postValue(Resource.success(response.body().getResponseBodyFindHandoverDetails().getResponseDataFindHandoverDetails()));
+            }else if(response.errorBody()!=null){
+                _responseFindHandoverDetails.postValue(Resource.error("Error while getting the response", null));
+            }else if(response.body().getResponseBodyFindHandoverDetails().getResponseDataFindHandoverDetails().getDitsErrors()!=null){
+                _responseFindHandoverDetails.postValue(Resource.error( response.body().getResponseBodyFindHandoverDetails().getResponseDataFindHandoverDetails().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
+                        response.body().getResponseBodyFindHandoverDetails().getResponseDataFindHandoverDetails()));
+            } else{
+                _responseFindHandoverDetails.postValue(Resource.error("Something Went Wrong", null));
+                Log.i(TAG ,"Response is neither success nor error");
+            }
+        }catch (Exception ex){
+            _responseFindHandoverDetails.postValue(Resource.error("Something Went Wrong", null));
+            Log.e(TAG ,"Error while handling the response : "+ex);
+        }
+    }
+
+
+    /**
+     * Api call for findLocationDetailsForBarcode
+     * @param envelope RequestEnvelopeFindLocationDetailsForBarcode
+     */
+    public void findDeliveriesAndDeliveryItems(RequestEnvelopeFindDeliveriesAndDeliveryItems envelope){
+        _responseFindDeliveriesAndDeliveryItems.postValue(Resource.loading(null));
+        Call<ResponseEnvelopeFindDeliveriesAndDeliveryItems> responseEnvelopeCall
+                = apiService.findDeliveriesAndDeliveryItems(envelope);
+        responseEnvelopeCall.enqueue(new Callback<ResponseEnvelopeFindDeliveriesAndDeliveryItems>() {
+            @Override
+            public void onResponse(Call<ResponseEnvelopeFindDeliveriesAndDeliveryItems> call, Response<ResponseEnvelopeFindDeliveriesAndDeliveryItems> response) {
+                handleFindDeliveriesAndDeliveryItemsResponse(response);
+            }
+            @Override
+            public void onFailure(Call<ResponseEnvelopeFindDeliveriesAndDeliveryItems> call, Throwable t) {
+                _responseFindDeliveriesAndDeliveryItems.postValue(Resource.error(t.getMessage(), null));
+            }
+        });
+    }
+
+    /**
+     * handled find location details for barcode response and did some validation on response
+     * @param response ResponseEnvelopeFindLocationDetailsForBarcode to manipulate the error data
+     */
+    private void handleFindDeliveriesAndDeliveryItemsResponse(Response<ResponseEnvelopeFindDeliveriesAndDeliveryItems> response){
+        try {
+            if(response.isSuccessful() && response.body()!=null &&
+                    response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems().getDitsErrors()==null) {
+                _responseFindDeliveriesAndDeliveryItems.postValue(Resource.success(response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems()));
+            }else if(response.errorBody()!=null){
+                _responseFindDeliveriesAndDeliveryItems.postValue(Resource.error("Error while getting the response", null));
+            }else if(response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems().getDitsErrors()!=null){
+                _responseFindDeliveriesAndDeliveryItems.postValue(Resource.error( response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
+                        response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems()));
+            } else{
+                _responseFindDeliveriesAndDeliveryItems.postValue(Resource.error("Something Went Wrong", null));
+                Log.i(TAG ,"Response is neither success nor error");
+            }
+        }catch (Exception ex){
+            _responseFindDeliveriesAndDeliveryItems.postValue(Resource.error("Something Went Wrong", null));
             Log.e(TAG ,"Error while handling the response : "+ex);
         }
     }

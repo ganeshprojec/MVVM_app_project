@@ -15,14 +15,14 @@ public class RequestDataFindHandoverDetails {
     @Inject
     RequestDataFindHandoverDetails(){}
 
-    @Element(name = "cds:barcode",required = false)
-    public String barcode;
+    @Element(name = "cds:deliveryId",required = false)
+    public String deliveryId;
 
-    public String getBarcode() {
-        return barcode;
+    public String getDeliveryId() {
+        return deliveryId;
     }
 
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
+    public void setDeliveryId(String deliveryId) {
+        this.deliveryId = deliveryId;
     }
 }

@@ -45,11 +45,10 @@ public class CarrierCollectionAndHandoverDetailsFragment extends BaseFragment{
     private List<TitleValueDataModel> titleValueDataList =  new ArrayList<>();
 
     private String callFor;
-
     private int mYear, mMonth, mDay, mHour, mMinute;
 
-    public CarrierCollectionAndHandoverDetailsFragment(String callfor) {
-        this.callFor = callfor;
+    public CarrierCollectionAndHandoverDetailsFragment(String callFor) {
+        this.callFor = callFor;
     }
 
     @Override

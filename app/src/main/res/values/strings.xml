@@ -4,6 +4,7 @@
     <string name="title">Delivery Item Tracking System</string>
 
     <string name="login">Login</string>
+    <string name="logout">Logout</string>
     <string name="question_mark">\?</string>
     <string name="forget_password">Forget password</string>
     <string name="forget_password_with_question_mark">Forget password?</string>
