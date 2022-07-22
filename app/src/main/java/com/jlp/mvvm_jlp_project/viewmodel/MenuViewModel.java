@@ -1,27 +1,6 @@
 package com.jlp.mvvm_jlp_project.viewmodel;
 
-import android.content.Context;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.MutableLiveData;
-
-import com.jlp.mvvm_jlp_project.R;
-import com.jlp.mvvm_jlp_project.model.DrawerMenuItem;
-import com.jlp.mvvm_jlp_project.utils.AppConstants;
-import com.jlp.mvvm_jlp_project.utils.Helper;
-import com.jlp.mvvm_jlp_project.view.auth.ChangePasswordFragment;
-import com.jlp.mvvm_jlp_project.view.auth.LoginFragment;
-import com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScannerFragment;
-import com.jlp.mvvm_jlp_project.view.home.TemplateFragment;
-
-import java.util.ArrayList;
-
-import javax.inject.Inject;
-
-import dagger.hilt.android.lifecycle.HiltViewModel;
-import dagger.hilt.android.qualifiers.ActivityContext;
-
-
+/*
 @HiltViewModel
 public class MenuViewModel extends BaseViewModel {
 
@@ -144,4 +123,4 @@ public class MenuViewModel extends BaseViewModel {
     }
 
 
-}
+}*/

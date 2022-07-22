@@ -3,14 +3,11 @@ package com.jlp.mvvm_jlp_project.view.home;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -40,7 +37,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class HomeActivity extends BaseActivity implements  NavigationView.OnNavigationItemSelectedListener, ClickListener {
+public class HomeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, ClickListener {
 
     protected final String TAG = getClass().getSimpleName();
     private @NonNull

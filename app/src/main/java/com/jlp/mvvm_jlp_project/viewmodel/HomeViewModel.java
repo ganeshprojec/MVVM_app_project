@@ -10,6 +10,8 @@ import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.model.DrawerMenuItem;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
+import com.jlp.mvvm_jlp_project.view.auth.ChangePasswordFragment;
+import com.jlp.mvvm_jlp_project.view.auth.LoginFragment;
 import com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScannerFragment;
 import com.jlp.mvvm_jlp_project.view.home.TemplateFragment;
 
@@ -80,6 +82,10 @@ public class HomeViewModel extends BaseViewModel {
             onPressTrackDelivery(context);
         } else if (id == R.id.nav_handover_delivery_details) {
             onPressDeliveryDetails(context);
+        } else if (id == R.id.nav_change_password) {
+            onPressChangePassword(context);
+        } else if (id == R.id.nav_logout) {
+            onPressLogout(context);
         }
     }
 
@@ -192,6 +198,17 @@ public class HomeViewModel extends BaseViewModel {
      */
     public void onPressDeliveryDetails(@ActivityContext Context context) {
         Helper.addFragment(context, new CommonBarcodeScannerFragment(AppConstants.FRAGMENT_CARRIER_HANDOVER_DETAILS));
+    }
+
+    public void onPressChangePassword(@ActivityContext Context context) {
+        Helper.addFragment(context, new ChangePasswordFragment());
+    }
+
+    public void onPressLogout(@ActivityContext Context context) {
+        //Intent intent = new Intent(this, AuthActivity.class);
+        //        startActivity(intent);
+        //        finish();
+        Helper.addFragment(context, new LoginFragment());
     }
 
 
