@@ -2,18 +2,20 @@ package com.jlp.mvvm_jlp_project.viewmodel;/*
  * Created by Sandeep(Techno Learning) on 18,June,2022
  */
 
+import android.app.Application;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.change_password.RequestEnvelopeChangePassword;
-import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseDataChangePassword;
 import com.jlp.mvvm_jlp_project.repository.UserRepository;
+import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.StringUtils;
 
@@ -29,7 +31,8 @@ public class AuthViewModel extends BaseViewModel {
     public MutableLiveData<Resource<ResponseDataAuthenticateUser>> responseAuthenticateUser;
 
     @Inject
-    public AuthViewModel(UserRepository repository){
+    public AuthViewModel(@NonNull Application application, UserRepository repository) {
+        super(application);
         this.repository = repository;
         responseDataChangePassword = repository._responseDataChangePassword;
         responseAuthenticateUser = repository._responseAuthenticateUser;

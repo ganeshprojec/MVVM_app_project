@@ -1,8 +1,10 @@
 package com.jlp.mvvm_jlp_project.viewmodel;
 
+import android.app.Application;
 import android.text.TextUtils;
 import android.util.Pair;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.jlp.mvvm_jlp_project.R;
@@ -61,7 +63,8 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
             = new MutableLiveData<>();
 
     @Inject
-    public CommonBarcodeScannerViewModel(CommonBarcodeScannerRepository repository, RouteManagementSummaryRepository routeSummayRepo) {
+    public CommonBarcodeScannerViewModel(@NonNull Application application, CommonBarcodeScannerRepository repository, RouteManagementSummaryRepository routeSummayRepo) {
+        super(application);
         this.routeSummayRepo = routeSummayRepo;
         this.repository = repository;
         this.responseSummaryDetails = routeSummayRepo._responseSummary;

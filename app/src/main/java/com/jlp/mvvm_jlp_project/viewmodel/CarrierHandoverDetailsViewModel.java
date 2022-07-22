@@ -1,5 +1,8 @@
 package com.jlp.mvvm_jlp_project.viewmodel;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.jlp.mvvm_jlp_project.R;
@@ -18,9 +21,13 @@ public class CarrierHandoverDetailsViewModel extends BaseViewModel {
 
     public MutableLiveData<List<TitleValueDataModel>> itemDelivery = new MutableLiveData<>();
 
-    @Inject public CarrierHandoverDetailsViewModel() {}
+    @Inject
+    public CarrierHandoverDetailsViewModel(@NonNull Application application) {
+        super(application);
 
-    public void getItemDetailsDeliveryBarcodeData(){
+    }
+
+    public void getItemDetailsDeliveryBarcodeData() {
         List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
         itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_number,
                 "1223454"
