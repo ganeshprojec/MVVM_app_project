@@ -20,19 +20,29 @@ import androidx.lifecycle.ViewModelProvider;
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.databinding.FragmentCommonBarcodeScannerBinding;
 import com.jlp.mvvm_jlp_project.model.RouteSummary;
+import com.jlp.mvvm_jlp_project.model.request.find_deliveries_and_delivery_items.RequestBodyFindDeliveriesAndDeliveryItems;
+import com.jlp.mvvm_jlp_project.model.request.find_deliveries_and_delivery_items.RequestDataFindDeliveriesAndDeliveryItems;
+import com.jlp.mvvm_jlp_project.model.request.find_deliveries_and_delivery_items.RequestEnvelopeFindDeliveriesAndDeliveryItems;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestBodyFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestDataFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestEnvelopeFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_item_details_for_component_barcode.RequestBodyFindDeliveryItemDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_item_details_for_component_barcode.RequestDataFindDeliveryItemDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_item_details_for_component_barcode.RequestEnvelopeFindDeliveryItemDetailsForComponentBarcode;
+import com.jlp.mvvm_jlp_project.model.request.find_handover_details.RequestBodyFindHandoverDetails;
+import com.jlp.mvvm_jlp_project.model.request.find_handover_details.RequestDataFindHandoverDetails;
+import com.jlp.mvvm_jlp_project.model.request.find_handover_details.RequestEnvelopeFindHandoverDetails;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestBodyFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestDataFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
+import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items.DeliveryDetails;
+import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items.ResponseDataFindDeliveriesAndDeliveryItems;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.DeliveryItemProductDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.ResponseDataFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_item_details_for_component_barcode.DeliveryItemDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_item_details_for_component_barcode.ResponseDataFindDeliveryItemDetailsForComponentBarcode;
+import com.jlp.mvvm_jlp_project.model.response.find_handover_details.FoundHandoverDetails;
+import com.jlp.mvvm_jlp_project.model.response.find_handover_details.ResponseDataFindHandoverDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.LocationDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseDataFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.response.route_management_summary.ResponseDataRouteManagementSummary;
@@ -67,6 +77,7 @@ public class CommonBarcodeScannerFragment extends BaseFragment {
     public static LocationDetails locationDetails;
     public static DeliveryItemDetails deliveryItemDetails;
     public static RouteSummary routeSummary;
+    public static DeliveryDetails deliveryDetails;
 
     @Inject
     RequestEnvelopeFindDeliveryDetailsForComponentBarcode requestEnvelopeComponentBarcode;
@@ -88,6 +99,21 @@ public class CommonBarcodeScannerFragment extends BaseFragment {
     RequestBodyFindDeliveryItemDetailsForComponentBarcode requestBodyItemDetailsComponentBarcode;
     @Inject
     RequestDataFindDeliveryItemDetailsForComponentBarcode requestDataItemDetailsComponentBarcode;
+
+    @Inject
+    RequestEnvelopeFindHandoverDetails requestEnvelopeFindHandoverDetails;
+    @Inject
+    RequestBodyFindHandoverDetails requestBodyFindHandoverDetails;
+    @Inject
+    RequestDataFindHandoverDetails requestDataFindHandoverDetails;
+
+
+    @Inject
+    RequestEnvelopeFindDeliveriesAndDeliveryItems requestEnvelopeFindDeliveriesAndDeliveryItems;
+    @Inject
+    RequestBodyFindDeliveriesAndDeliveryItems requestBodyFindDeliveriesAndDeliveryItems;
+    @Inject
+    RequestDataFindDeliveriesAndDeliveryItems requestDataFindDeliveriesAndDeliveryItems;
 
     public static String actionBarTitle;
     public static boolean locationLayoutFlag;
@@ -220,7 +246,10 @@ public class CommonBarcodeScannerFragment extends BaseFragment {
                 callRouteManagementSummary(barcode);
                 break;
             }
-            case AppConstants.FRAGMENT_CARRIER_COLLECTION_DETAILS:
+            case AppConstants.FRAGMENT_CARRIER_COLLECTION_DETAILS:{
+                findHandoverDetails(barcode);
+                break;
+            }
             case AppConstants.FRAGMENT_CARRIER_HANDOVER_DETAILS: {
                 replaceFragment(new CarrierCollectionAndHandoverDetailsFragment(callFor));
                 break;
@@ -269,13 +298,13 @@ public class CommonBarcodeScannerFragment extends BaseFragment {
     /**
      * Prepared Data set for api done actual call from view to view model
      * Api call for component barcode
-     *
      * @param barcode
      */
     private void findDeliveryDetailsForComponentBarcode(String barcode) {
         prepareRequestDataForFindDeliveryDetailsForComponentBarcode(barcode);
         viewModel.findDeliveryDetailsForComponentBarcode(requestEnvelopeComponentBarcode);
     }
+
 
     /**
      * Prepared Data set for api call component barcode
@@ -286,6 +315,18 @@ public class CommonBarcodeScannerFragment extends BaseFragment {
         requestDataComponentBarcode.setBarcode(barcode);
         requestBodyComponentBarcode.setRequestDataFindDeliveryDetailsForComponentBarcode(requestDataComponentBarcode);
         requestEnvelopeComponentBarcode.setRequestBodyFindDeliveryDetailsForComponentBarcode(requestBodyComponentBarcode);
+    }
+
+    private void prepareRequestDataForFindHandoverDetails(String barcode) {
+        requestDataFindHandoverDetails.setDeliveryId(barcode);
+        requestBodyFindHandoverDetails.setRequestDataFindHandoverDetails(requestDataFindHandoverDetails);
+        requestEnvelopeFindHandoverDetails.setRequestBodyFindHandoverDetails(requestBodyFindHandoverDetails);
+    }
+
+    private void prepareRequestDataForFindDeliveriesAndDeliveryItems(String barcode) {
+        requestDataFindDeliveriesAndDeliveryItems.setDeliveryId(barcode);
+        requestBodyFindDeliveriesAndDeliveryItems.setRequestDataFindDeliveriesAndDeliveryItems(requestDataFindDeliveriesAndDeliveryItems);
+        requestEnvelopeFindDeliveriesAndDeliveryItems.setRequestBodyFindDeliveriesAndDeliveryItems(requestBodyFindDeliveriesAndDeliveryItems);
     }
 
     /**
@@ -319,6 +360,24 @@ public class CommonBarcodeScannerFragment extends BaseFragment {
     private void findLocationDetailsForBarcode(String barcode) {
         prepareRequestDataForFindLocationDetailsForBarcode(barcode);
         viewModel.findLocationDetailsForBarcode(requestEnvelopeLocationBarcode);
+    }
+
+    /**
+     * Prepare data for api call and make api call for findHandoverDetails
+     * @param barcode is the deliveryId
+     */
+    private void findHandoverDetails(String barcode) {
+        prepareRequestDataForFindHandoverDetails(barcode);
+        viewModel.findHanoverDetails(requestEnvelopeFindHandoverDetails);
+    }
+
+    /**
+     * Prepare data for api call and make api call for findDeliveriesAndDeliveryItems
+     * @param barcode is the deliveryId
+     */
+    private void findDeliveriesAndDeliveryItems(String barcode) {
+        prepareRequestDataForFindDeliveriesAndDeliveryItems(barcode);
+        viewModel.findDeliveriesAndDeliveryItems(requestEnvelopeFindDeliveriesAndDeliveryItems);
     }
 
     /**
@@ -474,6 +533,54 @@ public class CommonBarcodeScannerFragment extends BaseFragment {
             }
         });
 
+        viewModel.responseFindHandoverDetails.observe(getViewLifecycleOwner(), new Observer<Resource<ResponseDataFindHandoverDetails>>() {
+            @Override
+            public void onChanged(Resource<ResponseDataFindHandoverDetails> response) {
+                if (response.status != null) {
+                    switch (response.status) {
+                        case LOADING: {
+                            progressDialog = Utils.showProgressBar(getContext());
+                            break;
+                        }
+                        case ERROR: {
+                            Utils.hideProgressDialog(progressDialog);
+                            Utils.showErrorMessage(getActivity(), response.message);
+                            break;
+                        }
+                        case SUCCESS: {
+                            Utils.hideProgressDialog(progressDialog);
+                            findDeliveriesAndDeliveryItems(response.data.getHandoverDetails().getDeliveryId());
+                            break;
+                        }
+                    }
+                }
+            }
+        });
+
+        viewModel.responseFindDeliveriesAndDeliveryItems.observe(getViewLifecycleOwner(), new Observer<Resource<ResponseDataFindDeliveriesAndDeliveryItems>>() {
+            @Override
+            public void onChanged(Resource<ResponseDataFindDeliveriesAndDeliveryItems> response) {
+                if (response.status != null) {
+                    switch (response.status) {
+                        case LOADING: {
+                            progressDialog = Utils.showProgressBar(getContext());
+                            break;
+                        }
+                        case ERROR: {
+                            Utils.hideProgressDialog(progressDialog);
+                            Utils.showErrorMessage(getActivity(), response.message);
+                            break;
+                        }
+                        case SUCCESS: {
+                            Utils.hideProgressDialog(progressDialog);
+                            deliveryDetails = response.data.getDeliveryDetails();
+                            Helper.addFragment(getActivity(), new CarrierCollectionAndHandoverDetailsFragment(callFor));
+                            break;
+                        }
+                    }
+                }
+            }
+        });
 
     }
 

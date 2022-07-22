@@ -198,7 +198,7 @@ public class LoginFragment extends BaseFragment {
             }
         });
 
-        builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(getResources().getString(R.string.login), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 DeliveryCentreNumber deliveryCentreNumber = response.getAuthenticationDetails().getDeliveryCentreNumber().get(selectedItemPosition[0]);
@@ -206,7 +206,7 @@ public class LoginFragment extends BaseFragment {
                 Helper.redirectToActivity(getActivity(), HomeActivity.class, true);
             }
         });
-        builder.setNegativeButton(getResources().getString(R.string.str_cancel), null);
+        builder.setNegativeButton(getResources().getString(R.string.logout), null);
         AlertDialog dialog = builder.create();
         dialog.show();
     }

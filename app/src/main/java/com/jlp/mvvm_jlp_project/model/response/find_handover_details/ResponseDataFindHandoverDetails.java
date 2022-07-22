@@ -1,8 +1,6 @@
 package com.jlp.mvvm_jlp_project.model.response.find_handover_details;
 
 
-import android.os.Parcel;
-
 import com.jlp.mvvm_jlp_project.model.response.DITSErrors;
 import com.jlp.mvvm_jlp_project.utils.Constants;
 
@@ -20,7 +18,7 @@ import javax.inject.Inject;
 @Namespace(reference = Constants.NAMESPACE)
 public class ResponseDataFindHandoverDetails {
     @Element(name = "HandoverDetails", required = false)
-    public HandoverDetails handoverDetails;
+    public FoundHandoverDetails handoverDetails;
 
     @Element(name = "DITSErrors",required = false)
     private DITSErrors ditsErrors;
@@ -28,11 +26,11 @@ public class ResponseDataFindHandoverDetails {
     @Inject
     ResponseDataFindHandoverDetails(){}
 
-    public HandoverDetails getHandoverDetails() {
+    public FoundHandoverDetails getHandoverDetails() {
         return handoverDetails;
     }
 
-    public void setHandoverDetails(HandoverDetails handoverDetails) {
+    public void setHandoverDetails(FoundHandoverDetails handoverDetails) {
         this.handoverDetails = handoverDetails;
     }
 

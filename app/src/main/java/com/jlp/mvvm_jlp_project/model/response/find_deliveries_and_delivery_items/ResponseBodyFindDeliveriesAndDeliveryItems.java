@@ -10,7 +10,7 @@ import org.simpleframework.xml.Root;
 @Root(name = "Body", strict = false)
 public class ResponseBodyFindDeliveriesAndDeliveryItems {
 
-    @Element(name = "FindDeliveriesAndDeliveryItems",required = false)
+    @Element(name = "FindDeliveriesAndDeliveryItemsResponse",required = false)
     private ResponseDataFindDeliveriesAndDeliveryItems responseDataFindDeliveriesAndDeliveryItems;
 
     public ResponseDataFindDeliveriesAndDeliveryItems getResponseDataFindDeliveriesAndDeliveryItems() {

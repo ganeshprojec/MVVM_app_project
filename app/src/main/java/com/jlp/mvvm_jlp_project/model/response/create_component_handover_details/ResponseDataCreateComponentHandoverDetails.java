@@ -1,10 +1,7 @@
 package com.jlp.mvvm_jlp_project.model.response.create_component_handover_details;
 
 
-import android.os.Parcel;
-
 import com.jlp.mvvm_jlp_project.model.response.DITSErrors;
-import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items.HandoverDetails;
 import com.jlp.mvvm_jlp_project.utils.Constants;
 
 import org.simpleframework.xml.Element;

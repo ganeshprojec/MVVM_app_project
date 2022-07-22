@@ -9,18 +9,22 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.model.TitleValueDataModel;
+import com.jlp.mvvm_jlp_project.model.request.find_deliveries_and_delivery_items.RequestEnvelopeFindDeliveriesAndDeliveryItems;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestEnvelopeFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_item_details_for_component_barcode.RequestEnvelopeFindDeliveryItemDetailsForComponentBarcode;
+import com.jlp.mvvm_jlp_project.model.request.find_handover_details.RequestEnvelopeFindHandoverDetails;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.LocationItemDetails;
 import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.RequestEnvelopeRecordLocationOfItem;
 import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestBodyRouteManagementSummary;
 import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestDataRouteManagementSummary;
 import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestEnvelopRouteManagementSummary;
+import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items.ResponseDataFindDeliveriesAndDeliveryItems;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.DeliveryItemProductDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.ResponseDataFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_item_details_for_component_barcode.DeliveryItemDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_item_details_for_component_barcode.ResponseDataFindDeliveryItemDetailsForComponentBarcode;
+import com.jlp.mvvm_jlp_project.model.response.find_handover_details.ResponseDataFindHandoverDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.LocationDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseDataFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseDataRecordLocationOfItem;
@@ -62,6 +66,12 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
     public MutableLiveData<Resource<ResponseDataRouteManagementSummary>> responseSummaryDetails
             = new MutableLiveData<>();
 
+    public MutableLiveData<Resource<ResponseDataFindHandoverDetails>> responseFindHandoverDetails
+            = new MutableLiveData<>();
+
+    public MutableLiveData<Resource<ResponseDataFindDeliveriesAndDeliveryItems>> responseFindDeliveriesAndDeliveryItems
+            = new MutableLiveData<>();
+
     @Inject
     public CommonBarcodeScannerViewModel(@NonNull Application application, CommonBarcodeScannerRepository repository, RouteManagementSummaryRepository routeSummayRepo) {
         super(application);
@@ -72,6 +82,8 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
         this.responseFindLocationDetailsForBarcode = repository._responseFindLocationDetailsForBarcode;
         this.responseDataRecordLocationOfItem = repository._responseDataRecordLocationOfItem;
         this.responseFindDeliveryItemDetailsForComponentBarcode = repository._responseFindDeliveryItemDetailsForComponentBarcode;
+        this.responseFindHandoverDetails = repository._responseFindHandoverDetails;
+        this.responseFindDeliveriesAndDeliveryItems = repository._responseFindDeliveriesAndDeliveryItems;
     }
 
     public void findDeliveryDetailsForComponentBarcode(RequestEnvelopeFindDeliveryDetailsForComponentBarcode envelope) {
@@ -80,6 +92,14 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
 
     public void findLocationDetailsForBarcode(RequestEnvelopeFindLocationDetailsForBarcode envelope) {
         repository.findLocationDetailsForBarcode(envelope);
+    }
+
+    public void findHanoverDetails(RequestEnvelopeFindHandoverDetails envelope) {
+        repository.findHanoverDetails(envelope);
+    }
+
+    public void findDeliveriesAndDeliveryItems(RequestEnvelopeFindDeliveriesAndDeliveryItems envelope) {
+        repository.findDeliveriesAndDeliveryItems(envelope);
     }
 
     public void findDeliveryItemDetailsForComponentBarcode(RequestEnvelopeFindDeliveryItemDetailsForComponentBarcode envelope) {
@@ -171,7 +191,6 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
 
 
     public void callSummaryDetails(String barcodeRoute) {
-
         routeSummayRepo.callFindRouteManagementSummary(getEnvelopSummaryDetails(barcodeRoute));
     }
 

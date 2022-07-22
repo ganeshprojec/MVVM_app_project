@@ -19,8 +19,8 @@ import javax.inject.Inject;
 @Root(name = "FindDeliveriesAndDeliveryItemsResponse", strict = false)
 @Namespace(reference = Constants.NAMESPACE)
 public class ResponseDataFindDeliveriesAndDeliveryItems {
-    @Element(name = "HandoverDetails", required = false)
-    public HandoverDetails handoverDetails;
+    @Element(name = "DeliveryDetails", required = false)
+    public DeliveryDetails deliveryDetails;
 
     @Element(name = "DITSErrors",required = false)
     private DITSErrors ditsErrors;
@@ -31,12 +31,12 @@ public class ResponseDataFindDeliveriesAndDeliveryItems {
     protected ResponseDataFindDeliveriesAndDeliveryItems(Parcel in) {
     }
 
-    public HandoverDetails getHandoverDetails() {
-        return handoverDetails;
+    public DeliveryDetails getDeliveryDetails() {
+        return deliveryDetails;
     }
 
-    public void setHandoverDetails(HandoverDetails handoverDetails) {
-        this.handoverDetails = handoverDetails;
+    public void setDeliveryDetails(DeliveryDetails deliveryDetails) {
+        this.deliveryDetails = deliveryDetails;
     }
 
     public DITSErrors getDitsErrors() {
