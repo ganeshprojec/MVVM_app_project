@@ -9,7 +9,6 @@ import com.jlp.mvvm_jlp_project.api.ApiService;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.change_password.RequestEnvelopeChangePassword;
 import com.jlp.mvvm_jlp_project.model.request.change_password_and_logon.RequestEnvelopeChangePasswordAndLogon;
-import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseEnvelopeChangePassword;
@@ -68,17 +67,17 @@ public class UserRepository {
                     response.body().getResponseBodyChangePassword().getResponseDataChangePassword().getDitsErrors()==null) {
                 _responseDataChangePassword.postValue(Resource.success(response.body().getResponseBodyChangePassword().getResponseDataChangePassword()));
             }else if(response.errorBody()!=null){
-                _responseDataChangePassword.postValue(Resource.error("Error while getting the response", null));
+                _responseDataChangePassword.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
             }else if(response.body().getResponseBodyChangePassword().getResponseDataChangePassword().getDitsErrors()!=null){
                 _responseDataChangePassword.postValue(Resource.error( response.body().getResponseBodyChangePassword().getResponseDataChangePassword().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
                         response.body().getResponseBodyChangePassword().getResponseDataChangePassword()));
             } else{
-                _responseDataChangePassword.postValue(Resource.error("Something Went Wrong", null));
-                Log.i(TAG ,"Response is neither success nor error");
+                _responseDataChangePassword.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
+                Log.i(TAG, AppConstants.ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR);
             }
         }catch (Exception ex){
-            _responseDataChangePassword.postValue(Resource.error("Something Went Wrong", null));
-            Log.e(TAG ,"Error while handling the response : "+ex);
+            _responseDataChangePassword.postValue(Resource.error(AppConstants.ERROR_WHILE_HANDLING_THE_RESPONSE, null));
+            Log.e(TAG, AppConstants.ERROR_WHILE_HANDLING_THE_RESPONSE + ex);
         }
     }
 
@@ -112,17 +111,18 @@ public class UserRepository {
                     response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser().getDitsErrors()==null) {
                 _responseAuthenticateUser.postValue(Resource.success(response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser()));
             }else if(response.errorBody()!=null){
-                _responseAuthenticateUser.postValue(Resource.error("Error while getting the response", null));
+                _responseAuthenticateUser.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
             }else if(response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser().getDitsErrors()!=null){
                 _responseAuthenticateUser.postValue(Resource.error( response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
                         response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser()));
             } else{
-                _responseAuthenticateUser.postValue(Resource.error("Something Went Wrong", null));
-                Log.i(TAG ,"Response is neither success nor error");
+                _responseAuthenticateUser.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
+                Log.i(TAG, AppConstants.ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR);
+
             }
         }catch (Exception ex){
-            _responseAuthenticateUser.postValue(Resource.error("Something Went Wrong", null));
-            Log.e(TAG ,"Error while handling the response : "+ex);
+            _responseAuthenticateUser.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
+            Log.e(TAG, AppConstants.ERROR_SOMETHING_WENT_WRONG + ex);
         }
     }
 
@@ -156,17 +156,17 @@ public class UserRepository {
                     response.body().getResponseBodyChangePasswordAndLogon().getResponseDataChangePasswordAndLogon().getDitsErrors()==null) {
                 _responseDataChangePasswordAndLogo.postValue(Resource.success(response.body().getResponseBodyChangePasswordAndLogon().getResponseDataChangePasswordAndLogon()));
             }else if(response.errorBody()!=null){
-                _responseDataChangePasswordAndLogo.postValue(Resource.error("Error while getting the response", null));
+                _responseDataChangePasswordAndLogo.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
             }else if(response.body().getResponseBodyChangePasswordAndLogon().getResponseDataChangePasswordAndLogon().getDitsErrors()!=null){
                 _responseDataChangePasswordAndLogo.postValue(Resource.error( response.body().getResponseBodyChangePasswordAndLogon().getResponseDataChangePasswordAndLogon().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
                         response.body().getResponseBodyChangePasswordAndLogon().getResponseDataChangePasswordAndLogon()));
             } else{
-                _responseDataChangePasswordAndLogo.postValue(Resource.error("Something Went Wrong", null));
-                Log.i(TAG ,"Response is neither success nor error");
+                _responseDataChangePasswordAndLogo.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
+                Log.i(TAG, AppConstants.ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR);
             }
         }catch (Exception ex){
-            _responseDataChangePasswordAndLogo.postValue(Resource.error("Something Went Wrong", null));
-            Log.e(TAG ,"Error while handling the response : "+ex);
+            _responseDataChangePasswordAndLogo.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
+            Log.e(TAG, AppConstants.ERROR_SOMETHING_WENT_WRONG + ex);
         }
     }
 }

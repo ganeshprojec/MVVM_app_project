@@ -25,6 +25,7 @@ import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseEnvelopeFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseDataRecordLocationOfItem;
 import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseEnvelopeRecordLocationOfItem;
+import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 
 import javax.inject.Inject;
@@ -81,19 +82,19 @@ public class CommonBarcodeScannerRepository {
                 _responseFindDeliveryDetailsForComponentBarcode.postValue(Resource.success(response.body().
                         getResponseBodyFindDeliveryDetailsForComponentBarcode().getResponseDataFindDeliveryDetailsForComponentBarcode()));
             }else if(response.errorBody()!=null){
-                _responseFindDeliveryDetailsForComponentBarcode.postValue(Resource.error("Error while getting the response", null));
+                _responseFindDeliveryDetailsForComponentBarcode.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
             }else if(response.body().getResponseBodyFindDeliveryDetailsForComponentBarcode().getResponseDataFindDeliveryDetailsForComponentBarcode().getDitsErrors()!=null){
                 _responseFindDeliveryDetailsForComponentBarcode.postValue(Resource.error( response.body().getResponseBodyFindDeliveryDetailsForComponentBarcode().
                                 getResponseDataFindDeliveryDetailsForComponentBarcode().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
                         response.body().getResponseBodyFindDeliveryDetailsForComponentBarcode().
                                 getResponseDataFindDeliveryDetailsForComponentBarcode()));
             } else{
-                _responseFindDeliveryDetailsForComponentBarcode.postValue(Resource.error("Something Went Wrong", null));
+                _responseFindDeliveryDetailsForComponentBarcode.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
                 Log.i(TAG ,"Response is neither success nor error");
             }
         }catch (Exception ex){
-            _responseFindDeliveryDetailsForComponentBarcode.postValue(Resource.error("Something Went Wrong", null));
-            Log.e(TAG ,"Error while handling the response : "+ex);
+            _responseFindDeliveryDetailsForComponentBarcode.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
+            Log.e(TAG ,AppConstants.ERROR_WHILE_HANDLING_THE_RESPONSE+ex);
         }
     }
 
@@ -130,19 +131,19 @@ public class CommonBarcodeScannerRepository {
                 _responseFindDeliveryItemDetailsForComponentBarcode.postValue(Resource.success(response.body().
                         getResponseBodyFindDeliveryItemDetailsForComponentBarcode().getResponseDataFindDeliveryItemDetailsForComponentBarcode()));
             }else if(response.errorBody()!=null){
-                _responseFindDeliveryItemDetailsForComponentBarcode.postValue(Resource.error("Error while getting the response", null));
+                _responseFindDeliveryItemDetailsForComponentBarcode.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
             }else if(response.body().getResponseBodyFindDeliveryItemDetailsForComponentBarcode().getResponseDataFindDeliveryItemDetailsForComponentBarcode().getDitsErrors()!=null){
                 _responseFindDeliveryItemDetailsForComponentBarcode.postValue(Resource.error( response.body().getResponseBodyFindDeliveryItemDetailsForComponentBarcode().
                                 getResponseDataFindDeliveryItemDetailsForComponentBarcode().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
                         response.body().getResponseBodyFindDeliveryItemDetailsForComponentBarcode().
                                 getResponseDataFindDeliveryItemDetailsForComponentBarcode()));
             } else{
-                _responseFindDeliveryItemDetailsForComponentBarcode.postValue(Resource.error("Something Went Wrong", null));
-                Log.i(TAG ,"Response is neither success nor error");
+                _responseFindDeliveryItemDetailsForComponentBarcode.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
+                Log.i(TAG ,AppConstants.ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR);
             }
         }catch (Exception ex){
-            _responseFindDeliveryItemDetailsForComponentBarcode.postValue(Resource.error("Something Went Wrong", null));
-            Log.e(TAG ,"Error while handling the response : "+ex);
+            _responseFindDeliveryItemDetailsForComponentBarcode.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
+            Log.e(TAG ,AppConstants.ERROR_WHILE_HANDLING_THE_RESPONSE+ex);
         }
     }
 
@@ -176,17 +177,17 @@ public class CommonBarcodeScannerRepository {
                     response.body().getFindLocationDetailsForBarcode().getResponseDataFindLocationDetailsForBarcode().getDitsErrors()==null) {
                 _responseFindLocationDetailsForBarcode.postValue(Resource.success(response.body().getFindLocationDetailsForBarcode().getResponseDataFindLocationDetailsForBarcode()));
             }else if(response.errorBody()!=null){
-                _responseFindLocationDetailsForBarcode.postValue(Resource.error("Error while getting the response", null));
+                _responseFindLocationDetailsForBarcode.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
             }else if(response.body().getFindLocationDetailsForBarcode().getResponseDataFindLocationDetailsForBarcode().getDitsErrors()!=null){
                 _responseFindLocationDetailsForBarcode.postValue(Resource.error( response.body().getFindLocationDetailsForBarcode().getResponseDataFindLocationDetailsForBarcode().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
                         response.body().getFindLocationDetailsForBarcode().getResponseDataFindLocationDetailsForBarcode()));
             } else{
-                _responseFindLocationDetailsForBarcode.postValue(Resource.error("Something Went Wrong", null));
-                Log.i(TAG ,"Response is neither success nor error");
+                _responseFindLocationDetailsForBarcode.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
+                Log.i(TAG ,AppConstants.ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR);
             }
         }catch (Exception ex){
-            _responseFindLocationDetailsForBarcode.postValue(Resource.error("Something Went Wrong", null));
-            Log.e(TAG ,"Error while handling the response : "+ex);
+            _responseFindLocationDetailsForBarcode.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
+            Log.e(TAG ,AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE+ex);
         }
     }
 
@@ -222,17 +223,17 @@ public class CommonBarcodeScannerRepository {
                     response.body().getResponseBodyRecordLocationOfItem().getResponseDataRecordLocationOfItem().getDitsErrors()==null) {
                 _responseDataRecordLocationOfItem.postValue(Resource.success(response.body().getResponseBodyRecordLocationOfItem().getResponseDataRecordLocationOfItem()));
             }else if(response.errorBody()!=null){
-                _responseDataRecordLocationOfItem.postValue(Resource.error("Error while getting the response", null));
+                _responseDataRecordLocationOfItem.postValue(Resource.error(AppConstants.ERROR_WHILE_HANDLING_THE_RESPONSE, null));
             }else if(response.body().getResponseBodyRecordLocationOfItem().getResponseDataRecordLocationOfItem().getDitsErrors()!=null){
                 _responseDataRecordLocationOfItem.postValue(Resource.error( response.body().getResponseBodyRecordLocationOfItem().getResponseDataRecordLocationOfItem().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
                         response.body().getResponseBodyRecordLocationOfItem().getResponseDataRecordLocationOfItem()));
             } else{
-                _responseDataRecordLocationOfItem.postValue(Resource.error("Something Went Wrong", null));
-                Log.i(TAG ,"Response is neither success nor error");
+                _responseDataRecordLocationOfItem.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
+                Log.i(TAG ,AppConstants.ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR);
             }
         }catch (Exception ex){
             _responseDataRecordLocationOfItem.postValue(Resource.error("Something Went Wrong", null));
-            Log.e(TAG ,"Error while handling the response : "+ex);
+            Log.e(TAG ,AppConstants.ERROR_WHILE_HANDLING_THE_RESPONSE+ex);
         }
     }
 
@@ -267,17 +268,17 @@ public class CommonBarcodeScannerRepository {
                     response.body().getResponseBodyFindHandoverDetails().getResponseDataFindHandoverDetails().getDitsErrors()==null) {
                 _responseFindHandoverDetails.postValue(Resource.success(response.body().getResponseBodyFindHandoverDetails().getResponseDataFindHandoverDetails()));
             }else if(response.errorBody()!=null){
-                _responseFindHandoverDetails.postValue(Resource.error("Error while getting the response", null));
+                _responseFindHandoverDetails.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
             }else if(response.body().getResponseBodyFindHandoverDetails().getResponseDataFindHandoverDetails().getDitsErrors()!=null){
                 _responseFindHandoverDetails.postValue(Resource.error( response.body().getResponseBodyFindHandoverDetails().getResponseDataFindHandoverDetails().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
                         response.body().getResponseBodyFindHandoverDetails().getResponseDataFindHandoverDetails()));
             } else{
-                _responseFindHandoverDetails.postValue(Resource.error("Something Went Wrong", null));
-                Log.i(TAG ,"Response is neither success nor error");
+                _responseFindHandoverDetails.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
+                Log.i(TAG ,AppConstants.ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR);
             }
         }catch (Exception ex){
             _responseFindHandoverDetails.postValue(Resource.error("Something Went Wrong", null));
-            Log.e(TAG ,"Error while handling the response : "+ex);
+            Log.e(TAG ,AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE+ex);
         }
     }
 
@@ -312,17 +313,17 @@ public class CommonBarcodeScannerRepository {
                     response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems().getDitsErrors()==null) {
                 _responseFindDeliveriesAndDeliveryItems.postValue(Resource.success(response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems()));
             }else if(response.errorBody()!=null){
-                _responseFindDeliveriesAndDeliveryItems.postValue(Resource.error("Error while getting the response", null));
+                _responseFindDeliveriesAndDeliveryItems.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
             }else if(response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems().getDitsErrors()!=null){
                 _responseFindDeliveriesAndDeliveryItems.postValue(Resource.error( response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
                         response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems()));
             } else{
-                _responseFindDeliveriesAndDeliveryItems.postValue(Resource.error("Something Went Wrong", null));
-                Log.i(TAG ,"Response is neither success nor error");
+                _responseFindDeliveriesAndDeliveryItems.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
+                Log.i(TAG ,AppConstants.ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR);
             }
         }catch (Exception ex){
-            _responseFindDeliveriesAndDeliveryItems.postValue(Resource.error("Something Went Wrong", null));
-            Log.e(TAG ,"Error while handling the response : "+ex);
+            _responseFindDeliveriesAndDeliveryItems.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
+            Log.e(TAG , AppConstants.ERROR_SOMETHING_WENT_WRONG +ex);
         }
     }
 }

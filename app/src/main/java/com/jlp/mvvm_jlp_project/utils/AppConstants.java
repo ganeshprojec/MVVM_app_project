@@ -13,6 +13,11 @@ public class AppConstants {
     public static final String SUCCESS = "SUCCESS";
     public static final String ERROR = "ERROR";
 
+    public static final String ERROR_WHILE_GETTING_THE_RESPONSE = "Error while getting the response";
+    public static final String ERROR_SOMETHING_WENT_WRONG = "Something Went Wrong";
+    public static final String ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR = "Response is neither success nor error";
+    public static final String ERROR_WHILE_HANDLING_THE_RESPONSE = "Error while handling the response :";
+
     public static final int ERROR_NUMBER_FOR_PASSWORD_EXPIRES = 100;
 
     public static final String COMPONENT_BARCODE_DETAILS_DATA = "Barcode Details Data";

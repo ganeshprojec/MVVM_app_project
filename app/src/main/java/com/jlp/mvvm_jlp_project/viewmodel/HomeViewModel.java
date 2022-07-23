@@ -201,7 +201,7 @@ public class HomeViewModel extends BaseViewModel {
     }
 
     public void onPressChangePassword(@ActivityContext Context context) {
-        Helper.addFragment(context, new ChangePasswordFragment());
+        Helper.addFragment(context, new ChangePasswordFragment(AppConstants.FRAGMENT_CHANGE_PASSWORD));
     }
 
     public void onPressLogout(@ActivityContext Context context) {

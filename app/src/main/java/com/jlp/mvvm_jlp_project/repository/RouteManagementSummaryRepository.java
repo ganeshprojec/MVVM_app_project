@@ -14,6 +14,7 @@ import com.jlp.mvvm_jlp_project.model.response.route_item_update_status.Response
 import com.jlp.mvvm_jlp_project.model.response.route_item_update_status.ResponseEnvelopeUpdateItemStatus;
 import com.jlp.mvvm_jlp_project.model.response.route_management_summary.ResponseDataRouteManagementSummary;
 import com.jlp.mvvm_jlp_project.model.response.route_management_summary.ResponseEnvelopeRouteManagementSummary;
+import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 
 import javax.inject.Inject;
@@ -25,11 +26,6 @@ import retrofit2.Response;
 
 public class RouteManagementSummaryRepository {
     private static final String TAG = RouteManagementSummaryRepository.class.getSimpleName();
-
-    public static final String ERROR_RESPONSE = "Error while getting the response";
-    public static final String ERROR_SOMETHING = "Something Went Wrong";
-    public static final String ERROR_RESPONSE_NONE = "Response is neither success nor error";
-    public static final String ERROR_RESPONSE_HANDLING = "Error while handling the response :";
 
     private final ApiService apiService;
 
@@ -132,7 +128,7 @@ public class RouteManagementSummaryRepository {
 
             } else if (response.errorBody() != null) {
 
-                _responseSummary.postValue(Resource.error(ERROR_RESPONSE, null));
+                _responseSummary.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
 
             } else if (response.body().getResponseBodyRouteManagementSummary().getResponseDataRouteManagementSummary().getDitsErrors() != null) {
 
@@ -143,14 +139,14 @@ public class RouteManagementSummaryRepository {
 
             } else {
 
-                _responseSummary.postValue(Resource.error(ERROR_SOMETHING, null));
-                Log.i(TAG, ERROR_RESPONSE_NONE);
+                _responseSummary.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
+                Log.i(TAG, AppConstants.ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR);
 
             }
         } catch (Exception ex) {
-            _responseSummary.postValue(Resource.error(ERROR_SOMETHING, null));
+            _responseSummary.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
 
-            Log.e(TAG, ERROR_RESPONSE_HANDLING + ex);
+            Log.e(TAG, AppConstants.ERROR_WHILE_HANDLING_THE_RESPONSE + ex);
 
         }
     }
@@ -172,7 +168,7 @@ public class RouteManagementSummaryRepository {
 
             } else if (response.errorBody() != null) {
 
-                _responseRouteDetails.postValue(Resource.error(ERROR_RESPONSE, null));
+                _responseRouteDetails.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
 
             } else if (response.body().getResponseBody().getResponseData().getDitsErrors() != null) {
 
@@ -183,14 +179,14 @@ public class RouteManagementSummaryRepository {
 
             } else {
 
-                _responseRouteDetails.postValue(Resource.error(ERROR_SOMETHING, null));
-                Log.i(TAG, ERROR_RESPONSE_NONE);
+                _responseRouteDetails.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
+                Log.i(TAG, AppConstants.ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR);
 
             }
         } catch (Exception ex) {
-            _responseRouteDetails.postValue(Resource.error(ERROR_SOMETHING, null));
+            _responseRouteDetails.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
 
-            Log.e(TAG, ERROR_RESPONSE_HANDLING + ex);
+            Log.e(TAG, AppConstants.ERROR_WHILE_HANDLING_THE_RESPONSE + ex);
 
         }
     }
@@ -212,7 +208,7 @@ public class RouteManagementSummaryRepository {
 
             } else if (response.errorBody() != null) {
 
-                _responseUpdateStatus.postValue(Resource.error(ERROR_RESPONSE, null));
+                _responseUpdateStatus.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
 
             } else if (response.body().getResponseBody().getResponseData().getDitsErrors() != null) {
 
@@ -223,14 +219,13 @@ public class RouteManagementSummaryRepository {
 
             } else {
 
-                _responseUpdateStatus.postValue(Resource.error(ERROR_SOMETHING, null));
-                Log.i(TAG, ERROR_RESPONSE_NONE);
+                _responseUpdateStatus.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
+                Log.i(TAG, AppConstants.ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR);
 
             }
         } catch (Exception ex) {
-            _responseUpdateStatus.postValue(Resource.error(ERROR_SOMETHING, null));
-
-            Log.e(TAG, ERROR_RESPONSE_HANDLING + ex);
+            _responseUpdateStatus.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
+            Log.e(TAG, AppConstants.ERROR_SOMETHING_WENT_WRONG + ex);
 
         }
     }

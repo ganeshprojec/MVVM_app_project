@@ -37,7 +37,7 @@ import javax.inject.Inject;
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
-public class HomeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, View.OnClickListener, ClickListener {
+public class HomeActivity extends BaseActivity implements NavigationView.OnNavigationItemSelectedListener, ClickListener {
 
     protected final String TAG = getClass().getSimpleName();
     private @NonNull
@@ -80,8 +80,6 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
-        binding.homeLayout.homeTopHeader.imgCloseSecond.setOnClickListener(this);
-        binding.homeLayout.homeTopHeader.imgClose.setOnClickListener(this);
         menuList = menuViewModel.getMenuList();
         binding.homeLayout.homeTopHeader.imgClose.setVisibility(View.GONE);
         menuList = menuViewModel.getMenuList();
@@ -94,57 +92,6 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         int spacingInPixels = getResources().getDimensionPixelSize(R.dimen.spacing);
         binding.homeLayout.homeContainer.recyHomeMenu.addItemDecoration(new SpacesItemDecoration(spacingInPixels));
     }
-
-    /**
-     * @param view View Clicke events
-     * @Author Ganesh
-     * <p>
-     * Onclick Listeners
-     */
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-
-            case R.id.imgClose:
-
-                onExitApp();
-                break;
-
-            case R.id.imgCloseSecond:
-
-                changePassword();
-                break;
-
-        }
-
-    }
-
-
-    /**
-     * @param
-     * @Author Ganesh
-     * <p>
-     * For Logout & finishing activity
-     */
-    public void onExitApp() {
-        //logout from Session Management
-        Intent intent = new Intent(this, AuthActivity.class);
-        startActivity(intent);
-
-        finish();
-    }
-
-
-    /**
-     * @param
-     * @Author Ganesh
-     * <p>
-     * For redirect to change password
-     */
-    public void changePassword() {
-        Helper.addFragment(this, new ChangePasswordFragment());
-    }
-
 
     /**
      * @param view
