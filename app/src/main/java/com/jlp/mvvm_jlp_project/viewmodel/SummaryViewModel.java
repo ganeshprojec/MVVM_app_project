@@ -1,5 +1,8 @@
 package com.jlp.mvvm_jlp_project.viewmodel;
 
+import android.app.Application;
+
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestBodyRouteManagementSummary;
@@ -22,18 +25,37 @@ public class SummaryViewModel extends BaseViewModel {
             = new MutableLiveData<>();
 
 
+    /**
+     * @param application Application
+     * @Author Ganesh
+     * <p>
+     * For ViewModel constructor
+     */
     @Inject
-    public SummaryViewModel(RouteManagementSummaryRepository repository) {
+    public SummaryViewModel(@NonNull Application application, RouteManagementSummaryRepository repository) {
+        super(application);
         this.repository = repository;
         this.responseSummaryDetails = repository._responseSummary;
     }
 
 
-    public void findSummaryDetails(String barcodeRoute) {
-        repository.callFindRouteManagementSummary(getEnvelopSummaryDetails(barcodeRoute));
+    /**
+     * @param barcodeRoute Route Resource ID came from Barcode scanner page
+     * @Author Ganesh
+     * <p>
+     * For calling summary details page.
+     */
+    public void callSummaryDetails(String barcodeRoute) {
+        repository.callFindRouteManagementSummary(getEnvelop(barcodeRoute));
     }
 
-    private RequestEnvelopRouteManagementSummary getEnvelopSummaryDetails(String routeId) {
+    /**
+     * @param routeId String Rote ID came from scanner page
+     * @Author Ganesh
+     * <p>
+     * For creating envelop for Summary Details
+     */
+    private RequestEnvelopRouteManagementSummary getEnvelop(String routeId) {
 
         RequestEnvelopRouteManagementSummary requestEnvelop = new RequestEnvelopRouteManagementSummary();
         RequestBodyRouteManagementSummary requestBody = new RequestBodyRouteManagementSummary();

@@ -42,10 +42,10 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class RouteSummaryFragment extends BaseFragment implements ClickListener, View.OnClickListener, DialogListener {
 
-    private static final String ARG_PARAM1 = "param1";
+    /*private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private String mParam1;
-    private String mParam2;
+    private String mParam2;*/
     private @NonNull
     FragmentRouteSummaryNewBinding binding;
 
@@ -69,8 +69,9 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        initPageParam();
+        //initPageParam();
     }
+
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
@@ -89,6 +90,11 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     }
 
 
+    /**
+     * @Author Ganesh
+     * <p>
+     * For setting data for route summary in ViewModel
+     */
     private void dummySummary() {
         /*viewModel.summary.setRouteNumber("" + getString(R.string.dummy_route_number));
         viewModel.summary.setDeliveryDate("" + getString(R.string.dummy_delivery_date));
@@ -108,6 +114,12 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     }
 
 
+    /**
+     * @param view
+     * @Author Ganesh
+     * <p>
+     * For ViewModel Data-Observers defined here
+     */
     private void initObserver(View view) {
 
         viewModel.responseRouteDeliveryDetails.observe(getViewLifecycleOwner(), new Observer<Resource<ResponseDataRouteDetails>>() {
@@ -201,6 +213,12 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
 
     }
 
+    /**
+     * @param
+     * @Author Ganesh
+     * <p>
+     * For updating summary / setting summary on UI
+     */
     public void updateSummaryOnView() {
 
         // Summary
@@ -211,6 +229,12 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
         binding.layoutSummaryIncl.txTotalLotsLoadedValue.setText("" + viewModel.summary.getDeliveryLotsLoaded());
     }
 
+    /**
+     * @param
+     * @Author Ganesh
+     * <p>
+     * For updating / setting summary on UI
+     */
     public void showRouteDeliveryDetailsOnView() {
         // Add List to existing arrayList & notifydataset changed
         ArrayList<DeliveryDetails> tempList = details.getDetailsList();
@@ -221,6 +245,12 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
         adapter.notifyDataSetChanged();
     }
 
+    /**
+     * @param itemStatusDetails ItemStatusDetails response
+     * @Author Ganesh
+     * <p>
+     * For updating the status of individual lot, after sending for updateStatus service
+     */
     public void updateRouteDeliveryDetailsOnView(ItemStatusDetails itemStatusDetails) {
         // TODO: Notify Adapter
 
@@ -228,6 +258,12 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     }
 
 
+    /**
+     * @param
+     * @Author Ganesh
+     * <p>
+     * For initialization of objects, variables, & listeners, setting adapters
+     */
     private void initListener() {
         showIconToolbar();
 
@@ -249,11 +285,23 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
         binding.appbarLayoutRoute.addOnOffsetChangedListener(appBarStateChangeListener);
     }
 
+    /**
+     * @param title Title name
+     * @Author Ganesh
+     * <p>
+     * For setting / updating toolbar title
+     */
     private void setToolTitle(String title) {
         binding.homeTopheader1.txtToolbarTitle.setText("" + title);
         binding.homeTopheader.txtToolbarTitle.setText("" + title);
     }
 
+    /**
+     * @param deliveryId deliveryId from Summary
+     * @Author Ganesh
+     * <p>
+     * For calling web service, for getting delivery details.
+     */
     public void callRouteDeliveryDetails(String deliveryId) {
         // check Is empty, It will not empty maximum case
         if (Utils.isInternetAvailable(getActivity())) {
@@ -264,6 +312,12 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
         }
     }
 
+    /**
+     * @param itemUpdateStatus ItemStatusDetails request status update
+     * @Author Ganesh
+     * <p>
+     * For call webservice Status update for individual LOT, requesting update status
+     */
     public void callUpdateItemStatus(ItemStatusDetails itemUpdateStatus) {
 
         if (Utils.isInternetAvailable(getActivity())) {
@@ -272,10 +326,15 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
             Utils.hideProgressDialog(progressDialog);
             Utils.showErrorMessage(getActivity(), getResources().getString(R.string.please_check_internet_connection));
         }
-
     }
 
 
+    /**
+     * @param
+     * @Author Ganesh
+     * <p>
+     * For showing or setting icons on Toolbar.
+     */
     private void showIconToolbar() {
         // Second Done Icon Enable
         binding.homeTopheader1.imgCloseSecond.setVisibility(View.VISIBLE);
@@ -296,7 +355,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     }
 
 
-    public static RouteSummaryFragment newInstance(String param1, String param2) {
+    /*public static RouteSummaryFragment newInstance(String param1, String param2) {
         RouteSummaryFragment fragment = new RouteSummaryFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -311,7 +370,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-    }
+    }*/
 
     @Override
     protected View initViewBinding(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -320,12 +379,25 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     }
 
 
+    /**
+     * @param index position of list
+     * @param model Data over list item
+     * @Author Ganesh
+     * <p>
+     * For click event handle for individual items
+     */
     @Override
     public void onClickItem(int index, Object model) {
 
     }
 
 
+    /**
+     * @param view
+     * @Author Ganesh
+     * <p>
+     * For ClickListeners for individual views
+     */
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
@@ -365,6 +437,13 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     }
 
 
+    /**
+     * @param inputText String which is passed
+     * @param flag      for custom boolean value, anything extra, clear,canceled event
+     * @Author Ganesh
+     * <p>
+     * For onFinishedDialogListeners, gettting inputText
+     */
     @Override
     public void onFinishDialog(String inputText, Boolean flag) {
         // Apply Filter
@@ -382,6 +461,13 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     }
 
 
+    /**
+     * @Author Ganesh
+     * <p>
+     * For Dialog Listenr for partial listener
+     * @param inputText Getting text input
+     * @param flag custom boolean for clear, cancel
+     */
     DialogListener partialSubmitDialogListener = new DialogListener() {
         @Override
         public void onFinishDialog(String inputText, Boolean flag) {
@@ -401,6 +487,13 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
         }
     };
 
+    /**
+     * @Author Ganesh
+     * <p>
+     * For Click Listener for childItem in list.
+     * @param index position of list
+     * @param model Data over list item
+     */
     ClickListener childListener = new ClickListener() {
         @Override
         public void onClickItem(int index, Object model) {
@@ -420,6 +513,13 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
         }
     };
 
+    /**
+     * @Author Ganesh
+     * <p>
+     * For appbar collapsible event handler
+     * @param index position of list
+     * @param model Data over menu item
+     */
     AppBarStateChangeListener appBarStateChangeListener = new AppBarStateChangeListener() {
         @Override
         public void onStateChanged(AppBarLayout appBarLayout, State state) {

@@ -1,7 +1,9 @@
 package com.jlp.mvvm_jlp_project.viewmodel;
 
+import android.app.Application;
 import android.content.Context;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.MutableLiveData;
 
 import com.jlp.mvvm_jlp_project.R;
@@ -33,7 +35,6 @@ import dagger.hilt.android.qualifiers.ActivityContext;
 @HiltViewModel
 public class RouteSummaryViewModel extends BaseViewModel {
 
-
     private ArrayList<DeliveryDetails> backupList = new ArrayList<>();
     public RouteSummary summary = new RouteSummary();
 
@@ -49,8 +50,17 @@ public class RouteSummaryViewModel extends BaseViewModel {
             = new MutableLiveData<>();
 
 
+    /**
+     * @param application Application context
+     * @param repository  backend call
+     * @Author Ganesh
+     * <p>
+     * For ViewModel constructor
+     */
     @Inject
-    public RouteSummaryViewModel(RouteManagementSummaryRepository repository) {
+    public RouteSummaryViewModel(@NonNull Application application, RouteManagementSummaryRepository repository) {
+        super(application);
+
         this.repository = repository;
         this.responseSummaryDetails = repository._responseSummary;
         this.responseRouteDeliveryDetails = repository._responseRouteDetails;
@@ -61,20 +71,21 @@ public class RouteSummaryViewModel extends BaseViewModel {
         return backupList;
     }
 
+    // for dummy List populate
     public ArrayList<DeliveryDetails> getDummyList(@ActivityContext Context context) {
         ArrayList<DeliveryDetails> list = new ArrayList<>();
 
         ArrayList<LotsInfo> lots = new ArrayList<>();
         for (int j = 0; j < 10; j++) {
 
-            lots.add(new LotsInfo(Helper.getXmlString(context, R.string.dummy_lotSr) + (j + 1),
-                    Helper.getXmlString(context, R.string.dummy_location_b5), "", "", "", "", ""));
+            lots.add(new LotsInfo(Helper.getXmlString(getApplication(), R.string.dummy_lotSr) + (j + 1),
+                    Helper.getXmlString(getApplication(), R.string.dummy_location_b5), "", "", "", "", ""));
         }
 
         for (int i = 0; i < 15; i++) {
-            list.add(new DeliveryDetails(Helper.getXmlString(context, R.string.dummy_delivery_number),
-                    Helper.getXmlString(context, R.string.dummy_customer_name), Helper.getXmlString(context, R.string.dummy_item_num),
-                    Helper.getXmlString(context, R.string.dummy_product_desc),
+            list.add(new DeliveryDetails(Helper.getXmlString(getApplication(), R.string.dummy_delivery_number),
+                    Helper.getXmlString(getApplication(), R.string.dummy_customer_name), Helper.getXmlString(getApplication(), R.string.dummy_item_num),
+                    Helper.getXmlString(getApplication(), R.string.dummy_product_desc),
                     lots));
         }
 
@@ -86,6 +97,12 @@ public class RouteSummaryViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * @param location String name by which filtering
+     * @Author Ganesh
+     * <p>
+     * For Filter logic for the list of Lots and resultant delivery details return
+     */
     public ArrayList<DeliveryDetails> getFilterByLocation(String location) {
         ArrayList<DeliveryDetails> list = new ArrayList<>();
 
@@ -102,6 +119,13 @@ public class RouteSummaryViewModel extends BaseViewModel {
         return list;
     }
 
+    /**
+     * @param lots     list of lots in One Delivery Goods to be filtered out
+     * @param location String to which by filtering
+     * @Author Ganesh
+     * <p>
+     * For filter from list of lots
+     */
     private ArrayList<LotsInfo> getFilteredLots(ArrayList<LotsInfo> lots, String location) {
         ArrayList<LotsInfo> tempList = new ArrayList<>();
 
@@ -120,19 +144,44 @@ public class RouteSummaryViewModel extends BaseViewModel {
         return tempList;
     }
 
-
+    /**
+     * @param envelope request envelop
+     * @Author Ganesh
+     * <p>
+     * For calling summary webservice,
+     * NOte: This is only ready service call, no use on this page
+     */
     public void callFindSummaryDetails(RequestEnvelopRouteManagementSummary envelope) {
         repository.callFindRouteManagementSummary(envelope);
     }
 
+    /**
+     * @param deliveryId Application context
+     * @Author Ganesh
+     * <p>
+     * For calling webservice
+     */
     public void callRouteDetails(String deliveryId) {
         repository.callFindRouteManagementDetails(getEnvelop(deliveryId));
     }
 
+    /**
+     * @param itemUpdateStatus request data model
+     * @Author Ganesh
+     * <p>
+     * For calling actual web service call of Update status, for LOADED / MISSING
+     */
     public void callUpdateStatus(ItemStatusDetails itemUpdateStatus) {
         repository.callUpdateItemStatus(getEnvelop(itemUpdateStatus));
     }
 
+
+    /**
+     * @param itemUpdateStatus model
+     * @Author Ganesh
+     * <p>
+     * For creating envelop for Update Status
+     */
     private RequestEnvelopeUpdateItemStatus getEnvelop(ItemStatusDetails itemUpdateStatus) {
 
         RequestEnvelopeUpdateItemStatus requestEnvelop = new RequestEnvelopeUpdateItemStatus();
@@ -147,6 +196,12 @@ public class RouteSummaryViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * @param deliveryId model
+     * @Author Ganesh
+     * <p>
+     * For creating envelop for Route & Deliveries Details
+     */
     private RequestEnvelopeRouteDetails getEnvelop(String deliveryId) {
 
         RequestEnvelopeRouteDetails requestEnvelop = new RequestEnvelopeRouteDetails();

@@ -4,6 +4,7 @@ package com.jlp.mvvm_jlp_project.utils;/*
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Application;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -92,8 +93,8 @@ public class Helper {
      * @param context
      * @param strResId
      */
-    public static String getXmlString(@ActivityContext Context context, int strResId) {
-        return ((AppCompatActivity) context).getString(strResId);
+    public static String getXmlString(Application context, int strResId) {
+        return context.getString(strResId);
     }
 
 
