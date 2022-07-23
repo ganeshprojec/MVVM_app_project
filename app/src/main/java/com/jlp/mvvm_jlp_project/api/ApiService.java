@@ -2,6 +2,7 @@ package com.jlp.mvvm_jlp_project.api;
 
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.change_password.RequestEnvelopeChangePassword;
+import com.jlp.mvvm_jlp_project.model.request.change_password_and_logon.RequestEnvelopeChangePasswordAndLogon;
 import com.jlp.mvvm_jlp_project.model.request.create_component_handover_details.RequestEnvelopeCreateComponentHandoverDetails;
 import com.jlp.mvvm_jlp_project.model.request.create_or_update_handover_details.RequestEnvelopeCreateOrUpdateHandoverDetails;
 import com.jlp.mvvm_jlp_project.model.request.find_deliveries_and_delivery_items.RequestEnvelopeFindDeliveriesAndDeliveryItems;
@@ -15,6 +16,7 @@ import com.jlp.mvvm_jlp_project.model.request.route_item_update_status.RequestEn
 import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestEnvelopRouteManagementSummary;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseEnvelopeChangePassword;
+import com.jlp.mvvm_jlp_project.model.response.change_password_and_logon.ResponseEnvelopeChangePasswordAndLogon;
 import com.jlp.mvvm_jlp_project.model.response.create_component_handover_details.ResponseEnvelopeCreateComponentHandoverDetails;
 import com.jlp.mvvm_jlp_project.model.response.create_or_update_handover_details.ResponseEnvelopeCreateOrUpdateHandoverDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items.ResponseEnvelopeFindDeliveriesAndDeliveryItems;
@@ -38,13 +40,32 @@ import retrofit2.http.POST;
 
 public interface ApiService {
 
+    /**
+     * end point api call for authentication that is login
+     * @param envelope of tyep RequestEnvelopeAuthenticateUser
+     * @return ResponseEnvelopeAuthenticateUser
+     */
     @Headers({"Content-Type: application/soap+xml", "charset: utf-8", "Content-Length: length"})
     @POST("/AuthenticateUser")
     Call<ResponseEnvelopeAuthenticateUser> authenticateUser(@Body RequestEnvelopeAuthenticateUser envelope);
 
+    /**
+     * change password called when user get redirected from login fragment and in login response says change passeword
+     * @param envelope of type RequestEnvelopeChangePassword
+     * @return ResponseEnvelopeChangePassword
+     */
     @Headers({"Content-Type: application/soap+xml", "charset: utf-8", "Content-Length: length"})
     @POST("/ChangePassword")
-    Call<ResponseEnvelopeChangePassword> changePasswordAndLogon(@Body RequestEnvelopeChangePassword envelope);
+    Call<ResponseEnvelopeChangePassword> changePassword(@Body RequestEnvelopeChangePassword envelope);
+
+    /**
+     * change password called when user get redirected from login fragment and in login response says change passeword
+     * @param envelope of type RequestEnvelopeChangePassword
+     * @return ResponseEnvelopeChangePassword
+     */
+    @Headers({"Content-Type: application/soap+xml", "charset: utf-8", "Content-Length: length"})
+    @POST("/ChangePasswordAndLogon")
+    Call<ResponseEnvelopeChangePasswordAndLogon> changePasswordAndLogon(@Body RequestEnvelopeChangePasswordAndLogon envelope);
 
 
     // call from screen
@@ -94,7 +115,6 @@ public interface ApiService {
     @Headers({"Content-Type: application/soap+xml", "charset: utf-8", "Content-Length: length"})
     @POST("/UpdateItemStatus")
     Call<ResponseEnvelopeUpdateItemStatus> serviceUpdateItemStatus(@Body RequestEnvelopeUpdateItemStatus envelope);
-
 
     /**
      * call from screen Carrier Hand Over Details 1

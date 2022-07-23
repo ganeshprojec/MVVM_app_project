@@ -13,6 +13,8 @@ public class AppConstants {
     public static final String SUCCESS = "SUCCESS";
     public static final String ERROR = "ERROR";
 
+    public static final int ERROR_NUMBER_FOR_PASSWORD_EXPIRES = 100;
+
     public static final String COMPONENT_BARCODE_DETAILS_DATA = "Barcode Details Data";
     public static final String LOCATION_BARCODE_DETAILS_DATA = "Location Details Data";
     public static final String ITEM_ENQUIRY_DETAILS_DATA = "Item Enquiry Details Data";
@@ -25,4 +27,6 @@ public class AppConstants {
     public static final String FRAGMENT_CARRIER_HANDOVER_DETAILS = "Fragment Carrier Handover Details";
     public static final String FRAGMENT_CARRIER_COLLECTION_DETAILS = "Fragment Carrier Collection Details";
     public static final String FRAGMENT_ROUTE_MANAGEMENT = "Fragment Route Management";
+    public static final String FRAGMENT_CHANGE_PASSWORD = "Fragment Change Password";
+    public static final String FRAGMENT_CHANGE_PASSWORD_AND_LOGON = "Fragment Change Password And Logon";
 }

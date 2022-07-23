@@ -10,6 +10,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.change_password.RequestEnvelopeChangePassword;
+import com.jlp.mvvm_jlp_project.model.request.change_password_and_logon.RequestEnvelopeChangePasswordAndLogon;
+import com.jlp.mvvm_jlp_project.model.response.change_password_and_logon.ResponseDataChangePasswordAndLogon;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseDataChangePassword;
@@ -27,12 +29,14 @@ public class AuthViewModel extends BaseViewModel {
     public MutableLiveData<Pair<Boolean, Integer>> validationResult = new MutableLiveData<>();
     public MutableLiveData<Resource<ResponseDataChangePassword>> responseDataChangePassword;
     public MutableLiveData<Resource<ResponseDataAuthenticateUser>> responseAuthenticateUser;
+    public MutableLiveData<Resource<ResponseDataChangePasswordAndLogon>> responseDataChangePasswordAndLogon;
 
     @Inject
     public AuthViewModel(UserRepository repository){
         this.repository = repository;
         responseDataChangePassword = repository._responseDataChangePassword;
         responseAuthenticateUser = repository._responseAuthenticateUser;
+        responseDataChangePasswordAndLogon = repository._responseDataChangePasswordAndLogo;
     }
 
     public void validateLogin(String username, String password) {
@@ -72,5 +76,9 @@ public class AuthViewModel extends BaseViewModel {
 
     public void changePassword(RequestEnvelopeChangePassword envelope){
         repository.changePassword(envelope);
+    }
+
+    public void changePasswordAndLogon(RequestEnvelopeChangePasswordAndLogon envelope){
+        repository.changePasswordAndLogon(envelope);
     }
 }

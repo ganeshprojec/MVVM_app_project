@@ -8,11 +8,14 @@ import androidx.lifecycle.MutableLiveData;
 import com.jlp.mvvm_jlp_project.api.ApiService;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.change_password.RequestEnvelopeChangePassword;
+import com.jlp.mvvm_jlp_project.model.request.change_password_and_logon.RequestEnvelopeChangePasswordAndLogon;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseEnvelopeChangePassword;
 import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseDataChangePassword;
+import com.jlp.mvvm_jlp_project.model.response.change_password_and_logon.ResponseDataChangePasswordAndLogon;
+import com.jlp.mvvm_jlp_project.model.response.change_password_and_logon.ResponseEnvelopeChangePasswordAndLogon;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.view.auth.LoginFragment;
@@ -29,6 +32,7 @@ public class UserRepository {
     private ApiService apiService;
     public MutableLiveData<Resource<ResponseDataChangePassword>> _responseDataChangePassword = new MutableLiveData<>();
     public MutableLiveData<Resource<ResponseDataAuthenticateUser>> _responseAuthenticateUser = new MutableLiveData<>();
+    public MutableLiveData<Resource<ResponseDataChangePasswordAndLogon>> _responseDataChangePasswordAndLogo = new MutableLiveData<>();
 
     @Inject public UserRepository(ApiService apiService) {
         this.apiService = apiService;
@@ -41,7 +45,7 @@ public class UserRepository {
     public void changePassword(RequestEnvelopeChangePassword envelope){
         _responseDataChangePassword.postValue(Resource.loading(null));
         Call<ResponseEnvelopeChangePassword> responseEnvelopeCall
-                = apiService.changePasswordAndLogon(envelope);
+                = apiService.changePassword(envelope);
         responseEnvelopeCall.enqueue(new Callback<ResponseEnvelopeChangePassword>() {
             @Override
             public void onResponse(Call<ResponseEnvelopeChangePassword> call, Response<ResponseEnvelopeChangePassword> response) {
@@ -50,26 +54,6 @@ public class UserRepository {
             @Override
             public void onFailure(Call<ResponseEnvelopeChangePassword> call, Throwable t) {
                 _responseDataChangePassword.postValue(Resource.error(t.getMessage(), null));
-            }
-        });
-    }
-
-    /**
-     * Api call for authenticate user
-     * @param envelope
-     */
-    public void authenticateUser(RequestEnvelopeAuthenticateUser envelope){
-        _responseAuthenticateUser.postValue(Resource.loading(null));
-        Call<ResponseEnvelopeAuthenticateUser> responseEnvelopeCall
-                = apiService.authenticateUser(envelope);
-        responseEnvelopeCall.enqueue(new Callback<ResponseEnvelopeAuthenticateUser>() {
-            @Override
-            public void onResponse(Call<ResponseEnvelopeAuthenticateUser> call, Response<ResponseEnvelopeAuthenticateUser> response) {
-                handleAuthenticateUserResponse(response);
-            }
-            @Override
-            public void onFailure(Call<ResponseEnvelopeAuthenticateUser> call, Throwable t) {
-                _responseAuthenticateUser.postValue(Resource.error(t.getMessage(), null));
             }
         });
     }
@@ -99,6 +83,26 @@ public class UserRepository {
     }
 
     /**
+     * Api call for authenticate user
+     * @param envelope
+     */
+    public void authenticateUser(RequestEnvelopeAuthenticateUser envelope){
+        _responseAuthenticateUser.postValue(Resource.loading(null));
+        Call<ResponseEnvelopeAuthenticateUser> responseEnvelopeCall
+                = apiService.authenticateUser(envelope);
+        responseEnvelopeCall.enqueue(new Callback<ResponseEnvelopeAuthenticateUser>() {
+            @Override
+            public void onResponse(Call<ResponseEnvelopeAuthenticateUser> call, Response<ResponseEnvelopeAuthenticateUser> response) {
+                handleAuthenticateUserResponse(response);
+            }
+            @Override
+            public void onFailure(Call<ResponseEnvelopeAuthenticateUser> call, Throwable t) {
+                _responseAuthenticateUser.postValue(Resource.error(t.getMessage(), null));
+            }
+        });
+    }
+
+    /**
      * handled authenticate user response and did some validation on response
      * @param response
      */
@@ -118,6 +122,50 @@ public class UserRepository {
             }
         }catch (Exception ex){
             _responseAuthenticateUser.postValue(Resource.error("Something Went Wrong", null));
+            Log.e(TAG ,"Error while handling the response : "+ex);
+        }
+    }
+
+    /**
+     * Api call for authenticate user
+     * @param envelope
+     */
+    public void changePasswordAndLogon(RequestEnvelopeChangePasswordAndLogon envelope){
+        _responseDataChangePasswordAndLogo.postValue(Resource.loading(null));
+        Call<ResponseEnvelopeChangePasswordAndLogon> responseEnvelopeCall
+                = apiService.changePasswordAndLogon(envelope);
+        responseEnvelopeCall.enqueue(new Callback<ResponseEnvelopeChangePasswordAndLogon>() {
+            @Override
+            public void onResponse(Call<ResponseEnvelopeChangePasswordAndLogon> call, Response<ResponseEnvelopeChangePasswordAndLogon> response) {
+                handleChangePasswordAndLogonResponse(response);
+            }
+            @Override
+            public void onFailure(Call<ResponseEnvelopeChangePasswordAndLogon> call, Throwable t) {
+                _responseDataChangePasswordAndLogo.postValue(Resource.error(t.getMessage(), null));
+            }
+        });
+    }
+
+    /**
+     * handled authenticate user response and did some validation on response
+     * @param response
+     */
+    private void handleChangePasswordAndLogonResponse(Response<ResponseEnvelopeChangePasswordAndLogon> response){
+        try {
+            if(response.isSuccessful() && response.body()!=null &&
+                    response.body().getResponseBodyChangePasswordAndLogon().getResponseDataChangePasswordAndLogon().getDitsErrors()==null) {
+                _responseDataChangePasswordAndLogo.postValue(Resource.success(response.body().getResponseBodyChangePasswordAndLogon().getResponseDataChangePasswordAndLogon()));
+            }else if(response.errorBody()!=null){
+                _responseDataChangePasswordAndLogo.postValue(Resource.error("Error while getting the response", null));
+            }else if(response.body().getResponseBodyChangePasswordAndLogon().getResponseDataChangePasswordAndLogon().getDitsErrors()!=null){
+                _responseDataChangePasswordAndLogo.postValue(Resource.error( response.body().getResponseBodyChangePasswordAndLogon().getResponseDataChangePasswordAndLogon().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
+                        response.body().getResponseBodyChangePasswordAndLogon().getResponseDataChangePasswordAndLogon()));
+            } else{
+                _responseDataChangePasswordAndLogo.postValue(Resource.error("Something Went Wrong", null));
+                Log.i(TAG ,"Response is neither success nor error");
+            }
+        }catch (Exception ex){
+            _responseDataChangePasswordAndLogo.postValue(Resource.error("Something Went Wrong", null));
             Log.e(TAG ,"Error while handling the response : "+ex);
         }
     }

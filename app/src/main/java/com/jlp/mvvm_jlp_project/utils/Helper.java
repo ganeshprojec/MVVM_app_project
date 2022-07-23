@@ -3,7 +3,9 @@ package com.jlp.mvvm_jlp_project.utils;/*
  */
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -16,7 +18,16 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.interfaces.DialogListener;
+import com.jlp.mvvm_jlp_project.model.response.authenticate_user.AuthenticationDetails;
+import com.jlp.mvvm_jlp_project.model.response.authenticate_user.DeliveryCentreNumber;
+import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
+import com.jlp.mvvm_jlp_project.pref.AppPreferencesHelper;
 import com.jlp.mvvm_jlp_project.view.base.BaseDialogFragment;
+import com.jlp.mvvm_jlp_project.view.home.HomeActivity;
+
+import java.util.List;
+
+import javax.inject.Inject;
 
 import dagger.hilt.android.qualifiers.ActivityContext;
 
@@ -88,7 +99,6 @@ public class Helper {
 
     /**
      * To start dialog fragment
-     *
      * @param context
      * @param dialogFragment
      * @param bundle
@@ -110,4 +120,80 @@ public class Helper {
         dialogFragment.show(ft, BaseDialogFragment.PARAM_BUNDLE_DIALOG_TAG);
     }
 
+    public static void handleResponseAndDoLogin(AuthenticationDetails authenticationDetails,
+                                                Activity activity, AppPreferencesHelper appPreferencesHelper) {
+        if(isShowDeliveryCenterList(authenticationDetails)){
+            selectDeliveryCenter(authenticationDetails, activity, appPreferencesHelper);
+        }else{
+            updateSharedPref(appPreferencesHelper, authenticationDetails);
+            Helper.redirectToActivity(activity, HomeActivity.class, true);
+        }
+    }
+
+    /**
+     * Select delivery branch dialog decision
+     * @param data of type ResponseDataAuthenticateUser
+     * @return check the size of deliveryCentreNumber and if its more than one then return true else false
+     */
+    public static boolean isShowDeliveryCenterList(AuthenticationDetails authenticationDetails) {
+        if(authenticationDetails.getDeliveryCentreNumber().size()>1)
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Show a dialog to select delivery center number
+     * @param response of type ResponseDataAuthenticateUser
+     */
+    public static void selectDeliveryCenter(AuthenticationDetails authenticationDetails,
+                                      Activity activity, AppPreferencesHelper appPreferencesHelper) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
+        builder.setTitle(activity.getResources().getString(R.string.choose_delivery_center));
+        final int[] selectedItemPosition = {0};
+        builder.setSingleChoiceItems(extractDeliveryCenterNamesInArray(authenticationDetails), selectedItemPosition[0], new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selectedItemPosition[0] = which;
+
+            }
+        });
+
+        builder.setPositiveButton(activity.getResources().getString(R.string.login), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                updateSharedPref(appPreferencesHelper, authenticationDetails);
+                Helper.redirectToActivity(activity, HomeActivity.class, true);
+            }
+        });
+        builder.setNegativeButton(activity.getResources().getString(R.string.logout), null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    /**
+     * get the delivery center name from the response
+     * @param response of type ResponseDataAuthenticateUser
+     * @return string values of delivery center names used for the dialog
+     */
+    public static String[] extractDeliveryCenterNamesInArray(AuthenticationDetails authenticationDetails) {
+        String[] deliveryCenterName = new String[authenticationDetails.getDeliveryCentreNumber().size()];
+        for(int i = 0;  i < authenticationDetails.getDeliveryCentreNumber().size(); i++){
+            deliveryCenterName[i] = authenticationDetails.getDeliveryCentreNumber().get(i).getDeliveryCentreName();
+        }
+        return deliveryCenterName;
+    }
+
+    /**
+     * Update the shared preferences for further use
+     * @param response of type ResponseDataAuthenticateUser to get the username and userId to store
+     * @param deliveryCentreId
+     * @param deliveryCentreName
+     */
+    public static void updateSharedPref(AppPreferencesHelper appPreferencesHelper, AuthenticationDetails authenticationDetails) {
+        appPreferencesHelper.setUsername(authenticationDetails.getUserName());
+        appPreferencesHelper.setUserId(authenticationDetails.getUserId());
+        appPreferencesHelper.setDeliveryCentreId(authenticationDetails.getDeliveryCentreNumber().get(0).getDeliveryCentreId());
+        appPreferencesHelper.setDeliveryCentreName(authenticationDetails.getDeliveryCentreNumber().get(0).getDeliveryCentreName());
+    }
 }

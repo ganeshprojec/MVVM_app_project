@@ -46,7 +46,6 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
 
     public MutableLiveData<Pair<Boolean, Integer>> validationResult = new MutableLiveData<>();
 
-
     public MutableLiveData<List<TitleValueDataModel>> itemEnquiry = new MutableLiveData<>();
 
     public MutableLiveData<Resource<ResponseDataFindDeliveryDetailsForComponentBarcode>> responseFindDeliveryDetailsForComponentBarcode
@@ -112,7 +111,7 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
         if (TextUtils.isEmpty(barcode)) {
             result = new Pair(false, R.string.enter_barcode);
         } else if (barcode.length() < 6) {
-            result = new Pair(false, R.string.please_enter_password);
+            result = new Pair(false, R.string.invalid_barcode);
         }
         validationResult.setValue(result);
     }

@@ -25,10 +25,12 @@ import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestDataAuthe
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.DeliveryCentreNumber;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
 import com.jlp.mvvm_jlp_project.pref.AppPreferencesHelper;
+import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
+import com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScannerFragment;
 import com.jlp.mvvm_jlp_project.view.home.HomeActivity;
 import com.jlp.mvvm_jlp_project.viewmodel.AuthViewModel;
 
@@ -147,21 +149,21 @@ public class LoginFragment extends BaseFragment {
                         case ERROR:{
                             Utils.hideProgressDialog(progressDialog);
                             Utils.showErrorMessage(getActivity(), response.message);
+                            if(response.data.getDitsErrors()!=null &&
+                                    response.data.getDitsErrors().getDitsError()!=null &&
+                                    response.data.getDitsErrors().getDitsError().getErrorType()!=null &&
+                                    response.data.getDitsErrors().getDitsError().errorType.ErrorNumber ==
+                                    AppConstants.ERROR_NUMBER_FOR_PASSWORD_EXPIRES){
+                                Helper.addFragment(getActivity(), new ChangePasswordFragment(AppConstants.FRAGMENT_CHANGE_PASSWORD_AND_LOGON));
+                            }
                             break;
                         }
 
                         case SUCCESS:{
                             clearViews();
                             Utils.hideProgressDialog(progressDialog);
-
-                            if(isShowDeliveryCenterList(response.data)){
-                                selectDeliveryCenter(response.data);
-                            }else{
-                                updateSharedPref(response.data,
-                                        response.data.getAuthenticationDetails().getDeliveryCentreNumber().get(0).getDeliveryCentreId(),
-                                        response.data.getAuthenticationDetails().getDeliveryCentreNumber().get(0).getDeliveryCentreName());
-                                Helper.redirectToActivity(getActivity(), HomeActivity.class, true);
-                            }
+                            response.data.getAuthenticationDetails();
+                            Helper.handleResponseAndDoLogin(response.data.getAuthenticationDetails(), getActivity(), appPreferencesHelper);
                             break;
                         }
                     }
