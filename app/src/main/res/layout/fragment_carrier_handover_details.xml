@@ -8,7 +8,7 @@
     android:background="@color/white"
     android:clickable="true"
     android:focusable="true"
-    tools:context=".view.carrier_handover_details.CarrierCollectionAndHandoverDetailsFragment">
+    tools:context=".view.carrier_collection_and_handover_details.CarrierCollectionAndHandoverDetailsFragment">
 
     <include layout="@layout/layout_guideline_std" />
 
@@ -39,7 +39,10 @@
                 android:id="@+id/recycler_view_sub_header"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/margin_padding_tiny"
+                android:paddingTop="@dimen/margin_padding_tiny"
+                android:paddingBottom="@dimen/margin_padding_tiny"
+                android:paddingLeft="@dimen/margin_padding_normal"
+                android:paddingRight="@dimen/margin_padding_normal"
                 android:background="@color/color_light_gray"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -53,6 +56,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_padding_normal"
+                android:layout_marginLeft="@dimen/margin_padding_small"
+                android:layout_marginRight="@dimen/margin_padding_small"
                 android:text="@string/please_enter_details_for_handover"
                 android:textStyle="bold"
                 app:layout_constraintBottom_toTopOf="@+id/layout"
@@ -66,7 +71,8 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:layout_marginTop="@dimen/margin_padding_small"
-                app:layout_constraintBottom_toTopOf="@+id/btn_confirm"
+                android:layout_marginLeft="@dimen/margin_padding_small"
+                android:layout_marginRight="@dimen/margin_padding_small"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/tv_layout_header">

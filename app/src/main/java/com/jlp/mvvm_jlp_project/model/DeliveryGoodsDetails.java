@@ -39,9 +39,7 @@ public class DeliveryGoodsDetails {
     ArrayList<DeliveryLotDetails> lotInfo = new ArrayList<DeliveryLotDetails>();
 
 
-    @Inject
-    public DeliveryGoodsDetails() {
-    }
+    @Inject public DeliveryGoodsDetails() {}
 
 
     public String getDeliveryGoodId() {

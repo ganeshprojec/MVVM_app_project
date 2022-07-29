@@ -51,7 +51,7 @@ public class HomeViewModel extends BaseViewModel {
         list.add(new DrawerMenuItem(Helper.getXmlString(getApplication(), R.string.str_reprint_labels), R.drawable.ic_4_reprint_labels));
         list.add(new DrawerMenuItem(Helper.getXmlString(getApplication(), R.string.str_amend_lots), R.drawable.ic_5_amend_lots));
         list.add(new DrawerMenuItem(Helper.getXmlString(getApplication(), R.string.str_route_management), R.drawable.ic_6_route_management));
-        list.add(new DrawerMenuItem(Helper.getXmlString(getApplication(), R.string.str_track_handover_delivery), R.drawable.ic_7_carier_collection_details));
+        list.add(new DrawerMenuItem(Helper.getXmlString(getApplication(), R.string.str_track_handover_delivery), R.drawable.ic_7_carrier_collection_details));
         list.add(new DrawerMenuItem(Helper.getXmlString(getApplication(), R.string.str_handover_delivery), R.drawable.ic_8_carrier_handover_details));
 
         return list;

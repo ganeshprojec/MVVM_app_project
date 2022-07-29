@@ -15,14 +15,14 @@ public class RequestDataCreateComponentHandoverDetails {
     @Inject
     RequestDataCreateComponentHandoverDetails(){}
 
-    @Element(name = "cds:barcode",required = false)
-    public String barcode;
+    @Element(name = "deliveryGoodsDetails", required = false)
+    DeliveryGoodsDetails deliveryGoodsDetails;
 
-    public String getBarcode() {
-        return barcode;
+    public DeliveryGoodsDetails getDeliveryGoodsDetails() {
+        return deliveryGoodsDetails;
     }
 
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
+    public void setDeliveryGoodsDetails(DeliveryGoodsDetails deliveryGoodsDetails) {
+        this.deliveryGoodsDetails = deliveryGoodsDetails;
     }
 }

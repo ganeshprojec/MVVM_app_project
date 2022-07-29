@@ -15,14 +15,14 @@ public class RequestDataCreateOrUpdateHandoverDetails {
     @Inject
     RequestDataCreateOrUpdateHandoverDetails(){}
 
-    @Element(name = "cds:barcode",required = false)
-    public String barcode;
+    @Element(name = "cds:CreateOrUpdateHandoverDetails",required = false)
+    public CreateOrUpdateHandoverDetails createOrUpdateHandoverDetails;
 
-    public String getBarcode() {
-        return barcode;
+    public CreateOrUpdateHandoverDetails getCreateOrUpdateHandoverDetails() {
+        return createOrUpdateHandoverDetails;
     }
 
-    public void setBarcode(String barcode) {
-        this.barcode = barcode;
+    public void setCreateOrUpdateHandoverDetails(CreateOrUpdateHandoverDetails createOrUpdateHandoverDetails) {
+        this.createOrUpdateHandoverDetails = createOrUpdateHandoverDetails;
     }
 }

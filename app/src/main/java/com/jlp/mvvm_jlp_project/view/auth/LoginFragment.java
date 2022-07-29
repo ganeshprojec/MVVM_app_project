@@ -149,7 +149,7 @@ public class LoginFragment extends BaseFragment {
                         case ERROR:{
                             Utils.hideProgressDialog(progressDialog);
                             Utils.showErrorMessage(getActivity(), response.message);
-                            if(response.data.getDitsErrors()!=null &&
+                            if(response.data!=null && response.data.getDitsErrors()!=null &&
                                     response.data.getDitsErrors().getDitsError()!=null &&
                                     response.data.getDitsErrors().getDitsError().getErrorType()!=null &&
                                     response.data.getDitsErrors().getDitsError().errorType.ErrorNumber ==

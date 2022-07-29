@@ -17,8 +17,8 @@ import javax.inject.Inject;
 @Root(name = "FindHandoverDetailsResponse", strict = false)
 @Namespace(reference = Constants.NAMESPACE)
 public class ResponseDataFindHandoverDetails {
-    @Element(name = "HandoverDetails", required = false)
-    public FoundHandoverDetails handoverDetails;
+    @Element(name = "FoundHandoverDetails", required = false)
+    public FoundHandoverDetails foundHandoverDetails;
 
     @Element(name = "DITSErrors",required = false)
     private DITSErrors ditsErrors;
@@ -26,12 +26,12 @@ public class ResponseDataFindHandoverDetails {
     @Inject
     ResponseDataFindHandoverDetails(){}
 
-    public FoundHandoverDetails getHandoverDetails() {
-        return handoverDetails;
+    public FoundHandoverDetails getFoundHandoverDetails() {
+        return foundHandoverDetails;
     }
 
-    public void setHandoverDetails(FoundHandoverDetails handoverDetails) {
-        this.handoverDetails = handoverDetails;
+    public void setFoundHandoverDetails(FoundHandoverDetails foundHandoverDetails) {
+        this.foundHandoverDetails = foundHandoverDetails;
     }
 
     public DITSErrors getDitsErrors() {

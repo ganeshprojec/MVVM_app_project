@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/lay_route_main"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true"
+    tools:context=".view.carrier_collection_and_handover_details.CarrierCollectionAndHandoverDetailsFragment">
+
+    <include layout="@layout/layout_guideline_std" />
+
+    <include
+        android:id="@+id/home_top_header"
+        layout="@layout/layout_top_header"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout_list_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/color_light_gray"
+        android:padding="@dimen/margin_padding_normal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/home_top_header"
+        tools:listitem="@layout/item_row_title_and_value">
+
+        <include
+            layout="@layout/layout_guideline_std" />
+
+        <include
+            android:id="@+id/layout_item_enquiry_input_field"
+            layout="@layout/input_field_barcode_scan"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/tv_layout_header"
+            style="@style/text_views"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_x_normal"
+            android:text="@string/please_scan_all_parts_lot_for"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintTop_toBottomOf="@+id/layout_item_enquiry_input_field" />
+
+        <LinearLayout
+            android:id="@+id/layout_delivery"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_x_tiny"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintTop_toBottomOf="@id/tv_layout_header">
+
+            <TextView
+                android:id="@+id/tv_title_delivery"
+                style="@style/text_views"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"
+                android:text="@string/delivery"
+                android:textColor="@color/secondary_text_color" />
+
+
+            <TextView
+                android:id="@+id/tv_delivery_id"
+                style="@style/text_views"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_padding_normal"
+                android:layout_weight="2"
+                android:gravity="left"
+                android:text="124321432" />
+
+
+        </LinearLayout>
+
+        <include
+            android:id="@+id/divider"
+            layout="@layout/divider"
+            android:layout_width="0dp"
+            android:layout_height="0.8dp"
+            android:layout_marginTop="@dimen/margin_padding_x_small"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintTop_toBottomOf="@id/layout_delivery" />
+
+        <LinearLayout
+            android:id="@+id/layout_done"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_x_small"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintTop_toBottomOf="@id/divider">
+
+            <TextView
+                android:id="@+id/tv_title_done"
+                style="@style/text_views"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.2"
+                android:text="@string/done"
+                android:textColor="@color/secondary_text_color" />
+
+
+            <TextView
+                android:id="@+id/tv_total_lots"
+                style="@style/text_views"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_padding_normal"
+                android:layout_weight="2"
+                android:gravity="left"
+                android:text="3 of 3" />
+        </LinearLayout>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraint_layout_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:padding="@dimen/margin_padding_normal"
+        app:layout_constraintBottom_toTopOf="@+id/btn_confirm"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/constraint_layout_list_header"
+        tools:listitem="@layout/item_row_title_and_value">
+
+        <include
+            layout="@layout/layout_guideline_std" />
+
+        <TextView
+            android:id="@+id/tv_recycler_title"
+            style="@style/text_views"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_x_normal"
+            android:text="@string/delivery_item_details"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintTop_toBottomOf="@+id/constraint_layout_list_header" />
+
+
+        <LinearLayout
+            android:id="@+id/recycler_header"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintTop_toBottomOf="@+id/tv_recycler_title">
+
+            <TextView
+                android:id="@+id/tv_item_number"
+                style="@style/text_views"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_x_normal"
+                android:layout_weight="1.2"
+                android:textStyle="bold"
+                android:text="@string/scanned_item_no"
+                app:layout_constraintEnd_toEndOf="@+id/guidelineRight"
+                app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+                app:layout_constraintTop_toBottomOf="@+id/constraint_layout_list_header" />
+
+            <TextView
+                android:id="@+id/tv_item_name"
+                style="@style/text_views"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/margin_padding_x_normal"
+                android:layout_weight="1.8"
+                android:textStyle="bold"
+                android:text="@string/item_name"
+                app:layout_constraintEnd_toEndOf="@+id/guidelineRight"
+                app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+                app:layout_constraintTop_toBottomOf="@+id/constraint_layout_list_header" />
+
+        </LinearLayout>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recycler_view_delivery_item_details"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_padding_small"
+            app:layout_constraintEnd_toEndOf="@+id/guidelineRight"
+            app:layout_constraintStart_toStartOf="@+id/guidelineLeft"
+            app:layout_constraintTop_toBottomOf="@+id/recycler_header"
+            tools:itemCount="3"
+            tools:listitem="@layout/item_row_title_and_value"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btn_confirm"
+        style="@style/button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_padding_small"
+        android:layout_marginBottom="@dimen/margin_padding_small"
+        android:layout_marginLeft="@dimen/margin_padding_xx_large"
+        android:layout_marginRight="@dimen/margin_padding_xx_large"
+        android:text="@string/confirm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

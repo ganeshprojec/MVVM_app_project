@@ -42,7 +42,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 @AndroidEntryPoint
 public class ChangePasswordFragment extends BaseFragment {
 
-    private static final String TAG = LoginFragment.class.getSimpleName();
+    private static final String TAG = ChangePasswordFragment.class.getSimpleName();
 
     private @NonNull
     FragmentChangePasswordBinding binding;
@@ -187,7 +187,6 @@ public class ChangePasswordFragment extends BaseFragment {
 
     private void changePassword(String userId, String oldPassword, String newPassword) {
         if (Utils.isInternetAvailable(getContext())){
-
             switch (callFor){
                 case AppConstants.FRAGMENT_CHANGE_PASSWORD:{
                     prepareRequestDataForChangePassword(userId, oldPassword, newPassword);

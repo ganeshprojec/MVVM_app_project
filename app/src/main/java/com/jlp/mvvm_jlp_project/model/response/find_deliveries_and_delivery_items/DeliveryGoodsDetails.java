@@ -3,6 +3,10 @@ package com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_ite
  */
 
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DeliveryGoodsDetails {
 
@@ -16,8 +20,8 @@ public class DeliveryGoodsDetails {
     public String orderDescriptionClean;
     @Element(name = "PartActiveQuantity",required = false)
     public int PartActiveQuantity;
-    @Element(name = "componentDetails",required = false)
-    public ComponentDetails componentDetails;
+    @ElementList(name = "componentDetails", required = false, inline=true)
+    public List<ComponentDetails> componentDetails = new ArrayList<>();
 
     public String getDeliveryGoodId() {
         return deliveryGoodId;
@@ -59,11 +63,11 @@ public class DeliveryGoodsDetails {
         PartActiveQuantity = partActiveQuantity;
     }
 
-    public ComponentDetails getComponentDetails() {
+    public List<ComponentDetails> getComponentDetails() {
         return componentDetails;
     }
 
-    public void setComponentDetails(ComponentDetails componentDetails) {
+    public void setComponentDetails(List<ComponentDetails> componentDetails) {
         this.componentDetails = componentDetails;
     }
 }

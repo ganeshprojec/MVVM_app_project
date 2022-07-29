@@ -1,36 +1,28 @@
-package com.jlp.mvvm_jlp_project.model.response.find_handover_details;/*
- * Created by Sandeep(Techno Learning) on 04,July,2022
+package com.jlp.mvvm_jlp_project.model.response.create_or_update_handover_details;/*
+ * Created by Sandeep(Techno Learning) on 25,July,2022
  */
 
-import android.os.Parcel;
-
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.Root;
 
-import javax.inject.Inject;
+public class CreatedOrUpdatedHandoverDetails {
 
-@Root(name = "FoundHandoverDetails", strict = false)
-public class FoundHandoverDetails {
-
-    @Inject public FoundHandoverDetails() {}
-
-    @Element(name = "deliveryId",required = false)
+    @Element(name = "deliveryId", required = false)
     public String deliveryId;
-    @Element(name = "agreedDelDate",required = false)
+    @Element(name = "agreedDelDate", required = false)
     public String agreedDelDate;
-    @Element(name = "latestDelTime",required = false)
+    @Element(name = "latestDelTime", required = false)
     public String latestDelTime;
-    @Element(name = "handoverTo",required = false)
+    @Element(name = "handoverTo", required = false)
     public String handoverTo;
-    @Element(name = "handoverDate",required = false)
+    @Element(name = "handoverDate", required = false)
     public String handoverDate;
-    @Element(name = "handoverRef",required = false)
+    @Element(name = "handoverRef", required = false)
     public String handoverRef;
-    @Element(name = "serviceIncluded",required = false)
-    public Boolean serviceIncluded;
-    @Element(name = "crtUserId",required = false)
+    @Element(name = "serviceIncluded", required = false)
+    public String serviceIncluded;
+    @Element(name = "crtUserId", required = false)
     public String crtUserId;
-    @Element(name = "crtStamp",required = false)
+    @Element(name = "crtStamp", required = false)
     public String crtStamp;
 
     public String getDeliveryId() {
@@ -81,11 +73,11 @@ public class FoundHandoverDetails {
         this.handoverRef = handoverRef;
     }
 
-    public Boolean getServiceIncluded() {
+    public String getServiceIncluded() {
         return serviceIncluded;
     }
 
-    public void setServiceIncluded(Boolean serviceIncluded) {
+    public void setServiceIncluded(String serviceIncluded) {
         this.serviceIncluded = serviceIncluded;
     }
 

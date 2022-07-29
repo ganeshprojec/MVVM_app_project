@@ -277,7 +277,7 @@ public class CommonBarcodeScannerRepository {
                 Log.i(TAG ,AppConstants.ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR);
             }
         }catch (Exception ex){
-            _responseFindHandoverDetails.postValue(Resource.error("Something Went Wrong", null));
+            _responseFindHandoverDetails.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
             Log.e(TAG ,AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE+ex);
         }
     }

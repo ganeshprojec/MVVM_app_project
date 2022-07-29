@@ -8,11 +8,12 @@ import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-@Root(name = "HandoverDetails", strict = false)
+@Root(name = "DeliveryDetails", strict = false)
 public class DeliveryDetails {
 
     @Element(name = "deliveryId",required = false)
@@ -25,12 +26,14 @@ public class DeliveryDetails {
     public String totalLotNumber;
     @Element(name = "serviceIncluded",required = false)
     public String serviceIncluded;
-    @Element(name = "customerDeliveryAddress",required = false)
+    @Element(name = "CustomerDeliveryAddress",required = false)
     public CustomerDeliveryAddress customerDeliveryAddress;
     @Element(name = "DeliveryAddress",required = false)
     public DeliveryAddress deliveryAddress;
-    @ElementList(name = "DeliveryGoodsDetails", inline=true)
-    public List<DeliveryGoodsDetails> deliveryGoodsDetails;
+    @ElementList(name = "DeliveryGoodsDetails", required = false, inline=true)
+    public List<DeliveryGoodsDetails> deliveryGoodsDetails = new ArrayList<>();
+
+    public String numberOfDeliveryItems;
 
     public String getDeliveryId() {
         return deliveryId;
@@ -94,5 +97,13 @@ public class DeliveryDetails {
 
     public void setDeliveryGoodsDetails(List<DeliveryGoodsDetails> deliveryGoodsDetails) {
         this.deliveryGoodsDetails = deliveryGoodsDetails;
+    }
+
+    public String getNumberOfDeliveryItems() {
+        return numberOfDeliveryItems;
+    }
+
+    public void setNumberOfDeliveryItems(String numberOfDeliveryItems) {
+        this.numberOfDeliveryItems = numberOfDeliveryItems;
     }
 }

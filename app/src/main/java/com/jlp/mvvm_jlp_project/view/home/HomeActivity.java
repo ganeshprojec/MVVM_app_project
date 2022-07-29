@@ -22,6 +22,7 @@ import com.jlp.mvvm_jlp_project.databinding.ActivityHomeMainBinding;
 import com.jlp.mvvm_jlp_project.interfaces.ClickListener;
 import com.jlp.mvvm_jlp_project.model.DrawerMenuItem;
 import com.jlp.mvvm_jlp_project.pref.AppPreferencesHelper;
+import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.SpacesItemDecoration;
 import com.jlp.mvvm_jlp_project.utils.Utils;
@@ -76,6 +77,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
      * init events or listeners, initialization of variables
      */
     private void initEvents() {
+        binding.homeLayout.homeTopHeader.imgCloseSecond.setVisibility(View.VISIBLE);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
@@ -112,7 +114,11 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
      * For customizable click events if it is visible, Developer needs to handle exact working on respective page
      */
     public void onCloseSecond(View view) {
-        Utils.showErrorMessage(this, getString(R.string.str_debug_error));
+        changePassword();
+    }
+
+    public void changePassword() {
+        Helper.addFragment(this, new ChangePasswordFragment(AppConstants.FRAGMENT_CHANGE_PASSWORD));
     }
 
 

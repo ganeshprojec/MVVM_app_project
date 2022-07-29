@@ -30,11 +30,11 @@
             android:theme="@style/Theme.JLP_Layouts.NoActionBar"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait"><!--@style/fullscreen-->
-            <!--<intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
 
         <activity
@@ -43,11 +43,11 @@
             android:theme="@style/Theme.JLP_Layouts.NoActionBar"
             android:windowSoftInputMode="adjustResize"
             android:screenOrientation="portrait">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
 
 

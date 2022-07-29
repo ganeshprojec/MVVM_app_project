@@ -27,7 +27,7 @@ import retrofit2.Response;
 
 
 public class UserRepository {
-    private static final String TAG = LoginFragment.class.getSimpleName();
+    private static final String TAG = UserRepository.class.getSimpleName();
     private ApiService apiService;
     public MutableLiveData<Resource<ResponseDataChangePassword>> _responseDataChangePassword = new MutableLiveData<>();
     public MutableLiveData<Resource<ResponseDataAuthenticateUser>> _responseAuthenticateUser = new MutableLiveData<>();

@@ -46,7 +46,7 @@
     <string name="please_enter_new_password_and_confirm">Please enter new and confirm password</string>
     <string name="new_password_and_confirm_password_mismatch">New password fields do not match</string>
     <string name="new_password_should_be">New password should be 6-8 characters long</string>
-    <string name="at_least_one_alpha_one_num_req">at least one alphabetic and one numeric character required</string>
+    <string name="at_least_one_alpha_one_num_req">At least one alphabetic and one numeric character required</string>
     <string name="alert_error_message">Some Warning data not found..!</string>
 
 
@@ -125,6 +125,8 @@
     <string name="onward_tracking_reference">Onward tracking reference</string>
     <string name="confirm">Confirm</string>
     <string name="handover_delivery_title">Carrier Handover Details</string>
+    <string name="this_delivery_includes_services">This Delivery includes services</string>
+    <string name="delivery_already_has_handover_details_captured">Delivery already has Handover details setup</string>
 
     <!-- Strings for Multi Movement -->
     <string name="multi_movement_title">Multi Movements</string>
@@ -159,6 +161,13 @@
     <string name="enter_delivery_barcode_number_or_scan">Enter delivery barcode number/scan</string>
     <string name="enter_route_number_or_scan">Enter Route number/scan</string>
     <string name="enter_route_number">Enter Route number</string>
+    <string name="please_scan_all_parts_lot_for">Please scan all parts lot for</string>
+    <string name="delivery_item_details">Delivery item details</string>
+    <string name="delivery">Delivery</string>
+    <string name="done">Done</string>
+    <string name="scanned_item_no">Scanned item No.</string>
+    <string name="item_name">Item name</string>
+
 
     <string name="no_of_delivery_items">Number of delivery items</string>
     <string name="customer_name">Customer name</string>
@@ -166,6 +175,21 @@
 
     <!-- Strings for Carrier Collection Details Fragment -->
     <string name="carrier_collection_details_title">Carrier Collection Details</string>
+    <string name="enter_onward_tracking_ref">Enter onward tracking ref</string>
+    <string name="enter_delivery_on_date">Enter delivery on date</string>
+    <string name="enter_earliest_delivery_time">Enter earliest delivery time</string>
+    <string name="delivery_has_a_part_lot_which_has_no_location">This Delivery has no part lots in locations, please scan into location(s) before handover.</string>
+    <string name="DeliveryHasBeenCancelled">This Delivery has been cancelled and can not be handover.</string>
+    <string name="DeliveryReferenceNotRecognised">Delivery Reference not recognised.</string>
+    <string name="incorrect_item_status">Incorrect item status.</string>
+    <string name="delivery_has_no_items_or_package_to_handover">This Delivery has no items/packages, please scan items into a location before handover.</string>
+    <string name="external_carrier_name_must_be_a_minimum_and_maximum">External Carrier Name must be a minimum of two characters, maximum length 30.</string>
+    <string name="collection_date_must_be_today_date_or_future_date">Collection Date must be Today\'s date or a future date.</string>
+    <string name="delivery_date_must_be_today_date_or_future_date">Delivery Date must be Today\'s date or a future date.</string>
+    <string name="delivery_time_if_delivery_is_for_today">Delivery Date is Today\'s date then the time must be in the future by at least an hour.</string>
+    <string name="please_onward_tracking_reference">Please enter onward tracking reference.</string>
+    <string name="please_external_carrier_reference_must_bea_minimum_and_maximum">External Carrier Reference must be a minimum of two characters and maximum length 30.</string>
+
     <string name="str_partial_submit_message">All items are not loaded, Still do you want to continue submitting?</string>
     <string name="str_partial_sumit_title">Authorization Needed</string>
     <string name="str_enter_authorization">Enter Authorization ID</string>

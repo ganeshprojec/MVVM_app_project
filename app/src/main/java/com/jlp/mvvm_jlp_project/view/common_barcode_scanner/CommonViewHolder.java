@@ -13,12 +13,14 @@ import com.jlp.mvvm_jlp_project.R;
 public class CommonViewHolder extends RecyclerView.ViewHolder {
     public TextView title;
     public TextView value;
+    public View divider;
     View view;
 
     public CommonViewHolder(View itemView) {
         super(itemView);
         title = itemView.findViewById(R.id.tv_list_item_title);
         value = itemView.findViewById(R.id.tv_list_item_value);
+        divider = itemView.findViewById(R.id.divider);
         view  = itemView;
     }
 }

@@ -44,7 +44,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
-    private static final String TAG = LoginFragment.class.getSimpleName();
+    private static final String TAG = CommonBarcodeScannerDetailsFragment.class.getSimpleName();
     private ProgressDialog progressDialog;
     private DeliveryItemProductDetails deliveryItemProductDetails = CommonBarcodeScannerFragment.deliveryItemProductDetails;
     private LocationDetails locationDetails = CommonBarcodeScannerFragment.locationDetails;
@@ -166,8 +166,12 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
         if(callFor.equals(AppConstants.FRAGMENT_ITEM_MOVEMENT_FOR_LOCATION_BARCODE)
         || callFor.equals(AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE)
         || callFor.equals(AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE)){
-            prepareRequestDataForRecordLocationOfItem(deliveryItemProductDetails, locationDetails);
-            viewModel.recordLocationOfItem(requestEnvelopeRecordLocation);
+            if (Utils.isInternetAvailable(getContext())){
+                prepareRequestDataForRecordLocationOfItem(deliveryItemProductDetails, locationDetails);
+                viewModel.recordLocationOfItem(requestEnvelopeRecordLocation);
+            }else{
+                Utils.showErrorMessage(getActivity(), getResources().getString(R.string.please_check_internet_connection));
+            }
         }
     }
 

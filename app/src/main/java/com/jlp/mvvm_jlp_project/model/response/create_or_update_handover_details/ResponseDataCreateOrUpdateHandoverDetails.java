@@ -18,11 +18,22 @@ import javax.inject.Inject;
 @Namespace(reference = Constants.NAMESPACE)
 public class ResponseDataCreateOrUpdateHandoverDetails {
 
+    @Element(name = "CreatedOrUpdatedHandoverDetails",required = false)
+    private CreatedOrUpdatedHandoverDetails createdOrUpdatedHandoverDetails;
+
     @Element(name = "DITSErrors",required = false)
     private DITSErrors ditsErrors;
 
     @Inject
     ResponseDataCreateOrUpdateHandoverDetails(){}
+
+    public CreatedOrUpdatedHandoverDetails getCreatedOrUpdatedHandoverDetails() {
+        return createdOrUpdatedHandoverDetails;
+    }
+
+    public void setCreatedOrUpdatedHandoverDetails(CreatedOrUpdatedHandoverDetails createdOrUpdatedHandoverDetails) {
+        this.createdOrUpdatedHandoverDetails = createdOrUpdatedHandoverDetails;
+    }
 
     public DITSErrors getDitsErrors() {
         return ditsErrors;
