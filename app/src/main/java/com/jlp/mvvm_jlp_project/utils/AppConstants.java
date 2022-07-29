@@ -21,7 +21,10 @@ public class AppConstants {
     public static final String FRAGMENT_ITEM_MOVEMENT = "Fragment Item Movement";
     public static final String FRAGMENT_LOCATION_SCAN = "Fragment Location Scan";
     public static final String PRINTER_NAME = "Printer Name";
+    public static final String PRINTER_ID = "Printer ID";
     public static final String FRAGMENT_AMEND_LOTS="Fragment Amend Lots";
+    public static final String FRAGMENT_REPRINT_LABELS="Fragment Reprint Labels";
+    public static final String FRAGMENT_AMEND_LOTS_FOR_COMPONENT_BARCODE = "Fragment Amends Lots For Component Barcode";
     public static final String FRAGMENT_ITEM_MOVEMENT_FOR_COMPONENT_BARCODE = "Fragment Item Movement For Component Barcode";
     public static final String FRAGMENT_ITEM_MOVEMENT_FOR_LOCATION_BARCODE = "Fragment Item Movement For Location Barcode";
     public static final String FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE = "Fragment Multi Movement For Location Barcode";

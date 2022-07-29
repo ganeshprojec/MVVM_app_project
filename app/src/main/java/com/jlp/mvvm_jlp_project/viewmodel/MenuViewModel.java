@@ -10,9 +10,9 @@ import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.model.DrawerMenuItem;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
-import com.jlp.mvvm_jlp_project.view.amend_lots.AmendLotsBarcodeScanFragment;
-import com.jlp.mvvm_jlp_project.view.amend_lots.AmendLotsPrinterListFragment;
-import com.jlp.mvvm_jlp_project.view.home.TemplateFragment;
+
+import com.jlp.mvvm_jlp_project.view.common_printer_list.CommonPrinterListFragment;
+
 import com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScannerFragment;
 import com.jlp.mvvm_jlp_project.view.route_management.RouteSummaryFragment;
 
@@ -111,11 +111,12 @@ public class MenuViewModel extends BaseViewModel {
     }
 
     public void onPressReprintLabels(@ActivityContext Context context) {
-        Helper.addFragment(context, new TemplateFragment());
+        Helper.addFragment(context, new CommonPrinterListFragment(AppConstants.FRAGMENT_REPRINT_LABELS));
     }
 
     public void onPressAmendLots(@ActivityContext Context context) {
-        Helper.addFragment(context, new AmendLotsBarcodeScanFragment());
+        Helper.addFragment(context, new CommonPrinterListFragment(AppConstants.FRAGMENT_AMEND_LOTS));
+       // Helper.addFragment(context, new CommonBarcodeScannerFragment(AppConstants.FRAGMENT_AMEND_LOTS));
 
     }
 

@@ -7,10 +7,16 @@ import android.util.Log;
 import androidx.lifecycle.MutableLiveData;
 
 import com.jlp.mvvm_jlp_project.api.ApiService;
+import com.jlp.mvvm_jlp_project.model.request.find_delivery_good_product.RequestEnvelopeFindDeliveryGoodProduct;
+import com.jlp.mvvm_jlp_project.model.request.update_number_of_lots_request.RequestEnvelopeAmendLotNumerUpdate;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestEnvelopeFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_item_details_for_component_barcode.RequestEnvelopeFindDeliveryItemDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.RequestEnvelopeRecordLocationOfItem;
+import com.jlp.mvvm_jlp_project.model.response.find_delivery_good_product.ResponseDataFindDeliveryGoodProduct;
+import com.jlp.mvvm_jlp_project.model.response.find_delivery_good_product.ResponseEnvelopeFindDeliveryGoodProduct;
+import com.jlp.mvvm_jlp_project.model.response.update_number_of_lots_response.ResponseDataAmendLotNumerUpdate;
+import com.jlp.mvvm_jlp_project.model.response.update_number_of_lots_response.ResponseEnvelopeAmendLotNumerUpdate;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.ResponseDataFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.ResponseEnvelopeFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_item_details_for_component_barcode.ResponseDataFindDeliveryItemDetailsForComponentBarcode;
@@ -35,6 +41,8 @@ public class CommonBarcodeScannerRepository {
     public MutableLiveData<Resource<ResponseDataFindLocationDetailsForBarcode>> _responseFindLocationDetailsForBarcode = new MutableLiveData<>();
     public MutableLiveData<Resource<ResponseDataRecordLocationOfItem>> _responseDataRecordLocationOfItem = new MutableLiveData<>();
     public MutableLiveData<Resource<ResponseDataFindDeliveryItemDetailsForComponentBarcode>> _responseFindDeliveryItemDetailsForComponentBarcode = new MutableLiveData<>();
+    public MutableLiveData<Resource<ResponseDataAmendLotNumerUpdate>> _responseDataAmendLotNumerUpdate = new MutableLiveData<>();
+    public MutableLiveData<Resource<ResponseDataFindDeliveryGoodProduct>> _responseDataFindDeliveryGoodProduct = new MutableLiveData<>();
 
 
     @Inject public CommonBarcodeScannerRepository(ApiService apiService) {
@@ -227,4 +235,95 @@ public class CommonBarcodeScannerRepository {
             Log.e(TAG ,"Error while handling the response : "+ex);
         }
     }
+    // UpdateLotsNumerRequireRepository
+      public void updateLostNumerRequire(RequestEnvelopeAmendLotNumerUpdate envelope )
+      {
+          _responseDataAmendLotNumerUpdate.postValue(Resource.loading(null));
+          Call<ResponseEnvelopeAmendLotNumerUpdate> responseEnvelopeCall
+                  = apiService.updateLostNumerRequire(envelope);
+          responseEnvelopeCall.enqueue(new Callback<ResponseEnvelopeAmendLotNumerUpdate>() {
+              @Override
+              public void onResponse(Call<ResponseEnvelopeAmendLotNumerUpdate> call, Response<ResponseEnvelopeAmendLotNumerUpdate> response) {
+                  handleupdateLostNumerRequireResponse(response);
+              }
+              @Override
+              public void onFailure(Call<ResponseEnvelopeAmendLotNumerUpdate> call, Throwable t) {
+                  _responseDataAmendLotNumerUpdate.postValue(Resource.error(t.getMessage(), null));
+              }
+          });
+      }
+
+      private void handleupdateLostNumerRequireResponse(Response<ResponseEnvelopeAmendLotNumerUpdate> response)
+      {
+          try {
+              if(response.isSuccessful() && response.body()!=null &&
+                      response.body().getResponseBodyAmendLotNumerUpdate().
+                              getResponseDataAmendLotNumerUpdate().getDitsErrors()==null) {
+                  _responseDataAmendLotNumerUpdate.postValue(Resource.success(response.body().
+                          getResponseBodyAmendLotNumerUpdate().getResponseDataAmendLotNumerUpdate()));
+              }else if(response.errorBody()!=null){
+                  _responseDataAmendLotNumerUpdate.postValue(Resource.error("Error while getting the response", null));
+              }else if(response.body().getResponseBodyAmendLotNumerUpdate().getResponseDataAmendLotNumerUpdate().getDitsErrors()!=null){
+                  _responseDataAmendLotNumerUpdate.postValue(Resource.error( response.body().getResponseBodyAmendLotNumerUpdate().
+                                  getResponseDataAmendLotNumerUpdate().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
+                          response.body().getResponseBodyAmendLotNumerUpdate().
+                                  getResponseDataAmendLotNumerUpdate()));
+              } else{
+                  _responseDataAmendLotNumerUpdate.postValue(Resource.error("Something Went Wrong", null));
+                  Log.i(TAG ,"Response is neither success nor error");
+              }
+          }catch (Exception ex){
+              _responseDataAmendLotNumerUpdate.postValue(Resource.error("Something Went Wrong", null));
+              Log.e(TAG ,"Error while handling the response : "+ex);
+          }
+
+      }
+
+      /*Reprint Label*/
+
+
+    public void findDeliveryGoodProducts(RequestEnvelopeFindDeliveryGoodProduct envelope){
+        _responseDataFindDeliveryGoodProduct.postValue(Resource.loading(null));
+        Call<ResponseEnvelopeFindDeliveryGoodProduct> responseEnvelopeCall
+                = apiService.FindDeliveryGoodProduct(envelope);
+        responseEnvelopeCall.enqueue(new Callback<ResponseEnvelopeFindDeliveryGoodProduct>() {
+            @Override
+            public void onResponse(Call<ResponseEnvelopeFindDeliveryGoodProduct> call, Response<ResponseEnvelopeFindDeliveryGoodProduct> response) {
+                handleFindDeliveryGoodProducts(response);
+            }
+            @Override
+            public void onFailure(Call<ResponseEnvelopeFindDeliveryGoodProduct> call, Throwable t) {
+                _responseDataFindDeliveryGoodProduct.postValue(Resource.error(t.getMessage(), null));
+            }
+        });
+    }
+
+    /**
+     * handled find Delivery Item Details For Component Barcode response and did some validation on response
+     * @param response ResponseEnvelopeFindDeliveryDetailsForComponentBarcode to manipulate the error data
+     */
+    private void handleFindDeliveryGoodProducts(Response<ResponseEnvelopeFindDeliveryGoodProduct> response){
+        try {
+            if(response.isSuccessful() && response.body()!=null &&
+                    response.body().getResponseBodyFindDeliveryGoodProduct().
+                            getResponseDataFindDeliveryGoodProduct().getDitsErrors()==null) {
+                _responseDataFindDeliveryGoodProduct.postValue(Resource.success(response.body().
+                        getResponseBodyFindDeliveryGoodProduct().getResponseDataFindDeliveryGoodProduct()));
+            }else if(response.errorBody()!=null){
+                _responseDataFindDeliveryGoodProduct.postValue(Resource.error("Error while getting the response", null));
+            }else if(response.body().getResponseBodyFindDeliveryGoodProduct().getResponseDataFindDeliveryGoodProduct().getDitsErrors()!=null){
+                _responseDataFindDeliveryGoodProduct.postValue(Resource.error( response.body().getResponseBodyFindDeliveryGoodProduct().
+                                getResponseDataFindDeliveryGoodProduct().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
+                        response.body().getResponseBodyFindDeliveryGoodProduct().
+                                getResponseDataFindDeliveryGoodProduct()));
+            } else{
+                _responseDataFindDeliveryGoodProduct.postValue(Resource.error("Something Went Wrong", null));
+                Log.i(TAG ,"Response is neither success nor error");
+            }
+        }catch (Exception ex){
+            _responseDataFindDeliveryGoodProduct.postValue(Resource.error("Something Went Wrong", null));
+            Log.e(TAG ,"Error while handling the response : "+ex);
+        }
+    }
+
 }

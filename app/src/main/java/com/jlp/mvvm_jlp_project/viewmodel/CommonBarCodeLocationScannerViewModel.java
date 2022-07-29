@@ -6,11 +6,16 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.model.ItemEnquiryModel;
+import com.jlp.mvvm_jlp_project.model.request.find_delivery_good_product.RequestEnvelopeFindDeliveryGoodProduct;
+import com.jlp.mvvm_jlp_project.model.request.update_number_of_lots_request.LotDetails;
+import com.jlp.mvvm_jlp_project.model.request.update_number_of_lots_request.RequestEnvelopeAmendLotNumerUpdate;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestEnvelopeFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_item_details_for_component_barcode.RequestEnvelopeFindDeliveryItemDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.LocationItemDetails;
 import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.RequestEnvelopeRecordLocationOfItem;
+import com.jlp.mvvm_jlp_project.model.response.find_delivery_good_product.ResponseDataFindDeliveryGoodProduct;
+import com.jlp.mvvm_jlp_project.model.response.update_number_of_lots_response.ResponseDataAmendLotNumerUpdate;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.DeliveryItemProductDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.ResponseDataFindDeliveryDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_item_details_for_component_barcode.DeliveryItemDetails;
@@ -19,9 +24,7 @@ import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseDataFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseDataRecordLocationOfItem;
 import com.jlp.mvvm_jlp_project.repository.CommonBarcodeScannerRepository;
-import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Resource;
-import com.jlp.mvvm_jlp_project.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +43,8 @@ public class CommonBarCodeLocationScannerViewModel extends BaseViewModel {
 
     public MutableLiveData<List<ItemEnquiryModel>> itemEnquiry = new MutableLiveData<>();
 
+    public MutableLiveData<List<DeliveryItemDetails>> detailupdate = new MutableLiveData<>();
+
     public MutableLiveData<Resource<ResponseDataFindDeliveryDetailsForComponentBarcode>> responseFindDeliveryDetailsForComponentBarcode
             = new MutableLiveData<>();
 
@@ -52,6 +57,9 @@ public class CommonBarCodeLocationScannerViewModel extends BaseViewModel {
     public MutableLiveData<Resource<ResponseDataFindDeliveryItemDetailsForComponentBarcode>> responseFindDeliveryItemDetailsForComponentBarcode
             = new MutableLiveData<>();
 
+    public MutableLiveData<Resource<ResponseDataAmendLotNumerUpdate>> responseDataAmendLotNumerUpdate = new MutableLiveData<>();
+
+    public MutableLiveData<Resource<ResponseDataFindDeliveryGoodProduct>> responseDataFindDeliveryGoodProduct = new MutableLiveData<>();
     @Inject
     public CommonBarCodeLocationScannerViewModel(CommonBarcodeScannerRepository repository) {
         this.repository = repository;
@@ -59,6 +67,8 @@ public class CommonBarCodeLocationScannerViewModel extends BaseViewModel {
         this.responseFindLocationDetailsForBarcode = repository._responseFindLocationDetailsForBarcode;
         this.responseDataRecordLocationOfItem = repository._responseDataRecordLocationOfItem;
         this.responseFindDeliveryItemDetailsForComponentBarcode = repository._responseFindDeliveryItemDetailsForComponentBarcode;
+        this.responseDataAmendLotNumerUpdate = repository._responseDataAmendLotNumerUpdate;
+        this.responseDataFindDeliveryGoodProduct = repository._responseDataFindDeliveryGoodProduct;
     }
 
     public void findDeliveryDetailsForComponentBarcode(RequestEnvelopeFindDeliveryDetailsForComponentBarcode envelope){
@@ -77,6 +87,16 @@ public class CommonBarCodeLocationScannerViewModel extends BaseViewModel {
         repository.recordLocationOfItem(envelope);
     }
 
+    public void findUpdateLotNumRequired(RequestEnvelopeAmendLotNumerUpdate envelope)
+    {
+       repository.updateLostNumerRequire(envelope);
+    }
+
+    public void findDeliveryGoodProducts(RequestEnvelopeFindDeliveryGoodProduct envelope){
+        repository.findDeliveryGoodProducts(envelope);
+    }
+
+
     public void validateBarcode(String barcode) {
         Pair result = new Pair<> (true, 0);
         if(TextUtils.isEmpty(barcode)){
@@ -86,6 +106,19 @@ public class CommonBarCodeLocationScannerViewModel extends BaseViewModel {
         }
         validationResult.setValue(result);
     }
+    public void validateLotNumerRequired(String inputLotsRequired,String totalLotNum){
+        Pair resultLotRequired =new Pair<>(true,0);
+        if(TextUtils.isEmpty(inputLotsRequired)){
+            resultLotRequired = new Pair(false, R.string.lot_number_required);
+        }else if(inputLotsRequired.equals(totalLotNum)){
+            resultLotRequired = new Pair(false, R.string.number_lots_mustbe_different);
+        }else if(inputLotsRequired.equals("0")){
+            resultLotRequired = new Pair(false, R.string.invalid_input);
+        }
+        validationResult.setValue(resultLotRequired);
+
+    }
+
 
     public void getComponentBarcodeData(DeliveryItemProductDetails deliveryItemProductDetails){
         List<ItemEnquiryModel> itemEnquiryModels = new ArrayList<>();
@@ -129,6 +162,18 @@ public class CommonBarCodeLocationScannerViewModel extends BaseViewModel {
         itemEnquiry.setValue(itemEnquiryModels);
     }
 
+    public void getAmendLotItemDetails(DeliveryItemDetails deliveryItemDetails){
+        List<ItemEnquiryModel> itemEnquiryModels = new ArrayList<>();
+        itemEnquiryModels.add(new ItemEnquiryModel(R.string.delivery_number,deliveryItemDetails.getDeliveryId()));
+
+        itemEnquiryModels.add(new ItemEnquiryModel(R.string.item,
+                deliveryItemDetails.getGoodId()));
+        itemEnquiryModels.add(new ItemEnquiryModel(R.string.product_description,
+                deliveryItemDetails.getOrderDescriptionClean()));
+        itemEnquiryModels.add(new ItemEnquiryModel(R.string.str_current_lot,deliveryItemDetails.getCurrentLotNumber()));
+        itemEnquiry.setValue(itemEnquiryModels);
+    }
+
     public void getLocationBarcodeData(DeliveryItemProductDetails deliveryItemProductDetails,
                                        LocationDetails locationDetails){
         List<ItemEnquiryModel> itemEnquiryModels = new ArrayList<>();
@@ -142,6 +187,7 @@ public class CommonBarCodeLocationScannerViewModel extends BaseViewModel {
                 "08 Aug 2022"));
         itemEnquiryModels.add(new ItemEnquiryModel(R.string.product_description,
                 deliveryItemProductDetails.getOrderDescriptionClean()));
+
         itemEnquiry.setValue(itemEnquiryModels);
     }
 
@@ -150,9 +196,15 @@ public class CommonBarCodeLocationScannerViewModel extends BaseViewModel {
         itemEnquiryModels.add(new ItemEnquiryModel(R.string.lot_number,
                 locationItemDetails.getCurrentLotNumber()+" of "+locationItemDetails.getTotalLotNumber()
         ));
-        itemEnquiryModels.add(new ItemEnquiryModel(R.string.stored_in_location,
-                locationDetails.getName15()
-        ));
+        itemEnquiryModels.add(new ItemEnquiryModel(R.string.stored_in_location,locationDetails.getName15()));
         itemEnquiry.setValue(itemEnquiryModels);
+    }
+
+    public void updateAmendLotNumAdapterData(LotDetails lotDetails, DeliveryItemDetails deliveryItemDetails) {
+        List<ItemEnquiryModel> itemEnquiryModels = itemEnquiry.getValue();
+        itemEnquiryModels.remove(3);
+        itemEnquiryModels.add(new ItemEnquiryModel(R.string.str_current_lot, lotDetails.getUpdatedCurrentLot()));
+        itemEnquiry.setValue(itemEnquiryModels);
+        //itemEnquiry.setValue(itemEnquiryModels);
     }
 }

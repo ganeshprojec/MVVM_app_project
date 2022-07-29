@@ -20,6 +20,8 @@ import javax.inject.Inject;
 @Root(name = "RecordLocationOfItemResponse", strict = false)
 @Namespace(reference = Constants.NAMESPACE)
 public class ResponseDataFindLocationDetailsForBarcode {
+
+
     @Element(name = "LocationDetails", required = false)
     public LocationDetails locationDetails;
 

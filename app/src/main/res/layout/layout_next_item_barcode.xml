@@ -26,6 +26,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_padding_xtiny"
+
                     android:text="@string/scan_next_item_barcode"
                     android:textStyle="bold" />
 
