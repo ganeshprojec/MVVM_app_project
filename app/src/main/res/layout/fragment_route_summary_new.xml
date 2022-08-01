@@ -26,7 +26,9 @@
 
                 android:layout_margin="@dimen/dimen_std_page_margin"
                 android:layout_marginTop="@dimen/dimen4dp"
-                android:background="@color/white" />
+                android:background="@color/white"
+
+                />
 
         </RelativeLayout>
 

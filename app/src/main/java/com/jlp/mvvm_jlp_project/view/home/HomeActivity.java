@@ -2,12 +2,12 @@ package com.jlp.mvvm_jlp_project.view.home;
 
 
 import android.app.ProgressDialog;
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -25,8 +25,6 @@ import com.jlp.mvvm_jlp_project.pref.AppPreferencesHelper;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.SpacesItemDecoration;
-import com.jlp.mvvm_jlp_project.utils.Utils;
-import com.jlp.mvvm_jlp_project.view.auth.AuthActivity;
 import com.jlp.mvvm_jlp_project.view.auth.ChangePasswordFragment;
 import com.jlp.mvvm_jlp_project.view.base.BaseActivity;
 import com.jlp.mvvm_jlp_project.viewmodel.HomeViewModel;
@@ -60,10 +58,10 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        try{
-            ((TextView)binding.navView.getHeaderView(0).findViewById(R.id.txtHeaderUsername)).setText(appPreferencesHelper.getUsername());
-        }catch (Exception ex){
-            Log.e(TAG, "Exception: "+ex);
+        try {
+            ((TextView) binding.navView.getHeaderView(0).findViewById(R.id.txtHeaderUsername)).setText(appPreferencesHelper.getUsername());
+        } catch (Exception ex) {
+            Log.e(TAG, "Exception: " + ex);
         }
         menuViewModel = new ViewModelProvider(this).get(HomeViewModel.class);
         initEvents();
@@ -78,6 +76,9 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
      */
     private void initEvents() {
         binding.homeLayout.homeTopHeader.imgCloseSecond.setVisibility(View.VISIBLE);
+        RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) binding.homeLayout.homeTopHeader.imgCloseSecond.getLayoutParams();
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
+        binding.homeLayout.homeTopHeader.imgCloseSecond.setLayoutParams(params);
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
