@@ -27,7 +27,7 @@ public class SummaryViewModel extends BaseViewModel {
 
     /**
      * @param application Application
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For ViewModel constructor
      */
@@ -41,7 +41,7 @@ public class SummaryViewModel extends BaseViewModel {
 
     /**
      * @param barcodeRoute Route Resource ID came from Barcode scanner page
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For calling summary details page.
      */
@@ -51,7 +51,7 @@ public class SummaryViewModel extends BaseViewModel {
 
     /**
      * @param routeId String Rote ID came from scanner page
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For creating envelop for Summary Details
      */

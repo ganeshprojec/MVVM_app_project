@@ -37,7 +37,7 @@ public class HomeViewModel extends BaseViewModel {
 
     /**
      * @param
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For list loading home page.
      */
@@ -59,7 +59,7 @@ public class HomeViewModel extends BaseViewModel {
 
     /**
      * @param context Contex of AppCompactActivity for showing fragment
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For click event of the menu from navigation drawer
      */
@@ -93,7 +93,7 @@ public class HomeViewModel extends BaseViewModel {
     /**
      * @param item    dataItem
      * @param context AppCompactActivity context for the fragment
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For click event from the list item from Recyclerview
      */
@@ -122,7 +122,7 @@ public class HomeViewModel extends BaseViewModel {
 
     /**
      * @param context AppCompactActivty context for fragment
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For open Item Enquiry
      */
@@ -132,7 +132,7 @@ public class HomeViewModel extends BaseViewModel {
 
     /**
      * @param context AppCompactActivty context for fragment
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For open Item Movements
      */
@@ -142,7 +142,7 @@ public class HomeViewModel extends BaseViewModel {
 
     /**
      * @param context AppCompactActivty context for fragment
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For open Movements
      */
@@ -152,7 +152,7 @@ public class HomeViewModel extends BaseViewModel {
 
     /**
      * @param context AppCompactActivty context for fragment
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For open Reprint Labels
      */
@@ -162,7 +162,7 @@ public class HomeViewModel extends BaseViewModel {
 
     /**
      * @param context AppCompactActivty context for fragment
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For open Amend Lots
      */
@@ -172,7 +172,7 @@ public class HomeViewModel extends BaseViewModel {
 
     /**
      * @param context AppCompactActivty context for fragment
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For open Route Management
      */
@@ -182,7 +182,7 @@ public class HomeViewModel extends BaseViewModel {
 
     /**
      * @param context AppCompactActivty context for fragment
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For open Handover Details
      */
@@ -192,7 +192,7 @@ public class HomeViewModel extends BaseViewModel {
 
     /**
      * @param context AppCompactActivty context for fragment
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For open Delivery details
      */

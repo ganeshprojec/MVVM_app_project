@@ -70,7 +70,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 
     /**
      * @param
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * init events or listeners, initialization of variables
      */
@@ -98,7 +98,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 
     /**
      * @param view
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For clearing backstack & come back to home page
      */
@@ -110,7 +110,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 
     /**
      * @param view
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For customizable click events if it is visible, Developer needs to handle exact working on respective page
      */
@@ -125,7 +125,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 
     /**
      * @param view
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For clicking on options menu option, open drawer
      */
@@ -138,7 +138,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     /**
      * @param index position of list
      * @param model Data over menu item
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For clicking & handling individual item from MENU TYLES
      */
@@ -150,7 +150,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 
     /**
      * @param item position of list
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For clicking & handling individual item from MENU Drawer
      */

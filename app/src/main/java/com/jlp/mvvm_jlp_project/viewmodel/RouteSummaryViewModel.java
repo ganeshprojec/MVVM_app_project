@@ -53,7 +53,7 @@ public class RouteSummaryViewModel extends BaseViewModel {
     /**
      * @param application Application context
      * @param repository  backend call
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For ViewModel constructor
      */
@@ -99,7 +99,7 @@ public class RouteSummaryViewModel extends BaseViewModel {
 
     /**
      * @param location String name by which filtering
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For Filter logic for the list of Lots and resultant delivery details return
      */
@@ -122,7 +122,7 @@ public class RouteSummaryViewModel extends BaseViewModel {
     /**
      * @param lots     list of lots in One Delivery Goods to be filtered out
      * @param location String to which by filtering
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For filter from list of lots
      */
@@ -146,7 +146,7 @@ public class RouteSummaryViewModel extends BaseViewModel {
 
     /**
      * @param envelope request envelop
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For calling summary webservice,
      * NOte: This is only ready service call, no use on this page
@@ -157,7 +157,7 @@ public class RouteSummaryViewModel extends BaseViewModel {
 
     /**
      * @param deliveryId Application context
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For calling webservice
      */
@@ -167,7 +167,7 @@ public class RouteSummaryViewModel extends BaseViewModel {
 
     /**
      * @param itemUpdateStatus request data model
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For calling actual web service call of Update status, for LOADED / MISSING
      */
@@ -178,7 +178,7 @@ public class RouteSummaryViewModel extends BaseViewModel {
 
     /**
      * @param itemUpdateStatus model
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For creating envelop for Update Status
      */
@@ -198,7 +198,7 @@ public class RouteSummaryViewModel extends BaseViewModel {
 
     /**
      * @param deliveryId model
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For creating envelop for Route & Deliveries Details
      */

@@ -91,7 +91,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
 
 
     /**
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For setting data for route summary in ViewModel
      */
@@ -116,7 +116,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
 
     /**
      * @param view
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For ViewModel Data-Observers defined here
      */
@@ -215,7 +215,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
 
     /**
      * @param
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For updating summary / setting summary on UI
      */
@@ -231,7 +231,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
 
     /**
      * @param
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For updating / setting summary on UI
      */
@@ -247,7 +247,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
 
     /**
      * @param itemStatusDetails ItemStatusDetails response
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For updating the status of individual lot, after sending for updateStatus service
      */
@@ -260,7 +260,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
 
     /**
      * @param
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For initialization of objects, variables, & listeners, setting adapters
      */
@@ -287,7 +287,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
 
     /**
      * @param title Title name
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For setting / updating toolbar title
      */
@@ -298,7 +298,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
 
     /**
      * @param deliveryId deliveryId from Summary
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For calling web service, for getting delivery details.
      */
@@ -314,7 +314,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
 
     /**
      * @param itemUpdateStatus ItemStatusDetails request status update
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For call webservice Status update for individual LOT, requesting update status
      */
@@ -331,7 +331,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
 
     /**
      * @param
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For showing or setting icons on Toolbar.
      */
@@ -382,7 +382,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     /**
      * @param index position of list
      * @param model Data over list item
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For click event handle for individual items
      */
@@ -394,7 +394,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
 
     /**
      * @param view
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For ClickListeners for individual views
      */
@@ -440,7 +440,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     /**
      * @param inputText String which is passed
      * @param flag      for custom boolean value, anything extra, clear,canceled event
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For onFinishedDialogListeners, gettting inputText
      */
@@ -462,7 +462,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
 
 
     /**
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For Dialog Listenr for partial listener
      * @param inputText Getting text input
@@ -488,7 +488,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     };
 
     /**
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For Click Listener for childItem in list.
      * @param index position of list
@@ -514,7 +514,7 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
     };
 
     /**
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For appbar collapsible event handler
      * @param index position of list

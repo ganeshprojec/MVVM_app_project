@@ -196,6 +196,7 @@
 
 
     <string name="choose_delivery_center">Choose delivery center</string>
+    <string name="str_enter_location_name">Enter Location Name</string>
 
 
 </resources>

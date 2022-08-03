@@ -80,7 +80,7 @@ public class SummaryFragment extends BaseFragment implements View.OnClickListene
 
     /**
      * @param routeId routeID came from scanner screen
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For call service summary of Deliveries
      */
@@ -98,7 +98,7 @@ public class SummaryFragment extends BaseFragment implements View.OnClickListene
 
     /**
      * @param title title name
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For setting title for the toolbar
      */
@@ -109,7 +109,7 @@ public class SummaryFragment extends BaseFragment implements View.OnClickListene
 
     /**
      * @param view
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For setting data observer for the webservice response
      */
@@ -147,7 +147,7 @@ public class SummaryFragment extends BaseFragment implements View.OnClickListene
 
     /**
      * @param
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For updating summary on UI
      */
@@ -166,7 +166,7 @@ public class SummaryFragment extends BaseFragment implements View.OnClickListene
     /**
      * @param index position of list
      * @param model Data over menu item
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For click listenr, initialization of objects.
      */
@@ -185,7 +185,7 @@ public class SummaryFragment extends BaseFragment implements View.OnClickListene
 
     /**
      * @param view
-     * @Author Ganesh
+     * @author Ganesh
      * <p>
      * For click listeners of the page view
      */

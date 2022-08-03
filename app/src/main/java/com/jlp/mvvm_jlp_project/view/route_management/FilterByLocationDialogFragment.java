@@ -67,8 +67,9 @@ public class FilterByLocationDialogFragment extends BaseDialogFragment implement
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         binding = DialogFragmentFilterByLocationBinding.inflate(LayoutInflater.from(getContext()));
-        return binding.getRoot();
 
+
+        return binding.getRoot();
     }
 
     @Override
@@ -99,12 +100,10 @@ public class FilterByLocationDialogFragment extends BaseDialogFragment implement
         }
         loadArguments();
 
-
         if (setFullScreen) {
             setStyle(DialogFragment.STYLE_NORMAL, android.R.style.Theme_Black_NoTitleBar_Fullscreen);
             //setStyle(DialogFragment.STYLE_NO_FRAME, R.style.FullScreenDialog);
         }
-
 
     }
 
