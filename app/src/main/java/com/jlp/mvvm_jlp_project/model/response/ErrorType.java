@@ -6,16 +6,16 @@ import org.simpleframework.xml.Element;
 
 public class ErrorType {
     @Element(name = "ErrorNumber", required = false)
-    public int ErrorNumber;
+    public String ErrorNumber;
 
     @Element(name = "ErrorMessage", required = false)
     public String ErrorMessage;
 
-    public int getErrorNumber() {
+    public String getErrorNumber() {
         return ErrorNumber;
     }
 
-    public void setErrorNumber(int errorNumber) {
+    public void setErrorNumber(String errorNumber) {
         ErrorNumber = errorNumber;
     }
 

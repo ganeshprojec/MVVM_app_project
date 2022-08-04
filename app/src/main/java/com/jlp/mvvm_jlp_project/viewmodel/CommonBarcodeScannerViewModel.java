@@ -31,6 +31,7 @@ import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseD
 import com.jlp.mvvm_jlp_project.model.response.route_management_summary.ResponseDataRouteManagementSummary;
 import com.jlp.mvvm_jlp_project.repository.CommonBarcodeScannerRepository;
 import com.jlp.mvvm_jlp_project.repository.RouteManagementSummaryRepository;
+import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 
 import java.util.ArrayList;
@@ -109,13 +110,34 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
         repository.recordLocationOfItem(envelope);
     }
 
-    public void validateBarcode(String barcode) {
+    public void validateBarcode(String barcode, String callFor) {
         Pair result = new Pair<>(true, 0);
-        if (TextUtils.isEmpty(barcode)) {
-            result = new Pair(false, R.string.enter_barcode);
-        } else if (barcode.length() < 6) {
-            result = new Pair(false, R.string.invalid_barcode);
+        switch (callFor) {
+            case AppConstants.FRAGMENT_ITEM_ENQUIRY:
+            case AppConstants.FRAGMENT_ITEM_MOVEMENT_FOR_COMPONENT_BARCODE: {
+                if (TextUtils.isEmpty(barcode)) {
+                    result = new Pair(false, R.string.enter_barcode);
+                } else if (barcode.length() < 6) {
+                    result = new Pair(false, R.string.invalid_barcode);
+                }
+                break;
+            }
+            case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE: {
+                break;
+            }
+            case AppConstants.FRAGMENT_CARRIER_HANDOVER_DETAILS:
+            case AppConstants.FRAGMENT_CARRIER_COLLECTION_DETAILS:{
+                if (TextUtils.isEmpty(barcode)) {
+                    result = new Pair(false, R.string.please_enter_delivery_number);
+                } else if(barcode.contains("@@")){
+                    result = new Pair(false, R.string.delivery_reference_not_recognised);
+                }else if(barcode.contains("!!")){
+                    result = new Pair(false, R.string.delivery_reference_not_recognised);
+                }
+                break;
+            }
         }
+
         validationResult.setValue(result);
     }
 

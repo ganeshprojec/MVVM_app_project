@@ -6,23 +6,26 @@ package com.jlp.mvvm_jlp_project.model.request.create_component_handover_details
 
 
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
 @Root(name = "CreateComponentHandoverDetailsRequest", strict = false)
 public class RequestDataCreateComponentHandoverDetails {
-    @Inject
-    RequestDataCreateComponentHandoverDetails(){}
+    @Inject RequestDataCreateComponentHandoverDetails(){}
 
-    @Element(name = "deliveryGoodsDetails", required = false)
-    DeliveryGoodsDetails deliveryGoodsDetails;
+    @Element(name = "CreateComponentHandoverDetails",required = false)
+    public CreateComponentHandoverDetails createComponentHandoverDetails;
 
-    public DeliveryGoodsDetails getDeliveryGoodsDetails() {
-        return deliveryGoodsDetails;
+    public CreateComponentHandoverDetails getCreateComponentHandoverDetails() {
+        return createComponentHandoverDetails;
     }
 
-    public void setDeliveryGoodsDetails(DeliveryGoodsDetails deliveryGoodsDetails) {
-        this.deliveryGoodsDetails = deliveryGoodsDetails;
+    public void setCreateComponentHandoverDetails(CreateComponentHandoverDetails createComponentHandoverDetails) {
+        this.createComponentHandoverDetails = createComponentHandoverDetails;
     }
 }

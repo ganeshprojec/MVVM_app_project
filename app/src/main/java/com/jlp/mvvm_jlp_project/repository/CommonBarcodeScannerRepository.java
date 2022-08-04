@@ -3,9 +3,11 @@ package com.jlp.mvvm_jlp_project.repository;/*
  */
 
 import android.util.Log;
+import android.util.Pair;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.api.ApiService;
 import com.jlp.mvvm_jlp_project.model.request.find_deliveries_and_delivery_items.RequestEnvelopeFindDeliveriesAndDeliveryItems;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestEnvelopeFindDeliveryDetailsForComponentBarcode;
@@ -13,6 +15,7 @@ import com.jlp.mvvm_jlp_project.model.request.find_delivery_item_details_for_com
 import com.jlp.mvvm_jlp_project.model.request.find_handover_details.RequestEnvelopeFindHandoverDetails;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.RequestEnvelopeRecordLocationOfItem;
+import com.jlp.mvvm_jlp_project.model.response.DITSErrors;
 import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items.ResponseDataFindDeliveriesAndDeliveryItems;
 import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items.ResponseEnvelopeFindDeliveriesAndDeliveryItems;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.ResponseDataFindDeliveryDetailsForComponentBarcode;
@@ -27,6 +30,7 @@ import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseD
 import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseEnvelopeRecordLocationOfItem;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Resource;
+import com.jlp.mvvm_jlp_project.utils.ResourcesProvider;
 
 import javax.inject.Inject;
 
@@ -38,6 +42,7 @@ import retrofit2.Response;
 public class CommonBarcodeScannerRepository {
     private static final String TAG = CommonBarcodeScannerRepository.class.getSimpleName();
     private final ApiService apiService;
+    private ResourcesProvider resourcesProvider;
     public MutableLiveData<Resource<ResponseDataFindDeliveryDetailsForComponentBarcode>> _responseFindDeliveryDetailsForComponentBarcode = new MutableLiveData<>();
     public MutableLiveData<Resource<ResponseDataFindLocationDetailsForBarcode>> _responseFindLocationDetailsForBarcode = new MutableLiveData<>();
     public MutableLiveData<Resource<ResponseDataRecordLocationOfItem>> _responseDataRecordLocationOfItem = new MutableLiveData<>();
@@ -46,8 +51,9 @@ public class CommonBarcodeScannerRepository {
     public MutableLiveData<Resource<ResponseDataFindDeliveriesAndDeliveryItems>> _responseFindDeliveriesAndDeliveryItems = new MutableLiveData<>();
 
 
-    @Inject public CommonBarcodeScannerRepository(ApiService apiService) {
+    @Inject public CommonBarcodeScannerRepository(ApiService apiService, ResourcesProvider resourcesProvider) {
         this.apiService = apiService;
+        this.resourcesProvider = resourcesProvider;
     }
 
     /**
@@ -270,9 +276,9 @@ public class CommonBarcodeScannerRepository {
             }else if(response.errorBody()!=null){
                 _responseFindHandoverDetails.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
             }else if(response.body().getResponseBodyFindHandoverDetails().getResponseDataFindHandoverDetails().getDitsErrors()!=null){
-                _responseFindHandoverDetails.postValue(Resource.error( response.body().getResponseBodyFindHandoverDetails().getResponseDataFindHandoverDetails().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
-                        response.body().getResponseBodyFindHandoverDetails().getResponseDataFindHandoverDetails()));
-            } else{
+                Pair pairOfErrorMessageAndCode = handleCommonAPIResponseErrorCodes(response.body().getResponseBodyFindHandoverDetails().getResponseDataFindHandoverDetails().getDitsErrors());
+                _responseFindHandoverDetails.postValue(Resource.error(pairOfErrorMessageAndCode.first.toString(), pairOfErrorMessageAndCode.second.toString(),null));
+            }else{
                 _responseFindHandoverDetails.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
                 Log.i(TAG ,AppConstants.ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR);
             }
@@ -312,11 +318,9 @@ public class CommonBarcodeScannerRepository {
             if(response.isSuccessful() && response.body()!=null &&
                     response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems().getDitsErrors()==null) {
                 _responseFindDeliveriesAndDeliveryItems.postValue(Resource.success(response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems()));
-            }else if(response.errorBody()!=null){
-                _responseFindDeliveriesAndDeliveryItems.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
-            }else if(response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems().getDitsErrors()!=null){
-                _responseFindDeliveriesAndDeliveryItems.postValue(Resource.error( response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
-                        response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems()));
+            } else if(response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems().getDitsErrors()!=null){
+                Pair pairOfErrorMessageAndCode = handleCommonAPIResponseErrorCodes(response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems().getDitsErrors());
+                _responseFindDeliveriesAndDeliveryItems.postValue(Resource.error(pairOfErrorMessageAndCode.first.toString(), pairOfErrorMessageAndCode.second.toString(),null));
             } else{
                 _responseFindDeliveriesAndDeliveryItems.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
                 Log.i(TAG ,AppConstants.ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR);
@@ -325,5 +329,22 @@ public class CommonBarcodeScannerRepository {
             _responseFindDeliveriesAndDeliveryItems.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
             Log.e(TAG , AppConstants.ERROR_SOMETHING_WENT_WRONG +ex);
         }
+    }
+
+    private Pair handleCommonAPIResponseErrorCodes(DITSErrors ditsErrors) {
+        Pair pairOfErrorMessageAndCode = new Pair<> (ditsErrors.getDitsError().getErrorType().getErrorMessage(), ditsErrors.getDitsError().getErrorType().getErrorNumber());
+        String errorNumber = ditsErrors.getDitsError().getErrorType().getErrorNumber();
+        if(errorNumber.equals(AppConstants.TWO_THOUSAND)){
+            pairOfErrorMessageAndCode =  new Pair(resourcesProvider.getString(R.string.delivery_reference_not_recognised), AppConstants.TWO_THOUSAND);
+        } else if(errorNumber.equals(AppConstants.TWO_THOUSAND_AND_ONE)){
+            pairOfErrorMessageAndCode =  new Pair("", AppConstants.TWO_THOUSAND_AND_ONE);
+        }else if(errorNumber.equals(AppConstants.SIX_HUNDRED)){
+            pairOfErrorMessageAndCode =  new Pair(resourcesProvider.getString(R.string.delivery_has_been_cancelled), AppConstants.SIX_HUNDRED);
+        }else if(errorNumber.equals(AppConstants.THREE_THOUSAND)){
+            pairOfErrorMessageAndCode =  new Pair(resourcesProvider.getString(R.string.multiple_handover_details_found), AppConstants.THREE_THOUSAND);
+        }else if(errorNumber.equals(AppConstants.TEN_THOUSAND)){
+            pairOfErrorMessageAndCode =  new Pair(resourcesProvider.getString(R.string.delivery_number_invalid), AppConstants.TEN_THOUSAND);
+        }
+        return pairOfErrorMessageAndCode;
     }
 }

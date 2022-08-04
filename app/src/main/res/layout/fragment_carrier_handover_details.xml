@@ -93,7 +93,8 @@
                         app:layout_constraintBottom_toBottomOf="@+id/divider1"
                         app:layout_constraintEnd_toEndOf="@+id/guideline40percent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"
+                        android:textColor="@color/secondary_text_color"/>
 
                     <LinearLayout
                         android:id="@+id/layout_to_be"
@@ -115,7 +116,8 @@
                             android:layout_height="match_parent"
                             android:padding="@dimen/margin_padding_x_tiny"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:maxLength="30"/>
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -155,7 +157,8 @@
                         app:layout_constraintBottom_toBottomOf="@+id/divider2"
                         app:layout_constraintEnd_toStartOf="@+id/guideline40percent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/divider1" />
+                        app:layout_constraintTop_toBottomOf="@+id/divider1"
+                        android:textColor="@color/secondary_text_color"/>
 
                     <LinearLayout
                         android:id="@+id/layout_on"
@@ -228,7 +231,8 @@
                         app:layout_constraintBottom_toBottomOf="@+id/divider3"
                         app:layout_constraintEnd_toStartOf="@+id/guideline40percent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/divider2" />
+                        app:layout_constraintTop_toBottomOf="@+id/divider2"
+                        android:textColor="@color/secondary_text_color"/>
 
                     <LinearLayout
                         android:id="@+id/layout_delivery_to"
@@ -303,7 +307,8 @@
                         app:layout_constraintBottom_toBottomOf="@+id/divider4"
                         app:layout_constraintEnd_toStartOf="@+id/guideline40percent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/divider3" />
+                        app:layout_constraintTop_toBottomOf="@+id/divider3"
+                        android:textColor="@color/secondary_text_color"/>
 
                     <LinearLayout
                         android:id="@+id/layout_earliest_delivery_time_picker"
@@ -386,7 +391,8 @@
                         app:layout_constraintBottom_toBottomOf="@+id/divider4"
                         app:layout_constraintEnd_toStartOf="@+id/guideline40percent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/divider3" />
+                        app:layout_constraintTop_toBottomOf="@+id/divider3"
+                        android:textColor="@color/secondary_text_color"/>
 
                     <LinearLayout
                         android:id="@+id/layout_latest_delivery"
@@ -469,7 +475,8 @@
                         app:layout_constraintBottom_toBottomOf="@+id/divider5"
                         app:layout_constraintEnd_toStartOf="@+id/guideline40percent"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/divider4" />
+                        app:layout_constraintTop_toBottomOf="@+id/divider4"
+                        android:textColor="@color/secondary_text_color"/>
 
                     <LinearLayout
                         android:id="@+id/layout_onward_tracking"
@@ -491,7 +498,8 @@
                             android:layout_height="match_parent"
                             android:padding="@dimen/margin_padding_x_tiny"
                             app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintStart_toStartOf="parent" />
+                            app:layout_constraintStart_toStartOf="parent"
+                            android:maxLength="30"/>
 
                         <ImageView
                             android:layout_width="32dp"

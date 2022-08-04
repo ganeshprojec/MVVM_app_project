@@ -25,7 +25,7 @@ public class DeliveryDetails {
     @Element(name = "totalLotNumber",required = false)
     public String totalLotNumber;
     @Element(name = "serviceIncluded",required = false)
-    public String serviceIncluded;
+    public boolean serviceIncluded;
     @Element(name = "CustomerDeliveryAddress",required = false)
     public CustomerDeliveryAddress customerDeliveryAddress;
     @Element(name = "DeliveryAddress",required = false)
@@ -67,11 +67,11 @@ public class DeliveryDetails {
         this.totalLotNumber = totalLotNumber;
     }
 
-    public String getServiceIncluded() {
+    public boolean isServiceIncluded() {
         return serviceIncluded;
     }
 
-    public void setServiceIncluded(String serviceIncluded) {
+    public void setServiceIncluded(boolean serviceIncluded) {
         this.serviceIncluded = serviceIncluded;
     }
 

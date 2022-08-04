@@ -1,12 +1,11 @@
-package com.jlp.mvvm_jlp_project.model.request.create_component_handover_details;/*
+package com.jlp.mvvm_jlp_project.model.response.create_component_handover_details;/*
  * Created by Sandeep(Techno Learning) on 28,July,2022
  */
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.Root;
 
-@Root
-public class ComponentDetails {
+public class ComponentDetail {
     @Element(name = "componentNum",required = false)
     public int componentNum;
     @Element(name = "componentId",required = false)

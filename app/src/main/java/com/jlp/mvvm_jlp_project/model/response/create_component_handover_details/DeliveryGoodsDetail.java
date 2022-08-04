@@ -1,4 +1,4 @@
-package com.jlp.mvvm_jlp_project.model.request.create_component_handover_details;/*
+package com.jlp.mvvm_jlp_project.model.response.create_component_handover_details;/*
  * Created by Sandeep(Techno Learning) on 28,July,2022
  */
 
@@ -9,16 +9,16 @@ import org.simpleframework.xml.Root;
 import java.util.ArrayList;
 import java.util.List;
 
-@Root
-public class DeliveryGoodsDetails {
-    @Element(name = "deliveryGoodId",required = false)
+@Root(name = "DeliveryGoodsDetail")
+public class DeliveryGoodsDetail {
+    @Element(name = "deliveryGoodId", required = false)
     public String deliveryGoodId;
     @Element(name = "productCode",required = false)
-    public String productCode;
+    public int productCode;
     @Element(name = "productDescription",required = false)
     public String productDescription;
-    @ElementList(name = "componentDetails", inline = true)
-    public List<ComponentDetails> componentDetails = new ArrayList<>();
+    @Element(name = "componentDetails", required = false)
+    public ComponentDetails componentDetails;
 
     public String getDeliveryGoodId() {
         return deliveryGoodId;
@@ -28,11 +28,11 @@ public class DeliveryGoodsDetails {
         this.deliveryGoodId = deliveryGoodId;
     }
 
-    public String getProductCode() {
+    public int getProductCode() {
         return productCode;
     }
 
-    public void setProductCode(String productCode) {
+    public void setProductCode(int productCode) {
         this.productCode = productCode;
     }
 
@@ -44,11 +44,11 @@ public class DeliveryGoodsDetails {
         this.productDescription = productDescription;
     }
 
-    public List<ComponentDetails> getComponentDetails() {
+    public ComponentDetails getComponentDetails() {
         return componentDetails;
     }
 
-    public void setComponentDetails(List<ComponentDetails> componentDetails) {
+    public void setComponentDetails(ComponentDetails componentDetails) {
         this.componentDetails = componentDetails;
     }
 }

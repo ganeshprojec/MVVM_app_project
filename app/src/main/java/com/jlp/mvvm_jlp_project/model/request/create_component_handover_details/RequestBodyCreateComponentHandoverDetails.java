@@ -12,10 +12,9 @@ import javax.inject.Inject;
 @Root(name = "soapenv:Body", strict = false)
 public class RequestBodyCreateComponentHandoverDetails {
 
-    @Inject
-    RequestBodyCreateComponentHandoverDetails(){}
+    @Inject RequestBodyCreateComponentHandoverDetails(){}
 
-    @Element(name = "cds:CreateComponentHandoverDetailsRequest",required = false)
+    @Element(name = "cds:CreateComponentHandoverDetailsRequest", required = false)
     private RequestDataCreateComponentHandoverDetails requestDataCreateComponentHandoverDetails;
 
     public RequestDataCreateComponentHandoverDetails getRequestDataCreateComponentHandoverDetails() {

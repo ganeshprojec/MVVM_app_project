@@ -4,51 +4,60 @@ package com.jlp.mvvm_jlp_project.model.request.create_component_handover_details
 
 import org.simpleframework.xml.Element;
 import org.simpleframework.xml.ElementList;
+import org.simpleframework.xml.Root;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
+
+@Root(name = "CreateComponentHandoverDetails", strict = false)
 public class CreateComponentHandoverDetails {
+
+    @Inject
+    CreateComponentHandoverDetails(){}
+
     @Element(name = "deliveryId",required = false)
-    public int deliveryId;
+    public String deliveryId;
     @Element(name = "agreedDelDate",required = false)
-    public Date agreedDelDate;
+    public String agreedDelDate;
     @Element(name = "latestDelTime",required = false)
-    public Date latestDelTime;
+    public String latestDelTime;
     @Element(name = "handoverTo",required = false)
     public String handoverTo;
     @Element(name = "handoverDate",required = false)
-    public Date handoverDate;
+    public String handoverDate;
     @Element(name = "handoverRef",required = false)
     public String handoverRef;
     @Element(name = "userId",required = false)
     public String userId;
     @Element(name = "userName",required = false)
     public String userName;
-    @ElementList(name = "DeliveryGoodsDetails",required = false, inline = true)
-    public List<DeliveryGoodsDetails> deliveryGoodsDetails;
+    @ElementList(name = "DeliveryGoodsDetails",  inline = true)
+    public List<DeliveryGoodsDetails> deliveryGoodsDetails = new ArrayList<>();
 
-    public int getDeliveryId() {
+    public String getDeliveryId() {
         return deliveryId;
     }
 
-    public void setDeliveryId(int deliveryId) {
+    public void setDeliveryId(String deliveryId) {
         this.deliveryId = deliveryId;
     }
 
-    public Date getAgreedDelDate() {
+    public String getAgreedDelDate() {
         return agreedDelDate;
     }
 
-    public void setAgreedDelDate(Date agreedDelDate) {
+    public void setAgreedDelDate(String agreedDelDate) {
         this.agreedDelDate = agreedDelDate;
     }
 
-    public Date getLatestDelTime() {
+    public String getLatestDelTime() {
         return latestDelTime;
     }
 
-    public void setLatestDelTime(Date latestDelTime) {
+    public void setLatestDelTime(String latestDelTime) {
         this.latestDelTime = latestDelTime;
     }
 
@@ -60,11 +69,11 @@ public class CreateComponentHandoverDetails {
         this.handoverTo = handoverTo;
     }
 
-    public Date getHandoverDate() {
+    public String getHandoverDate() {
         return handoverDate;
     }
 
-    public void setHandoverDate(Date handoverDate) {
+    public void setHandoverDate(String handoverDate) {
         this.handoverDate = handoverDate;
     }
 

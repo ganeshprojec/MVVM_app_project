@@ -57,7 +57,7 @@ public class CarrierCollectionAndHandoverDetailsViewModel extends BaseViewModel 
                 deliveryDetails.getDeliveryId()
         ));
         itemEnquiryModels.add(new TitleValueDataModel(R.string.customer_name,
-                deliveryDetails.getRecipientName()
+                deliveryDetails.getRecipientName().trim()
         ));
         itemEnquiryModels.add(new TitleValueDataModel(R.string.no_of_delivery_items,
                 deliveryDetails.getNumberOfDeliveryItems())); // TODO: Need to confirm mapping
@@ -81,24 +81,38 @@ public class CarrierCollectionAndHandoverDetailsViewModel extends BaseViewModel 
                                                       String latestDeliveryTime,
                                                       String onwardTrackingRef,
                                                       String callFor) {
-        Pair result = new Pair<> (true, 0);
         if(TextUtils.isEmpty(deliveryBy)){
-            result = new Pair(false, R.string.external_carrier_name_must_be_a_minimum_and_maximum);
+            validationResult.setValue(new Pair(false, R.string.external_carrier_name_must_be_a_minimum_and_maximum));
+            return;
         }if(deliveryBy.length()<2){
-            result = new Pair(false, R.string.external_carrier_name_must_be_a_minimum_and_maximum);
+            validationResult.setValue(new Pair(false, R.string.external_carrier_name_must_be_a_minimum_and_maximum));
+            return;
+        }if(deliveryBy.length()>30){
+            validationResult.setValue(new Pair(false, R.string.external_carrier_name_must_be_a_minimum_and_maximum));
+            return;
         }else if(TextUtils.isEmpty(deliveryToCustomerOn)){
-            result = new Pair(false, R.string.delivery_date_must_be_today_date_or_future_date);
+            validationResult.setValue(new Pair(false, R.string.delivery_date_must_be_today_date_or_future_date));
+            return;
         }else if(TextUtils.isEmpty(latestDeliveryTime)){
-            result = new Pair(false, R.string.delivery_date_must_be_today_date_or_future_date);
+            validationResult.setValue(new Pair(false, R.string.please_enter_latest_delivery_time));
+            return;
         }else if(TextUtils.isEmpty(onwardTrackingRef)){
-            result = new Pair(false, R.string.please_onward_tracking_reference);
+            validationResult.setValue(new Pair(false, R.string.please_onward_tracking_reference));
+            return;
         }else if(onwardTrackingRef.length()<2){
-            result = new Pair(false, R.string.please_external_carrier_reference_must_bea_minimum_and_maximum);
+            validationResult.setValue(new Pair(false, R.string.please_external_carrier_reference_must_bea_minimum_and_maximum));
+            return;
         }else if(TextUtils.isEmpty(deliveryOn) && callFor.equals(AppConstants.FRAGMENT_CARRIER_COLLECTION_DETAILS)) {
-            result = new Pair(false, R.string.enter_delivery_on_date);
+            validationResult.setValue(new Pair(false, R.string.enter_delivery_on_date));
+            return;
         }else if(TextUtils.isEmpty(earliestDelivery) && callFor.equals(AppConstants.FRAGMENT_CARRIER_HANDOVER_DETAILS)){
-            result = new Pair(false, R.string.delivery_time_if_delivery_is_for_today);
+            validationResult.setValue(new Pair(false, R.string.please_enter_earliest_delivery_time));
+            return;
+        }else if(TextUtils.isEmpty(earliestDelivery) && callFor.equals(AppConstants.FRAGMENT_CARRIER_HANDOVER_DETAILS)){
+            validationResult.setValue(new Pair(false, R.string.delivery_time_if_delivery_is_for_today));
+            return;
+        }else {
+            validationResult.setValue(new Pair(true, 0));
         }
-        validationResult.setValue(result);
     }
 }

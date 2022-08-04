@@ -3,36 +3,32 @@ package com.jlp.mvvm_jlp_project.model.response.create_component_handover_detail
  */
 
 import org.simpleframework.xml.Element;
-import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
-
-import java.util.Date;
-import java.util.List;
 
 @Root(name = "CreatedComponentHandoverDetails")
 public class CreatedComponentHandoverDetails {
     @Element(name = "deliveryId",required = false)
     public int deliveryId;
     @Element(name = "agreedDelDate",required = false)
-    public Date agreedDelDate;
+    public String agreedDelDate;
     @Element(name = "latestDelTime",required = false)
-    public Date latestDelTime;
+    public String latestDelTime;
     @Element(name = "handoverTo",required = false)
     public String handoverTo;
     @Element(name = "handoverDate",required = false)
-    public Date handoverDate;
+    public String handoverDate;
     @Element(name = "handoverRef",required = false)
     public String handoverRef;
     @Element(name = "crtUserId",required = false)
     public String crtUserId;
-    @Element(name = "deliveryId",required = false)
-    public Date crtStamp;
+    @Element(name = "crtStamp",required = false)
+    public String crtStamp;
     @Element(name = "updUserId",required = false)
     public String updUserId;
     @Element(name = "updStamp",required = false)
-    public Date updStamp;
-    @ElementList(name = "DeliveryGoodsDetails",required = false)
-    public List<DeliveryGoodsDetails> DeliveryGoodsDetails;
+    public String updStamp;
+    @Element(name = "DeliveryGoodsDetails", required = false)
+    public DeliveryGoodsDetails deliveryGoodsDetails;
 
     public int getDeliveryId() {
         return deliveryId;
@@ -42,19 +38,19 @@ public class CreatedComponentHandoverDetails {
         this.deliveryId = deliveryId;
     }
 
-    public Date getAgreedDelDate() {
+    public String getAgreedDelDate() {
         return agreedDelDate;
     }
 
-    public void setAgreedDelDate(Date agreedDelDate) {
+    public void setAgreedDelDate(String agreedDelDate) {
         this.agreedDelDate = agreedDelDate;
     }
 
-    public Date getLatestDelTime() {
+    public String getLatestDelTime() {
         return latestDelTime;
     }
 
-    public void setLatestDelTime(Date latestDelTime) {
+    public void setLatestDelTime(String latestDelTime) {
         this.latestDelTime = latestDelTime;
     }
 
@@ -66,11 +62,11 @@ public class CreatedComponentHandoverDetails {
         this.handoverTo = handoverTo;
     }
 
-    public Date getHandoverDate() {
+    public String getHandoverDate() {
         return handoverDate;
     }
 
-    public void setHandoverDate(Date handoverDate) {
+    public void setHandoverDate(String handoverDate) {
         this.handoverDate = handoverDate;
     }
 
@@ -90,12 +86,20 @@ public class CreatedComponentHandoverDetails {
         this.crtUserId = crtUserId;
     }
 
-    public Date getCrtStamp() {
+    public String getCrtStamp() {
         return crtStamp;
     }
 
-    public void setCrtStamp(Date crtStamp) {
+    public void setCrtStamp(String crtStamp) {
         this.crtStamp = crtStamp;
+    }
+
+    public String getUpdStamp() {
+        return updStamp;
+    }
+
+    public void setUpdStamp(String updStamp) {
+        this.updStamp = updStamp;
     }
 
     public String getUpdUserId() {
@@ -106,19 +110,11 @@ public class CreatedComponentHandoverDetails {
         this.updUserId = updUserId;
     }
 
-    public Date getUpdStamp() {
-        return updStamp;
+    public DeliveryGoodsDetails getDeliveryGoodsDetails() {
+        return deliveryGoodsDetails;
     }
 
-    public void setUpdStamp(Date updStamp) {
-        this.updStamp = updStamp;
-    }
-
-    public List<com.jlp.mvvm_jlp_project.model.response.create_component_handover_details.DeliveryGoodsDetails> getDeliveryGoodsDetails() {
-        return DeliveryGoodsDetails;
-    }
-
-    public void setDeliveryGoodsDetails(List<com.jlp.mvvm_jlp_project.model.response.create_component_handover_details.DeliveryGoodsDetails> deliveryGoodsDetails) {
-        DeliveryGoodsDetails = deliveryGoodsDetails;
+    public void setDeliveryGoodsDetails(DeliveryGoodsDetails deliveryGoodsDetails) {
+        this.deliveryGoodsDetails = deliveryGoodsDetails;
     }
 }

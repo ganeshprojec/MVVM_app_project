@@ -152,8 +152,8 @@ public class LoginFragment extends BaseFragment {
                             if(response.data!=null && response.data.getDitsErrors()!=null &&
                                     response.data.getDitsErrors().getDitsError()!=null &&
                                     response.data.getDitsErrors().getDitsError().getErrorType()!=null &&
-                                    response.data.getDitsErrors().getDitsError().errorType.ErrorNumber ==
-                                    AppConstants.ERROR_NUMBER_FOR_PASSWORD_EXPIRES){
+                                    response.data.getDitsErrors().getDitsError().errorType.ErrorNumber.equals(
+                                    AppConstants.ERROR_NUMBER_FOR_PASSWORD_EXPIRES)){
                                 Helper.addFragment(getActivity(), new ChangePasswordFragment(AppConstants.FRAGMENT_CHANGE_PASSWORD_AND_LOGON));
                             }
                             break;

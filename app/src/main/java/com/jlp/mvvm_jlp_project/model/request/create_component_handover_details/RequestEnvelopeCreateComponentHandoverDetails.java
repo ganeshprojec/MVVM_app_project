@@ -20,8 +20,7 @@ import javax.inject.Inject;
 })
 public class RequestEnvelopeCreateComponentHandoverDetails {
 
-    @Inject
-    RequestEnvelopeCreateComponentHandoverDetails(){}
+    @Inject RequestEnvelopeCreateComponentHandoverDetails(){}
 
     @Element(name = "soapenv:Body", required = false)
     private RequestBodyCreateComponentHandoverDetails requestBodyCreateComponentHandoverDetails;
