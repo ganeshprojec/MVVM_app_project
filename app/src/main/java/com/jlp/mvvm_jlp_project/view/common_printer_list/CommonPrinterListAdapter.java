@@ -53,8 +53,9 @@ public class CommonPrinterListAdapter extends RecyclerView.Adapter<CommonPrinter
     @Override
     public void onBindViewHolder(@NonNull CommonPrinterListViewHolder viewHolder, int position) {
 
-        //final PrinterListModel myListData = list[position];
-        viewHolder.printerCount.setText(printerList.get(position).printerId);
+
+        int itemposition= viewHolder.getAdapterPosition()+1;
+        viewHolder.printerCount.setText(ctx.getResources().getString(R.string.printer)+" "+itemposition);
         viewHolder.printerName.setText(printerList.get(position).printerName);
 
          Log.d("ScreenCAll",screenCall+""+printerList.get(position).printerName);

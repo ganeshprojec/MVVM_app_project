@@ -90,8 +90,6 @@
             android:src="@drawable/ic_change_password_24"
             android:visibility="gone" />
 
-
-
         <CheckBox
             android:id="@+id/imgMultiSelect"
             android:layout_width="wrap_content"
@@ -99,15 +97,14 @@
             android:layout_alignParentRight="false"
             android:layout_centerVertical="true"
             android:layout_gravity="center_vertical|right"
-            android:layout_marginRight="@dimen/dimen_std_page_margin"
+            android:layout_marginRight="@dimen/margin_padding_xxnormal"
             android:layout_toLeftOf="@+id/imgPrinter"
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
-            android:onClick="onCloseSecond"
-            android:visibility="invisible"
             android:button="@drawable/multi_select"
+            android:visibility="invisible"
             android:clickable="true"
-            android:focusable="true"
+
 
 
 

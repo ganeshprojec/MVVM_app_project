@@ -3,6 +3,7 @@ package com.jlp.mvvm_jlp_project.view.common_barcode_scanner;
 import android.app.ProgressDialog;
 import android.os.Bundle;
 import android.util.Pair;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -224,9 +225,17 @@ public class CommonBarcodeScannerFragment extends BaseFragment  {
         binding.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Helper.hideKeyboard(getActivity(), view);
-                viewModel.validateBarcode(
-                        binding.itemEnquiryInputField.inputBarcode.getText().toString().trim());
+                if(callFor.equals(AppConstants.FRAGMENT_REPRINT_LABELS))
+                {
+                    Helper.hideKeyboard(getActivity(), view);
+                    viewModel.validateDeliveryNumber(binding.itemEnquiryInputField.inputBarcode.getText().toString().trim());
+                }
+                else
+                {
+                    Helper.hideKeyboard(getActivity(), view);
+                    viewModel.validateBarcode(binding.itemEnquiryInputField.inputBarcode.getText().toString().trim());
+                }
+
             }
         });
     }
@@ -244,6 +253,7 @@ public class CommonBarcodeScannerFragment extends BaseFragment  {
                 ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         params.weight = 1.0f;
         params.topMargin=20;
+        params.gravity= Gravity.CENTER_HORIZONTAL;
         binding.scanNextItemBarcode.tvScanNextBarcode.setLayoutParams(params);
 
     }

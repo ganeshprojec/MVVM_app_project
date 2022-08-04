@@ -4,6 +4,7 @@ package com.jlp.mvvm_jlp_project.utils;/*
 
 import android.app.Activity;
 import android.app.Dialog;
+
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -17,11 +18,18 @@ import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.FragmentActivity;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.jlp.mvvm_jlp_project.R;
+
+import com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScannerFragment;
+import com.jlp.mvvm_jlp_project.view.common_printer_list.CommonPrinterListFragment;
+
 
 public class Utils {
 
@@ -94,7 +102,7 @@ public class Utils {
     }
 
 
-    public static void showAmendAlertDialog(final Context context, String deliveryNumber, String labelsPrinted, String printerId)
+    public static void showAmendAlertDialog(final Context context, String deliveryNumber, String labelsPrinted, String printerId,String scrren)
     {
 
         Dialog dialog = new Dialog(context);
@@ -115,35 +123,32 @@ public class Utils {
         textOK_alert_dialog.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                dialog.dismiss();
+                    dialog.dismiss();
+
+                   if(scrren.equals(AppConstants.FRAGMENT_AMEND_LOTS))
+                   {
+                       CommonPrinterListFragment fragment2 = new CommonPrinterListFragment(AppConstants.FRAGMENT_AMEND_LOTS);
+                       FragmentManager fragmentManager =((AppCompatActivity)context).getSupportFragmentManager();
+                       FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                       fragmentTransaction.replace(R.id.frame_container_main, fragment2);
+                       fragmentTransaction.addToBackStack("TAG");
+                       fragmentTransaction.commit();
+                   }
+                   else if(scrren.equals(AppConstants.FRAGMENT_REPRINT_LABELS))
+                   {
+                       CommonPrinterListFragment fragment2 = new CommonPrinterListFragment(AppConstants.FRAGMENT_REPRINT_LABELS);
+                       FragmentManager fragmentManager =((AppCompatActivity)context).getSupportFragmentManager();
+                       FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                       fragmentTransaction.replace(R.id.frame_container_main, fragment2);
+                       fragmentTransaction.addToBackStack("TAG");
+                       fragmentTransaction.commit();
+                   }
                  }
                });
             dialog.setCanceledOnTouchOutside(false);
             dialog.show();
 
-
-      /*  LayoutInflater li = LayoutInflater.from(activity);
-        View promptsView = li.inflate(R.layout.warning_alert_dialog,null);
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(li.getContext());
-        AlertDialog alertD = alertDialogBuilder.create();
-        alertDialogBuilder.setView(promptsView);
-        final TextView headerText = (TextView) promptsView.findViewById(R.id.title_Alert_Dialog);
-        final TextView msg = (TextView) promptsView.findViewById(R.id.message_Alert_Dialog);
-        final TextView textOK_alert_dialog = (TextView) promptsView.findViewById(R.id.textOK_alert_dialog);
-        final ImageView error_worning_icon = (ImageView) promptsView.findViewById(R.id.error_worning_icon);
-        error_worning_icon.setVisibility(View.GONE);
-        headerText.setText(activity.getResources().getString(R.string.delivery_number)+" : "+deliveryNumber);
-        msg.setText(labelsPrinted+" "+activity.getResources().getString(R.string.lable_printed_on_printer)+" "+printerId);
-        textOK_alert_dialog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view)
-            {
-                alertD.dismiss();
-            }
-        });
-        alertDialogBuilder.setCancelable(false);
-        alertD.show();
-        Window window = alertD.getWindow();
-        window.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);*/
     }
+
+
 }

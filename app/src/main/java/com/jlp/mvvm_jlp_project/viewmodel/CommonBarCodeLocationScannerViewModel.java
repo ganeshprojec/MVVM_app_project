@@ -100,9 +100,18 @@ public class CommonBarCodeLocationScannerViewModel extends BaseViewModel {
     public void validateBarcode(String barcode) {
         Pair result = new Pair<> (true, 0);
         if(TextUtils.isEmpty(barcode)){
-            result = new Pair(false, R.string.enter_barcode);
+            result = new Pair(false, R.string.enter_barcode_required);
         }else if(barcode.length()<6){
-            result = new Pair(false, R.string.please_enter_password);
+            result = new Pair(false, R.string.invalid_barcode);
+        }
+        validationResult.setValue(result);
+    }
+    public void validateDeliveryNumber(String deliveryNum) {
+        Pair result = new Pair<> (true, 0);
+        if(TextUtils.isEmpty(deliveryNum)){
+            result = new Pair(false, R.string.enter_delivery_number_scan);
+        }else if(deliveryNum.length()<6){
+            result = new Pair(false, R.string.invalid_deliveryno_barcode);
         }
         validationResult.setValue(result);
     }
@@ -167,7 +176,7 @@ public class CommonBarCodeLocationScannerViewModel extends BaseViewModel {
         itemEnquiryModels.add(new ItemEnquiryModel(R.string.delivery_number,deliveryItemDetails.getDeliveryId()));
 
         itemEnquiryModels.add(new ItemEnquiryModel(R.string.item,
-                deliveryItemDetails.getGoodId()));
+                deliveryItemDetails.getProductCode()));
         itemEnquiryModels.add(new ItemEnquiryModel(R.string.product_description,
                 deliveryItemDetails.getOrderDescriptionClean()));
         itemEnquiryModels.add(new ItemEnquiryModel(R.string.str_current_lot,deliveryItemDetails.getCurrentLotNumber()));

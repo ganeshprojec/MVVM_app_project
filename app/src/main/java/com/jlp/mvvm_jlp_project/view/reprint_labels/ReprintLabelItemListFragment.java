@@ -16,6 +16,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -124,7 +126,7 @@ public class ReprintLabelItemListFragment extends BaseFragment {
     {
         if(callFor.equals(AppConstants.FRAGMENT_REPRINT_LABELS)) {
             binding.itemEnquiryHeader.txtToolbarTitle.setText(R.string.str_reprint_labels);
-            binding.itemEnquiryHeader.imgPrinter.setVisibility(View.VISIBLE);
+
             binding.itemEnquiryHeader.imgMultiSelect.setVisibility(View.VISIBLE);
 
         }
@@ -172,7 +174,7 @@ public class ReprintLabelItemListFragment extends BaseFragment {
                         case SUCCESS:{
                             Utils.hideProgressDialog(progressDialog);
                             reprintLabelDetails=response.data.getReprintLabelDetails();
-                            Utils.showAmendAlertDialog(getActivity(),deliveryNumber,reprintLabelDetails.getLabelsPrinted(),reprintLabelDetails.getPrinterId());
+                            Utils.showAmendAlertDialog(getActivity(),deliveryNumber,reprintLabelDetails.getLabelsPrinted(),reprintLabelDetails.getPrinterId(),callFor);
                             break;
                         }
                     }
@@ -186,28 +188,43 @@ public class ReprintLabelItemListFragment extends BaseFragment {
     private void initListener()
     {
         //For MultiSelect Item from List
+
+
         binding.itemEnquiryHeader.imgMultiSelect.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (binding.itemEnquiryHeader.imgMultiSelect.isChecked())
+                {
+                    //  adapter.visibility(new ReprintLabelViewHolder(view));
 
-                detailsgoodProductList = getModel(true);
+                    for (DeliveryGoodProduct model : detailsgoodProductList) {
+                        model.setSelected(true);
+                    }
 
-              adapter = new ReprintLabelAdapter(detailsgoodProductList,getContext());
-              binding.recyclerViewReprintLabel.setAdapter(adapter);
+                }
+                else {
 
+                    for (DeliveryGoodProduct model : detailsgoodProductList) {
+                        model.setSelected(false);
+                    }
+                }
+              //  binding.recyclerViewReprintLabel.setAdapter(adapter);
+                adapter.notifyDataSetChanged();
             }
         });
 
+
         //To Print Label
-        binding.itemEnquiryHeader.imgPrinter.setOnClickListener(new View.OnClickListener() {
+        binding.btnPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
-
-                for (int i = 0; i < ReprintLabelAdapter.list.size(); i++){
+                // List<DeliveryGoodProduct> temp=new ArrayList<>();
+                for (int i = 0; i < ReprintLabelAdapter.list.size(); i++)
+                {
                     if(ReprintLabelAdapter.list.get(i).isSelected())
                     {
-                        Toast.makeText(getActivity(),ReprintLabelAdapter.list.get(i).getDeliveryGoodId(), Toast.LENGTH_SHORT).show();
+                       // Toast.makeText(getActivity(),ReprintLabelAdapter.list.get(i).getDeliveryGoodId(), Toast.LENGTH_SHORT).show();
                     }
                     findReprintLabelDetail(printerDetails,ReprintLabelAdapter.list.get(i).getDeliveryGoodId(),deliveryGoodProduct);
                 }
@@ -246,7 +263,6 @@ public class ReprintLabelItemListFragment extends BaseFragment {
 
             DeliveryGoodProduct model = new DeliveryGoodProduct();
             model.setSelected(isSelect);
-
             model.setDeliveryGoodId(list.get(i).getDeliveryGoodId());
             model.setDeliveryId(list.get(i).getDeliveryId());
             model.setProductCode(list.get(i).getProductCode());

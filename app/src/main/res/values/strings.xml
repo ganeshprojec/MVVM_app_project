@@ -80,17 +80,21 @@
 
     <string name="enter_lots_required">Enter  Number of Lots Required</string>
 
-    <string name="enter_barcode_number">Enter barcode number/scan</string>
-    <string name="enter_item_barcode_number">Enter item barcode number/scan</string>
+    <string name="enter_barcode_number">Enter Barcode Number/Scan</string>
+    <string name="enter_item_barcode_number">Enter Item Barcode Number/Scan</string>
     <string name="Next">Next</string>
+    <string name="print">Print</string>
     <string name="text_display_item_enquiry_key">Display Key</string>
     <string name="text_display_item_enquiry_value">Display Value</string>
     <string name="text_route_number">Route Number</string>
     <string name="text_route_number1">Route Number1</string>
     <string name="scan_next_item_barcode">Scan Next Item Barcode</string>
     <string name="enter_barcode">Enter Barcode</string>
+    <string name="enter_barcode_required">Item Barcode Required</string>
+    <string name="enter_delivery_number_scan">Input Delivery Number/Barcode</string>
     <string name="invalid_barcode">Invalid Barcode</string>
-    <string name="invalid_input">Invalid Input</string>
+    <string name="invalid_deliveryno_barcode">Invalid Delivery Number/Barcode</string>
+    <string name="invalid_input">Number of lots must be greater than zero.</string>
     <string name="dummy_header_here">Header Here!</string>
     <string name="str_route_number">Route Number</string>
     <string name="str_delivery_date">Delivery Date</string>
@@ -157,20 +161,23 @@
     <string name="selected_location">Selected location</string>
 
     <!-- Strings for Carrier Handover Details Fragment -->
-    <string name="carrier_collection_details">Enter delivery number/scan</string>
-    <string name="enter_delivery_barcode_number">Enter delivery barcode number/scan</string>
-    <string name="enter_delivery_barcode_number_or_scan">Enter delivery barcode number/scan</string>
+    <string name="carrier_collection_details">Enter Delivery Number/Scan</string>
+    <string name="enter_delivery_barcode_number">Enter Delivery Barcode Number/Scan</string>
+    <string name="enter_delivery_barcode_number_or_scan">Enter Delivery Barcode Number/Scan</string>
 
     <string name="str_route_summary">Route Summary</string>
     <string name="dummy_lotSr">L</string>
     <string name="dummy_location_b5">Location B5</string>
     <string name="pls_attach_lable">Please attach labels and store items using Movements option</string>
     <string name="update_has_failed">Update has failed</string>
+    <string name="reduce_no_of_lots">Please reduce the number of lots required.</string>
     <string name="description">Description</string>
 
     <string name="printerId">printerId</string>
-    <string name="printerName">printerName</string>
+
+    <string name="printerName">PrinterName</string>
     <string name="enter_delivery_number">Enter Delivery Number</string>
+    <string name="printer">Printer</string>
 
     <string name="deliveryId">Delivery ID</string>
     <string name="deliveryGoodId">Good ID</string>

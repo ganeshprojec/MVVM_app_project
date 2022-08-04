@@ -214,12 +214,12 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
         });
 
         //Amend Lot detail page printer button click event
-        binding.itemEnquiryHeader.imgPrinter.setOnClickListener(new View.OnClickListener() {
+        binding.btnPrint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view)
             {
                 Helper.hideKeyboard(getActivity(), view);
-                viewModel.validateLotNumerRequired(binding.inputLotsRequired.getText().toString().trim(),totalLotNum);
+                viewModel.validateLotNumerRequired(binding.inputLotsRequired.getText().toString().trim(),deliveryItemDetails.totalLotNumber);
 
             }
         });
@@ -283,7 +283,7 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
     private void updateAmendLotLayout()
     {
         //binding.itemEnquiryHeader.txtToolbarTitle.setText(R.string.str_amend_lots);
-        binding.itemEnquiryHeader.imgPrinter.setVisibility(View.VISIBLE);
+        binding.btnPrint.setVisibility(View.VISIBLE);
         binding.scanNextItemBarcode.scanItemBarcode.setVisibility(View.GONE);
     }
 
@@ -373,18 +373,15 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
                         }
                         case ERROR:{
                             Utils.hideProgressDialog(progressDialog);
-                            Utils.showErrorMessage(getActivity(), getResources().getString(R.string.update_has_failed)+"\n"+response.message);
+                            //response.message after update failed;
+                            Utils.showErrorMessage(getActivity(), getResources().getString(R.string.update_has_failed)+"\n"+getResources().getString(R.string.reduce_no_of_lots));
                             break;
                         }
                         case SUCCESS:{
                             Utils.hideProgressDialog(progressDialog);
-
                             viewModel.updateAmendLotNumAdapterData(response.data.getLotDetails(),deliveryItemDetails);
-
                             //ReprintLabel API and get response dialog.
                             callfindReprintLabelDetail(printerDetails,deliveryItemDetails);
-
-
                             break;
                         }
                     }
@@ -408,8 +405,9 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
                         }
                         case SUCCESS:{
                             Utils.hideProgressDialog(progressDialog);
+                            binding.inputLotsRequired.setText("");
                             reprintLabelDetails=response.data.getReprintLabelDetails();
-                            Utils.showAmendAlertDialog(getActivity(),deliveryItemDetails.deliveryId,reprintLabelDetails.getLabelsPrinted(),reprintLabelDetails.getPrinterId());
+                            Utils.showAmendAlertDialog(getActivity(),deliveryItemDetails.deliveryId,reprintLabelDetails.getLabelsPrinted(),reprintLabelDetails.getPrinterId(),callFor);
                             break;
                         }
                     }

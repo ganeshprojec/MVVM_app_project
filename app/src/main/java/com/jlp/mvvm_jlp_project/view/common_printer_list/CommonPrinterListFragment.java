@@ -106,7 +106,6 @@ public class CommonPrinterListFragment extends BaseFragment {
             case AppConstants.FRAGMENT_AMEND_LOTS: {
 
                 actionBarTitle = getResources().getString(R.string.str_amend_lots);
-
                 binding.amaendLotsTopHeader.txtToolbarTitle.setText(actionBarTitle);
                 screenCall = AppConstants.FRAGMENT_AMEND_LOTS;
                 getPrinterListData("3822");
