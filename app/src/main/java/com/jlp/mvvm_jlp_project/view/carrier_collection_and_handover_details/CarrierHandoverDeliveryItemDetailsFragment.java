@@ -41,7 +41,10 @@ import com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScanner
 import com.jlp.mvvm_jlp_project.viewmodel.CarrierCollectionAndHandoverDetailsViewModel;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.Hashtable;
+import java.util.LinkedHashMap;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -58,6 +61,7 @@ public class CarrierHandoverDeliveryItemDetailsFragment extends BaseFragment{
     private CreateOrUpdateHandoverDetails createOrUpdateHandoverDetails = CarrierCollectionAndHandoverDetailsFragment.copyOfCreateOrUpdateHandoverDetails;
     private CommonAdapter adapter;
     private List<TitleValueDataModel> titleValueDataList =  new ArrayList<>();
+    private  LinkedHashMap<Integer, TitleValueDataModel> titleValueDataHashMap = new LinkedHashMap();
     private Hashtable hsDeliveryGoodItemCompLength;
 
     @Inject AppPreferencesHelper appPreferencesHelper;
@@ -101,8 +105,15 @@ public class CarrierHandoverDeliveryItemDetailsFragment extends BaseFragment{
         viewModel.itemDelivery.observe(getViewLifecycleOwner(), new Observer<List<TitleValueDataModel>>() {
             @Override
             public void onChanged(List<TitleValueDataModel> titleValueDataModels) {
-                titleValueDataList.add(titleValueDataModels.get(0));
-                //Collections.reverse(titleValueDataList);
+                // Logic for reverse the list of adapter and show to the recycler view so that user can see the last added in first position
+                titleValueDataHashMap.put(titleValueDataModels.get(0).getNumber(), titleValueDataModels.get(0));
+                List<Integer> reverseOrderedKeys = new ArrayList<Integer>(titleValueDataHashMap.keySet());
+                Collections.reverse(reverseOrderedKeys);
+                titleValueDataList.clear();
+                for (Integer key : reverseOrderedKeys) {
+                    TitleValueDataModel titleValueDataModel =  titleValueDataHashMap.get(key);
+                    titleValueDataList.add(titleValueDataModel);
+                }
                 adapter.notifyDataSetChanged();
 
                 binding.recyclerViewDeliveryItemDetails.setVisibility(View.VISIBLE);

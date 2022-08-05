@@ -10,7 +10,9 @@ import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.ParseException;
+import android.view.Gravity;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.jlp.mvvm_jlp_project.R;
@@ -43,7 +45,7 @@ public class Utils {
      * @param message error message
      */
     public static void showErrorMessage(Activity activity, String message) {
-        Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG*2);
         View snackBarView = snackbar.getView();
         snackBarView.setBackgroundColor(activity.getResources().getColor(R.color.snackbar_background));
         snackbar.setTextColor(activity.getResources().getColor(R.color.red));
@@ -118,6 +120,4 @@ public class Utils {
 
         return "" + formattedDate;
     }
-
-
 }
