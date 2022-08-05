@@ -49,15 +49,27 @@ public class ReprintLabelAdapter extends RecyclerView.Adapter<ReprintLabelViewHo
     @Override
     public void onBindViewHolder(@NonNull ReprintLabelViewHolder holder, int position) {
         final int pos = position;
-          int itemposition= holder.getAdapterPosition()+1;
 
-
+        int itemposition= holder.getAdapterPosition()+1;         //This is for position of item
         holder.product_item_name.setText(ctx.getResources().getString(R.string.dummy_item)+" "+ itemposition  );
         holder.productCode.setText(holder.view.getContext().getString(R.string.productCode)+" : "+list.get(position).getProductCode());
         holder.description.setText(list.get(position).getOrderDescriptionClean());
         holder.check_tick.setChecked(list.get(position).isSelected());
         holder.check_tick.setTag(position);
 
+        if(list.get(pos).isSelected()==true)
+        {
+            holder.check_tick.setVisibility(View.VISIBLE);
+            holder.check_tick.setChecked(true);
+            holder.check_tick.setButtonDrawable(R.drawable.check_tick);
+            holder.cl_main.setBackgroundResource(R.color.multi_item_select);
+        }
+        else
+        {
+            holder.check_tick.setChecked(false);
+            holder.check_tick.setButtonDrawable(null);
+            holder.cl_main.setBackgroundResource(R.color.white);
+        }
 
 
         holder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -87,6 +99,7 @@ public class ReprintLabelAdapter extends RecyclerView.Adapter<ReprintLabelViewHo
 
             }
         });
+
 
     }
 
