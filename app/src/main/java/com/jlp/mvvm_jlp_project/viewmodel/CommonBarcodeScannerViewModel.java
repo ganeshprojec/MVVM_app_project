@@ -163,36 +163,36 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
     }
 
     public void getComponentBarcodeData(DeliveryItemProductDetails deliveryItemProductDetails) {
-        List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_number,
+        List<TitleValueDataModel> titleValueDataModels = new ArrayList<>();
+        titleValueDataModels.add(new TitleValueDataModel(R.string.delivery_number,
                 deliveryItemProductDetails.getDeliveryId()));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.route_number,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.route_number,
                 deliveryItemProductDetails.getRouteResourceKey()));
         String deliveryDate =  deliveryItemProductDetails.getDeliveryDate();
         if (deliveryDate!=null && deliveryDate.equals("")) {//deliveryDate.Text = datetime.ToString("dd.MM.yyyy");
             deliveryDate = StringUtils.getFormattedDate(deliveryDate, AppConstants.APP_DATE_FORMAT);
         } else deliveryDate = "";
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_date,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.delivery_date,
                 deliveryDate));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.last_recorded_location,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.last_recorded_location,
                 deliveryItemProductDetails.getName15()));
         String lastUpdatedTimeStamp = deliveryItemProductDetails.getLastUpdatedTimeStamp();
         if (!TextUtils.isEmpty(lastUpdatedTimeStamp)) {
             lastUpdatedTimeStamp = StringUtils.getFormattedDate(lastUpdatedTimeStamp, AppConstants.APP_DATE_TIME_FORMAT);
         }
         else lastUpdatedTimeStamp = "-";
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.time_of_last_move,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.time_of_last_move,
                 lastUpdatedTimeStamp));
         String lastUpdatedUserId = deliveryItemProductDetails.getLastUpdatedUserId();
         if (TextUtils.isEmpty(lastUpdatedUserId)) { lastUpdatedUserId = "-"; }
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.last_user_id,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.last_user_id,
                 lastUpdatedUserId));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.product_code,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.product_code,
                 deliveryItemProductDetails.getProductCode()));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.product_description,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.product_description,
                 deliveryItemProductDetails.getOrderDescriptionClean()));
         String lotNumber = deliveryItemProductDetails.getCurrentLotNumber()+" of "+deliveryItemProductDetails.getTotalLotNumber();
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.lot_number, lotNumber));
+        titleValueDataModels.add(new TitleValueDataModel(R.string.lot_number, lotNumber));
         String address = deliveryItemProductDetails.deliveryAddressBuildingName
                 + " " + deliveryItemProductDetails.deliveryAddressPremise
                 + " " + deliveryItemProductDetails.deliveryAddressThoroughFare
@@ -201,50 +201,50 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
                 + " " + deliveryItemProductDetails.deliveryAddressPostTown
                 + " " + deliveryItemProductDetails.deliveryAddressCounty
                 + " " + deliveryItemProductDetails.deliveryAddressPostCode;
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.address, address));
-        itemEnquiry.setValue(itemEnquiryModels);
+        titleValueDataModels.add(new TitleValueDataModel(R.string.address, address));
+        itemEnquiry.setValue(titleValueDataModels);
     }
 
     public void getItemDetailsComponentBarcodeData(DeliveryItemDetails deliveryItemDetails) {
-        List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_number,
+        List<TitleValueDataModel> titleValueDataModels = new ArrayList<>();
+        titleValueDataModels.add(new TitleValueDataModel(R.string.delivery_number,
                 deliveryItemDetails.getDeliveryId()
         ));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.route_number,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.route_number,
                 deliveryItemDetails.getRouteResourceKey()
         ));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.item,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.item,
                 deliveryItemDetails.getGoodId()));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.product_description,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.product_description,
                 deliveryItemDetails.getOrderDescriptionClean()));
-        itemEnquiry.setValue(itemEnquiryModels);
+        itemEnquiry.setValue(titleValueDataModels);
     }
 
     public void getLocationBarcodeData(DeliveryItemProductDetails deliveryItemProductDetails,
                                        LocationDetails locationDetails) {
-        List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_number,
+        List<TitleValueDataModel> titleValueDataModels = new ArrayList<>();
+        titleValueDataModels.add(new TitleValueDataModel(R.string.delivery_number,
                 deliveryItemProductDetails.getDeliveryId()
         ));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.route_number,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.route_number,
                 deliveryItemProductDetails.getRouteResourceKey()
         ));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.item,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.item,
                 "08 Aug 2022"));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.product_description,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.product_description,
                 deliveryItemProductDetails.getOrderDescriptionClean()));
-        itemEnquiry.setValue(itemEnquiryModels);
+        itemEnquiry.setValue(titleValueDataModels);
     }
 
     public void updateAdapterData(LocationItemDetails locationItemDetails, LocationDetails locationDetails) {
-        List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.lot_number,
+        List<TitleValueDataModel> titleValueDataModels = new ArrayList<>();
+        titleValueDataModels.add(new TitleValueDataModel(R.string.lot_number,
                 locationItemDetails.getCurrentLotNumber() + " of " + locationItemDetails.getTotalLotNumber()
         ));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.stored_in_location,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.stored_in_location,
                 locationDetails.getName15()
         ));
-        itemEnquiry.setValue(itemEnquiryModels);
+        itemEnquiry.setValue(titleValueDataModels);
     }
 
 
@@ -289,21 +289,21 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
     }
 
     public void getAmendLotItemDetails(DeliveryItemDetails deliveryItemDetails){
-        List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_number,deliveryItemDetails.getDeliveryId()));
+        List<TitleValueDataModel> titleValueDataModels = new ArrayList<>();
+        titleValueDataModels.add(new TitleValueDataModel(R.string.delivery_number,deliveryItemDetails.getDeliveryId()));
 
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.item,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.item,
                 deliveryItemDetails.getProductCode()));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.product_description,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.product_description,
                 deliveryItemDetails.getOrderDescriptionClean()));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.str_current_lot,deliveryItemDetails.getCurrentLotNumber()));
-        itemEnquiry.setValue(itemEnquiryModels);
+        titleValueDataModels.add(new TitleValueDataModel(R.string.str_current_lot,deliveryItemDetails.getCurrentLotNumber()));
+        itemEnquiry.setValue(titleValueDataModels);
     }
 
     public void updateAmendLotNumAdapterData(LotDetails lotDetails, DeliveryItemDetails deliveryItemDetails) {
-        List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
-        itemEnquiryModels.remove(3);
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.str_current_lot, lotDetails.getUpdatedCurrentLot()));
-        itemEnquiry.setValue(itemEnquiryModels);
+        List<TitleValueDataModel> titleValueDataModels = itemEnquiry.getValue();
+        titleValueDataModels.remove(3);
+        titleValueDataModels.add(new TitleValueDataModel(R.string.str_current_lot, lotDetails.getUpdatedCurrentLot()));
+        itemEnquiry.setValue(titleValueDataModels);
     }
 }

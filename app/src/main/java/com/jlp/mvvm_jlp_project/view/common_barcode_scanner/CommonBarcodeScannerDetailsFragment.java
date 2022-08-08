@@ -349,9 +349,9 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
 
         viewModel.itemEnquiry.observe(getViewLifecycleOwner(), new Observer<List<TitleValueDataModel>>() {
             @Override
-            public void onChanged(List<TitleValueDataModel> itemEnquiryModels) {
+            public void onChanged(List<TitleValueDataModel> titleValueDataModels) {
                 detailsDataList.clear();
-                detailsDataList.addAll(itemEnquiryModels);
+                detailsDataList.addAll(titleValueDataModels);
                 adapter.notifyDataSetChanged();
             }
         });

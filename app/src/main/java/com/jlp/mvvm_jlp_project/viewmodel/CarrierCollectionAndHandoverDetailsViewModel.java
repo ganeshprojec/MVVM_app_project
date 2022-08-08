@@ -52,26 +52,26 @@ public class CarrierCollectionAndHandoverDetailsViewModel extends BaseViewModel 
 
 
     public void getItemDetailsDeliveryBarcodeData(DeliveryDetails deliveryDetails) {
-        List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_number,
+        List<TitleValueDataModel> titleValueDataModels = new ArrayList<>();
+        titleValueDataModels.add(new TitleValueDataModel(R.string.delivery_number,
                 deliveryDetails.getDeliveryId()
         ));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.customer_name,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.customer_name,
                 deliveryDetails.getRecipientName().trim()
         ));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.no_of_delivery_items,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.no_of_delivery_items,
                 deliveryDetails.getNumberOfDeliveryItems())); // TODO: Need to confirm mapping
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.total_number_of_parts_lots,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.total_number_of_parts_lots,
                 deliveryDetails.totalLotNumber));
-        itemDelivery.setValue(itemEnquiryModels);
+        itemDelivery.setValue(titleValueDataModels);
     }
 
     public void addItemDetailsInRecycler(int itemCount, String  itemName) {
-        List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
-        itemEnquiryModels.add(new TitleValueDataModel(itemCount, 0,
+        List<TitleValueDataModel> titleValueDataModels = new ArrayList<>();
+        titleValueDataModels.add(new TitleValueDataModel(itemCount, 0,
                 itemName
         ));
-        itemDelivery.setValue(itemEnquiryModels);
+        itemDelivery.setValue(titleValueDataModels);
     }
 
     public void ValidateCreateOrUpdateHandoverDetails(String deliveryBy,
