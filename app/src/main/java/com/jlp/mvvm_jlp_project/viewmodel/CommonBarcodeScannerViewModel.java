@@ -143,9 +143,6 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
                 }
                 break;
             }
-            case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE: {
-                break;
-            }
             case AppConstants.FRAGMENT_CARRIER_HANDOVER_DETAILS:
             case AppConstants.FRAGMENT_CARRIER_COLLECTION_DETAILS:{
                 if (TextUtils.isEmpty(barcode)) {
@@ -154,6 +151,14 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
                     result = new Pair(false, R.string.delivery_reference_not_recognised);
                 }else if(barcode.contains("!!")){
                     result = new Pair(false, R.string.delivery_reference_not_recognised);
+                }
+                break;
+            }
+            case AppConstants.FRAGMENT_REPRINT_LABELS:{
+                if(TextUtils.isEmpty(barcode)){
+                    result = new Pair(false, R.string.enter_delivery_number_scan);
+                }else if(barcode.length()<6){
+                    result = new Pair(false, R.string.invalid_deliveryno_barcode);
                 }
                 break;
             }
@@ -193,14 +198,34 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
                 deliveryItemProductDetails.getOrderDescriptionClean()));
         String lotNumber = deliveryItemProductDetails.getCurrentLotNumber()+" of "+deliveryItemProductDetails.getTotalLotNumber();
         titleValueDataModels.add(new TitleValueDataModel(R.string.lot_number, lotNumber));
-        String address = deliveryItemProductDetails.deliveryAddressBuildingName
-                + " " + deliveryItemProductDetails.deliveryAddressPremise
-                + " " + deliveryItemProductDetails.deliveryAddressThoroughFare
-                + " " + deliveryItemProductDetails.deliveryAddressCompanyName
-                + " " + deliveryItemProductDetails.deliveryAddressLocality
-                + " " + deliveryItemProductDetails.deliveryAddressPostTown
-                + " " + deliveryItemProductDetails.deliveryAddressCounty
-                + " " + deliveryItemProductDetails.deliveryAddressPostCode;
+
+        String address = "";
+
+        if(!TextUtils.isEmpty(deliveryItemProductDetails.deliveryAddressBuildingName)){
+            address = address +" "+deliveryItemProductDetails.deliveryAddressBuildingName;
+        }
+        if(!TextUtils.isEmpty(deliveryItemProductDetails.deliveryAddressPremise)){
+            address = address +" "+deliveryItemProductDetails.deliveryAddressPremise;
+        }
+        if(!TextUtils.isEmpty(deliveryItemProductDetails.deliveryAddressThoroughFare)){
+            address = address +" "+deliveryItemProductDetails.deliveryAddressThoroughFare;
+        }
+        if(!TextUtils.isEmpty(deliveryItemProductDetails.deliveryAddressCompanyName)){
+            address = address +" "+deliveryItemProductDetails.deliveryAddressCompanyName;
+        }
+        if(!TextUtils.isEmpty(deliveryItemProductDetails.deliveryAddressLocality)){
+            address = address +" "+deliveryItemProductDetails.deliveryAddressLocality;
+        }
+        if(!TextUtils.isEmpty(deliveryItemProductDetails.deliveryAddressPostTown)){
+            address = address +" "+deliveryItemProductDetails.deliveryAddressPostTown;
+        }
+        if(!TextUtils.isEmpty(deliveryItemProductDetails.deliveryAddressCounty)){
+            address = address +" "+deliveryItemProductDetails.deliveryAddressCounty;
+        }
+        if(!TextUtils.isEmpty(deliveryItemProductDetails.deliveryAddressPostCode)){
+            address = address +" "+deliveryItemProductDetails.deliveryAddressPostCode;
+        }
+
         titleValueDataModels.add(new TitleValueDataModel(R.string.address, address));
         itemEnquiry.setValue(titleValueDataModels);
     }
@@ -263,16 +288,6 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
         requestBody.setRequestDataRouteManagementSummary(requestData);
         requestEnvelop.setRequestBodyRouteManagementSummary(requestBody);
         return requestEnvelop;
-    }
-
-    public void validateDeliveryNumber(String deliveryNum) {
-        Pair result = new Pair<> (true, 0);
-        if(TextUtils.isEmpty(deliveryNum)){
-            result = new Pair(false, R.string.enter_delivery_number_scan);
-        }else if(deliveryNum.length()<6){
-            result = new Pair(false, R.string.invalid_deliveryno_barcode);
-        }
-        validationResult.setValue(result);
     }
 
     public void validateLotNumberRequired(String inputLotsRequired, String totalLotNum){

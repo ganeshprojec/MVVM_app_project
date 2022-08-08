@@ -5,17 +5,12 @@ package com.jlp.mvvm_jlp_project.utils;/*
 import android.app.Activity;
 import android.app.Dialog;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
-import android.view.LayoutInflater;
 import android.net.ParseException;
-import android.view.Gravity;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -23,21 +18,15 @@ import android.widget.TextView;
 
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-import android.widget.LinearLayout;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.jlp.mvvm_jlp_project.R;
-import com.jlp.mvvm_jlp_project.model.response.authenticate_user.DeliveryCentreNumber;
-import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
-import com.jlp.mvvm_jlp_project.view.home.HomeActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScannerFragment;
 import com.jlp.mvvm_jlp_project.view.common_printer_list.CommonPrinterListFragment;
 
 
@@ -128,7 +117,7 @@ public class Utils {
                    error_worning_icon.setVisibility(View.GONE);
 
         headerText.setText(context.getResources().getString(R.string.delivery_number)+" : "+deliveryNumber);
-        msg.setText(labelsPrinted+" "+context.getResources().getString(R.string.lable_printed_on_printer)+" "+printerId);
+        msg.setText(labelsPrinted+" "+context.getResources().getString(R.string.label_printed_on_printer)+" "+printerId);
 
         TextView  textOK_alert_dialog = dialog.findViewById(R.id.textOK_alert_dialog);
         textOK_alert_dialog.setOnClickListener(new View.OnClickListener() {

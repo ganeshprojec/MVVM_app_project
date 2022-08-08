@@ -84,6 +84,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         android:text="@string/print"
         android:textAllCaps="false"
+        android:visibility="gone"
         android:layout_marginBottom="@dimen/margin_padding_large"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/recyclerViewReprintLabel"/>
