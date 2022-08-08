@@ -83,7 +83,9 @@ public class AppConstants {
     public static final String THREE_THOUSAND = "3000";
 
 
-    public static final String DATE_FORMAT_FOR_APP = "dd/MMM/yyyy";
-    public static final String TIME_FORMAT_FOR_APP = "kk:mm";
+    public static final String APP_DATE_FORMAT = "dd/MMM/yyyy";
+    public static final String APP_TIME_FORMAT = "kk:mm";
+
+    public static final String APP_DATE_TIME_FORMAT = APP_DATE_FORMAT + " "+ APP_TIME_FORMAT;
 
 }

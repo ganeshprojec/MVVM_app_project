@@ -33,6 +33,7 @@ import com.jlp.mvvm_jlp_project.repository.CommonBarcodeScannerRepository;
 import com.jlp.mvvm_jlp_project.repository.RouteManagementSummaryRepository;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Resource;
+import com.jlp.mvvm_jlp_project.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -144,27 +145,43 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
     public void getComponentBarcodeData(DeliveryItemProductDetails deliveryItemProductDetails) {
         List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
         itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_number,
-                deliveryItemProductDetails.getDeliveryId()
-        ));
+                deliveryItemProductDetails.getDeliveryId()));
         itemEnquiryModels.add(new TitleValueDataModel(R.string.route_number,
-                deliveryItemProductDetails.getRouteResourceKey()
-        ));
+                deliveryItemProductDetails.getRouteResourceKey()));
+        String deliveryDate =  deliveryItemProductDetails.getDeliveryDate();
+        if (deliveryDate!=null && deliveryDate.equals("")) {//deliveryDate.Text = datetime.ToString("dd.MM.yyyy");
+            deliveryDate = StringUtils.getFormattedDate(deliveryDate, AppConstants.APP_DATE_FORMAT);
+        } else deliveryDate = "";
         itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_date,
-                deliveryItemProductDetails.getDeliveryDate()));
+                deliveryDate));
         itemEnquiryModels.add(new TitleValueDataModel(R.string.last_recorded_location,
-                deliveryItemProductDetails.getDeliveryAddressPremise()));
+                deliveryItemProductDetails.getName15()));
+        String lastUpdatedTimeStamp = deliveryItemProductDetails.getLastUpdatedTimeStamp();
+        if (!TextUtils.isEmpty(lastUpdatedTimeStamp)) {
+            lastUpdatedTimeStamp = StringUtils.getFormattedDate(lastUpdatedTimeStamp, AppConstants.APP_DATE_TIME_FORMAT);
+        }
+        else lastUpdatedTimeStamp = "-";
         itemEnquiryModels.add(new TitleValueDataModel(R.string.time_of_last_move,
-                deliveryItemProductDetails.getLastUpdatedTimeStamp()));
+                lastUpdatedTimeStamp));
+        String lastUpdatedUserId = deliveryItemProductDetails.getLastUpdatedUserId();
+        if (TextUtils.isEmpty(lastUpdatedUserId)) { lastUpdatedUserId = "-"; }
         itemEnquiryModels.add(new TitleValueDataModel(R.string.last_user_id,
-                deliveryItemProductDetails.getLastUpdatedUserId()));
+                lastUpdatedUserId));
         itemEnquiryModels.add(new TitleValueDataModel(R.string.product_code,
                 deliveryItemProductDetails.getProductCode()));
         itemEnquiryModels.add(new TitleValueDataModel(R.string.product_description,
                 deliveryItemProductDetails.getOrderDescriptionClean()));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.lot_number,
-                deliveryItemProductDetails.getCurrentLotNumber()));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.address,
-                deliveryItemProductDetails.getDeliveryAddressLocality()));
+        String lotNumber = deliveryItemProductDetails.getCurrentLotNumber()+" of "+deliveryItemProductDetails.getTotalLotNumber();
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.lot_number, lotNumber));
+        String address = deliveryItemProductDetails.deliveryAddressBuildingName
+                + " " + deliveryItemProductDetails.deliveryAddressPremise
+                + " " + deliveryItemProductDetails.deliveryAddressThoroughFare
+                + " " + deliveryItemProductDetails.deliveryAddressCompanyName
+                + " " + deliveryItemProductDetails.deliveryAddressLocality
+                + " " + deliveryItemProductDetails.deliveryAddressPostTown
+                + " " + deliveryItemProductDetails.deliveryAddressCounty
+                + " " + deliveryItemProductDetails.deliveryAddressPostCode;
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.address, address));
         itemEnquiry.setValue(itemEnquiryModels);
     }
 

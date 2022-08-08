@@ -90,10 +90,8 @@ public class CommonBarcodeScannerRepository {
             }else if(response.errorBody()!=null){
                 _responseFindDeliveryDetailsForComponentBarcode.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
             }else if(response.body().getResponseBodyFindDeliveryDetailsForComponentBarcode().getResponseDataFindDeliveryDetailsForComponentBarcode().getDitsErrors()!=null){
-                _responseFindDeliveryDetailsForComponentBarcode.postValue(Resource.error( response.body().getResponseBodyFindDeliveryDetailsForComponentBarcode().
-                                getResponseDataFindDeliveryDetailsForComponentBarcode().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
-                        response.body().getResponseBodyFindDeliveryDetailsForComponentBarcode().
-                                getResponseDataFindDeliveryDetailsForComponentBarcode()));
+                Pair pairOfErrorMessageAndCode = handleCommonAPIResponseErrorCodes(response.body().getResponseBodyFindDeliveryDetailsForComponentBarcode().getResponseDataFindDeliveryDetailsForComponentBarcode().getDitsErrors());
+                _responseFindDeliveryDetailsForComponentBarcode.postValue(Resource.error(pairOfErrorMessageAndCode.first.toString(), pairOfErrorMessageAndCode.second.toString(),null));
             } else{
                 _responseFindDeliveryDetailsForComponentBarcode.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
                 Log.i(TAG ,"Response is neither success nor error");

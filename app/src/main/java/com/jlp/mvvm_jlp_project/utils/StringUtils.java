@@ -1,15 +1,10 @@
 package com.jlp.mvvm_jlp_project.utils;
 
-import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.text.format.Time;
 import android.util.Log;
 
-import com.jlp.mvvm_jlp_project.view.carrier_collection_and_handover_details.CarrierCollectionAndHandoverDetailsFragment;
-
 import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -46,7 +41,7 @@ public class StringUtils {
      */
     public static String getTodayDateInStringFormat(){
         Date date = Calendar.getInstance().getTime();
-        SimpleDateFormat df = new SimpleDateFormat(AppConstants.DATE_FORMAT_FOR_APP, Locale.getDefault());
+        SimpleDateFormat df = new SimpleDateFormat(AppConstants.APP_DATE_FORMAT, Locale.getDefault());
         return df.format(date);
     }
 
@@ -67,7 +62,7 @@ public class StringUtils {
             Time time = new Time();
             time.set(dayOfMonth, monthOfYear, year);
             long convertedLongDate = time.toMillis(true);
-            return DateFormat.format(AppConstants.DATE_FORMAT_FOR_APP, convertedLongDate).toString();
+            return DateFormat.format(AppConstants.APP_DATE_FORMAT, convertedLongDate).toString();
         }catch (Exception ex){
             Log.e(TAG, "Exception : "+ex);
             return "";
@@ -77,7 +72,7 @@ public class StringUtils {
     public static boolean isSameDay(Date date1, Date date2) {
         boolean isDateSame = false;
         try {
-            SimpleDateFormat fmt = new SimpleDateFormat(AppConstants.DATE_FORMAT_FOR_APP);
+            SimpleDateFormat fmt = new SimpleDateFormat(AppConstants.APP_DATE_FORMAT);
             isDateSame =  fmt.format(date1).equals(fmt.format(date2));
         }catch (Exception ex){
             Log.e(TAG, "Exception : "+ex);
@@ -87,7 +82,7 @@ public class StringUtils {
 
     public static Date getStringToDateObject(String date) {
         try {
-            return new SimpleDateFormat(AppConstants.DATE_FORMAT_FOR_APP).parse(date);
+            return new SimpleDateFormat(AppConstants.APP_DATE_FORMAT).parse(date);
         }catch (Exception ex){
             Log.e(TAG, "Exception : "+ex);
             return null;
@@ -105,7 +100,7 @@ public class StringUtils {
 
     public static String getCurrentTimeIn24HoursFormat() {
         try {
-            SimpleDateFormat dateFormat = new SimpleDateFormat(AppConstants.TIME_FORMAT_FOR_APP);
+            SimpleDateFormat dateFormat = new SimpleDateFormat(AppConstants.APP_TIME_FORMAT);
             return dateFormat.format( new Date());
         }catch (Exception ex){
             Log.e(TAG, "Exception : "+ex);
@@ -116,14 +111,26 @@ public class StringUtils {
     public static int getDifferenceOfTimes(String selectedTime, String currentTime) {
         int timeDifferenceInHorse = 0;
         try {
-            Date selectedDate = getStringToDateObject(selectedTime, AppConstants.TIME_FORMAT_FOR_APP);
-            Date currentDate = getStringToDateObject(currentTime, AppConstants.TIME_FORMAT_FOR_APP);
+            Date selectedDate = getStringToDateObject(selectedTime, AppConstants.APP_TIME_FORMAT);
+            Date currentDate = getStringToDateObject(currentTime, AppConstants.APP_TIME_FORMAT);
             long diff = selectedDate.getTime() - currentDate.getTime();
             timeDifferenceInHorse = (int) TimeUnit.MILLISECONDS.toMinutes(diff);
         }catch (Exception ex){
             Log.e(TAG, "Exception : "+ex);
         }
         return timeDifferenceInHorse;
+    }
+
+    public static String getFormattedDate(String date, String format) {
+        String formattedDate;
+        try {
+            SimpleDateFormat sm = new SimpleDateFormat(format);
+            formattedDate = sm.format(date);
+        }catch (Exception ex){
+            Log.e(TAG, "Exception : "+ex);
+            return null;
+        }
+        return formattedDate;
     }
 
 }
