@@ -174,7 +174,7 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
             adapter = new CommonAdapter(detailsDataList, getContext());
             binding.recyclerView.setAdapter(adapter);
             binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-            totalLotNum=deliveryItemDetails.getTotalLotNumber();
+            if(deliveryItemDetails!=null)totalLotNum = deliveryItemDetails.getTotalLotNumber(); else totalLotNum =  "";
             adapter.notifyDataSetChanged();
         }else{
             Utils.showErrorMessage(getActivity(), "Unable to get the data");
@@ -278,7 +278,6 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
 
     private void updateAmendLotLayout()
     {
-        //binding.itemEnquiryHeader.txtToolbarTitle.setText(R.string.str_amend_lots);
         binding.btnPrint.setVisibility(View.VISIBLE);
         binding.scanNextItemBarcode.scanItemBarcode.setVisibility(View.GONE);
     }

@@ -262,16 +262,8 @@ public class CommonBarcodeScannerFragment extends BaseFragment  {
         binding.btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(callFor.equals(AppConstants.FRAGMENT_REPRINT_LABELS))
-                {
-                    Helper.hideKeyboard(getActivity(), view);
-                    viewModel.validateDeliveryNumber(binding.itemEnquiryInputField.inputBarcode.getText().toString().trim());
-                }
-                else
-                {
-                    Helper.hideKeyboard(getActivity(), view);
-                    viewModel.validateBarcode(binding.itemEnquiryInputField.inputBarcode.getText().toString().trim(), callFor);
-                }
+                Helper.hideKeyboard(getActivity(), view);
+                viewModel.validateBarcode(binding.itemEnquiryInputField.inputBarcode.getText().toString().trim(), callFor);
             }
         });
     }
@@ -291,7 +283,6 @@ public class CommonBarcodeScannerFragment extends BaseFragment  {
         params.topMargin=20;
         params.gravity= Gravity.CENTER_HORIZONTAL;
         binding.scanNextItemBarcode.tvScanNextBarcode.setLayoutParams(params);
-
     }
     /**
      * This function helps to deal with header which is bottom to actionbar
