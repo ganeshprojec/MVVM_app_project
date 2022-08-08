@@ -31,9 +31,6 @@ public class ResponseDataFindLocationDetailsForBarcode {
     @Inject
     ResponseDataFindLocationDetailsForBarcode(){}
 
-    protected ResponseDataFindLocationDetailsForBarcode(Parcel in) {
-    }
-
     public LocationDetails getLocationDetails() {
         return locationDetails;
     }

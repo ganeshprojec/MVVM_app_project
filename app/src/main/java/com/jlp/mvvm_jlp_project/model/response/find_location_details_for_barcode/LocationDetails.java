@@ -20,11 +20,6 @@ public class LocationDetails {
     @Element(name = "name15",required = false)
     public String name15;
 
-    protected LocationDetails(Parcel in) {
-        locationId = in.readString();
-        name15 = in.readString();
-    }
-
     public String getLocationId() {
         return locationId;
     }

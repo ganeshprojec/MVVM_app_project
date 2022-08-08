@@ -5,12 +5,15 @@ package com.jlp.mvvm_jlp_project.utils;/*
 import android.app.Activity;
 import android.app.Dialog;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.view.LayoutInflater;
+import android.net.ParseException;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -23,9 +26,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import android.widget.LinearLayout;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.jlp.mvvm_jlp_project.R;
+import com.jlp.mvvm_jlp_project.model.response.authenticate_user.DeliveryCentreNumber;
+import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
+import com.jlp.mvvm_jlp_project.view.home.HomeActivity;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScannerFragment;
 import com.jlp.mvvm_jlp_project.view.common_printer_list.CommonPrinterListFragment;
@@ -35,6 +45,7 @@ public class Utils {
 
     /**
      * Create a progress bar which shows the progress
+     *
      * @param context
      * @return Progress Dialog to hide from where it is called
      */
@@ -151,4 +162,29 @@ public class Utils {
     }
 
 
+    /**
+     * Convert date into format
+     *
+     * @param inputDate input date that is to be converted in format dd/MM/YYYY
+     */
+    public static String formatDate(String inputDate) {
+
+        String formattedDate = "";
+        try {
+            SimpleDateFormat inputFormat = new SimpleDateFormat("yyyy-MM-dd");
+            SimpleDateFormat outputFormat = new SimpleDateFormat("dd-MM-yyyy");
+            Date date = null;
+            //date = inputFormat.parse("2020-05-03T00:00:00");
+            date = inputFormat.parse(inputDate);
+            formattedDate = outputFormat.format(date);
+            if (formattedDate == null || formattedDate.length() == 0) {
+                formattedDate = inputDate;
+            }
+            //System.out.println("coverted: "+formattedDate);
+        } catch (ParseException | java.text.ParseException e) {
+            e.printStackTrace();
+        }
+
+        return "" + formattedDate;
+    }
 }

@@ -51,16 +51,16 @@
     <!-- Margin & padding -->
     <dimen name="margin_padding_tiny_min">2dp</dimen>
     <dimen name="margin_padding_tiny">4dp</dimen>
-    <dimen name="margin_padding_xtiny">6dp</dimen>
+    <dimen name="margin_padding_x_tiny">6dp</dimen>
     <dimen name="margin_padding_small">9dp</dimen>
     <dimen name="margin_padding_x_small">12dp</dimen>
-    <dimen name="margin_padding_normal">15dp
-    </dimen>     <!-- Top margin for views used in login and change password -->
-    <dimen name="margin_padding_xnormal">20dp</dimen>
-    <dimen name="margin_padding_xxnormal">25dp</dimen>
+    <dimen name="margin_padding_normal">15dp</dimen>
+    <!-- Top margin for views used in login and change password -->
+    <dimen name="margin_padding_x_normal">20dp</dimen>
+    <dimen name="margin_padding_xx_normal">25dp</dimen>
     <dimen name="margin_padding_large">30dp</dimen>
     <dimen name="margin_padding_xlarge">40dp</dimen>
-    <dimen name="margin_padding_xxlarge">50dp</dimen>
+    <dimen name="margin_padding_xx_large">50dp</dimen>
     <dimen name="margin_large">70dp</dimen>
     <dimen name="margin_x_large">170dp</dimen>
     <dimen name="spacing">9dp</dimen>

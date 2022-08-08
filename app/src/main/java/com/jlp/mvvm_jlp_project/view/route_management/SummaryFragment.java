@@ -11,29 +11,25 @@ import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.databinding.FragmentSummaryBinding;
 import com.jlp.mvvm_jlp_project.model.RouteSummary;
-import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestBodyRouteManagementSummary;
-import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestDataRouteManagementSummary;
-import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestEnvelopRouteManagementSummary;
 import com.jlp.mvvm_jlp_project.model.response.route_management_summary.ResponseDataRouteManagementSummary;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
 import com.jlp.mvvm_jlp_project.viewmodel.SummaryViewModel;
 
-import javax.inject.Inject;
-
 import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class SummaryFragment extends BaseFragment implements View.OnClickListener {
 
-    private static final String ARG_PARAM1 = "param1";
+    /*private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
     private String mParam1;
-    private String mParam2;
+    private String mParam2;*/
     private @NonNull
     FragmentSummaryBinding binding;
     private SummaryViewModel summaryViewModel;
@@ -41,20 +37,11 @@ public class SummaryFragment extends BaseFragment implements View.OnClickListene
     private RouteSummary summary;
 
 
-    @Inject
-    RequestEnvelopRouteManagementSummary requestEnvelop;
-
-    @Inject
-    RequestBodyRouteManagementSummary requestBody;
-
-    @Inject
-    RequestDataRouteManagementSummary requestData;
-
     public SummaryFragment() {
 
     }
 
-    public static SummaryFragment newInstance(String param1, String param2) {
+    /*public static SummaryFragment newInstance(String param1, String param2) {
         SummaryFragment fragment = new SummaryFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
@@ -62,12 +49,12 @@ public class SummaryFragment extends BaseFragment implements View.OnClickListene
         fragment.setArguments(args);
 
         return fragment;
-    }
+    }*/
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        initPageParam();
+        /*initPageParam();*/
     }
 
     @Override
@@ -78,36 +65,54 @@ public class SummaryFragment extends BaseFragment implements View.OnClickListene
         initObserver(view);
         initListener();
 
-        findSummaryDetails("R38AM20080913T2");
+        setToolTitle(getString(R.string.str_route_management));
+        callSummaryDetails("R38AM20080913T2");
     }
 
 
-    private void initPageParam() {
+   /* private void initPageParam() {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+    }*/
+
+
+    /**
+     * @param routeId routeID came from scanner screen
+     * @author Ganesh
+     * <p>
+     * For call service summary of Deliveries
+     */
+    private void callSummaryDetails(String routeId) {
+
+        if (Utils.isInternetAvailable(getActivity())) {
+            //prepareEnvelopSummaryDetails(routeId);
+            summaryViewModel.callSummaryDetails(routeId);
+        } else {
+            Utils.hideProgressDialog(progressDialog);
+            Utils.showErrorMessage(getActivity(), getResources().getString(R.string.please_check_internet_connection));
+        }
+
     }
 
-
-    private void findSummaryDetails(String routeId) {
-        prepareEnvelopSummaryDetails(routeId);
-        summaryViewModel.findSummaryDetails(requestEnvelop);
+    /**
+     * @param title title name
+     * @author Ganesh
+     * <p>
+     * For setting title for the toolbar
+     */
+    private void setToolTitle(String title) {
+        binding.homeTopHeader.txtToolbarTitle.setText("" + title);
     }
 
 
     /**
-     * Prepared Data set for api call RouteSummary
-     *
-     * @param routeId
+     * @param view
+     * @author Ganesh
+     * <p>
+     * For setting data observer for the webservice response
      */
-    private void prepareEnvelopSummaryDetails(String routeId) {
-        requestData.setRouteId(routeId);
-        requestBody.setRequestDataRouteManagementSummary(requestData);
-        requestEnvelop.setRequestBodyRouteManagementSummary(requestBody);
-    }
-
-
     private void initObserver(View view) {
 
         summaryViewModel.responseSummaryDetails.observe(getViewLifecycleOwner(), new Observer<Resource<ResponseDataRouteManagementSummary>>() {
@@ -140,10 +145,16 @@ public class SummaryFragment extends BaseFragment implements View.OnClickListene
 
     }
 
+    /**
+     * @param
+     * @author Ganesh
+     * <p>
+     * For updating summary on UI
+     */
     public void updateSummaryOnView() {
         // Header
         binding.layoutSummaryInclHeader.txtRouteNumberValue.setText("" + summary.getRouteNumber());
-        binding.layoutSummaryInclHeader.txtDeliveryDateValue.setText("" + summary.getDeliveryDate());
+        binding.layoutSummaryInclHeader.txtDeliveryDateValue.setText("" + summary.getFormattedDeliveryDate());
 
         // Summary
         binding.layoutSummaryIncl.txTotalDeliveriesValue.setText("" + summary.getTotalNumberOfDeliveriesCount());//summary.getTotalDeliveries()
@@ -152,6 +163,13 @@ public class SummaryFragment extends BaseFragment implements View.OnClickListene
     }
 
 
+    /**
+     * @param index position of list
+     * @param model Data over menu item
+     * @author Ganesh
+     * <p>
+     * For click listenr, initialization of objects.
+     */
     private void initListener() {
         //binding.homeTopheader.imgClose.setOnClickListener(this);
 
@@ -165,6 +183,12 @@ public class SummaryFragment extends BaseFragment implements View.OnClickListene
     }
 
 
+    /**
+     * @param view
+     * @author Ganesh
+     * <p>
+     * For click listeners of the page view
+     */
     @Override
     public void onClick(View view) {
         switch (view.getId()) {

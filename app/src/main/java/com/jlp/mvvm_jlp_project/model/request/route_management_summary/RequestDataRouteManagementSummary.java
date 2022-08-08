@@ -9,7 +9,7 @@ import javax.inject.Inject;
 @Root(name = "FindSummaryOfDeliveriesAndDeliveryItemsRequest", strict = false)
 public class RequestDataRouteManagementSummary {
     @Inject
-    RequestDataRouteManagementSummary() {
+    public RequestDataRouteManagementSummary() {
     }
 
     @Element(name = "routeResourceKey", required = false)

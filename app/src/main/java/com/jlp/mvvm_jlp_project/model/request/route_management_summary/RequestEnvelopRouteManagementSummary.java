@@ -18,7 +18,7 @@ import javax.inject.Inject;
 public class RequestEnvelopRouteManagementSummary {
 
     @Inject
-    RequestEnvelopRouteManagementSummary() {
+    public RequestEnvelopRouteManagementSummary() {
     }
 
     @Element(name = "soapenv:Body", required = false)

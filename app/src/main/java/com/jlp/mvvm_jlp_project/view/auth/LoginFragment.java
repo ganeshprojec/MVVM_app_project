@@ -1,6 +1,8 @@
 package com.jlp.mvvm_jlp_project.view.auth;
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
@@ -12,6 +14,7 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListAdapter;
 
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.databinding.FragmentLoginBinding;
@@ -19,13 +22,20 @@ import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestEnvelopeA
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.AuthenticationDetails;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestBodyAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestDataAuthenticateUser;
+import com.jlp.mvvm_jlp_project.model.response.authenticate_user.DeliveryCentreNumber;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
+import com.jlp.mvvm_jlp_project.pref.AppPreferencesHelper;
+import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
+import com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScannerFragment;
 import com.jlp.mvvm_jlp_project.view.home.HomeActivity;
 import com.jlp.mvvm_jlp_project.viewmodel.AuthViewModel;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -49,6 +59,9 @@ public class LoginFragment extends BaseFragment {
     RequestDataAuthenticateUser requestDataAuthenticateUser;
     @Inject
     AuthenticationDetails authenticationDetails;
+
+    @Inject
+    AppPreferencesHelper appPreferencesHelper;
 
     @Override
     protected View initViewBinding(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -136,19 +149,96 @@ public class LoginFragment extends BaseFragment {
                         case ERROR:{
                             Utils.hideProgressDialog(progressDialog);
                             Utils.showErrorMessage(getActivity(), response.message);
+                            if(response.data!=null && response.data.getDitsErrors()!=null &&
+                                    response.data.getDitsErrors().getDitsError()!=null &&
+                                    response.data.getDitsErrors().getDitsError().getErrorType()!=null &&
+                                    response.data.getDitsErrors().getDitsError().errorType.ErrorNumber.equals(
+                                    AppConstants.ERROR_NUMBER_FOR_PASSWORD_EXPIRES)){
+                                Helper.addFragment(getActivity(), new ChangePasswordFragment(AppConstants.FRAGMENT_CHANGE_PASSWORD_AND_LOGON));
+                            }
                             break;
                         }
 
                         case SUCCESS:{
                             clearViews();
                             Utils.hideProgressDialog(progressDialog);
-                            Helper.redirectToActivity(getActivity(), HomeActivity.class, true);
+                            response.data.getAuthenticationDetails();
+                            Helper.handleResponseAndDoLogin(response.data.getAuthenticationDetails(), getActivity(), appPreferencesHelper);
                             break;
                         }
                     }
                 }
             }
         });
+    }
+
+    /**
+     * Select delivery branch dialog decision
+     * @param data of type ResponseDataAuthenticateUser
+     * @return check the size of deliveryCentreNumber and if its more than one then return true else false
+     */
+    private boolean isShowDeliveryCenterList(ResponseDataAuthenticateUser data) {
+        if(data.getAuthenticationDetails().deliveryCentreNumber.size()>1)
+            return true;
+        else
+            return false;
+    }
+
+    /**
+     * Show a dialog to select delivery center number
+     * @param response of type ResponseDataAuthenticateUser
+     */
+    private void selectDeliveryCenter(ResponseDataAuthenticateUser response) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
+        builder.setTitle(getResources().getString(R.string.choose_delivery_center));
+        final int[] selectedItemPosition = {0};
+        builder.setSingleChoiceItems(extractDeliveryCenterNamesInArray(response), selectedItemPosition[0], new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                selectedItemPosition[0] = which;
+
+            }
+        });
+
+        builder.setPositiveButton(getResources().getString(R.string.login), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                DeliveryCentreNumber deliveryCentreNumber = response.getAuthenticationDetails().getDeliveryCentreNumber().get(selectedItemPosition[0]);
+                updateSharedPref(response, deliveryCentreNumber.getDeliveryCentreId(), deliveryCentreNumber.getDeliveryCentreName());
+                Helper.redirectToActivity(getActivity(), HomeActivity.class, true);
+            }
+        });
+        builder.setNegativeButton(getResources().getString(R.string.logout), null);
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    /**
+     * get the delivery center name from the response
+     * @param response of type ResponseDataAuthenticateUser
+     * @return string values of delivery center names used for the dialog
+     */
+    private String[] extractDeliveryCenterNamesInArray(ResponseDataAuthenticateUser response) {
+        String[] deliveryCenterName = new String[response.getAuthenticationDetails().deliveryCentreNumber.size()];
+        for(int i = 0;  i < response.getAuthenticationDetails().getDeliveryCentreNumber().size(); i++){
+            deliveryCenterName[i] = response.getAuthenticationDetails().getDeliveryCentreNumber().get(i).getDeliveryCentreName();
+        }
+        return deliveryCenterName;
+    }
+
+    /**
+     * Update the shared preferences for further use
+     * @param response of type ResponseDataAuthenticateUser to get the username and userId to store
+     * @param deliveryCentreId
+     * @param deliveryCentreName
+     */
+    private void updateSharedPref(ResponseDataAuthenticateUser response,
+                                  String deliveryCentreId,
+                                  String deliveryCentreName) {
+        appPreferencesHelper.setUsername(response.getAuthenticationDetails().getUserName());
+        appPreferencesHelper.setUserId(response.getAuthenticationDetails().getUserId());
+        appPreferencesHelper.setDeliveryCentreId(deliveryCentreId);
+        appPreferencesHelper.setDeliveryCentreName(deliveryCentreName);
     }
 
     /**

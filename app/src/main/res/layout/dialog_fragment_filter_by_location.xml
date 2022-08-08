@@ -42,10 +42,24 @@
         android:id="@+id/layDialogContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_padding_xtiny"
+        android:layout_margin="@dimen/margin_padding_x_tiny"
         android:minHeight="@dimen/toolbar_height"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/dialogHeader">
+
+
+        <TextView
+            android:id="@+id/txtDialogMessage"
+            style="@style/text_views_message_gray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/dimen_std_page_margin"
+            android:layout_marginBottom="@dimen/dimen_std_page_margin"
+            android:text="@string/str_partial_submit_message"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
 
         <TextView
             android:id="@+id/txtDialogHint"
@@ -54,9 +68,9 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_std_page_margin"
             android:layout_marginBottom="@dimen/dimen_std_page_margin"
-            android:text="@string/enter_location_barcode_number_or_scan"
+            android:text="@string/str_enter_location_name"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/txtDialogMessage" />
 
 
         <com.google.android.material.textfield.TextInputEditText
@@ -65,7 +79,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_padding_tiny"
-            android:hint="@string/enter_location_barcode_number_or_scan"
+            android:hint="@string/str_enter_location_name"
             android:imeOptions="actionNext"
             android:inputType="textCapCharacters"
             android:maxLength="18"

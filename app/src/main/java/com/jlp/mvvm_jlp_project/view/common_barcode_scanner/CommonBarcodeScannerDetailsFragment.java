@@ -7,7 +7,6 @@ import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,10 +18,10 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.jlp.mvvm_jlp_project.R;
-import com.jlp.mvvm_jlp_project.adapters.CommonBarcodeScannerAdapter;
+import com.jlp.mvvm_jlp_project.adapters.CommonAdapter;
 import com.jlp.mvvm_jlp_project.databinding.FragmentCommonBarcodeScannerDetailsBinding;
 import com.jlp.mvvm_jlp_project.model.DeliveryGoodProduct;
-import com.jlp.mvvm_jlp_project.model.ItemEnquiryModel;
+import com.jlp.mvvm_jlp_project.model.TitleValueDataModel;
 import com.jlp.mvvm_jlp_project.model.PrinterDetails;
 import com.jlp.mvvm_jlp_project.model.ReprintLabelDetails;
 import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.LocationItemDetails;
@@ -43,6 +42,7 @@ import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode
 import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseDataRecordLocationOfItem;
 import com.jlp.mvvm_jlp_project.model.response.reprint_label_detail.ResponseDataReprintLabel;
 import com.jlp.mvvm_jlp_project.model.response.update_number_of_lots_response.ResponseDataAmendLotNumerUpdate;
+import com.jlp.mvvm_jlp_project.pref.AppPreferencesHelper;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Resource;
@@ -52,7 +52,7 @@ import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
 
 import com.jlp.mvvm_jlp_project.view.reprint_labels.ReprintLabelAdapter;
 import com.jlp.mvvm_jlp_project.view.reprint_labels.ReprintLabelItemListViewModel;
-import com.jlp.mvvm_jlp_project.viewmodel.CommonBarCodeLocationScannerViewModel;
+import com.jlp.mvvm_jlp_project.viewmodel.CommonBarcodeScannerViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,18 +64,18 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
-    private static final String TAG = LoginFragment.class.getSimpleName();
+    private static final String TAG = CommonBarcodeScannerDetailsFragment.class.getSimpleName();
     private ProgressDialog progressDialog;
     private DeliveryItemProductDetails deliveryItemProductDetails = CommonBarcodeScannerFragment.deliveryItemProductDetails;
     private LocationDetails locationDetails = CommonBarcodeScannerFragment.locationDetails;
     private DeliveryItemDetails deliveryItemDetails = CommonBarcodeScannerFragment.deliveryItemDetails;
     private FragmentCommonBarcodeScannerDetailsBinding binding;
-    private CommonBarCodeLocationScannerViewModel viewModel;
+    private CommonBarcodeScannerViewModel viewModel;
     private ReprintLabelItemListViewModel reprintLabelItemListViewModel;
     private String callFor,totalLotNum;
     // Used for adapter and list to setup
-    private CommonBarcodeScannerAdapter adapter;
-    private List<ItemEnquiryModel> detailsDataList =  new ArrayList<>();
+    private CommonAdapter adapter;
+    private List<TitleValueDataModel> detailsDataList =  new ArrayList<>();
     public  ReprintLabelDetails reprintLabelDetails;
 
     @Inject
@@ -109,6 +109,9 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
     @Inject
     ReprintLabelDetailsReq reprintLabelDetailsReq;
 
+    @Inject
+    AppPreferencesHelper appPreferencesHelper;
+
 
     public CommonBarcodeScannerDetailsFragment(String callFor) {
         this.callFor = callFor;
@@ -123,9 +126,8 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        viewModel = new ViewModelProvider(this).get(CommonBarCodeLocationScannerViewModel.class);
+        viewModel = new ViewModelProvider(this).get(CommonBarcodeScannerViewModel.class);
         reprintLabelItemListViewModel = new ViewModelProvider(this).get(ReprintLabelItemListViewModel.class);
-
         updateActionbarTitleAndLocationLayout();
         initListener();
         initObserver();
@@ -174,7 +176,7 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
      */
     private void setupAdapter(){
         if(detailsDataList!=null){
-            adapter = new CommonBarcodeScannerAdapter(detailsDataList, getContext());
+            adapter = new CommonAdapter(detailsDataList, getContext());
             binding.recyclerView.setAdapter(adapter);
             binding.recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
             totalLotNum=deliveryItemDetails.getTotalLotNumber();
@@ -236,8 +238,12 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
         if(callFor.equals(AppConstants.FRAGMENT_ITEM_MOVEMENT_FOR_LOCATION_BARCODE)
         || callFor.equals(AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE)
         || callFor.equals(AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE)){
-            prepareRequestDataForRecordLocationOfItem(deliveryItemProductDetails, locationDetails);
-            viewModel.recordLocationOfItem(requestEnvelopeRecordLocation);
+            if (Utils.isInternetAvailable(getContext())){
+                prepareRequestDataForRecordLocationOfItem(deliveryItemProductDetails, locationDetails);
+                viewModel.recordLocationOfItem(requestEnvelopeRecordLocation);
+            }else{
+                Utils.showErrorMessage(getActivity(), getResources().getString(R.string.please_check_internet_connection));
+            }
         }
     }
 
@@ -249,9 +255,8 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
     private void prepareRequestDataForRecordLocationOfItem(DeliveryItemProductDetails deliveryItemProductDetails,
                                                            LocationDetails locationDetails) {
         if(deliveryItemProductDetails!=null && locationDetails!=null){
-            //TODO: get user id and username from SP
-            locationItemDetails.setUserId("UserId");
-            locationItemDetails.setUserName("UserName");
+            locationItemDetails.setUserId(appPreferencesHelper.getUserId());
+            locationItemDetails.setUserName(appPreferencesHelper.getUsername());
             locationItemDetails.setLocationId(locationDetails.getLocationId());
             locationItemDetails.setName15(locationDetails.getName15());
             locationItemDetails.setProductCode(deliveryItemProductDetails.getProductCode());
@@ -351,9 +356,9 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
             }
         });
 
-        viewModel.itemEnquiry.observe(getViewLifecycleOwner(), new Observer<List<ItemEnquiryModel>>() {
+        viewModel.itemEnquiry.observe(getViewLifecycleOwner(), new Observer<List<TitleValueDataModel>>() {
             @Override
-            public void onChanged(List<ItemEnquiryModel> itemEnquiryModels) {
+            public void onChanged(List<TitleValueDataModel> itemEnquiryModels) {
                 detailsDataList.clear();
                 detailsDataList.addAll(itemEnquiryModels);
                 adapter.notifyDataSetChanged();

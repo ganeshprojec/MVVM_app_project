@@ -67,7 +67,7 @@
 
     <View
         android:id="@+id/divider3"
-        style="@style/style_views_divider_black"
+        style="@style/style_views_divider_gray"
 
         android:layout_width="0dp"
         app:layout_constraintEnd_toEndOf="@+id/guidelineRight"
@@ -98,7 +98,7 @@
 
     <View
         android:id="@+id/divider4"
-        style="@style/style_views_divider_black"
+        style="@style/style_views_divider_gray"
 
         android:layout_width="0dp"
         app:layout_constraintEnd_toEndOf="@+id/guidelineRight"
@@ -129,7 +129,7 @@
 
     <View
         android:id="@+id/divider5"
-        style="@style/style_views_divider_black"
+        style="@style/style_views_divider_gray"
 
         android:layout_width="0dp"
         app:layout_constraintEnd_toEndOf="@+id/guidelineRight"
