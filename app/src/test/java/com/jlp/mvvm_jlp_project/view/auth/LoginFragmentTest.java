@@ -10,11 +10,14 @@ import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.service.autofill.UserData;
 
+import androidx.lifecycle.Observer;
+
 import com.jlp.mvvm_jlp_project.api.ApiService;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.AuthenticationDetails;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.User;
 import com.jlp.mvvm_jlp_project.repository.UserRepository;
+import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.viewmodel.AuthViewModel;
 
 import junit.framework.TestCase;
@@ -91,6 +94,13 @@ public class LoginFragmentTest  extends TestCase
     @Test
     public void testServerLoginSuccess() {
 
+        authViewModel.responseAuthenticateUser.observe(myObjectUnderTest.getViewLifecycleOwner(), new Observer<Resource<ResponseDataAuthenticateUser>>() {
+            @Override
+            public void onChanged(Resource<ResponseDataAuthenticateUser> responseDataAuthenticateUserResource)
+            {
+
+            }
+        });
 
     }
 
