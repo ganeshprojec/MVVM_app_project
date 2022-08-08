@@ -1,13 +1,10 @@
 package com.jlp.mvvm_jlp_project.view.reprint_labels;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -16,39 +13,22 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import com.jlp.mvvm_jlp_project.R;
-import com.jlp.mvvm_jlp_project.adapters.CommonBarcodeScannerAdapter;
-import com.jlp.mvvm_jlp_project.databinding.FragmentCommonPrinterListBinding;
 import com.jlp.mvvm_jlp_project.databinding.FragmentReprintLabelItemListBinding;
 import com.jlp.mvvm_jlp_project.model.DeliveryGoodProduct;
-import com.jlp.mvvm_jlp_project.model.DeliveryGoodProductDetails;
-import com.jlp.mvvm_jlp_project.model.ItemEnquiryModel;
 import com.jlp.mvvm_jlp_project.model.PrinterDetails;
 import com.jlp.mvvm_jlp_project.model.ReprintLabelDetails;
-import com.jlp.mvvm_jlp_project.model.ReprintLableItemModel;
-import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.LocationItemDetails;
 import com.jlp.mvvm_jlp_project.model.request.reprint_label_detail.ReprintLabelDetailsReq;
 import com.jlp.mvvm_jlp_project.model.request.reprint_label_detail.RequestBodyReprintLabel;
 import com.jlp.mvvm_jlp_project.model.request.reprint_label_detail.RequestDataReprintLabel;
 import com.jlp.mvvm_jlp_project.model.request.reprint_label_detail.RequestEnvelopeReprintLabel;
-import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.DeliveryItemProductDetails;
-import com.jlp.mvvm_jlp_project.model.response.find_delivery_good_product.ResponseDataFindDeliveryGoodProduct;
-import com.jlp.mvvm_jlp_project.model.response.find_delivery_item_details_for_component_barcode.DeliveryItemDetails;
 import com.jlp.mvvm_jlp_project.model.response.reprint_label_detail.ResponseDataReprintLabel;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
-import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
 import com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScannerFragment;
-import com.jlp.mvvm_jlp_project.view.common_printer_list.CommonPrinterListFragment;
-import com.jlp.mvvm_jlp_project.viewmodel.CommonPrinterViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -62,7 +42,6 @@ public class ReprintLabelItemListFragment extends BaseFragment {
 
     ReprintLabelItemListViewModel reprintLabelItemListViewModel;
     FragmentReprintLabelItemListBinding binding;
-   //private DeliveryGoodProduct deliveryGoodProduct = CommonPrinterListFragment.;
 
     String callFor;
     String deliveryNumber,printerID;

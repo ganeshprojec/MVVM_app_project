@@ -167,10 +167,6 @@
     <string name="selected_location">Selected location</string>
 
     <!-- Strings for Carrier Handover Details Fragment -->
-    <string name="carrier_collection_details">Enter Delivery Number/Scan</string>
-    <string name="enter_delivery_barcode_number">Enter Delivery Barcode Number/Scan</string>
-    <string name="enter_delivery_barcode_number_or_scan">Enter Delivery Barcode Number/Scan</string>
-
     <string name="str_route_summary">Route Summary</string>
     <string name="dummy_lotSr">L</string>
     <string name="dummy_location_b5">Location B5</string>

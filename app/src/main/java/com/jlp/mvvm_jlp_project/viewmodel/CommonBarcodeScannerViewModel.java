@@ -11,6 +11,7 @@ import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.model.TitleValueDataModel;
 import com.jlp.mvvm_jlp_project.model.request.find_deliveries_and_delivery_items.RequestEnvelopeFindDeliveriesAndDeliveryItems;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestEnvelopeFindDeliveryDetailsForComponentBarcode;
+import com.jlp.mvvm_jlp_project.model.request.find_delivery_good_product.RequestEnvelopeFindDeliveryGoodProduct;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_item_details_for_component_barcode.RequestEnvelopeFindDeliveryItemDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_handover_details.RequestEnvelopeFindHandoverDetails;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
@@ -19,9 +20,12 @@ import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.RequestEnv
 import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestBodyRouteManagementSummary;
 import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestDataRouteManagementSummary;
 import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestEnvelopRouteManagementSummary;
+import com.jlp.mvvm_jlp_project.model.request.update_number_of_lots_request.LotDetails;
+import com.jlp.mvvm_jlp_project.model.request.update_number_of_lots_request.RequestEnvelopeAmendLotNumerUpdate;
 import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items.ResponseDataFindDeliveriesAndDeliveryItems;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.DeliveryItemProductDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.ResponseDataFindDeliveryDetailsForComponentBarcode;
+import com.jlp.mvvm_jlp_project.model.response.find_delivery_good_product.ResponseDataFindDeliveryGoodProduct;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_item_details_for_component_barcode.DeliveryItemDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_item_details_for_component_barcode.ResponseDataFindDeliveryItemDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_handover_details.ResponseDataFindHandoverDetails;
@@ -29,6 +33,7 @@ import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseDataFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseDataRecordLocationOfItem;
 import com.jlp.mvvm_jlp_project.model.response.route_management_summary.ResponseDataRouteManagementSummary;
+import com.jlp.mvvm_jlp_project.model.response.update_number_of_lots_response.ResponseDataAmendLotNumerUpdate;
 import com.jlp.mvvm_jlp_project.repository.CommonBarcodeScannerRepository;
 import com.jlp.mvvm_jlp_project.repository.RouteManagementSummaryRepository;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
@@ -73,6 +78,11 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
     public MutableLiveData<Resource<ResponseDataFindDeliveriesAndDeliveryItems>> responseFindDeliveriesAndDeliveryItems
             = new MutableLiveData<>();
 
+    public MutableLiveData<Resource<ResponseDataFindDeliveryGoodProduct>> responseDataFindDeliveryGoodProduct = new MutableLiveData<>();
+
+    public MutableLiveData<Resource<ResponseDataAmendLotNumerUpdate>> responseDataAmendLotNumberUpdate = new MutableLiveData<>();
+
+
     @Inject
     public CommonBarcodeScannerViewModel(@NonNull Application application, CommonBarcodeScannerRepository repository, RouteManagementSummaryRepository routeSummayRepo) {
         super(application);
@@ -85,6 +95,8 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
         this.responseFindDeliveryItemDetailsForComponentBarcode = repository._responseFindDeliveryItemDetailsForComponentBarcode;
         this.responseFindHandoverDetails = repository._responseFindHandoverDetails;
         this.responseFindDeliveriesAndDeliveryItems = repository._responseFindDeliveriesAndDeliveryItems;
+        this.responseDataAmendLotNumberUpdate = repository._responseDataAmendLotNumerUpdate;
+        this.responseDataFindDeliveryGoodProduct = repository._responseDataFindDeliveryGoodProduct;
     }
 
     public void findDeliveryDetailsForComponentBarcode(RequestEnvelopeFindDeliveryDetailsForComponentBarcode envelope) {
@@ -109,6 +121,14 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
 
     public void recordLocationOfItem(RequestEnvelopeRecordLocationOfItem envelope) {
         repository.recordLocationOfItem(envelope);
+    }
+
+    public void findDeliveryGoodProducts(RequestEnvelopeFindDeliveryGoodProduct envelope){
+        repository.findDeliveryGoodProducts(envelope);
+    }
+
+    public void findUpdateLotNumRequired(RequestEnvelopeAmendLotNumerUpdate envelope) {
+        repository.updateLostNumerRequire(envelope);
     }
 
     public void validateBarcode(String barcode, String callFor) {
@@ -243,5 +263,47 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
         requestBody.setRequestDataRouteManagementSummary(requestData);
         requestEnvelop.setRequestBodyRouteManagementSummary(requestBody);
         return requestEnvelop;
+    }
+
+    public void validateDeliveryNumber(String deliveryNum) {
+        Pair result = new Pair<> (true, 0);
+        if(TextUtils.isEmpty(deliveryNum)){
+            result = new Pair(false, R.string.enter_delivery_number_scan);
+        }else if(deliveryNum.length()<6){
+            result = new Pair(false, R.string.invalid_deliveryno_barcode);
+        }
+        validationResult.setValue(result);
+    }
+
+    public void validateLotNumberRequired(String inputLotsRequired, String totalLotNum){
+        Pair resultLotRequired =new Pair<>(true,0);
+        if(TextUtils.isEmpty(inputLotsRequired)){
+            resultLotRequired = new Pair(false, R.string.lot_number_required);
+        }else if(inputLotsRequired.equals(totalLotNum)){
+            resultLotRequired = new Pair(false, R.string.number_lots_mustbe_different);
+        }else if(inputLotsRequired.equals("0")){
+            resultLotRequired = new Pair(false, R.string.invalid_input);
+        }
+        validationResult.setValue(resultLotRequired);
+
+    }
+
+    public void getAmendLotItemDetails(DeliveryItemDetails deliveryItemDetails){
+        List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_number,deliveryItemDetails.getDeliveryId()));
+
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.item,
+                deliveryItemDetails.getProductCode()));
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.product_description,
+                deliveryItemDetails.getOrderDescriptionClean()));
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.str_current_lot,deliveryItemDetails.getCurrentLotNumber()));
+        itemEnquiry.setValue(itemEnquiryModels);
+    }
+
+    public void updateAmendLotNumAdapterData(LotDetails lotDetails, DeliveryItemDetails deliveryItemDetails) {
+        List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
+        itemEnquiryModels.remove(3);
+        itemEnquiryModels.add(new TitleValueDataModel(R.string.str_current_lot, lotDetails.getUpdatedCurrentLot()));
+        itemEnquiry.setValue(itemEnquiryModels);
     }
 }

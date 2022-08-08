@@ -11,8 +11,7 @@
         android:id="@+id/itemLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/margin_padding_xnormal"
-
+        android:layout_marginStart="@dimen/margin_padding_x_normal"
         tools:ignore="MissingConstraints" >
 
     <TextView

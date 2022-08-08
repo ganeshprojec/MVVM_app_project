@@ -322,7 +322,8 @@ public class CommonBarcodeScannerFragment extends BaseFragment  {
                     findDeliveryDetailsForComponentBarcode(barcode);
                     break;
                 }
-                case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE: {
+                case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE:
+                case AppConstants.FRAGMENT_AMEND_LOTS:{
                     findDeliveryItemDetailsForComponentBarcode(barcode);
                     break;
                 }
@@ -341,30 +342,10 @@ public class CommonBarcodeScannerFragment extends BaseFragment  {
                     findHandoverDetails(barcode);
                     break;
                 }
-        switch (callFor){
-            case AppConstants.FRAGMENT_ITEM_ENQUIRY:
-            case AppConstants.FRAGMENT_ITEM_MOVEMENT_FOR_COMPONENT_BARCODE: {
-                findDeliveryDetailsForComponentBarcode(barcode);
-                break;
-            }
-            case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE:
-            case AppConstants.FRAGMENT_AMEND_LOTS:{
-                findDeliveryItemDetailsForComponentBarcode(barcode);
-                break;
-            }
-            case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE:
-            case AppConstants.FRAGMENT_ITEM_MOVEMENT_FOR_LOCATION_BARCODE:{
-                findLocationDetailsForBarcode(barcode);
-                break;
-            }
-            case AppConstants.FRAGMENT_HAND_OVER_DELIVERY_DETAILS:{
-                replaceFragment(new CarrierHandoverDetailsFragment());
-                break;
-            }
-            case AppConstants.FRAGMENT_REPRINT_LABELS:{
-                 findDeliveryGoodProducts(barcode);
-
-                break;
+                case AppConstants.FRAGMENT_REPRINT_LABELS:{
+                    findDeliveryGoodProducts(barcode);
+                    break;
+                }
             }
         }else{
             Utils.showErrorMessage(getActivity(), getResources().getString(R.string.please_check_internet_connection));
@@ -372,7 +353,7 @@ public class CommonBarcodeScannerFragment extends BaseFragment  {
     }
 
     private void findDeliveryGoodProducts(String barcode) {
-         prepareRequestDataForFindDeliveryGoodProducts(barcode);
+        prepareRequestDataForFindDeliveryGoodProducts(barcode);
         viewModel.findDeliveryGoodProducts(requestEnvelopeFindDeliveryGoodProduct);
     }
 

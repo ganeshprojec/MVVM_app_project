@@ -2,7 +2,6 @@ package com.jlp.mvvm_jlp_project.view.common_barcode_scanner;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
-import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.adapters.CommonAdapter;
 import com.jlp.mvvm_jlp_project.databinding.FragmentCommonBarcodeScannerDetailsBinding;
-import com.jlp.mvvm_jlp_project.model.DeliveryGoodProduct;
 import com.jlp.mvvm_jlp_project.model.TitleValueDataModel;
 import com.jlp.mvvm_jlp_project.model.PrinterDetails;
 import com.jlp.mvvm_jlp_project.model.ReprintLabelDetails;
@@ -47,16 +45,13 @@ import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.Utils;
-import com.jlp.mvvm_jlp_project.view.auth.LoginFragment;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
 
-import com.jlp.mvvm_jlp_project.view.reprint_labels.ReprintLabelAdapter;
 import com.jlp.mvvm_jlp_project.view.reprint_labels.ReprintLabelItemListViewModel;
 import com.jlp.mvvm_jlp_project.viewmodel.CommonBarcodeScannerViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 
 import javax.inject.Inject;
 
@@ -221,7 +216,7 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
             public void onClick(View view)
             {
                 Helper.hideKeyboard(getActivity(), view);
-                viewModel.validateLotNumerRequired(binding.inputLotsRequired.getText().toString().trim(),deliveryItemDetails.totalLotNumber);
+                viewModel.validateLotNumberRequired(binding.inputLotsRequired.getText().toString().trim(),deliveryItemDetails.totalLotNumber);
 
             }
         });
@@ -270,12 +265,8 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
 
     /**
      * Set actionbar title and update location layout items if call is for multi movement feature
-     * @param locationDetails shown location name from this object
      */
     private void updateActionbarTitleAndLocationLayout() {
-
-      //  Log.d("VALLLLLL",CommonBarcodeScannerFragment.locationLayoutFlag+"------"+CommonBarcodeScannerFragment.locationAmendLotFlag);
-
         binding.itemEnquiryHeader.txtToolbarTitle.setText(CommonBarcodeScannerFragment.actionBarTitle);
         if(CommonBarcodeScannerFragment.locationLayoutFlag){
             updateLocationLayout(locationDetails);
@@ -367,7 +358,7 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
 
 
         /*updateLots*/
-         viewModel.responseDataAmendLotNumerUpdate.observe(getViewLifecycleOwner(), new Observer<Resource<ResponseDataAmendLotNumerUpdate>>() {
+         viewModel.responseDataAmendLotNumberUpdate.observe(getViewLifecycleOwner(), new Observer<Resource<ResponseDataAmendLotNumerUpdate>>() {
             @Override
             public void onChanged(Resource<ResponseDataAmendLotNumerUpdate> response) {
                 if(response.status != null){

@@ -5,36 +5,22 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.jlp.mvvm_jlp_project.R;
-
-import com.jlp.mvvm_jlp_project.adapters.CommonBarcodeScannerAdapter;
 import com.jlp.mvvm_jlp_project.databinding.FragmentCommonPrinterListBinding;
-import com.jlp.mvvm_jlp_project.model.ItemEnquiryModel;
 import com.jlp.mvvm_jlp_project.model.PrinterDetails;
-import com.jlp.mvvm_jlp_project.model.PrinterListModel;
-import com.jlp.mvvm_jlp_project.model.RouteSummary;
 import com.jlp.mvvm_jlp_project.model.request.printer_list.RequestBodyPrinterList;
 import com.jlp.mvvm_jlp_project.model.request.printer_list.RequestDataPrinterList;
 import com.jlp.mvvm_jlp_project.model.request.printer_list.RequestEnveloperPrinterList;
-import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestBodyRouteManagementSummary;
-import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestDataRouteManagementSummary;
-import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestEnvelopRouteManagementSummary;
 import com.jlp.mvvm_jlp_project.model.response.printer_list.ResponseDataPrinterList;
-import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseDataRecordLocationOfItem;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
-
-import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;

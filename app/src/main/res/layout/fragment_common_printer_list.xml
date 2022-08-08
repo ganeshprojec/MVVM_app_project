@@ -30,8 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="@dimen/margin_padding_large"
-        android:layout_marginLeft="@dimen/margin_padding_xnormal"
-        android:layout_marginRight="@dimen/margin_padding_xnormal"
+        android:layout_marginLeft="@dimen/margin_padding_x_normal"
+        android:layout_marginRight="@dimen/margin_padding_x_normal"
         app:layout_constraintTop_toBottomOf="@+id/top_appBar"
         tools:ignore="MissingConstraints"
         />
