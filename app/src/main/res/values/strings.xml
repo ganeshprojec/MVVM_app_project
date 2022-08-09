@@ -76,21 +76,23 @@
     <string name="dummy_item">Item</string>
 
     <!-- Strings for Item Enquiry -->
-    <string name="item_enquiry_title">Item Enquiry</string>
+    <string name="item_enquiry_title">Item enquiry</string>
+    <string name="location_barcode_not_recognised">Location barcode not recognised.Please scan again</string>
+
 
     <string name="enter_lots_required">Enter  Number of Lots Required</string>
 
-    <string name="enter_barcode_number">Enter Barcode Number/Scan</string>
-    <string name="enter_item_barcode_number">Enter Item Barcode Number/Scan</string>
+    <string name="enter_item_barcode_number">Enter item barcode number/scan</string>
     <string name="Next">Next</string>
     <string name="print">Print</string>
     <string name="text_display_item_enquiry_key">Display Key</string>
     <string name="text_display_item_enquiry_value">Display Value</string>
     <string name="text_route_number">Route Number</string>
     <string name="text_route_number1">Route Number1</string>
-    <string name="scan_next_item_barcode">Scan Next Item Barcode</string>
+    <string name="scan_location_barcode_to_move_item">Scan location barcode to move item</string>
+    <string name="scan_next_item_barcode">Scan next item barcode</string>
     <string name="enter_barcode">Enter Barcode</string>
-    <string name="enter_barcode_required">Item Barcode Required</string>
+    <string name="item_barcode_required">Item barcode required</string>
     <string name="enter_delivery_number_scan">Input Delivery Number/Barcode</string>
     <string name="invalid_barcode">Invalid Barcode</string>
     <string name="invalid_deliveryno_barcode">Invalid Delivery Number/Barcode</string>

@@ -135,11 +135,10 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
         Pair result = new Pair<>(true, 0);
         switch (callFor) {
             case AppConstants.FRAGMENT_ITEM_ENQUIRY:
+            case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE:
             case AppConstants.FRAGMENT_ITEM_MOVEMENT_FOR_COMPONENT_BARCODE: {
                 if (TextUtils.isEmpty(barcode)) {
-                    result = new Pair(false, R.string.enter_barcode);
-                } else if (barcode.length() < 6) {
-                    result = new Pair(false, R.string.invalid_barcode);
+                    result = new Pair(false, R.string.item_barcode_required);
                 }
                 break;
             }
@@ -183,9 +182,9 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
         titleValueDataModels.add(new TitleValueDataModel(R.string.route_number,
                 deliveryItemProductDetails.getRouteResourceKey()));
         String deliveryDate =  deliveryItemProductDetails.getDeliveryDate();
-        if (deliveryDate!=null && deliveryDate.equals("")) {//deliveryDate.Text = datetime.ToString("dd.MM.yyyy");
+        if (!TextUtils.isEmpty(deliveryDate)) {//deliveryDate.Text = datetime.ToString("dd.MM.yyyy");
             deliveryDate = StringUtils.getFormattedDate(deliveryDate, AppConstants.APP_DATE_FORMAT);
-        } else deliveryDate = "";
+        } else {deliveryDate = "";}
         titleValueDataModels.add(new TitleValueDataModel(R.string.delivery_date,
                 deliveryDate));
         titleValueDataModels.add(new TitleValueDataModel(R.string.last_recorded_location,
@@ -264,20 +263,16 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
                 deliveryItemProductDetails.getRouteResourceKey()
         ));
         titleValueDataModels.add(new TitleValueDataModel(R.string.item,
-                "08 Aug 2022"));
+                deliveryItemProductDetails.getProductCode()));
         titleValueDataModels.add(new TitleValueDataModel(R.string.product_description,
                 deliveryItemProductDetails.getOrderDescriptionClean()));
         itemEnquiry.setValue(titleValueDataModels);
     }
 
-    public void updateAdapterData(LocationItemDetails locationItemDetails, LocationDetails locationDetails) {
+    public void updateAdapterData(String lotNumber, String location) {
         List<TitleValueDataModel> titleValueDataModels = new ArrayList<>();
-        titleValueDataModels.add(new TitleValueDataModel(R.string.lot_number,
-                locationItemDetails.getCurrentLotNumber() + " of " + locationItemDetails.getTotalLotNumber()
-        ));
-        titleValueDataModels.add(new TitleValueDataModel(R.string.stored_in_location,
-                locationDetails.getName15()
-        ));
+        titleValueDataModels.add(new TitleValueDataModel(R.string.lot_number, lotNumber));
+        titleValueDataModels.add(new TitleValueDataModel(R.string.stored_in_location, location));
         itemEnquiry.setValue(titleValueDataModels);
     }
 

@@ -128,7 +128,7 @@ public class StringUtils {
             formattedDate = sm.format(date);
         }catch (Exception ex){
             Log.e(TAG, "Exception : "+ex);
-            return null;
+            return date;
         }
         return formattedDate;
     }

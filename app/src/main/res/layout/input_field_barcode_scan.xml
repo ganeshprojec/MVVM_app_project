@@ -8,7 +8,7 @@
         android:id="@+id/text_title"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/enter_barcode_number"
+        android:text="@string/enter_item_barcode_number"
         style="@style/text_views"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

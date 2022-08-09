@@ -2,6 +2,7 @@ package com.jlp.mvvm_jlp_project.view.common_barcode_scanner;
 
 import android.app.ProgressDialog;
 import android.os.Bundle;
+import android.util.Log;
 import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -140,7 +141,6 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
                 binding.textTitle.setVisibility(View.VISIBLE);
                 binding.inputLotsRequired.setVisibility(View.VISIBLE);
                 viewModel.getAmendLotItemDetails(deliveryItemDetails);
-              // viewModel.getComponentBarcodeData(deliveryItemProductDetails);
                 binding.itemEnquiryHeader.imgClose.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
@@ -199,7 +199,7 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
                     }
                     case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE:
                     case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE:{
-                        replaceFragment(new CommonBarcodeScannerFragment(AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE));
+                        replaceFragment(new CommonBarcodeScannerFragment(AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE));
                         break;
                     }
                     default:{
@@ -268,16 +268,24 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
      */
     private void updateActionbarTitleAndLocationLayout() {
         binding.itemEnquiryHeader.txtToolbarTitle.setText(CommonBarcodeScannerFragment.actionBarTitle);
-        if(CommonBarcodeScannerFragment.locationLayoutFlag){
-            updateLocationLayout(locationDetails);
+        switch (callFor){
+            case AppConstants.FRAGMENT_ITEM_MOVEMENT_FOR_COMPONENT_BARCODE:{
+                    binding.scanNextItemBarcode.tvScanNextBarcode.setText(getResources().getString(R.string.scan_location_barcode_to_move_item));
+                break;
+            }
+            case AppConstants.FRAGMENT_ITEM_MOVEMENT_FOR_LOCATION_BARCODE:
+            case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE:
+            case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE:{
+                    binding.scanNextItemBarcode.tvScanNextBarcode.setText(getResources().getString(R.string.scan_next_item_barcode));
+                break;
+            }
         }
-        if(CommonBarcodeScannerFragment.locationAmendLotFlag){
-            updateAmendLotLayout();
-        }
+        if(CommonBarcodeScannerFragment.locationLayoutFlag) updateLocationLayout(locationDetails);
+
+        if(CommonBarcodeScannerFragment.locationAmendLotFlag) updateAmendLotLayout();
     }
 
-    private void updateAmendLotLayout()
-    {
+    private void updateAmendLotLayout() {
         binding.btnPrint.setVisibility(View.VISIBLE);
         binding.scanNextItemBarcode.scanItemBarcode.setVisibility(View.GONE);
     }
@@ -285,8 +293,7 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
     /**
      * setup all the observer of app for api call and adapter list data
      */
-    private void updateLotNumberRequire(String lotNumberRequire, DeliveryItemDetails deliveryItemDetails)
-    {
+    private void updateLotNumberRequire(String lotNumberRequire, DeliveryItemDetails deliveryItemDetails) {
         prepareRequestDataForUpdateLotNumRequired(lotNumberRequire,deliveryItemDetails);
         viewModel.findUpdateLotNumRequired(requestEnvelopeAmendLotNumerUpdate);
     }
@@ -338,7 +345,15 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
                         }
                         case SUCCESS:{
                             Utils.hideProgressDialog(progressDialog);
-                            viewModel.updateAdapterData(response.data.locationItemDetails, locationDetails);
+                            try {
+                                if (response.data.getLocationItemDetails()!=null){
+                                    String lotNumber = response.data.getLocationItemDetails().getCurrentLotNumber() + " of " + response.data.getLocationItemDetails().getTotalLotNumber();
+                                    String location = response.data.getLocationItemDetails().getName15();
+                                    viewModel.updateAdapterData(lotNumber, location);
+                                }
+                            }catch (Exception ex){
+                                Log.e(TAG, "Exception: "+ex);
+                            }
                             break;
                         }
                     }
@@ -349,7 +364,8 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
         viewModel.itemEnquiry.observe(getViewLifecycleOwner(), new Observer<List<TitleValueDataModel>>() {
             @Override
             public void onChanged(List<TitleValueDataModel> titleValueDataModels) {
-                detailsDataList.clear();
+                // for the amend lot only we need to clear the list
+                if(callFor.equals(AppConstants.FRAGMENT_AMEND_LOTS))detailsDataList.clear();
                 detailsDataList.addAll(titleValueDataModels);
                 adapter.notifyDataSetChanged();
             }
