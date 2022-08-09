@@ -15,7 +15,7 @@ public class DeliveryGoodsDetails {
     @Element(name = "deliveryPickupIndicator",required = false)
     public String deliveryPickupIndicator;
     @Element(name = "productCode",required = false)
-    public int productCode;
+    public String productCode;
     @Element(name = "orderDescriptionClean",required = false)
     public String orderDescriptionClean;
     @Element(name = "PartActiveQuantity",required = false)
@@ -39,11 +39,11 @@ public class DeliveryGoodsDetails {
         this.deliveryPickupIndicator = deliveryPickupIndicator;
     }
 
-    public int getProductCode() {
+    public String getProductCode() {
         return productCode;
     }
 
-    public void setProductCode(int productCode) {
+    public void setProductCode(String productCode) {
         this.productCode = productCode;
     }
 

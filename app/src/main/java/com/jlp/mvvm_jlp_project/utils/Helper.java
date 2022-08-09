@@ -11,25 +11,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
-
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.interfaces.DialogListener;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.AuthenticationDetails;
-import com.jlp.mvvm_jlp_project.model.response.authenticate_user.DeliveryCentreNumber;
-import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
 import com.jlp.mvvm_jlp_project.pref.AppPreferencesHelper;
 import com.jlp.mvvm_jlp_project.view.base.BaseDialogFragment;
 import com.jlp.mvvm_jlp_project.view.home.HomeActivity;
-
-import java.util.List;
-
-import javax.inject.Inject;
-
 import dagger.hilt.android.qualifiers.ActivityContext;
 
 public class Helper {

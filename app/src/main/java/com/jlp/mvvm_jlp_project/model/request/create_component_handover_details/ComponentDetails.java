@@ -3,14 +3,16 @@ package com.jlp.mvvm_jlp_project.model.request.create_component_handover_details
  */
 
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.Root;
 
+@Root
 public class ComponentDetails {
     @Element(name = "componentNum",required = false)
     public int componentNum;
     @Element(name = "componentId",required = false)
     public String componentId;
     @Element(name = "componentBarcode",required = false)
-    public double componentBarcode;
+    public String componentBarcode;
     @Element(name = "componentStatus",required = false)
     public String componentStatus;
 
@@ -30,11 +32,11 @@ public class ComponentDetails {
         this.componentId = componentId;
     }
 
-    public double getComponentBarcode() {
+    public String getComponentBarcode() {
         return componentBarcode;
     }
 
-    public void setComponentBarcode(double componentBarcode) {
+    public void setComponentBarcode(String componentBarcode) {
         this.componentBarcode = componentBarcode;
     }
 

@@ -46,7 +46,7 @@ public class CommonAdapter extends RecyclerView.Adapter<CommonViewHolder> {
             }
             viewHolder.value.setText(list.get(position).getValue());
             // To hide the last line from recycler view
-            if (position == list.size()-1) viewHolder.divider.setVisibility(View.GONE);
+            //if (position == list.size()-1) viewHolder.divider.setVisibility(View.GONE);
         }catch (Exception ex){
             Log.e(TAG, "Exception:"+ex);
         }

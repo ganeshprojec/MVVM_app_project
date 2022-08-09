@@ -3,18 +3,22 @@ package com.jlp.mvvm_jlp_project.model.request.create_component_handover_details
  */
 
 import org.simpleframework.xml.Element;
+import org.simpleframework.xml.ElementList;
 import org.simpleframework.xml.Root;
 
-@Root(name = "DeliveryGoodsDetails")
+import java.util.ArrayList;
+import java.util.List;
+
+@Root
 public class DeliveryGoodsDetails {
     @Element(name = "deliveryGoodId",required = false)
     public String deliveryGoodId;
     @Element(name = "productCode",required = false)
-    public int productCode;
+    public String productCode;
     @Element(name = "productDescription",required = false)
     public String productDescription;
-    @Element(name = "componentDetails",required = false)
-    public ComponentDetails componentDetails;
+    @ElementList(name = "componentDetails", inline = true)
+    public List<ComponentDetails> componentDetails = new ArrayList<>();
 
     public String getDeliveryGoodId() {
         return deliveryGoodId;
@@ -24,11 +28,11 @@ public class DeliveryGoodsDetails {
         this.deliveryGoodId = deliveryGoodId;
     }
 
-    public int getProductCode() {
+    public String getProductCode() {
         return productCode;
     }
 
-    public void setProductCode(int productCode) {
+    public void setProductCode(String productCode) {
         this.productCode = productCode;
     }
 
@@ -40,11 +44,11 @@ public class DeliveryGoodsDetails {
         this.productDescription = productDescription;
     }
 
-    public ComponentDetails getComponentDetails() {
+    public List<ComponentDetails> getComponentDetails() {
         return componentDetails;
     }
 
-    public void setComponentDetails(ComponentDetails componentDetails) {
+    public void setComponentDetails(List<ComponentDetails> componentDetails) {
         this.componentDetails = componentDetails;
     }
 }

@@ -11,6 +11,7 @@ import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.model.TitleValueDataModel;
 import com.jlp.mvvm_jlp_project.model.request.find_deliveries_and_delivery_items.RequestEnvelopeFindDeliveriesAndDeliveryItems;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_details_for_component_barcode.RequestEnvelopeFindDeliveryDetailsForComponentBarcode;
+import com.jlp.mvvm_jlp_project.model.request.find_delivery_good_product.RequestEnvelopeFindDeliveryGoodProduct;
 import com.jlp.mvvm_jlp_project.model.request.find_delivery_item_details_for_component_barcode.RequestEnvelopeFindDeliveryItemDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.request.find_handover_details.RequestEnvelopeFindHandoverDetails;
 import com.jlp.mvvm_jlp_project.model.request.find_location_details_for_barcode.RequestEnvelopeFindLocationDetailsForBarcode;
@@ -19,9 +20,12 @@ import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.RequestEnv
 import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestBodyRouteManagementSummary;
 import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestDataRouteManagementSummary;
 import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestEnvelopRouteManagementSummary;
+import com.jlp.mvvm_jlp_project.model.request.update_number_of_lots_request.LotDetails;
+import com.jlp.mvvm_jlp_project.model.request.update_number_of_lots_request.RequestEnvelopeAmendLotNumerUpdate;
 import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items.ResponseDataFindDeliveriesAndDeliveryItems;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.DeliveryItemProductDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_details_for_component_barcode.ResponseDataFindDeliveryDetailsForComponentBarcode;
+import com.jlp.mvvm_jlp_project.model.response.find_delivery_good_product.ResponseDataFindDeliveryGoodProduct;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_item_details_for_component_barcode.DeliveryItemDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_delivery_item_details_for_component_barcode.ResponseDataFindDeliveryItemDetailsForComponentBarcode;
 import com.jlp.mvvm_jlp_project.model.response.find_handover_details.ResponseDataFindHandoverDetails;
@@ -29,9 +33,12 @@ import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode
 import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode.ResponseDataFindLocationDetailsForBarcode;
 import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseDataRecordLocationOfItem;
 import com.jlp.mvvm_jlp_project.model.response.route_management_summary.ResponseDataRouteManagementSummary;
+import com.jlp.mvvm_jlp_project.model.response.update_number_of_lots_response.ResponseDataAmendLotNumerUpdate;
 import com.jlp.mvvm_jlp_project.repository.CommonBarcodeScannerRepository;
 import com.jlp.mvvm_jlp_project.repository.RouteManagementSummaryRepository;
+import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Resource;
+import com.jlp.mvvm_jlp_project.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -71,6 +78,11 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
     public MutableLiveData<Resource<ResponseDataFindDeliveriesAndDeliveryItems>> responseFindDeliveriesAndDeliveryItems
             = new MutableLiveData<>();
 
+    public MutableLiveData<Resource<ResponseDataFindDeliveryGoodProduct>> responseDataFindDeliveryGoodProduct = new MutableLiveData<>();
+
+    public MutableLiveData<Resource<ResponseDataAmendLotNumerUpdate>> responseDataAmendLotNumberUpdate = new MutableLiveData<>();
+
+
     @Inject
     public CommonBarcodeScannerViewModel(@NonNull Application application, CommonBarcodeScannerRepository repository, RouteManagementSummaryRepository routeSummayRepo) {
         super(application);
@@ -83,6 +95,8 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
         this.responseFindDeliveryItemDetailsForComponentBarcode = repository._responseFindDeliveryItemDetailsForComponentBarcode;
         this.responseFindHandoverDetails = repository._responseFindHandoverDetails;
         this.responseFindDeliveriesAndDeliveryItems = repository._responseFindDeliveriesAndDeliveryItems;
+        this.responseDataAmendLotNumberUpdate = repository._responseDataAmendLotNumerUpdate;
+        this.responseDataFindDeliveryGoodProduct = repository._responseDataFindDeliveryGoodProduct;
     }
 
     public void findDeliveryDetailsForComponentBarcode(RequestEnvelopeFindDeliveryDetailsForComponentBarcode envelope) {
@@ -109,83 +123,153 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
         repository.recordLocationOfItem(envelope);
     }
 
-    public void validateBarcode(String barcode) {
+    public void findDeliveryGoodProducts(RequestEnvelopeFindDeliveryGoodProduct envelope){
+        repository.findDeliveryGoodProducts(envelope);
+    }
+
+    public void findUpdateLotNumRequired(RequestEnvelopeAmendLotNumerUpdate envelope) {
+        repository.updateLostNumerRequire(envelope);
+    }
+
+    public void validateBarcode(String barcode, String callFor) {
         Pair result = new Pair<>(true, 0);
-        if (TextUtils.isEmpty(barcode)) {
-            result = new Pair(false, R.string.enter_barcode);
-        } else if (barcode.length() < 6) {
-            result = new Pair(false, R.string.invalid_barcode);
+        switch (callFor) {
+            case AppConstants.FRAGMENT_ITEM_ENQUIRY:
+            case AppConstants.FRAGMENT_ITEM_MOVEMENT_FOR_COMPONENT_BARCODE: {
+                if (TextUtils.isEmpty(barcode)) {
+                    result = new Pair(false, R.string.enter_barcode);
+                } else if (barcode.length() < 6) {
+                    result = new Pair(false, R.string.invalid_barcode);
+                }
+                break;
+            }
+            case AppConstants.FRAGMENT_CARRIER_HANDOVER_DETAILS:
+            case AppConstants.FRAGMENT_CARRIER_COLLECTION_DETAILS:{
+                if (TextUtils.isEmpty(barcode)) {
+                    result = new Pair(false, R.string.please_enter_delivery_number);
+                } else if(barcode.contains("@@")){
+                    result = new Pair(false, R.string.delivery_reference_not_recognised);
+                }else if(barcode.contains("!!")){
+                    result = new Pair(false, R.string.delivery_reference_not_recognised);
+                }
+                break;
+            }
+            case AppConstants.FRAGMENT_REPRINT_LABELS:{
+                if(TextUtils.isEmpty(barcode)){
+                    result = new Pair(false, R.string.enter_delivery_number_scan);
+                }else if(barcode.length()<6){
+                    result = new Pair(false, R.string.invalid_deliveryno_barcode);
+                }
+                break;
+            }
         }
+
         validationResult.setValue(result);
     }
 
     public void getComponentBarcodeData(DeliveryItemProductDetails deliveryItemProductDetails) {
-        List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_number,
-                deliveryItemProductDetails.getDeliveryId()
-        ));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.route_number,
-                deliveryItemProductDetails.getRouteResourceKey()
-        ));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_date,
-                deliveryItemProductDetails.getDeliveryDate()));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.last_recorded_location,
-                deliveryItemProductDetails.getDeliveryAddressPremise()));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.time_of_last_move,
-                deliveryItemProductDetails.getLastUpdatedTimeStamp()));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.last_user_id,
-                deliveryItemProductDetails.getLastUpdatedUserId()));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.product_code,
+        List<TitleValueDataModel> titleValueDataModels = new ArrayList<>();
+        titleValueDataModels.add(new TitleValueDataModel(R.string.delivery_number,
+                deliveryItemProductDetails.getDeliveryId()));
+        titleValueDataModels.add(new TitleValueDataModel(R.string.route_number,
+                deliveryItemProductDetails.getRouteResourceKey()));
+        String deliveryDate =  deliveryItemProductDetails.getDeliveryDate();
+        if (deliveryDate!=null && deliveryDate.equals("")) {//deliveryDate.Text = datetime.ToString("dd.MM.yyyy");
+            deliveryDate = StringUtils.getFormattedDate(deliveryDate, AppConstants.APP_DATE_FORMAT);
+        } else deliveryDate = "";
+        titleValueDataModels.add(new TitleValueDataModel(R.string.delivery_date,
+                deliveryDate));
+        titleValueDataModels.add(new TitleValueDataModel(R.string.last_recorded_location,
+                deliveryItemProductDetails.getName15()));
+        String lastUpdatedTimeStamp = deliveryItemProductDetails.getLastUpdatedTimeStamp();
+        if (!TextUtils.isEmpty(lastUpdatedTimeStamp)) {
+            lastUpdatedTimeStamp = StringUtils.getFormattedDate(lastUpdatedTimeStamp, AppConstants.APP_DATE_TIME_FORMAT);
+        }
+        else lastUpdatedTimeStamp = "-";
+        titleValueDataModels.add(new TitleValueDataModel(R.string.time_of_last_move,
+                lastUpdatedTimeStamp));
+        String lastUpdatedUserId = deliveryItemProductDetails.getLastUpdatedUserId();
+        if (TextUtils.isEmpty(lastUpdatedUserId)) { lastUpdatedUserId = "-"; }
+        titleValueDataModels.add(new TitleValueDataModel(R.string.last_user_id,
+                lastUpdatedUserId));
+        titleValueDataModels.add(new TitleValueDataModel(R.string.product_code,
                 deliveryItemProductDetails.getProductCode()));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.product_description,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.product_description,
                 deliveryItemProductDetails.getOrderDescriptionClean()));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.lot_number,
-                deliveryItemProductDetails.getCurrentLotNumber()));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.address,
-                deliveryItemProductDetails.getDeliveryAddressLocality()));
-        itemEnquiry.setValue(itemEnquiryModels);
+        String lotNumber = deliveryItemProductDetails.getCurrentLotNumber()+" of "+deliveryItemProductDetails.getTotalLotNumber();
+        titleValueDataModels.add(new TitleValueDataModel(R.string.lot_number, lotNumber));
+
+        String address = "";
+
+        if(!TextUtils.isEmpty(deliveryItemProductDetails.deliveryAddressBuildingName)){
+            address = address +" "+deliveryItemProductDetails.deliveryAddressBuildingName;
+        }
+        if(!TextUtils.isEmpty(deliveryItemProductDetails.deliveryAddressPremise)){
+            address = address +" "+deliveryItemProductDetails.deliveryAddressPremise;
+        }
+        if(!TextUtils.isEmpty(deliveryItemProductDetails.deliveryAddressThoroughFare)){
+            address = address +" "+deliveryItemProductDetails.deliveryAddressThoroughFare;
+        }
+        if(!TextUtils.isEmpty(deliveryItemProductDetails.deliveryAddressCompanyName)){
+            address = address +" "+deliveryItemProductDetails.deliveryAddressCompanyName;
+        }
+        if(!TextUtils.isEmpty(deliveryItemProductDetails.deliveryAddressLocality)){
+            address = address +" "+deliveryItemProductDetails.deliveryAddressLocality;
+        }
+        if(!TextUtils.isEmpty(deliveryItemProductDetails.deliveryAddressPostTown)){
+            address = address +" "+deliveryItemProductDetails.deliveryAddressPostTown;
+        }
+        if(!TextUtils.isEmpty(deliveryItemProductDetails.deliveryAddressCounty)){
+            address = address +" "+deliveryItemProductDetails.deliveryAddressCounty;
+        }
+        if(!TextUtils.isEmpty(deliveryItemProductDetails.deliveryAddressPostCode)){
+            address = address +" "+deliveryItemProductDetails.deliveryAddressPostCode;
+        }
+
+        titleValueDataModels.add(new TitleValueDataModel(R.string.address, address));
+        itemEnquiry.setValue(titleValueDataModels);
     }
 
     public void getItemDetailsComponentBarcodeData(DeliveryItemDetails deliveryItemDetails) {
-        List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_number,
+        List<TitleValueDataModel> titleValueDataModels = new ArrayList<>();
+        titleValueDataModels.add(new TitleValueDataModel(R.string.delivery_number,
                 deliveryItemDetails.getDeliveryId()
         ));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.route_number,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.route_number,
                 deliveryItemDetails.getRouteResourceKey()
         ));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.item,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.item,
                 deliveryItemDetails.getGoodId()));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.product_description,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.product_description,
                 deliveryItemDetails.getOrderDescriptionClean()));
-        itemEnquiry.setValue(itemEnquiryModels);
+        itemEnquiry.setValue(titleValueDataModels);
     }
 
     public void getLocationBarcodeData(DeliveryItemProductDetails deliveryItemProductDetails,
                                        LocationDetails locationDetails) {
-        List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.delivery_number,
+        List<TitleValueDataModel> titleValueDataModels = new ArrayList<>();
+        titleValueDataModels.add(new TitleValueDataModel(R.string.delivery_number,
                 deliveryItemProductDetails.getDeliveryId()
         ));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.route_number,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.route_number,
                 deliveryItemProductDetails.getRouteResourceKey()
         ));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.item,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.item,
                 "08 Aug 2022"));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.product_description,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.product_description,
                 deliveryItemProductDetails.getOrderDescriptionClean()));
-        itemEnquiry.setValue(itemEnquiryModels);
+        itemEnquiry.setValue(titleValueDataModels);
     }
 
     public void updateAdapterData(LocationItemDetails locationItemDetails, LocationDetails locationDetails) {
-        List<TitleValueDataModel> itemEnquiryModels = new ArrayList<>();
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.lot_number,
+        List<TitleValueDataModel> titleValueDataModels = new ArrayList<>();
+        titleValueDataModels.add(new TitleValueDataModel(R.string.lot_number,
                 locationItemDetails.getCurrentLotNumber() + " of " + locationItemDetails.getTotalLotNumber()
         ));
-        itemEnquiryModels.add(new TitleValueDataModel(R.string.stored_in_location,
+        titleValueDataModels.add(new TitleValueDataModel(R.string.stored_in_location,
                 locationDetails.getName15()
         ));
-        itemEnquiry.setValue(itemEnquiryModels);
+        itemEnquiry.setValue(titleValueDataModels);
     }
 
 
@@ -204,5 +288,37 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
         requestBody.setRequestDataRouteManagementSummary(requestData);
         requestEnvelop.setRequestBodyRouteManagementSummary(requestBody);
         return requestEnvelop;
+    }
+
+    public void validateLotNumberRequired(String inputLotsRequired, String totalLotNum){
+        Pair resultLotRequired =new Pair<>(true,0);
+        if(TextUtils.isEmpty(inputLotsRequired)){
+            resultLotRequired = new Pair(false, R.string.lot_number_required);
+        }else if(inputLotsRequired.equals(totalLotNum)){
+            resultLotRequired = new Pair(false, R.string.number_lots_mustbe_different);
+        }else if(inputLotsRequired.equals("0")){
+            resultLotRequired = new Pair(false, R.string.invalid_input);
+        }
+        validationResult.setValue(resultLotRequired);
+
+    }
+
+    public void getAmendLotItemDetails(DeliveryItemDetails deliveryItemDetails){
+        List<TitleValueDataModel> titleValueDataModels = new ArrayList<>();
+        titleValueDataModels.add(new TitleValueDataModel(R.string.delivery_number,deliveryItemDetails.getDeliveryId()));
+
+        titleValueDataModels.add(new TitleValueDataModel(R.string.item,
+                deliveryItemDetails.getProductCode()));
+        titleValueDataModels.add(new TitleValueDataModel(R.string.product_description,
+                deliveryItemDetails.getOrderDescriptionClean()));
+        titleValueDataModels.add(new TitleValueDataModel(R.string.str_current_lot,deliveryItemDetails.getCurrentLotNumber()));
+        itemEnquiry.setValue(titleValueDataModels);
+    }
+
+    public void updateAmendLotNumAdapterData(LotDetails lotDetails, DeliveryItemDetails deliveryItemDetails) {
+        List<TitleValueDataModel> titleValueDataModels = itemEnquiry.getValue();
+        titleValueDataModels.remove(3);
+        titleValueDataModels.add(new TitleValueDataModel(R.string.str_current_lot, lotDetails.getUpdatedCurrentLot()));
+        itemEnquiry.setValue(titleValueDataModels);
     }
 }

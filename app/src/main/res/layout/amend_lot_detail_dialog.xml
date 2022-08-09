@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/error_warning_alert_dialog"
+    android:background="@color/white"
+    android:clickable="true"
+    android:focusable="true">
+
+
+    <TextView
+        android:id="@+id/delivery_number"
+        android:textSize="@dimen/text_size_x_normal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_padding_x_small"
+        android:background="@color/alert_dialog_title_background"
+        android:padding="@dimen/margin_padding_normal"
+        android:text="@string/delivery_number"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        tools:ignore="MissingConstraints"
+         />
+
+    <TextView
+        android:id="@+id/print_count_msg"
+        android:textSize="@dimen/text_size_x_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_padding_large"
+        android:padding="@dimen/margin_padding_normal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="00 Labels printed on printer Y"
+        app:layout_constraintTop_toBottomOf="@+id/delivery_number"
+        tools:ignore="MissingConstraints" />
+
+    <TextView
+        android:id="@+id/print_label_msg"
+        android:textSize="@dimen/text_size_x_normal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/margin_padding_normal"
+        android:gravity="center"
+        android:text="@string/pls_attach_label"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/print_count_msg"
+        tools:ignore="MissingConstraints" />
+
+
+
+
+
+    <TextView
+        android:id="@+id/okBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_padding_xx_normal"
+        android:text="@string/ok"
+        android:padding="@dimen/margin_padding_normal"
+        app:layout_constraintTop_toBottomOf="@+id/print_label_msg"
+        tools:ignore="MissingConstraints"
+        android:layout_marginRight="@dimen/margin_padding_large"
+       app:layout_constraintEnd_toEndOf="parent"/>
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

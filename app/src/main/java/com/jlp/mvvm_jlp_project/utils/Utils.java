@@ -3,23 +3,32 @@ package com.jlp.mvvm_jlp_project.utils;/*
  */
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.app.Dialog;
+
 import android.app.ProgressDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.ParseException;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.jlp.mvvm_jlp_project.R;
-import com.jlp.mvvm_jlp_project.model.response.authenticate_user.DeliveryCentreNumber;
-import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
-import com.jlp.mvvm_jlp_project.view.home.HomeActivity;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+
+import com.jlp.mvvm_jlp_project.view.common_printer_list.CommonPrinterListFragment;
+
 
 public class Utils {
 
@@ -43,7 +52,7 @@ public class Utils {
      * @param message error message
      */
     public static void showErrorMessage(Activity activity, String message) {
-        Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_LONG);
+        Snackbar snackbar = Snackbar.make(activity.findViewById(android.R.id.content), message, Snackbar.LENGTH_SHORT);
         View snackBarView = snackbar.getView();
         snackBarView.setBackgroundColor(activity.getResources().getColor(R.color.snackbar_background));
         snackbar.setTextColor(activity.getResources().getColor(R.color.red));
@@ -84,14 +93,63 @@ public class Utils {
 
     /**
      * Hide progressbar
-     *
      * @param pDialog Currently visible progress dialog
      */
     public static void hideProgressDialog(ProgressDialog pDialog) {
-        if (pDialog != null) {
+        if (pDialog!=null) {
             pDialog.dismiss();
         }
     }
+
+
+    public static void showAmendAlertDialog(final Context context, String deliveryNumber, String labelsPrinted, String printerId,String scrren)
+    {
+
+        Dialog dialog = new Dialog(context);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.warning_alert_dialog);
+        Window window = dialog.getWindow();
+        window.setLayout(WindowManager.LayoutParams.MATCH_PARENT,WindowManager.LayoutParams.WRAP_CONTENT);
+
+         TextView headerText =  dialog.findViewById(R.id.title_Alert_Dialog);
+         TextView msg =dialog.findViewById(R.id.message_Alert_Dialog);
+         ImageView error_worning_icon = dialog.findViewById(R.id.error_worning_icon);
+                   error_worning_icon.setVisibility(View.GONE);
+
+        headerText.setText(context.getResources().getString(R.string.delivery_number)+" : "+deliveryNumber);
+        msg.setText(labelsPrinted+" "+context.getResources().getString(R.string.label_printed_on_printer)+" "+printerId);
+
+        TextView  textOK_alert_dialog = dialog.findViewById(R.id.textOK_alert_dialog);
+        textOK_alert_dialog.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                    dialog.dismiss();
+
+                   if(scrren.equals(AppConstants.FRAGMENT_AMEND_LOTS))
+                   {
+                       CommonPrinterListFragment fragment2 = new CommonPrinterListFragment(AppConstants.FRAGMENT_AMEND_LOTS);
+                       FragmentManager fragmentManager =((AppCompatActivity)context).getSupportFragmentManager();
+                       FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                       fragmentTransaction.replace(R.id.frame_container_main, fragment2);
+                       fragmentTransaction.addToBackStack("TAG");
+                       fragmentTransaction.commit();
+                   }
+                   else if(scrren.equals(AppConstants.FRAGMENT_REPRINT_LABELS))
+                   {
+                       CommonPrinterListFragment fragment2 = new CommonPrinterListFragment(AppConstants.FRAGMENT_REPRINT_LABELS);
+                       FragmentManager fragmentManager =((AppCompatActivity)context).getSupportFragmentManager();
+                       FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                       fragmentTransaction.replace(R.id.frame_container_main, fragment2);
+                       fragmentTransaction.addToBackStack("TAG");
+                       fragmentTransaction.commit();
+                   }
+                 }
+               });
+            dialog.setCanceledOnTouchOutside(false);
+            dialog.show();
+
+    }
+
 
     /**
      * Convert date into format
@@ -118,6 +176,4 @@ public class Utils {
 
         return "" + formattedDate;
     }
-
-
 }

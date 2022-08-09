@@ -14,6 +14,7 @@ public class FoundHandoverDetails {
 
     @Inject public FoundHandoverDetails() {}
 
+    // TODO Need to verify the dateTime Objects
     @Element(name = "deliveryId",required = false)
     public String deliveryId;
     @Element(name = "agreedDelDate",required = false)

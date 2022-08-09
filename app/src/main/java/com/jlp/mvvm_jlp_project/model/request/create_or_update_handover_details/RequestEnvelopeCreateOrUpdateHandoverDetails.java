@@ -24,7 +24,7 @@ public class RequestEnvelopeCreateOrUpdateHandoverDetails {
     RequestEnvelopeCreateOrUpdateHandoverDetails(){}
 
     @Element(name = "soapenv:Body", required = false)
-    private RequestBodyCreateOrUpdateHandoverDetails requestBodyCreateOrUpdateHandoverDetails;
+    private RequestBodyCreateOrUpdateHandoverDetails requestBodyCreateOrUpdateHandoverDetails = new RequestBodyCreateOrUpdateHandoverDetails();
 
     public RequestBodyCreateOrUpdateHandoverDetails getRequestBodyCreateOrUpdateHandoverDetails() {
         return requestBodyCreateOrUpdateHandoverDetails;

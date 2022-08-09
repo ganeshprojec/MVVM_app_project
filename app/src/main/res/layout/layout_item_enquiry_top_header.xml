@@ -90,6 +90,44 @@
             android:src="@drawable/ic_change_password_24"
             android:visibility="gone" />
 
+        <CheckBox
+            android:id="@+id/imgMultiSelect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="false"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="@dimen/margin_padding_xx_normal"
+            android:layout_toLeftOf="@+id/imgPrinter"
+            android:background="@android:color/transparent"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:button="@drawable/multi_select"
+            android:visibility="invisible"
+            android:clickable="true"
+
+
+
+
+            />
+
+
+        <ImageView
+            android:id="@+id/imgPrinter"
+            android:layout_width="@dimen/dimen_toolbar_close"
+            android:layout_height="@dimen/dimen_toolbar_close"
+            android:layout_alignParentRight="false"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_vertical|right"
+            android:layout_marginRight="@dimen/dimen_std_page_margin"
+            android:layout_toLeftOf="@+id/imgClose"
+
+            android:background="@android:color/transparent"
+            android:foreground="?android:attr/selectableItemBackground"
+            android:onClick="onCloseSecond"
+            android:src="@drawable/img_printer"
+            android:visibility="gone"
+             />
+
         <ImageView
             android:id="@+id/imgClose"
             android:layout_width="@dimen/dimen_toolbar_close"
@@ -101,6 +139,7 @@
             android:background="@android:color/transparent"
             android:foreground="?android:attr/selectableItemBackground"
             android:onClick="onClickClose"
+
             android:src="@drawable/ic_close_24" />
 
     </RelativeLayout>

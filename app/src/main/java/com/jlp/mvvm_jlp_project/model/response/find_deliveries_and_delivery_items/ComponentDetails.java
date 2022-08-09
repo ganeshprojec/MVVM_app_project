@@ -15,7 +15,7 @@ public class ComponentDetails {
     @Element(name = "componentStatus",required = false)
     public String componentStatus;
     @Element(name = "componentStatusText",required = false)
-    public int componentStatusText;
+    public String componentStatusText;
 
     public int getComponentNum() {
         return componentNum;
@@ -49,11 +49,11 @@ public class ComponentDetails {
         this.componentStatus = componentStatus;
     }
 
-    public int getComponentStatusText() {
+    public String getComponentStatusText() {
         return componentStatusText;
     }
 
-    public void setComponentStatusText(int componentStatusText) {
+    public void setComponentStatusText(String componentStatusText) {
         this.componentStatusText = componentStatusText;
     }
 }

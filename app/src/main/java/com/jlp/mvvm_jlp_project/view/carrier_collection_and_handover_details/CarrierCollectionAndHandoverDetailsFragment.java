@@ -33,7 +33,6 @@ import com.jlp.mvvm_jlp_project.model.request.create_or_update_handover_details.
 import com.jlp.mvvm_jlp_project.model.request.create_or_update_handover_details.RequestEnvelopeCreateOrUpdateHandoverDetails;
 import com.jlp.mvvm_jlp_project.model.response.create_or_update_handover_details.ResponseDataCreateOrUpdateHandoverDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items.ComponentDetails;
-import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items.DeliveryDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items.DeliveryGoodsDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items.ResponseDataFindDeliveriesAndDeliveryItems;
 import com.jlp.mvvm_jlp_project.model.response.find_handover_details.FoundHandoverDetails;
@@ -49,6 +48,7 @@ import com.jlp.mvvm_jlp_project.viewmodel.CarrierCollectionAndHandoverDetailsVie
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -61,8 +61,9 @@ public class CarrierCollectionAndHandoverDetailsFragment extends BaseFragment{
     private CarrierCollectionAndHandoverDetailsViewModel viewModel;
     private FragmentCarrierHandoverDetailsBinding binding;
     private ResponseDataFindDeliveriesAndDeliveryItems responseDataFindDeliveriesAndDeliveryItems  = CommonBarcodeScannerFragment.responseDataFindDeliveriesAndDeliveryItems;
-    private String scannedComponentBarcode = CommonBarcodeScannerFragment.scannedComponentBarcode;
+    private String scannedComponentBarcode = CommonBarcodeScannerFragment.scannedBarcode;
     private FoundHandoverDetails foundHandoverDetails = CommonBarcodeScannerFragment.foundHandoverDetails;
+    private String errorCode = CommonBarcodeScannerFragment.errorCode;
     private ProgressDialog progressDialog;
 
     private CommonAdapter adapter;
@@ -71,17 +72,15 @@ public class CarrierCollectionAndHandoverDetailsFragment extends BaseFragment{
     private String callFor;
     private int mYear, mMonth, mDay, mHour, mMinute;
 
-    @Inject
-    AppPreferencesHelper appPreferencesHelper;
+    boolean isDatesAreSame = false;
 
-    @Inject
-    RequestEnvelopeCreateOrUpdateHandoverDetails requestEnvelopeCreateOrUpdateHandoverDetails;
-    @Inject
-    RequestBodyCreateOrUpdateHandoverDetails requestBodyCreateOrUpdateHandoverDetails;
-    @Inject
-    RequestDataCreateOrUpdateHandoverDetails requestDataCreateOrUpdateHandoverDetails;
-    @Inject
-    CreateOrUpdateHandoverDetails createOrUpdateHandoverDetails;
+    @Inject AppPreferencesHelper appPreferencesHelper;
+
+    @Inject RequestEnvelopeCreateOrUpdateHandoverDetails requestEnvelopeCreateOrUpdateHandoverDetails;
+    @Inject RequestBodyCreateOrUpdateHandoverDetails requestBodyCreateOrUpdateHandoverDetails;
+    @Inject RequestDataCreateOrUpdateHandoverDetails requestDataCreateOrUpdateHandoverDetails;
+    @Inject CreateOrUpdateHandoverDetails createOrUpdateHandoverDetails;
+    public static CreateOrUpdateHandoverDetails copyOfCreateOrUpdateHandoverDetails;
 
     public CarrierCollectionAndHandoverDetailsFragment(String callFor) {
         this.callFor = callFor;
@@ -98,27 +97,44 @@ public class CarrierCollectionAndHandoverDetailsFragment extends BaseFragment{
         super.onViewCreated(view, savedInstanceState);
         viewModel = new ViewModelProvider(this).get(CarrierCollectionAndHandoverDetailsViewModel.class);
         updateActionbarAndButtonText();
-        prepareDataSetAndSetInitialData();
+        initData();
         setupAdapter();
         initListener();
         initObserver();
     }
 
-    private void prepareDataSetAndSetInitialData() {
+    private void initData() {
+        boolean isServiceIncluded = false;
         if(foundHandoverDetails!=null){
             binding.etToBe.setText(foundHandoverDetails.handoverTo);
+            binding.etOn.setText(foundHandoverDetails.getHandoverDate());
+            binding.etDeliveryTo.setText(foundHandoverDetails.getAgreedDelDate());
+            // TODO : Following snippet is from the existing code to calculate Latest Del Time
+            /*handoverDeliveryDetailsCollectionSetupView.deliveryToCustomerOn = findHandoverDetailsResponse.FoundHandoverDetails.agreedDelDate;
+            DateTime dtTime = findHandoverDetailsResponse.FoundHandoverDetails.latestDelTime;
+            string latestDeltime = DateTime.Now.ToString("dd/MM/yyyy") + " " + dtTime.Subtract(dtTime.Date);
+            handoverDeliveryDetailsCollectionSetupView.latestDeliveryTime = Convert.ToDateTime(latestDeltime);*/
+            binding.etLatestDelivery.setText(foundHandoverDetails.getLatestDelTime());
             binding.etOnwardTracking.setText(foundHandoverDetails.handoverRef);
         }
 
         if(responseDataFindDeliveriesAndDeliveryItems!=null){
+
+            if(!TextUtils.isEmpty(errorCode) && errorCode.equals(AppConstants.TWO_THOUSAND_AND_ONE)){
+                binding.etOn.setText(StringUtils.getTodayDateInStringFormat());
+                binding.etDeliveryTo.setText(StringUtils.getTodayDateInStringFormat());
+                isServiceIncluded = responseDataFindDeliveriesAndDeliveryItems.getDeliveryDetails().serviceIncluded;
+            }else {
+                isServiceIncluded = foundHandoverDetails.getServiceIncluded();
+            }
+
             boolean isNumberOfDeliveryItemAndPartLots = calculateNumberOfDeliveryItemsAndTotalNumberOfPartLots(responseDataFindDeliveriesAndDeliveryItems);
             if (isNumberOfDeliveryItemAndPartLots)
             {
-                if (foundHandoverDetails.getServiceIncluded())
-                {
+                if (isServiceIncluded)
                     Utils.showErrorMessage(getActivity(), getResources().getString(R.string.this_delivery_includes_services));
-                }
-                Utils.showErrorMessage(getActivity(), getResources().getString(R.string.delivery_already_has_handover_details_captured));
+                if(foundHandoverDetails!=null)
+                    Utils.showErrorMessage(getActivity(), getResources().getString(R.string.delivery_already_has_handover_details_captured));
             }
         }
     }
@@ -226,7 +242,11 @@ public class CarrierCollectionAndHandoverDetailsFragment extends BaseFragment{
         binding.etLatestDelivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pickTimeAndSetToView(binding.etLatestDelivery);
+                if(TextUtils.isEmpty(binding.etDeliveryTo.getText().toString().trim())){
+                    Utils.showErrorMessage(getActivity(), getResources().getString(R.string.please_select_delivery_date));
+                }else{
+                    pickTimeAndSetToView(binding.etLatestDelivery);
+                }
             }
         });
 
@@ -247,7 +267,11 @@ public class CarrierCollectionAndHandoverDetailsFragment extends BaseFragment{
         binding.etEarliestDelivery.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                pickTimeAndSetToView(binding.etEarliestDelivery);
+                if(TextUtils.isEmpty(binding.etDeliveryTo.getText().toString().trim())){
+                    Utils.showErrorMessage(getActivity(), getResources().getString(R.string.please_select_delivery_date));
+                }else{
+                    pickTimeAndSetToView(binding.etEarliestDelivery);
+                }
             }
         });
 
@@ -283,12 +307,17 @@ public class CarrierCollectionAndHandoverDetailsFragment extends BaseFragment{
         createOrUpdateHandoverDetails.setDeliveryId(responseDataFindDeliveriesAndDeliveryItems.deliveryDetails.getDeliveryId());
         createOrUpdateHandoverDetails.setHandoverTo(binding.etToBe.getText().toString().trim());
         createOrUpdateHandoverDetails.setHandoverRef(binding.etOnwardTracking.getText().toString().trim());
-        createOrUpdateHandoverDetails.setHandoverDate(binding.etOn.getText().toString().trim());
+        if(callFor.equals( AppConstants.FRAGMENT_CARRIER_COLLECTION_DETAILS)){
+            createOrUpdateHandoverDetails.setHandoverDate(binding.etOn.getText().toString().trim());
+        }else {
+            createOrUpdateHandoverDetails.setHandoverDate(StringUtils.getTodayDateInStringFormat());
+        }
         createOrUpdateHandoverDetails.setAgreedDelDate(binding.tvDeliveryTo.getText().toString().trim());
         createOrUpdateHandoverDetails.setLatestDelTime(binding.etLatestDelivery.getText().toString().trim());
         createOrUpdateHandoverDetails.setUserId(appPreferencesHelper.getUserId());
         createOrUpdateHandoverDetails.setUserName(appPreferencesHelper.getUsername());
         requestDataCreateOrUpdateHandoverDetails.setCreateOrUpdateHandoverDetails(createOrUpdateHandoverDetails);
+        copyOfCreateOrUpdateHandoverDetails = createOrUpdateHandoverDetails;
         requestBodyCreateOrUpdateHandoverDetails.setRequestDataCreateOrUpdateHandoverDetails(requestDataCreateOrUpdateHandoverDetails);
         requestEnvelopeCreateOrUpdateHandoverDetails.setRequestBodyCreateOrUpdateHandoverDetails(requestBodyCreateOrUpdateHandoverDetails);
     }
@@ -300,7 +329,7 @@ public class CarrierCollectionAndHandoverDetailsFragment extends BaseFragment{
             if(hrs < 24){
                 hrs++;
             }
-            if(hrs == 24) hrs = 0;
+            if(hrs == 24) hrs = 1;
             String hour = String.valueOf(hrs);
             if(hrs<=9) hour = "0"+hrs;
             et.setText(hour+":00");
@@ -316,7 +345,7 @@ public class CarrierCollectionAndHandoverDetailsFragment extends BaseFragment{
             if(hrs > 0){
                 hrs--;
             }
-            if(hrs == 0) hrs = 24;
+            if(hrs == 0) hrs = 23;
             String hour = String.valueOf(hrs);
             if(hrs<=9) hour = "0"+hrs;
             et.setText(hour+":00");
@@ -335,21 +364,31 @@ public class CarrierCollectionAndHandoverDetailsFragment extends BaseFragment{
                         String min = String.valueOf(minute);
                         if(hourOfDay<=9) hrs = "0"+hrs;
                         if(minute<=9) min = "0"+min;
-                        etLatestDelivery.setText(hrs + ":" + min);
+                        String selectedTime = hrs + ":" + min;
+                        int timeDiff = StringUtils.getDifferenceOfTimes(selectedTime, StringUtils.getCurrentTimeIn24HoursFormat());
+                        if(timeDiff<60 && isDatesAreSame){
+                            Utils.showErrorMessage(getActivity(), getResources().getString(R.string.delivery_time_if_delivery_is_for_today));
+                            etLatestDelivery.setText("");
+                            etLatestDelivery.setHint("00:00");
+                        }else{
+                            etLatestDelivery.setText(selectedTime);
+                        }
                     }
                 }, mHour, mMinute, true);
         timePickerDialog.show();
     }
 
-    private void pickDateAndSetToView(EditText etOn) {
+    private void pickDateAndSetToView(EditText etDateView) {
         final Calendar calendar = Calendar.getInstance();
         DatePickerDialog datePickerDialog = new DatePickerDialog(getContext(),
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year,
                                           int monthOfYear, int dayOfMonth) {
-                        etOn.setText(dayOfMonth + "/" + (monthOfYear + 1) + "/" + year);
-
+                        String selectedDate = StringUtils.getFormattedDate(dayOfMonth, monthOfYear, year);
+                        Date selectedDateInDateObject = StringUtils.getStringToDateObject(selectedDate);
+                        isDatesAreSame = StringUtils.isSameDay(selectedDateInDateObject, StringUtils.getTodayDateInDateObject());
+                        etDateView.setText(selectedDate);
                     }
                 }, mYear, mMonth, mDay);
         // Select future date only
@@ -419,10 +458,10 @@ public class CarrierCollectionAndHandoverDetailsFragment extends BaseFragment{
         List<DeliveryGoodsDetails> deliveryGoodsDetails = responseDataFindDeliveriesAndDeliveryItems.getDeliveryDetails().getDeliveryGoodsDetails();
 
         for (int goodCount = 0; goodCount < deliveryGoodsDetails.size(); goodCount++) {
-            List<ComponentDetails> componentDetails = responseDataFindDeliveriesAndDeliveryItems.getDeliveryDetails().getDeliveryGoodsDetails().get(goodCount).getComponentDetails();
+            List<ComponentDetails> componentDetails = deliveryGoodsDetails.get(goodCount).getComponentDetails();
             for (int componentCount = 0; componentCount < componentDetails.size(); componentCount++) {
-                String componentStatus = responseDataFindDeliveriesAndDeliveryItems.getDeliveryDetails().getDeliveryGoodsDetails().get(goodCount).getComponentDetails().get(componentCount).getComponentStatus().trim().toUpperCase();
-                String componentBarcode = responseDataFindDeliveriesAndDeliveryItems.getDeliveryDetails().getDeliveryGoodsDetails().get(goodCount).getComponentDetails().get(componentCount).getComponentBarcode();
+                String componentStatus = componentDetails.get(componentCount).getComponentStatus().trim().toUpperCase();
+                String componentBarcode = componentDetails.get(componentCount).getComponentBarcode();
                 if (componentStatus.equals(AppConstants.ACTIVE))  atLeastOneComponentActive = true;
 
                 if (componentStatus.equals(AppConstants.IN_BAY))  atLeastOneComponentInBay = true;
@@ -472,8 +511,8 @@ public class CarrierCollectionAndHandoverDetailsFragment extends BaseFragment{
             }
 
             if (deliveryGoodItemsCount > 0) {
-                responseDataFindDeliveriesAndDeliveryItems.deliveryDetails.setNumberOfDeliveryItems(String.valueOf(deliveryGoodItemsCount));
-                responseDataFindDeliveriesAndDeliveryItems.deliveryDetails.setTotalLotNumber(String.valueOf(partLots));
+                this.responseDataFindDeliveriesAndDeliveryItems.deliveryDetails.setNumberOfDeliveryItems(String.valueOf(deliveryGoodItemsCount));
+                this.responseDataFindDeliveriesAndDeliveryItems.deliveryDetails.setTotalLotNumber(String.valueOf(partLots));
                 return true;
             }
             else {

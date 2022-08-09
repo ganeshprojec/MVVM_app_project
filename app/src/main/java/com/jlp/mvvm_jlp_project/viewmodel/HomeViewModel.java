@@ -13,6 +13,7 @@ import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.view.auth.ChangePasswordFragment;
 import com.jlp.mvvm_jlp_project.view.auth.LoginFragment;
 import com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScannerFragment;
+import com.jlp.mvvm_jlp_project.view.common_printer_list.CommonPrinterListFragment;
 import com.jlp.mvvm_jlp_project.view.home.TemplateFragment;
 
 import java.util.ArrayList;
@@ -157,7 +158,7 @@ public class HomeViewModel extends BaseViewModel {
      * For open Reprint Labels
      */
     public void onPressReprintLabels(@ActivityContext Context context) {
-        Helper.addFragment(context, new TemplateFragment());
+        Helper.addFragment(context,  new CommonPrinterListFragment(AppConstants.FRAGMENT_REPRINT_LABELS));
     }
 
     /**
@@ -167,7 +168,7 @@ public class HomeViewModel extends BaseViewModel {
      * For open Amend Lots
      */
     public void onPressAmendLots(@ActivityContext Context context) {
-        Helper.addFragment(context, new TemplateFragment());
+        Helper.addFragment(context, new CommonPrinterListFragment(AppConstants.FRAGMENT_AMEND_LOTS));
     }
 
     /**

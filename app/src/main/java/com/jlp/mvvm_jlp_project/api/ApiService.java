@@ -1,5 +1,9 @@
 package com.jlp.mvvm_jlp_project.api;
 
+import com.jlp.mvvm_jlp_project.model.request.find_delivery_good_product.RequestEnvelopeFindDeliveryGoodProduct;
+import com.jlp.mvvm_jlp_project.model.request.printer_list.RequestEnveloperPrinterList;
+import com.jlp.mvvm_jlp_project.model.request.reprint_label_detail.RequestEnvelopeReprintLabel;
+import com.jlp.mvvm_jlp_project.model.request.update_number_of_lots_request.RequestEnvelopeAmendLotNumerUpdate;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.change_password.RequestEnvelopeChangePassword;
 import com.jlp.mvvm_jlp_project.model.request.change_password_and_logon.RequestEnvelopeChangePasswordAndLogon;
@@ -14,6 +18,10 @@ import com.jlp.mvvm_jlp_project.model.request.record_location_of_item.RequestEnv
 import com.jlp.mvvm_jlp_project.model.request.route_details.RequestEnvelopeRouteDetails;
 import com.jlp.mvvm_jlp_project.model.request.route_item_update_status.RequestEnvelopeUpdateItemStatus;
 import com.jlp.mvvm_jlp_project.model.request.route_management_summary.RequestEnvelopRouteManagementSummary;
+import com.jlp.mvvm_jlp_project.model.response.find_delivery_good_product.ResponseEnvelopeFindDeliveryGoodProduct;
+import com.jlp.mvvm_jlp_project.model.response.printer_list.ResponseEnveloperPrinterList;
+import com.jlp.mvvm_jlp_project.model.response.reprint_label_detail.ResponseEnvelopeReprintLabel;
+import com.jlp.mvvm_jlp_project.model.response.update_number_of_lots_response.ResponseEnvelopeAmendLotNumerUpdate;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseEnvelopeChangePassword;
 import com.jlp.mvvm_jlp_project.model.response.change_password_and_logon.ResponseEnvelopeChangePasswordAndLogon;
@@ -152,5 +160,24 @@ public interface ApiService {
     @POST("/CreateComponentHandoverDetails")
     Call<ResponseEnvelopeCreateComponentHandoverDetails> createComponentHandoverDetails(@Body RequestEnvelopeCreateComponentHandoverDetails envelope);
 
+//update lot number require
+    @Headers({"Content-Type: application/soap+xml", "charset: utf-8", "Content-Length: length"})
+    @POST("/UpdateNumberOfLots")
+    Call<ResponseEnvelopeAmendLotNumerUpdate> updateLostNumerRequire(@Body RequestEnvelopeAmendLotNumerUpdate envelope);
+
+    //Find Printer List
+
+    @Headers({"Content-Type: application/soap+xml", "charset: utf-8", "Content-Length: length"})
+    @POST("/FindPrinterRequest")
+    Call<ResponseEnveloperPrinterList>findPrinterListData(@Body RequestEnveloperPrinterList envelope);
+
+    // Reprint Label
+    @Headers({"Content-Type: application/soap+xml", "charset: utf-8", "Content-Length: length"})
+    @POST("/FindDeliveryGoodProductsRequest")
+    Call<ResponseEnvelopeFindDeliveryGoodProduct>FindDeliveryGoodProduct(@Body RequestEnvelopeFindDeliveryGoodProduct envelope);
+
+    @Headers({"Content-Type: application/soap+xml", "charset: utf-8", "Content-Length: length"})
+    @POST("/ReprintLabelsRequest")
+    Call<ResponseEnvelopeReprintLabel>findReprintLabels(@Body RequestEnvelopeReprintLabel envelope);
 
 }

@@ -16,15 +16,19 @@ public class AppConstants {
     public static final String ERROR_WHILE_GETTING_THE_RESPONSE = "Error while getting the response";
     public static final String ERROR_SOMETHING_WENT_WRONG = "Something Went Wrong";
     public static final String ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR = "Response is neither success nor error";
-    public static final String ERROR_WHILE_HANDLING_THE_RESPONSE = "Error while handling the response :";
-
-    public static final int ERROR_NUMBER_FOR_PASSWORD_EXPIRES = 100;
+    public static final String ERROR_WHILE_HANDLING_THE_RESPONSE = "Error while handling the response";
 
     public static final String COMPONENT_BARCODE_DETAILS_DATA = "Barcode Details Data";
     public static final String LOCATION_BARCODE_DETAILS_DATA = "Location Details Data";
     public static final String ITEM_ENQUIRY_DETAILS_DATA = "Item Enquiry Details Data";
-
     public static final String FRAGMENT_ITEM_ENQUIRY = "Fragment Item Enquiry";
+    public static final String FRAGMENT_ITEM_MOVEMENT = "Fragment Item Movement";
+    public static final String FRAGMENT_LOCATION_SCAN = "Fragment Location Scan";
+    public static final String PRINTER_NAME = "Printer Name";
+    public static final String PRINTER_ID = "Printer ID";
+    public static final String FRAGMENT_AMEND_LOTS="Fragment Amend Lots";
+    public static final String FRAGMENT_REPRINT_LABELS="Fragment Reprint Labels";
+    public static final String FRAGMENT_AMEND_LOTS_FOR_COMPONENT_BARCODE = "Fragment Amends Lots For Component Barcode";
     public static final String FRAGMENT_ITEM_MOVEMENT_FOR_COMPONENT_BARCODE = "Fragment Item Movement For Component Barcode";
     public static final String FRAGMENT_ITEM_MOVEMENT_FOR_LOCATION_BARCODE = "Fragment Item Movement For Location Barcode";
     public static final String FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE = "Fragment Multi Movement For Location Barcode";
@@ -66,10 +70,29 @@ public class AppConstants {
     public static final String CHANGE_PASSWORD_NEW_PASSWORD_NOT_ACCEPTED = "New password has not been accepted for user";
     public static final String CHANGE_PASSWORD_LOGON_DETAILS_INCORRECT = "Logon details are incorrect for user";
 
+    //region Is Scanner Active
+    public static final boolean IS_SCANNER_ACTIVE  = true;
+    
+    //Error Codes for API from existing code
+    public static final String ERROR_NUMBER_FOR_PASSWORD_EXPIRES = "100";
+    public static final String TWO_THOUSAND = "2000";
+    public static final String FOUR_THOUSAND = "4000";
+    public static final String FIVE_THOUSAND = "5000";
+    public static final String ONE_ONE_ZERO_ZERO = "1100";
+    public static final String HUNDRED = "100";
     public static final String ONE_ZERO_ONE = "101";
     public static final String ONE_ZERO_TWO = "102";
     public static final String ONE_ZERO_THREE = "103";
+    public static final String TEN_THOUSAND = "10000";
 
-    //region Is Scanner Active
-    public static final boolean IS_SCANNER_ACTIVE  = true;
+    public static final String TWO_THOUSAND_AND_ONE = "2001";
+    public static final String SIX_HUNDRED = "600";
+    public static final String THREE_THOUSAND = "3000";
+
+
+    public static final String APP_DATE_FORMAT = "dd/MMM/yyyy";
+    public static final String APP_TIME_FORMAT = "kk:mm";
+
+    public static final String APP_DATE_TIME_FORMAT = APP_DATE_FORMAT + " "+ APP_TIME_FORMAT;
+
 }

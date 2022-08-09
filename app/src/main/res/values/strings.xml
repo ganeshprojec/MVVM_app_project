@@ -41,6 +41,7 @@
     <string name="please_enter_user_id">Please enter User ID</string>
     <string name="please_enter_password">Please enter password</string>
     <string name="password_should_be">Password should be 6-8 characters long</string>
+    <string name="number_lots_mustbe_different">Number of lots must be different to current lots.</string>
 
     <string name="please_enter_old_password">Please enter old password</string>
     <string name="please_enter_new_password_and_confirm">Please enter new and confirm password</string>
@@ -55,7 +56,6 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello Blank Fragment!</string>
 
-
     <!--Home Screen-->
     <string name="str_item_enquiry">Item Enquiry</string>
     <string name="str_item_movements">Item Movements</string>
@@ -65,6 +65,7 @@
     <string name="str_route_management">Route Management</string>
     <string name="str_track_handover_delivery">Carrier Collection Details</string>
     <string name="str_handover_delivery">Carrier Handover Details</string>
+    <string name="str_selected_printer">Selected Printer</string>
 
     <string name="str_welcome">Welcome</string>
     <string name="str_dummy_username">ganesh123</string>
@@ -76,21 +77,30 @@
 
     <!-- Strings for Item Enquiry -->
     <string name="item_enquiry_title">Item Enquiry</string>
-    <string name="enter_barcode_number">Enter barcode number/scan</string>
-    <string name="enter_item_barcode_number">Enter item barcode number/scan</string>
+
+    <string name="enter_lots_required">Enter  Number of Lots Required</string>
+
+    <string name="enter_barcode_number">Enter Barcode Number/Scan</string>
+    <string name="enter_item_barcode_number">Enter Item Barcode Number/Scan</string>
     <string name="Next">Next</string>
+    <string name="print">Print</string>
     <string name="text_display_item_enquiry_key">Display Key</string>
     <string name="text_display_item_enquiry_value">Display Value</string>
     <string name="text_route_number">Route Number</string>
     <string name="text_route_number1">Route Number1</string>
     <string name="scan_next_item_barcode">Scan Next Item Barcode</string>
     <string name="enter_barcode">Enter Barcode</string>
+    <string name="enter_barcode_required">Item Barcode Required</string>
+    <string name="enter_delivery_number_scan">Input Delivery Number/Barcode</string>
     <string name="invalid_barcode">Invalid Barcode</string>
+    <string name="invalid_deliveryno_barcode">Invalid Delivery Number/Barcode</string>
+    <string name="invalid_input">Number of lots must be greater than zero.</string>
     <string name="dummy_header_here">Header Here!</string>
     <string name="str_route_number">Route Number</string>
     <string name="str_delivery_date">Delivery Date</string>
     <string name="str_total_deliveries">Total Deliveries</string>
     <string name="str_total_lots">Total Lots</string>
+    <string name="str_current_lot">Current Lot</string>
     <string name="dummy_route_number">R380AM20091001T01</string>
     <string name="dummy_delivery_date">23/05/2009</string>
     <string name="dummy_total_deliveries">15</string>
@@ -104,15 +114,26 @@
     <string name="str_product_description">Product Description</string>
     <string name="dummy_product_desc">XXXXXXX XXXXXXX X \nXXXXXX \nXXXXX XXXXXX XXX X XXX XX</string>
     <string name="ok">OK</string>
+    <string name="lot_number_required">Please Enter Lot Number</string>
+    <string name="enter_lot_number">Enter Lot Number</string>
 
-    <string name="update_has_failed">Update has failed</string>
+    <!-- Strings for Common detail Fragment -->
+    <string name="stored_in_location">Stored in location</string>
+    <string name="lot_number">Lot number</string>
+    <string name="product_description">Product description</string>
+    <string name="item">Item</string>
+    <string name="route_number">Route number</string>
+    <string name="delivery_date">Delivery date</string>
+    <string name="last_recorded_location">Last recorded location</string>
+    <string name="time_of_last_move">Time of last move</string>
+    <string name="last_user_id">Last user id</string>
+    <string name="address">Address</string>
+    <string name="product_code">Product code</string>
 
-    <!-- Strings for Item Movement -->
-    <string name="item_movement_title">Item Movement</string>
+    <string name="str_cancel">Cancel</string>
 
-
-    <string name="enter_location_barcode_number">Enter location barcode number</string>
-    <string name="enter_location_barcode_number_or_scan">Enter location barcode number/scan</string>
+    <string name="str_dummy_enter_input">Enter input Text:</string>
+    <string name="dummy_dialog_title">Dialog</string>
 
     <!-- Strings for carrier handover details -->
     <string name="please_enter_details_for_handover">Please enter details for handover</string>
@@ -127,33 +148,42 @@
     <string name="handover_delivery_title">Carrier Handover Details</string>
     <string name="this_delivery_includes_services">This Delivery includes services</string>
     <string name="delivery_already_has_handover_details_captured">Delivery already has Handover details setup</string>
+    <string name="package_item_not_recognised">Delivery cancelled or package item not recognised</string>
+
+    <!-- Strings for Item Movement -->
+    <string name="item_movement_title">Item Movement</string>
+    <string name="delivery_number">Delivery number</string>
+    <string name="str_ok">Ok</string>
+    <string name="str_clear_filter">Clear Filter</string>
+
+    <string name="enter_location_barcode_number">Enter location barcode number</string>
+    <string name="enter_location_barcode_number_or_scan">Enter location barcode number/scan</string>
 
     <!-- Strings for Multi Movement -->
     <string name="multi_movement_title">Multi Movements</string>
     <string name="selected_location">Selected location</string>
 
+    <!-- Strings for Carrier Handover Details Fragment -->
+    <string name="str_route_summary">Route Summary</string>
     <string name="dummy_lotSr">L</string>
     <string name="dummy_location_b5">Location B5</string>
-    <string name="str_route_summary">Route Summary</string>
-    <string name="str_ok">Ok</string>
-    <string name="str_cancel">Cancel</string>
-    <string name="str_clear_filter">Clear Filter</string>
-    <string name="str_dummy_enter_input">Enter input Text:</string>
-    <string name="dummy_dialog_title">Dialog</string>
+    <string name="pls_attach_label">Please attach labels and store items using Movements option</string>
+    <string name="update_has_failed">Update has failed</string>
+    <string name="reduce_no_of_lots">Please reduce the number of lots required.</string>
+    <string name="description">Description</string>
 
-    <!-- Strings for Common detail Fragment -->
-    <string name="stored_in_location">Stored in location</string>
-    <string name="lot_number">Lot number</string>
-    <string name="product_description">Product description</string>
-    <string name="item">Item</string>
-    <string name="route_number">Route number</string>
-    <string name="delivery_number">Delivery number</string>
-    <string name="delivery_date">Delivery date</string>
-    <string name="last_recorded_location">Last recorded location</string>
-    <string name="time_of_last_move">Time of last move</string>
-    <string name="last_user_id">Last user id</string>
-    <string name="address">Address</string>
-    <string name="product_code">Product code</string>
+    <string name="printerId">printerId</string>
+
+    <string name="printerName">PrinterName</string>
+    <string name="enter_delivery_number">Enter Delivery Number</string>
+    <string name="printer">Printer</string>
+
+    <string name="deliveryId">Delivery ID</string>
+    <string name="deliveryGoodId">Good ID</string>
+    <string name="productCode">Product Code</string>
+    <string name="orderDescriptionClean">Order Description</string>
+    <string name="label_printed_on_printer">Labels Printed on Printer</string>
+
 
     <!-- Strings for Carrier Handover Details Fragment -->
     <string name="carrier_collection_details">Enter delivery number/scan</string>
@@ -167,7 +197,12 @@
     <string name="done">Done</string>
     <string name="scanned_item_no">Scanned item No.</string>
     <string name="item_name">Item name</string>
-
+    <string name="create_has_failed">Create has failed</string>
+    <string name="package_for_another_delivery">Package item not recognised OR Package is for another delivery, please scan all Part Lots for this Delivery</string>
+    <string name="item_has_already_be_scanned_for_handover">This item has already be scanned for handover</string>
+    <string name="part_delivery_handover">All part lots for an item must be scanned for a Part Delivery handover</string>
+    <string name="no_item_added_yet">No item added yet</string>
+    <!--End Strings for Carrier Handover Details Fragment-->
 
     <string name="no_of_delivery_items">Number of delivery items</string>
     <string name="customer_name">Customer name</string>
@@ -179,24 +214,42 @@
     <string name="enter_delivery_on_date">Enter delivery on date</string>
     <string name="enter_earliest_delivery_time">Enter earliest delivery time</string>
     <string name="delivery_has_a_part_lot_which_has_no_location">This Delivery has no part lots in locations, please scan into location(s) before handover.</string>
-    <string name="DeliveryHasBeenCancelled">This Delivery has been cancelled and can not be handover.</string>
-    <string name="DeliveryReferenceNotRecognised">Delivery Reference not recognised.</string>
+    <string name="delivery_has_been_cancelled_and_can_not_be_handover">This Delivery has been cancelled and can not be handover</string>
+    <string name="delivery_reference_not_recognised">Delivery Reference not recognised.</string>
     <string name="incorrect_item_status">Incorrect item status.</string>
     <string name="delivery_has_no_items_or_package_to_handover">This Delivery has no items/packages, please scan items into a location before handover.</string>
     <string name="external_carrier_name_must_be_a_minimum_and_maximum">External Carrier Name must be a minimum of two characters, maximum length 30.</string>
     <string name="collection_date_must_be_today_date_or_future_date">Collection Date must be Today\'s date or a future date.</string>
     <string name="delivery_date_must_be_today_date_or_future_date">Delivery Date must be Today\'s date or a future date.</string>
+    <string name="please_enter_earliest_delivery_time">Please enter earliest delivery time</string>
+    <string name="please_enter_latest_delivery_time">Please enter latest delivery time</string>
     <string name="delivery_time_if_delivery_is_for_today">Delivery Date is Today\'s date then the time must be in the future by at least an hour.</string>
     <string name="please_onward_tracking_reference">Please enter onward tracking reference.</string>
     <string name="please_external_carrier_reference_must_bea_minimum_and_maximum">External Carrier Reference must be a minimum of two characters and maximum length 30.</string>
+    <string name="please_enter_delivery_number">Please enter delivery number.</string>
+    <string name="delivery_has_been_cancelled">Delivery has been cancelled</string>
+    <string name="multiple_handover_details_found">Multiple handover details found</string>
+    <string name="delivery_number_invalid">Delivery number invalid. please enter delivery number again</string>
+    <string name="item_barcode_invalid">Item barcode invalid. Please scan / enter item barcode again or reprint labels</string>
+    <string name="please_select_delivery_date">Please select delivery date</string>
+    <!-- End Strings for Carrier Collection Details Fragment -->
 
+
+    <!--<string name="str_partial_submit_message">All items are not loaded, Still do you want to continue submitting?</string>-->
+    <string name="str_partial_sumit_title">Authorization needed</string>
+    <string name="str_enter_authorization">Enter authorization ID</string>
     <string name="str_partial_submit_message">Not all lots scanned, Complete loading?</string>
     <!--<string name="dummy_str_partial_submit_message">All items are not loaded, Still do you want to continue submitting?</string>-->
-    <string name="str_partial_sumit_title">Authorization Needed</string>
+   <!-- <string name="str_partial_sumit_title">Authorization Needed</string>
     <string name="str_enter_authorization">Enter Authorization ID</string>
-
+-->
 
     <string name="choose_delivery_center">Choose delivery center</string>
+    <string name="error_while_getting_the_response">Error while getting the response</string>
+    <string name="error_while_handling_the_response">Error while handling the response</string>
+    <string name="something_went_wrong">Something Went Wrong</string>
+    <string name="response_is_neither_success_nor_error">Response is neither success nor error</string>
+
     <string name="str_enter_location_name">Enter Location Name</string>
 
 
