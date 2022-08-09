@@ -94,6 +94,8 @@
     <string name="enter_delivery_number_scan">Input Delivery Number/Barcode</string>
     <string name="invalid_barcode">Invalid Barcode</string>
     <string name="invalid_deliveryno_barcode">Invalid Delivery Number/Barcode</string>
+    <string name="enter_route_number_scan">Input Route Number/Barcode</string>
+    <string name="invalid_route_id">Invalid route id.</string>
     <string name="invalid_input">Number of lots must be greater than zero.</string>
     <string name="dummy_header_here">Header Here!</string>
     <string name="str_route_number">Route Number</string>

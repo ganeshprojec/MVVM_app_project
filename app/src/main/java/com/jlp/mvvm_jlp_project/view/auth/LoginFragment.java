@@ -4,24 +4,22 @@ import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.util.Pair;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import android.util.Pair;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ListAdapter;
-
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.databinding.FragmentLoginBinding;
-import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.AuthenticationDetails;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestBodyAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestDataAuthenticateUser;
+import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.DeliveryCentreNumber;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
 import com.jlp.mvvm_jlp_project.pref.AppPreferencesHelper;
@@ -30,12 +28,8 @@ import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
-import com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScannerFragment;
 import com.jlp.mvvm_jlp_project.view.home.HomeActivity;
 import com.jlp.mvvm_jlp_project.viewmodel.AuthViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -95,6 +89,7 @@ public class LoginFragment extends BaseFragment {
 
     /**
      * Internet check and actual api call
+     *
      * @param userId
      * @param password
      */

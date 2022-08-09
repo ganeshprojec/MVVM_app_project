@@ -13,10 +13,9 @@ import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.change_password.RequestEnvelopeChangePassword;
 import com.jlp.mvvm_jlp_project.model.request.change_password_and_logon.RequestEnvelopeChangePasswordAndLogon;
-import com.jlp.mvvm_jlp_project.model.response.change_password_and_logon.ResponseDataChangePasswordAndLogon;
-import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseDataChangePassword;
+import com.jlp.mvvm_jlp_project.model.response.change_password_and_logon.ResponseDataChangePasswordAndLogon;
 import com.jlp.mvvm_jlp_project.repository.UserRepository;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Resource;
@@ -84,5 +83,10 @@ public class AuthViewModel extends BaseViewModel {
 
     public void changePasswordAndLogon(RequestEnvelopeChangePasswordAndLogon envelope) {
         repository.changePasswordAndLogon(envelope);
+    }
+
+
+    public int test(int num) {
+        return num;
     }
 }

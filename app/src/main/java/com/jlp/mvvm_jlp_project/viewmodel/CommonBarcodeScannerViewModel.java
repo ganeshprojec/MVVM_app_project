@@ -154,11 +154,20 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
                 }
                 break;
             }
-            case AppConstants.FRAGMENT_REPRINT_LABELS:{
-                if(TextUtils.isEmpty(barcode)){
+            case AppConstants.FRAGMENT_REPRINT_LABELS: {
+                if (TextUtils.isEmpty(barcode)) {
                     result = new Pair(false, R.string.enter_delivery_number_scan);
-                }else if(barcode.length()<6){
+                } else if (barcode.length() < 6) {
                     result = new Pair(false, R.string.invalid_deliveryno_barcode);
+                }
+                break;
+            }
+
+            case AppConstants.FRAGMENT_ROUTE_MANAGEMENT: {
+                if (TextUtils.isEmpty(barcode)) {
+                    result = new Pair(false, R.string.enter_route_number_scan);
+                } else if (barcode.length() < 18) {
+                    result = new Pair(false, R.string.invalid_route_id);
                 }
                 break;
             }
