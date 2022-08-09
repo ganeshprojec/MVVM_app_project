@@ -21,7 +21,7 @@
         android:layout_marginTop="@dimen/margin_padding_small"
         android:hint="@string/enter_item_barcode_number"
         android:imeOptions="actionNext"
-        android:inputType="number|textCapCharacters"
+        android:inputType="text"
         android:maxLength="21"
         style="@style/text_input_edittext"
         app:layout_constraintBottom_toBottomOf="parent"
