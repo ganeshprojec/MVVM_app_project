@@ -311,7 +311,7 @@ public class CommonBarcodeScannerFragment extends BaseFragment  {
 
     private void prepareRequestDataForFindDeliveryGoodProducts(String barcode)
     {
-        requestDataFindDeliveryGoodProduct.setDeliveryId(deliveryNumber);
+        requestDataFindDeliveryGoodProduct.setDeliveryId(barcode);  // either barcode value will use or deliveryID/Number
         requestBodyFindDeliveryGoodProduct.setRequestDataFindDeliveryGoodProduct(requestDataFindDeliveryGoodProduct);
         requestEnvelopeFindDeliveryGoodProduct.setRequestBodyFindDeliveryGoodProduct(requestBodyFindDeliveryGoodProduct);
 
