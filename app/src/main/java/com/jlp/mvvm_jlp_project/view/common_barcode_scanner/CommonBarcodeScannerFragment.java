@@ -117,7 +117,7 @@ public class CommonBarcodeScannerFragment extends BaseFragment  {
     @Inject
     RequestDataFindDeliveryItemDetailsForComponentBarcode requestDataItemDetailsComponentBarcode;
 
-//Reprint Label
+    //Reprint Label
     @Inject
      RequestEnvelopeFindDeliveryGoodProduct requestEnvelopeFindDeliveryGoodProduct;
     @Inject
@@ -125,16 +125,12 @@ public class CommonBarcodeScannerFragment extends BaseFragment  {
     @Inject
     RequestDataFindDeliveryGoodProduct requestDataFindDeliveryGoodProduct;
 
-
-
-
     @Inject
     RequestEnvelopeFindHandoverDetails requestEnvelopeFindHandoverDetails;
     @Inject
     RequestBodyFindHandoverDetails requestBodyFindHandoverDetails;
     @Inject
     RequestDataFindHandoverDetails requestDataFindHandoverDetails;
-
 
     @Inject
     RequestEnvelopeFindDeliveriesAndDeliveryItems requestEnvelopeFindDeliveriesAndDeliveryItems;
@@ -215,6 +211,7 @@ public class CommonBarcodeScannerFragment extends BaseFragment  {
                 case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE:{
                     actionBarTitle = getResources().getString(R.string.multi_movement_title);
                     setComponentBarcodeFragmentTextTitles();
+                    updateLocationLayout(locationDetails);
                     locationLayoutFlag = true;
                     break;
                 }
@@ -287,7 +284,6 @@ public class CommonBarcodeScannerFragment extends BaseFragment  {
     /**
      * This function helps to deal with header which is bottom to actionbar
      * For Multi Movement feature we have to show the layout and location name
-     *
      * @param locationDetails shown location name from this object
      */
     private void updateLocationLayout(LocationDetails locationDetails) {
@@ -368,7 +364,7 @@ public class CommonBarcodeScannerFragment extends BaseFragment  {
      * Updated the barcode title text and hint as per the component barcode
      */
     private void setComponentBarcodeFragmentTextTitles() {
-        binding.itemEnquiryInputField.inputBarcode.setHint(getResources().getString(R.string.enter_barcode_number));
+        binding.itemEnquiryInputField.inputBarcode.setHint(getResources().getString(R.string.enter_item_barcode_number));
         binding.itemEnquiryInputField.textTitle.setText(getResources().getString(R.string.enter_item_barcode_number));
     }
 
@@ -457,7 +453,6 @@ public class CommonBarcodeScannerFragment extends BaseFragment  {
      * @param barcode
      */
     private void findLocationDetailsForBarcode(String barcode) {
-
         prepareRequestDataForFindLocationDetailsForBarcode(barcode);
         viewModel.findLocationDetailsForBarcode(requestEnvelopeLocationBarcode);
     }
@@ -563,9 +558,9 @@ public class CommonBarcodeScannerFragment extends BaseFragment  {
                             Utils.hideProgressDialog(progressDialog);
                             locationDetails = response.data.getLocationDetails();
                             if (callFor.equals(AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE)) {
+                                locationLayoutFlag = true;
                                 updateLocationLayout(locationDetails);
                                 setComponentBarcodeFragmentTextTitles();
-                                locationLayoutFlag = true;
                                 callFor = AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE;
                             } else {
                                 replaceFragment(new CommonBarcodeScannerDetailsFragment(callFor));
