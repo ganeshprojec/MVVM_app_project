@@ -25,6 +25,7 @@ public class FilterByLocationDialogFragment extends BaseDialogFragment implement
     private String title = new String();
     private String message = new String();
     private String hint = new String();
+    public static String filteredNameString = new String();
 
     private String positiveButton = new String();
     private String negativeButton = new String();
@@ -126,6 +127,7 @@ public class FilterByLocationDialogFragment extends BaseDialogFragment implement
                 if (!(TextUtils.isEmpty(binding.inputBarcode.getText().toString().trim()))) {
                     if (getListener() != null)
                         getListener().onFinishDialog(binding.inputBarcode.getText().toString(), false);
+                    filteredNameString = "" + binding.inputBarcode.getText();
 
                     dismiss();
                 }
@@ -134,7 +136,7 @@ public class FilterByLocationDialogFragment extends BaseDialogFragment implement
             case R.id.btnClear:
                 if (getListener() != null)
                     getListener().onFinishDialog(binding.inputBarcode.getText().toString(), true);
-
+                filteredNameString = new String();
                 dismiss();
 
                 break;
@@ -151,6 +153,8 @@ public class FilterByLocationDialogFragment extends BaseDialogFragment implement
             hint = getArguments().getString(PARAM_HINT);
             positiveButton = getArguments().getString(PARAM_POSITIVE_BUTTON);
             negativeButton = getArguments().getString(PARAM_NEGATIVE_BUTTON);
+
+
         }
     }
 
@@ -188,6 +192,10 @@ public class FilterByLocationDialogFragment extends BaseDialogFragment implement
 
         if (!TextUtils.isEmpty(negativeButton)) {
             binding.btnClear.setText(negativeButton);
+        }
+
+        if (!(TextUtils.isEmpty(filteredNameString))) {
+            binding.inputBarcode.setText(filteredNameString);
         }
 
     }

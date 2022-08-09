@@ -418,6 +418,8 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
                     bundlePartial.putString(BaseDialogFragment.PARAM_POSITIVE_BUTTON, getString(R.string.str_ok));
                     bundlePartial.putString(BaseDialogFragment.PARAM_NEGATIVE_BUTTON, getString(R.string.str_cancel));
 
+                    FilterByLocationDialogFragment.filteredNameString = new String();
+
                     Helper.startDialogFragment(getActivity(), dialogPartialSubmitFragment, bundlePartial, partialSubmitDialogListener);
                 }
 
@@ -473,15 +475,20 @@ public class RouteSummaryFragment extends BaseFragment implements ClickListener,
         public void onFinishDialog(String inputText, Boolean flag) {
             // check for ok
             // Update status of All NOT_LOADED item as missing using for loop & then open Summary fragment
-            userAuthorizationId = inputText;
-            missingListPosition = 0;
-            missingItemsList = DeliveryDetails.getAllMissingItems(listDeliveryDetails);
-            ItemStatusDetails firstUpdate = missingItemsList.get(missingListPosition);
-            firstUpdate.setUserIdAuthorized(userAuthorizationId);
-            firstUpdate.setUserName("ganesh123");
-            firstUpdate.setUserId("TPU111");
-            firstUpdate.setComponentStatus(LotsInfo.MISSING);
-            callUpdateItemStatus(firstUpdate);
+
+            if (!flag) {
+                userAuthorizationId = inputText;
+                missingListPosition = 0;
+                missingItemsList = DeliveryDetails.getAllMissingItems(listDeliveryDetails);
+                ItemStatusDetails firstUpdate = missingItemsList.get(missingListPosition);
+                firstUpdate.setUserIdAuthorized(userAuthorizationId);
+                firstUpdate.setUserName("ganesh123");
+                firstUpdate.setUserId("TPU111");
+                firstUpdate.setComponentStatus(LotsInfo.MISSING);
+                callUpdateItemStatus(firstUpdate);
+            } else {
+                // Nothing to do if canceled by user.
+            }
 
             //Utils.showErrorMessage(getActivity(), "Authorization taken.");
         }

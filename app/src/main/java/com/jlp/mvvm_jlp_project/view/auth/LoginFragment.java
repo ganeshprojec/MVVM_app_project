@@ -30,12 +30,8 @@ import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
-import com.jlp.mvvm_jlp_project.view.common_barcode_scanner.CommonBarcodeScannerFragment;
 import com.jlp.mvvm_jlp_project.view.home.HomeActivity;
 import com.jlp.mvvm_jlp_project.viewmodel.AuthViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
@@ -82,11 +78,11 @@ public class LoginFragment extends BaseFragment {
             @Override
             public void onClick(View view) {
                 Helper.hideKeyboard(getActivity(), view);
-                if(isNetworkConnected()){
+                if (isNetworkConnected()) {
                     authViewModel.validateLogin(
                             binding.layoutUsername.inputUsername.getText().toString().trim(),
                             binding.layoutPassword.inputPassword.getText().toString().trim());
-                }else{
+                } else {
                     Utils.showErrorMessage(getActivity(), getResources().getString(R.string.please_check_internet_connection));
                 }
             }
@@ -99,17 +95,18 @@ public class LoginFragment extends BaseFragment {
      * @param password
      */
     private void authenticateUser(String userId, String password) {
-        if (Utils.isInternetAvailable(getContext())){
+        if (Utils.isInternetAvailable(getContext())) {
             prepareRequestData(userId, password);
             authViewModel.authenticateUser(envelopeAuthenticateUser);
-        }else{
+        } else {
             Utils.showErrorMessage(getActivity(), getResources().getString(R.string.please_check_internet_connection));
         }
     }
 
     /**
      * Preparing request data envelope, body, data for soap login api
-     * @param userId input userid
+     *
+     * @param userId   input userid
      * @param password input password
      */
     private void prepareRequestData(String userId, String password) {
@@ -127,10 +124,10 @@ public class LoginFragment extends BaseFragment {
         authViewModel.validationResult.observe(getViewLifecycleOwner(), new Observer<Pair<Boolean, Integer>>() {
             @Override
             public void onChanged(Pair<Boolean, Integer> validationResult) {
-                if(validationResult.first){
+                if (validationResult.first) {
                     authenticateUser(binding.layoutUsername.inputUsername.getText().toString().trim(),
                             binding.layoutPassword.inputPassword.getText().toString().trim());
-                }else{
+                } else {
                     Utils.showErrorMessage(getActivity(), getResources().getString(validationResult.second));
                 }
             }
@@ -139,27 +136,27 @@ public class LoginFragment extends BaseFragment {
         authViewModel.responseAuthenticateUser.observe(getViewLifecycleOwner(), new Observer<Resource<ResponseDataAuthenticateUser>>() {
             @Override
             public void onChanged(Resource<ResponseDataAuthenticateUser> response) {
-                if(response.status != null){
-                    switch (response.status){
-                        case LOADING:{
+                if (response.status != null) {
+                    switch (response.status) {
+                        case LOADING: {
                             progressDialog = Utils.showProgressBar(getContext());
                             break;
                         }
 
-                        case ERROR:{
+                        case ERROR: {
                             Utils.hideProgressDialog(progressDialog);
                             Utils.showErrorMessage(getActivity(), response.message);
-                            if(response.data!=null && response.data.getDitsErrors()!=null &&
-                                    response.data.getDitsErrors().getDitsError()!=null &&
-                                    response.data.getDitsErrors().getDitsError().getErrorType()!=null &&
+                            if (response.data != null && response.data.getDitsErrors() != null &&
+                                    response.data.getDitsErrors().getDitsError() != null &&
+                                    response.data.getDitsErrors().getDitsError().getErrorType() != null &&
                                     response.data.getDitsErrors().getDitsError().errorType.ErrorNumber ==
-                                    AppConstants.ERROR_NUMBER_FOR_PASSWORD_EXPIRES){
+                                            AppConstants.ERROR_NUMBER_FOR_PASSWORD_EXPIRES) {
                                 Helper.addFragment(getActivity(), new ChangePasswordFragment(AppConstants.FRAGMENT_CHANGE_PASSWORD_AND_LOGON));
                             }
                             break;
                         }
 
-                        case SUCCESS:{
+                        case SUCCESS: {
                             clearViews();
                             Utils.hideProgressDialog(progressDialog);
                             response.data.getAuthenticationDetails();
@@ -174,11 +171,12 @@ public class LoginFragment extends BaseFragment {
 
     /**
      * Select delivery branch dialog decision
+     *
      * @param data of type ResponseDataAuthenticateUser
      * @return check the size of deliveryCentreNumber and if its more than one then return true else false
      */
     private boolean isShowDeliveryCenterList(ResponseDataAuthenticateUser data) {
-        if(data.getAuthenticationDetails().deliveryCentreNumber.size()>1)
+        if (data.getAuthenticationDetails().deliveryCentreNumber.size() > 1)
             return true;
         else
             return false;
@@ -186,6 +184,7 @@ public class LoginFragment extends BaseFragment {
 
     /**
      * Show a dialog to select delivery center number
+     *
      * @param response of type ResponseDataAuthenticateUser
      */
     private void selectDeliveryCenter(ResponseDataAuthenticateUser response) {
@@ -215,12 +214,13 @@ public class LoginFragment extends BaseFragment {
 
     /**
      * get the delivery center name from the response
+     *
      * @param response of type ResponseDataAuthenticateUser
      * @return string values of delivery center names used for the dialog
      */
     private String[] extractDeliveryCenterNamesInArray(ResponseDataAuthenticateUser response) {
         String[] deliveryCenterName = new String[response.getAuthenticationDetails().deliveryCentreNumber.size()];
-        for(int i = 0;  i < response.getAuthenticationDetails().getDeliveryCentreNumber().size(); i++){
+        for (int i = 0; i < response.getAuthenticationDetails().getDeliveryCentreNumber().size(); i++) {
             deliveryCenterName[i] = response.getAuthenticationDetails().getDeliveryCentreNumber().get(i).getDeliveryCentreName();
         }
         return deliveryCenterName;
@@ -228,7 +228,8 @@ public class LoginFragment extends BaseFragment {
 
     /**
      * Update the shared preferences for further use
-     * @param response of type ResponseDataAuthenticateUser to get the username and userId to store
+     *
+     * @param response           of type ResponseDataAuthenticateUser to get the username and userId to store
      * @param deliveryCentreId
      * @param deliveryCentreName
      */
@@ -244,7 +245,7 @@ public class LoginFragment extends BaseFragment {
     /**
      * Clear text of all views when navigating to another screen
      */
-    private void clearViews(){
+    private void clearViews() {
         binding.layoutUsername.inputUsername.setText("");
         binding.layoutPassword.inputPassword.setText("");
     }

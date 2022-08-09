@@ -44,14 +44,14 @@ public class AuthViewModel extends BaseViewModel {
     }
 
     public void validateLogin(String username, String password) {
-        Pair result = new Pair<> (true, 0);
-        if(TextUtils.isEmpty(username) && TextUtils.isEmpty(password)){
+        Pair result = new Pair<>(true, 0);
+        if (TextUtils.isEmpty(username) && TextUtils.isEmpty(password)) {
             result = new Pair(false, R.string.please_enter_user_id_and_password);
-        }else if(TextUtils.isEmpty(username)){
+        } else if (TextUtils.isEmpty(username)) {
             result = new Pair(false, R.string.please_enter_user_id);
-        }else if(TextUtils.isEmpty(password)){
+        } else if (TextUtils.isEmpty(password)) {
             result = new Pair(false, R.string.please_enter_password);
-        }else if(password.length() < AppConstants.MIN_PASSWORD_LENGTH || password.length() > AppConstants.MAX_PASSWORD_LENGTH){
+        } else if (password.length() < AppConstants.MIN_PASSWORD_LENGTH || password.length() > AppConstants.MAX_PASSWORD_LENGTH) {
             result = new Pair(false, R.string.password_should_be);
         }
         validationResult.setValue(result);
@@ -59,30 +59,30 @@ public class AuthViewModel extends BaseViewModel {
 
     public void validateChangePassword(String username, String oldPassword,
                                        String newPassword, String confirmPassword) {
-        Pair result = new Pair<> (true, 0);
-        if(TextUtils.isEmpty(oldPassword)){
+        Pair result = new Pair<>(true, 0);
+        if (TextUtils.isEmpty(oldPassword)) {
             result = new Pair(false, R.string.please_enter_old_password);
-        }else if(TextUtils.isEmpty(newPassword) && TextUtils.isEmpty(confirmPassword)){
+        } else if (TextUtils.isEmpty(newPassword) && TextUtils.isEmpty(confirmPassword)) {
             result = new Pair(false, R.string.please_enter_new_password_and_confirm);
-        }else if(newPassword.length() < AppConstants.MIN_PASSWORD_LENGTH || newPassword.length() > AppConstants.MAX_PASSWORD_LENGTH){
+        } else if (newPassword.length() < AppConstants.MIN_PASSWORD_LENGTH || newPassword.length() > AppConstants.MAX_PASSWORD_LENGTH) {
             result = new Pair(false, R.string.new_password_should_be);
-        }else if(StringUtils.isValidPassword(newPassword)){
+        } else if (StringUtils.isValidPassword(newPassword)) {
             result = new Pair(false, R.string.at_least_one_alpha_one_num_req);
-        }else if(!newPassword.equals(confirmPassword)){
+        } else if (!newPassword.equals(confirmPassword)) {
             result = new Pair(false, R.string.new_password_and_confirm_password_mismatch);
         }
         validationResult.setValue(result);
     }
 
-    public void authenticateUser(RequestEnvelopeAuthenticateUser envelope){
+    public void authenticateUser(RequestEnvelopeAuthenticateUser envelope) {
         repository.authenticateUser(envelope);
     }
 
-    public void changePassword(RequestEnvelopeChangePassword envelope){
+    public void changePassword(RequestEnvelopeChangePassword envelope) {
         repository.changePassword(envelope);
     }
 
-    public void changePasswordAndLogon(RequestEnvelopeChangePasswordAndLogon envelope){
+    public void changePasswordAndLogon(RequestEnvelopeChangePasswordAndLogon envelope) {
         repository.changePasswordAndLogon(envelope);
     }
 }
