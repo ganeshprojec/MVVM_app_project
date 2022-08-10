@@ -204,7 +204,7 @@ public class ReprintLabelItemListFragment extends BaseFragment {
                 {
                     if(ReprintLabelAdapter.list.get(i).isSelected())
                     {
-                        Toast.makeText(getActivity(),ReprintLabelAdapter.list.get(i).getDeliveryGoodId(), Toast.LENGTH_SHORT).show();
+                        //Toast.makeText(getActivity(),ReprintLabelAdapter.list.get(i).getDeliveryGoodId(), Toast.LENGTH_SHORT).show();
                     }
                     findReprintLabelDetail(printerDetails,ReprintLabelAdapter.list.get(i).getDeliveryGoodId(),deliveryGoodProduct);
                 }

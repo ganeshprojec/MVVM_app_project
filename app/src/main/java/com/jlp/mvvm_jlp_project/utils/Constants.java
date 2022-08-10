@@ -3,7 +3,7 @@ package com.jlp.mvvm_jlp_project.utils;/*
  */
 
 public class Constants {
-    public static final String API_BASE_URL = "http://192.168.197.68:8080";       // Local
+    public static final String API_BASE_URL = "http://192.168.156.68:8080";       // Local
     //public static final String API_BASE_URL = "http://jlp-miami-sdwasa01:9107/dsm_cds_DITS/ditsendpoint/ditsprovider.wsdl/";      // Test SYS2
     public static final String NAMESPACE = "http://www.johnlewis.com/cdsdits";
 
