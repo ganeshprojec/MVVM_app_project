@@ -41,7 +41,7 @@ public class Utils {
     public static ProgressDialog showLoadingDialog(Context context) {
         ProgressDialog mDialog = new ProgressDialog(context);
         mDialog.setMessage("Loading...");
-        mDialog.setCancelable(false);
+        mDialog.setCancelable(true);
         mDialog.show();
         return mDialog;
     }

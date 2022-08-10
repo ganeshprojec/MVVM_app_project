@@ -26,6 +26,7 @@ import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.SpacesItemDecoration;
 import com.jlp.mvvm_jlp_project.view.auth.ChangePasswordFragment;
+import com.jlp.mvvm_jlp_project.view.auth.LoginFragment;
 import com.jlp.mvvm_jlp_project.view.base.BaseActivity;
 import com.jlp.mvvm_jlp_project.viewmodel.HomeViewModel;
 
@@ -115,13 +116,8 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
      * For customizable click events if it is visible, Developer needs to handle exact working on respective page
      */
     public void onCloseSecond(View view) {
-        changePassword();
+        Helper.addFragment(this, new LoginFragment());
     }
-
-    public void changePassword() {
-        Helper.addFragment(this, new ChangePasswordFragment(AppConstants.FRAGMENT_CHANGE_PASSWORD));
-    }
-
 
     /**
      * @param view

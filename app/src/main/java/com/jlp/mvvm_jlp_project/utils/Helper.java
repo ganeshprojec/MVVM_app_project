@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,11 +20,13 @@ import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.interfaces.DialogListener;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.AuthenticationDetails;
 import com.jlp.mvvm_jlp_project.pref.AppPreferencesHelper;
+import com.jlp.mvvm_jlp_project.view.auth.LoginFragment;
 import com.jlp.mvvm_jlp_project.view.base.BaseDialogFragment;
 import com.jlp.mvvm_jlp_project.view.home.HomeActivity;
 import dagger.hilt.android.qualifiers.ActivityContext;
 
 public class Helper {
+    private static final String TAG = Helper.class.getSimpleName();
 
     /**
      * Hide the keypad once click on button
@@ -57,10 +60,14 @@ public class Helper {
      */
     public static void addFragment(@ActivityContext Context context, Fragment fragment) {
         //clearBackStack(context);
-        FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
-        transaction.replace(R.id.frame_container_main, fragment);
-        transaction.addToBackStack(null);
-        transaction.commit();
+        try {
+            FragmentTransaction transaction = ((AppCompatActivity) context).getSupportFragmentManager().beginTransaction();
+            transaction.replace(R.id.frame_container_main, fragment);
+            transaction.addToBackStack(null);
+            transaction.commit();
+        }catch (Exception ex){
+            Log.e(TAG, "Exception:"+ex);
+        }
     }
 
     /**

@@ -271,7 +271,7 @@ public class CommonBarcodeScannerFragment extends BaseFragment  {
 
         binding.scanNextItemBarcode.scanItemBarcode.setVisibility(View.VISIBLE);
         binding.scanNextItemBarcode.imgNextScan.setVisibility(View.GONE);
-        binding.scanNextItemBarcode.tvSelectedLocation.setVisibility(View.INVISIBLE);
+        binding.scanNextItemBarcode.tvSelectedLocation.setVisibility(View.GONE);
        // binding.scanNextItemBarcode.tvScanNextBarcode.setVisibility(View.VISIBLE);
         binding.scanNextItemBarcode.tvScanNextBarcode.setText(getResources().getString(R.string.str_selected_printer)+"  :  "+printerName);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(

@@ -113,7 +113,7 @@
                 android:background="@android:color/transparent"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:onClick="onCloseSecond"
-                android:src="@drawable/ic_change_password_24"
+                android:src="@drawable/ic_logout_24"
                 android:visibility="gone" />
 
             <ImageView
