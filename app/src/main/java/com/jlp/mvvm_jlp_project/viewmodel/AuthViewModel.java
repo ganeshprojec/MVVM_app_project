@@ -42,16 +42,14 @@ public class AuthViewModel extends BaseViewModel {
         responseDataChangePasswordAndLogon = repository._responseDataChangePasswordAndLogo;
     }
 
-    public void validateLogin(String username, String password) {
+    public void validateLogin(String userId, String password) {
         Pair result = new Pair<>(true, 0);
-        if (TextUtils.isEmpty(username) && TextUtils.isEmpty(password)) {
+        if (TextUtils.isEmpty(userId) && TextUtils.isEmpty(password)) {
             result = new Pair(false, R.string.please_enter_user_id_and_password);
-        } else if (TextUtils.isEmpty(username)) {
+        } else if (TextUtils.isEmpty(userId)) {
             result = new Pair(false, R.string.please_enter_user_id);
         } else if (TextUtils.isEmpty(password)) {
             result = new Pair(false, R.string.please_enter_password);
-        } else if (password.length() < AppConstants.MIN_PASSWORD_LENGTH || password.length() > AppConstants.MAX_PASSWORD_LENGTH) {
-            result = new Pair(false, R.string.password_should_be);
         }
         validationResult.setValue(result);
     }

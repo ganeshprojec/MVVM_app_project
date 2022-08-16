@@ -5,6 +5,8 @@ package com.jlp.mvvm_jlp_project.repository;/*
 import android.util.Log;
 
 import androidx.lifecycle.MutableLiveData;
+
+import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.api.ApiService;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.change_password.RequestEnvelopeChangePassword;
@@ -17,6 +19,7 @@ import com.jlp.mvvm_jlp_project.model.response.change_password_and_logon.Respons
 import com.jlp.mvvm_jlp_project.model.response.change_password_and_logon.ResponseEnvelopeChangePasswordAndLogon;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Resource;
+import com.jlp.mvvm_jlp_project.utils.ResourcesProvider;
 import com.jlp.mvvm_jlp_project.view.auth.LoginFragment;
 
 import javax.inject.Inject;
@@ -29,12 +32,14 @@ import retrofit2.Response;
 public class UserRepository {
     private static final String TAG = UserRepository.class.getSimpleName();
     private ApiService apiService;
+    private ResourcesProvider resourcesProvider;
     public MutableLiveData<Resource<ResponseDataChangePassword>> _responseDataChangePassword = new MutableLiveData<>();
     public MutableLiveData<Resource<ResponseDataAuthenticateUser>> _responseAuthenticateUser = new MutableLiveData<>();
     public MutableLiveData<Resource<ResponseDataChangePasswordAndLogon>> _responseDataChangePasswordAndLogo = new MutableLiveData<>();
 
-    @Inject public UserRepository(ApiService apiService) {
+    @Inject public UserRepository(ApiService apiService, ResourcesProvider resourcesProvider) {
         this.apiService = apiService;
+        this.resourcesProvider = resourcesProvider;
     }
 
     /**
@@ -113,8 +118,14 @@ public class UserRepository {
             }else if(response.errorBody()!=null){
                 _responseAuthenticateUser.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
             }else if(response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser().getDitsErrors()!=null){
-                _responseAuthenticateUser.postValue(Resource.error( response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
-                        response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser()));
+                String errorNumber = response.body().getResponseBodyAuthenticateUser().getResponseDataAuthenticateUser().getDitsErrors().getDitsError().getErrorType().getErrorNumber();
+                if(errorNumber.equals(AppConstants.ONE_ZERO_ONE)){
+                    _responseAuthenticateUser.postValue(Resource.error(resourcesProvider.getString(R.string.login_failure), errorNumber, null));
+                }else{
+                    _responseAuthenticateUser.postValue(Resource.error(response.body().getResponseBodyAuthenticateUser()
+                                    .getResponseDataAuthenticateUser().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
+                            errorNumber, null));
+                }
             } else{
                 _responseAuthenticateUser.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
                 Log.i(TAG, AppConstants.ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR);

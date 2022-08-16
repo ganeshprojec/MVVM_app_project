@@ -98,14 +98,9 @@ public class CommonBarcodeScannerRepository {
             }else if(response.errorBody()!=null){
                 _responseFindDeliveryDetailsForComponentBarcode.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
             }else if(response.body().getResponseBodyFindDeliveryDetailsForComponentBarcode().getResponseDataFindDeliveryDetailsForComponentBarcode().getDitsErrors()!=null){
-                String errorNumber = response.body().getResponseBodyFindDeliveryDetailsForComponentBarcode().getResponseDataFindDeliveryDetailsForComponentBarcode().getDitsErrors().getDitsError().getErrorType().getErrorNumber();
-                if(errorNumber.equals(AppConstants.TWO_THOUSAND) || errorNumber.equals(AppConstants.TEN_THOUSAND)){
-                    _responseFindLocationDetailsForBarcode.postValue(Resource.error(resourcesProvider.getString(R.string.item_barcode_invalid), errorNumber, null));
-                }else{
-                    _responseFindLocationDetailsForBarcode.postValue(Resource.error(response.body().getResponseBodyFindDeliveryDetailsForComponentBarcode()
-                                    .getResponseDataFindDeliveryDetailsForComponentBarcode().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
-                            errorNumber, null));
-                }
+                Pair pairOfErrorMessageAndCode = handleCommonAPIResponseErrorCodesForComponentAndLocationBarcode(response.body().getResponseBodyFindDeliveryDetailsForComponentBarcode().getResponseDataFindDeliveryDetailsForComponentBarcode().getDitsErrors(),
+                        resourcesProvider.getString(R.string.item_barcode_invalid));
+                _responseFindLocationDetailsForBarcode.postValue(Resource.error(pairOfErrorMessageAndCode.first.toString(), pairOfErrorMessageAndCode.second.toString(),null));
             } else{
                 _responseFindDeliveryDetailsForComponentBarcode.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
                 Log.i(TAG ,"Response is neither success nor error");
@@ -151,10 +146,9 @@ public class CommonBarcodeScannerRepository {
             }else if(response.errorBody()!=null){
                 _responseFindDeliveryItemDetailsForComponentBarcode.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
             }else if(response.body().getResponseBodyFindDeliveryItemDetailsForComponentBarcode().getResponseDataFindDeliveryItemDetailsForComponentBarcode().getDitsErrors()!=null){
-                _responseFindDeliveryItemDetailsForComponentBarcode.postValue(Resource.error( response.body().getResponseBodyFindDeliveryItemDetailsForComponentBarcode().
-                                getResponseDataFindDeliveryItemDetailsForComponentBarcode().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
-                        response.body().getResponseBodyFindDeliveryItemDetailsForComponentBarcode().
-                                getResponseDataFindDeliveryItemDetailsForComponentBarcode()));
+                Pair pairOfErrorMessageAndCode = handleCommonAPIResponseErrorCodesForComponentAndLocationBarcode(response.body().getResponseBodyFindDeliveryItemDetailsForComponentBarcode().getResponseDataFindDeliveryItemDetailsForComponentBarcode().getDitsErrors(),
+                        resourcesProvider.getString(R.string.item_barcode_invalid));
+                _responseFindDeliveryItemDetailsForComponentBarcode.postValue(Resource.error(pairOfErrorMessageAndCode.first.toString(), pairOfErrorMessageAndCode.second.toString(),null));
             } else{
                 _responseFindDeliveryItemDetailsForComponentBarcode.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
                 Log.i(TAG ,AppConstants.ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR);
@@ -197,14 +191,9 @@ public class CommonBarcodeScannerRepository {
             }else if(response.errorBody()!=null){
                 _responseFindLocationDetailsForBarcode.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
             }else if(response.body().getFindLocationDetailsForBarcode().getResponseDataFindLocationDetailsForBarcode().getDitsErrors()!=null){
-                String errorNumber = response.body().getFindLocationDetailsForBarcode().getResponseDataFindLocationDetailsForBarcode().getDitsErrors().getDitsError().getErrorType().getErrorNumber();
-                if(errorNumber.equals(AppConstants.TWO_THOUSAND) || errorNumber.equals(AppConstants.TEN_THOUSAND)){
-                    _responseFindLocationDetailsForBarcode.postValue(Resource.error(resourcesProvider.getString(R.string.location_barcode_not_recognised), errorNumber, null));
-                }else{
-                    _responseFindLocationDetailsForBarcode.postValue(Resource.error(response.body().getFindLocationDetailsForBarcode()
-                                    .getResponseDataFindLocationDetailsForBarcode().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
-                            errorNumber, null));
-                }
+                Pair pairOfErrorMessageAndCode = handleCommonAPIResponseErrorCodesForComponentAndLocationBarcode(response.body().getFindLocationDetailsForBarcode().getResponseDataFindLocationDetailsForBarcode().getDitsErrors(),
+                        resourcesProvider.getString(R.string.location_barcode_not_recognised));
+                _responseFindLocationDetailsForBarcode.postValue(Resource.error(pairOfErrorMessageAndCode.first.toString(), pairOfErrorMessageAndCode.second.toString(),null));
             } else{
                 _responseFindLocationDetailsForBarcode.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
                 Log.i(TAG ,AppConstants.ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR);
@@ -214,8 +203,6 @@ public class CommonBarcodeScannerRepository {
             Log.e(TAG ,AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE+ex);
         }
     }
-
-
 
     /**
      * Api call for recordLocationOfItem
@@ -302,7 +289,7 @@ public class CommonBarcodeScannerRepository {
             }else if(response.errorBody()!=null){
                 _responseFindHandoverDetails.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
             }else if(response.body().getResponseBodyFindHandoverDetails().getResponseDataFindHandoverDetails().getDitsErrors()!=null){
-                Pair pairOfErrorMessageAndCode = handleCommonAPIResponseErrorCodes(response.body().getResponseBodyFindHandoverDetails().getResponseDataFindHandoverDetails().getDitsErrors());
+                Pair pairOfErrorMessageAndCode = handleCommonAPIResponseErrorCodesForCCDAndCHD(response.body().getResponseBodyFindHandoverDetails().getResponseDataFindHandoverDetails().getDitsErrors());
                 _responseFindHandoverDetails.postValue(Resource.error(pairOfErrorMessageAndCode.first.toString(), pairOfErrorMessageAndCode.second.toString(),null));
             }else{
                 _responseFindHandoverDetails.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
@@ -345,7 +332,7 @@ public class CommonBarcodeScannerRepository {
                     response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems().getDitsErrors()==null) {
                 _responseFindDeliveriesAndDeliveryItems.postValue(Resource.success(response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems()));
             } else if(response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems().getDitsErrors()!=null){
-                Pair pairOfErrorMessageAndCode = handleCommonAPIResponseErrorCodes(response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems().getDitsErrors());
+                Pair pairOfErrorMessageAndCode = handleCommonAPIResponseErrorCodesForCCDAndCHD(response.body().getResponseBodyFindDeliveriesAndDeliveryItems().getResponseDataFindDeliveriesAndDeliveryItems().getDitsErrors());
                 _responseFindDeliveriesAndDeliveryItems.postValue(Resource.error(pairOfErrorMessageAndCode.first.toString(), pairOfErrorMessageAndCode.second.toString(),null));
             } else{
                 _responseFindDeliveriesAndDeliveryItems.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
@@ -357,7 +344,7 @@ public class CommonBarcodeScannerRepository {
         }
     }
 
-    private Pair handleCommonAPIResponseErrorCodes(DITSErrors ditsErrors) {
+    private Pair handleCommonAPIResponseErrorCodesForCCDAndCHD(DITSErrors ditsErrors) {
         Pair pairOfErrorMessageAndCode = new Pair<> (ditsErrors.getDitsError().getErrorType().getErrorMessage(), ditsErrors.getDitsError().getErrorType().getErrorNumber());
         String errorNumber = ditsErrors.getDitsError().getErrorType().getErrorNumber();
         if(errorNumber.equals(AppConstants.TWO_THOUSAND)){
@@ -373,6 +360,18 @@ public class CommonBarcodeScannerRepository {
         }
         return pairOfErrorMessageAndCode;
     }
+
+    private Pair handleCommonAPIResponseErrorCodesForComponentAndLocationBarcode(DITSErrors ditsErrors, String errorMessageToDisplay) {
+        Pair pairOfErrorMessageAndCode = new Pair<> (ditsErrors.getDitsError().getErrorType().getErrorMessage(), ditsErrors.getDitsError().getErrorType().getErrorNumber());
+        String errorNumber = ditsErrors.getDitsError().getErrorType().getErrorNumber();
+        if(errorNumber.equals(AppConstants.TWO_THOUSAND) || errorNumber.equals(AppConstants.TEN_THOUSAND)){
+            pairOfErrorMessageAndCode =  new Pair(errorMessageToDisplay, errorNumber);
+
+        }
+        return pairOfErrorMessageAndCode;
+    }
+
+
     // UpdateLotsNumerRequireRepository
       public void updateLostNumerRequire(RequestEnvelopeAmendLotNumerUpdate envelope )
       {

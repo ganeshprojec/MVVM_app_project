@@ -26,6 +26,9 @@
     <string name="next">Next</string>
     <string name="congratulations">Congratulations!</string>]
     <string name="password_changed_successfully">Your password has been changed successfully! \n\n Please login again to return to main menu</string>
+    <string name="login_failure">Login Failure - Logon details are incorrect, Please retry</string>
+
+
 
     <string name="password_must_be">Password must be\n &#160;&#160;-6-8 Character long \n &#160;&#160;-Only alphanumeric characters allowed\n &#160;&#160;-At least one alphabetic and one numeric character\n &#160;&#160;-Not same as old password</string>
     <string name="title_activity_login">LoginActivity</string>
@@ -38,7 +41,7 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>'
 
     <string name="please_enter_user_id_and_password">Please enter User ID and Password</string>
-    <string name="please_enter_user_id">Please enter User ID</string>
+    <string name="please_enter_user_id">Please enter user Id</string>
     <string name="please_enter_password">Please enter password</string>
     <string name="password_should_be">Password should be 6-8 characters long</string>
     <string name="number_lots_mustbe_different">Number of lots must be different to current lots.</string>
@@ -52,6 +55,9 @@
 
 
     <string name="please_check_internet_connection">Please check internet connection</string>
+    <string name="you_need_to_login_again">You need to log on again</string>
+    <string name="session_expired">Session has expired</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello Blank Fragment!</string>
@@ -93,6 +99,7 @@
     <string name="scan_next_item_barcode">Scan next item barcode</string>
     <string name="enter_barcode">Enter Barcode</string>
     <string name="item_barcode_required">Item barcode required</string>
+    <string name="location_barcode_required">Location barcode required</string>
     <string name="enter_delivery_number_scan">Input Delivery Number/Barcode</string>
     <string name="invalid_barcode">Invalid Barcode</string>
     <string name="invalid_deliveryno_barcode">Invalid Delivery Number/Barcode</string>
@@ -158,7 +165,7 @@
     <string name="item_movement_title">Item Movement</string>
     <string name="delivery_number">Delivery number</string>
     <string name="str_ok">Ok</string>
-    <string name="str_clear_filter">Clear Filter</string>
+    <string name="str_clear_filter">Clear filter</string>
 
     <string name="enter_location_barcode_number">Enter location barcode number</string>
     <string name="enter_location_barcode_number_or_scan">Enter location barcode number/scan</string>
@@ -167,7 +174,6 @@
     <string name="multi_movement_title">Multi Movements</string>
     <string name="selected_location">Selected location</string>
 
-    <!-- Strings for Carrier Handover Details Fragment -->
     <string name="str_route_summary">Route Summary</string>
     <string name="dummy_lotSr">L</string>
     <string name="dummy_location_b5">Location B5</string>
@@ -179,13 +185,13 @@
     <string name="printerId">printerId</string>
 
     <string name="printerName">PrinterName</string>
-    <string name="enter_delivery_number">Enter Delivery Number</string>
+    <string name="enter_delivery_number">Enter delivery number</string>
     <string name="printer">Printer</string>
 
     <string name="deliveryId">Delivery ID</string>
     <string name="deliveryGoodId">Good ID</string>
-    <string name="productCode">Product Code</string>
-    <string name="orderDescriptionClean">Order Description</string>
+    <string name="productCode">Product code</string>
+    <string name="orderDescriptionClean">Order description</string>
     <string name="label_printed_on_printer">Labels Printed on Printer</string>
 
 
@@ -200,11 +206,11 @@
     <string name="delivery">Delivery</string>
     <string name="done">Done</string>
     <string name="scanned_item_no">Scanned item No.</string>
-    <string name="item_name">Item name</string>
+    <string name="item_name">Item</string>
     <string name="create_has_failed">Create has failed</string>
-    <string name="package_for_another_delivery">Package item not recognised OR Package is for another delivery, please scan all Part Lots for this Delivery</string>
+    <string name="package_for_another_delivery">Package item not recognised OR Package is for another delivery, please scan all Part Lots for this delivery</string>
     <string name="item_has_already_be_scanned_for_handover">This item has already be scanned for handover</string>
-    <string name="part_delivery_handover">All part lots for an item must be scanned for a Part Delivery handover</string>
+    <string name="part_delivery_handover">All part lots for an item must be scanned for a Part delivery handover</string>
     <string name="no_item_added_yet">No item added yet</string>
     <!--End Strings for Carrier Handover Details Fragment-->
 
@@ -242,7 +248,7 @@
     <!--<string name="str_partial_submit_message">All items are not loaded, Still do you want to continue submitting?</string>-->
     <string name="str_partial_sumit_title">Authorization needed</string>
     <string name="str_enter_authorization">Enter authorization ID</string>
-    <string name="str_partial_submit_message">Not all lots scanned, Complete loading?</string>
+    <string name="str_partial_submit_message">Not all lots scanned, complete loading?</string>
     <!--<string name="dummy_str_partial_submit_message">All items are not loaded, Still do you want to continue submitting?</string>-->
    <!-- <string name="str_partial_sumit_title">Authorization Needed</string>
     <string name="str_enter_authorization">Enter Authorization ID</string>
@@ -251,10 +257,10 @@
     <string name="choose_delivery_center">Choose delivery center</string>
     <string name="error_while_getting_the_response">Error while getting the response</string>
     <string name="error_while_handling_the_response">Error while handling the response</string>
-    <string name="something_went_wrong">Something Went Wrong</string>
+    <string name="something_went_wrong">Something went wrong</string>
     <string name="response_is_neither_success_nor_error">Response is neither success nor error</string>
 
-    <string name="str_enter_location_name">Enter Location Name</string>
+    <string name="str_enter_location_name">Enter location name</string>
 
 
 </resources>

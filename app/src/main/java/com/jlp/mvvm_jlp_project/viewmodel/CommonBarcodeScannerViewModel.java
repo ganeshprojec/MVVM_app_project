@@ -137,9 +137,16 @@ public class CommonBarcodeScannerViewModel extends BaseViewModel {
             case AppConstants.FRAGMENT_ITEM_ENQUIRY:
             case AppConstants.FRAGMENT_AMEND_LOTS:
             case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_COMPONENT_BARCODE:
-            case AppConstants.FRAGMENT_ITEM_MOVEMENT_FOR_COMPONENT_BARCODE: {
+            case AppConstants.FRAGMENT_ITEM_MOVEMENT_FOR_COMPONENT_BARCODE:{
                 if (TextUtils.isEmpty(barcode)) {
                     result = new Pair(false, R.string.item_barcode_required);
+                }
+                break;
+            }
+            case AppConstants.FRAGMENT_MULTI_MOVEMENT_FOR_LOCATION_BARCODE:
+            case AppConstants.FRAGMENT_ITEM_MOVEMENT_FOR_LOCATION_BARCODE:{
+                if (TextUtils.isEmpty(barcode)) {
+                    result = new Pair(false, R.string.location_barcode_required);
                 }
                 break;
             }

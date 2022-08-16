@@ -1,7 +1,10 @@
 package com.jlp.mvvm_jlp_project.view.home;
 
 
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
@@ -21,6 +24,8 @@ import com.jlp.mvvm_jlp_project.adapters.MenuAdapter;
 import com.jlp.mvvm_jlp_project.databinding.ActivityHomeMainBinding;
 import com.jlp.mvvm_jlp_project.interfaces.ClickListener;
 import com.jlp.mvvm_jlp_project.model.DrawerMenuItem;
+import com.jlp.mvvm_jlp_project.model.response.authenticate_user.DeliveryCentreNumber;
+import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
 import com.jlp.mvvm_jlp_project.pref.AppPreferencesHelper;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
@@ -46,6 +51,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     private ProgressDialog mDialog;
     private MenuAdapter adapter;
     private ArrayList<DrawerMenuItem> menuList = new ArrayList<>();
+    private long endTime = 0;
 
     @Inject
     AppPreferencesHelper appPreferencesHelper;
@@ -68,6 +74,20 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         initEvents();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        long startTime = System.currentTimeMillis();
+        if(endTime!=0 && startTime - endTime >= AppConstants.SESSION_TIME_OUT){
+            sessionTimeOutDialog(this);
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        endTime = System.currentTimeMillis();
+    }
 
     /**
      * @param
@@ -157,6 +177,27 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
         DrawerLayout drawer = (DrawerLayout) binding.drawerLayout;
         drawer.closeDrawer(Gravity.LEFT);
         return true;
+    }
+
+
+    /**
+     * Show a dialog to select delivery center number
+     * @param response of type ResponseDataAuthenticateUser
+     */
+    private void sessionTimeOutDialog(Context context) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(getResources().getString(R.string.session_expired));
+        builder.setMessage(getResources().getString(R.string.you_need_to_login_again));
+        builder.setCancelable(false);
+        builder.setPositiveButton(getResources().getString(R.string.ok), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                Helper.clearBackStack(context);
+                Helper.addFragment(context, new LoginFragment());
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
 
