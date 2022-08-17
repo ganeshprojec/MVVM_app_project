@@ -20,15 +20,12 @@ import com.jlp.mvvm_jlp_project.model.request.authenticate_user.AuthenticationDe
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestBodyAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestDataAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestEnvelopeAuthenticateUser;
-import com.jlp.mvvm_jlp_project.model.response.authenticate_user.DeliveryCentreNumber;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
-import com.jlp.mvvm_jlp_project.pref.AppPreferencesHelper;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.Utils;
 import com.jlp.mvvm_jlp_project.view.base.BaseFragment;
-import com.jlp.mvvm_jlp_project.view.home.HomeActivity;
 import com.jlp.mvvm_jlp_project.viewmodel.AuthViewModel;
 
 import javax.inject.Inject;
@@ -53,9 +50,6 @@ public class LoginFragment extends BaseFragment {
     RequestDataAuthenticateUser requestDataAuthenticateUser;
     @Inject
     AuthenticationDetails authenticationDetails;
-
-    @Inject
-    AppPreferencesHelper appPreferencesHelper;
 
     @Override
     protected View initViewBinding(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -143,22 +137,20 @@ public class LoginFragment extends BaseFragment {
 
                         case ERROR:{
                             Utils.hideProgressDialog(progressDialog);
-                            Utils.showErrorMessage(getActivity(), response.message);
-                            if(response.data!=null && response.data.getDitsErrors()!=null &&
-                                    response.data.getDitsErrors().getDitsError()!=null &&
-                                    response.data.getDitsErrors().getDitsError().getErrorType()!=null &&
-                                    response.data.getDitsErrors().getDitsError().errorType.ErrorNumber.equals(
-                                    AppConstants.ERROR_NUMBER_FOR_PASSWORD_EXPIRES)){
+                            if(response.code!=null && response.code.equals(AppConstants.HUNDRED)){
                                 Helper.addFragment(getActivity(), new ChangePasswordFragment(AppConstants.FRAGMENT_CHANGE_PASSWORD_AND_LOGON));
+                            }else{
+                                Utils.showErrorMessage(getActivity(), response.message);
                             }
                             break;
                         }
 
                         case SUCCESS:{
+                            AppConstants.PASSWORD = binding.layoutPassword.inputPassword.getText().toString().trim();
                             clearViews();
                             Utils.hideProgressDialog(progressDialog);
                             response.data.getAuthenticationDetails();
-                            Helper.handleResponseAndDoLogin(response.data.getAuthenticationDetails(), getActivity(), appPreferencesHelper);
+                            Helper.handleResponseAndDoLogin(response.data.getAuthenticationDetails(), getActivity());
                             break;
                         }
                     }

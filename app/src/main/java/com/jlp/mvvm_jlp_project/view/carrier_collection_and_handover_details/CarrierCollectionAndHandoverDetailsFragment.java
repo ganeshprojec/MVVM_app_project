@@ -36,7 +36,6 @@ import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_item
 import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items.DeliveryGoodsDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items.ResponseDataFindDeliveriesAndDeliveryItems;
 import com.jlp.mvvm_jlp_project.model.response.find_handover_details.FoundHandoverDetails;
-import com.jlp.mvvm_jlp_project.pref.AppPreferencesHelper;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Resource;
@@ -73,8 +72,6 @@ public class CarrierCollectionAndHandoverDetailsFragment extends BaseFragment{
     private int mYear, mMonth, mDay, mHour, mMinute;
 
     boolean isDatesAreSame = false;
-
-    @Inject AppPreferencesHelper appPreferencesHelper;
 
     @Inject RequestEnvelopeCreateOrUpdateHandoverDetails requestEnvelopeCreateOrUpdateHandoverDetails;
     @Inject RequestBodyCreateOrUpdateHandoverDetails requestBodyCreateOrUpdateHandoverDetails;
@@ -314,8 +311,8 @@ public class CarrierCollectionAndHandoverDetailsFragment extends BaseFragment{
         }
         createOrUpdateHandoverDetails.setAgreedDelDate(binding.tvDeliveryTo.getText().toString().trim());
         createOrUpdateHandoverDetails.setLatestDelTime(binding.etLatestDelivery.getText().toString().trim());
-        createOrUpdateHandoverDetails.setUserId(appPreferencesHelper.getUserId());
-        createOrUpdateHandoverDetails.setUserName(appPreferencesHelper.getUsername());
+        createOrUpdateHandoverDetails.setUserId(AppConstants.USER_ID);
+        createOrUpdateHandoverDetails.setUserName(AppConstants.USER_NAME);
         requestDataCreateOrUpdateHandoverDetails.setCreateOrUpdateHandoverDetails(createOrUpdateHandoverDetails);
         copyOfCreateOrUpdateHandoverDetails = createOrUpdateHandoverDetails;
         requestBodyCreateOrUpdateHandoverDetails.setRequestDataCreateOrUpdateHandoverDetails(requestDataCreateOrUpdateHandoverDetails);

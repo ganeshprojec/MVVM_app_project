@@ -3,6 +3,7 @@ package com.jlp.mvvm_jlp_project.repository;/*
  */
 
 import android.util.Log;
+import android.util.Pair;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -11,6 +12,7 @@ import com.jlp.mvvm_jlp_project.api.ApiService;
 import com.jlp.mvvm_jlp_project.model.request.authenticate_user.RequestEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.request.change_password.RequestEnvelopeChangePassword;
 import com.jlp.mvvm_jlp_project.model.request.change_password_and_logon.RequestEnvelopeChangePasswordAndLogon;
+import com.jlp.mvvm_jlp_project.model.response.DITSErrors;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseEnvelopeAuthenticateUser;
 import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseEnvelopeChangePassword;
@@ -74,8 +76,8 @@ public class UserRepository {
             }else if(response.errorBody()!=null){
                 _responseDataChangePassword.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
             }else if(response.body().getResponseBodyChangePassword().getResponseDataChangePassword().getDitsErrors()!=null){
-                _responseDataChangePassword.postValue(Resource.error( response.body().getResponseBodyChangePassword().getResponseDataChangePassword().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
-                        response.body().getResponseBodyChangePassword().getResponseDataChangePassword()));
+                Pair pairOfErrorMessageAndCode = handleCommonAPIResponseErrorCodes(response.body().getResponseBodyChangePassword().getResponseDataChangePassword().getDitsErrors());
+                _responseDataChangePassword.postValue(Resource.error(pairOfErrorMessageAndCode.first.toString(), pairOfErrorMessageAndCode.second.toString(),null));
             } else{
                 _responseDataChangePassword.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
                 Log.i(TAG, AppConstants.ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR);
@@ -169,8 +171,9 @@ public class UserRepository {
             }else if(response.errorBody()!=null){
                 _responseDataChangePasswordAndLogo.postValue(Resource.error(AppConstants.ERROR_WHILE_GETTING_THE_RESPONSE, null));
             }else if(response.body().getResponseBodyChangePasswordAndLogon().getResponseDataChangePasswordAndLogon().getDitsErrors()!=null){
-                _responseDataChangePasswordAndLogo.postValue(Resource.error( response.body().getResponseBodyChangePasswordAndLogon().getResponseDataChangePasswordAndLogon().getDitsErrors().getDitsError().getErrorType().getErrorMessage(),
-                        response.body().getResponseBodyChangePasswordAndLogon().getResponseDataChangePasswordAndLogon()));
+
+                Pair pairOfErrorMessageAndCode = handleCommonAPIResponseErrorCodes(response.body().getResponseBodyChangePasswordAndLogon().getResponseDataChangePasswordAndLogon().getDitsErrors());
+                _responseDataChangePasswordAndLogo.postValue(Resource.error(pairOfErrorMessageAndCode.first.toString(), pairOfErrorMessageAndCode.second.toString(),null));
             } else{
                 _responseDataChangePasswordAndLogo.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
                 Log.i(TAG, AppConstants.ERROR_RESPONSE_IS_NEITHER_SUCCESS_NOR_ERROR);
@@ -179,5 +182,19 @@ public class UserRepository {
             _responseDataChangePasswordAndLogo.postValue(Resource.error(AppConstants.ERROR_SOMETHING_WENT_WRONG, null));
             Log.e(TAG, AppConstants.ERROR_SOMETHING_WENT_WRONG + ex);
         }
+    }
+
+    private Pair handleCommonAPIResponseErrorCodes(DITSErrors ditsErrors) {
+        Pair pairOfErrorMessageAndCode = new Pair<> (ditsErrors.getDitsError().getErrorType().getErrorMessage(),
+                ditsErrors.getDitsError().getErrorType().getErrorNumber());
+        String errorNumber = ditsErrors.getDitsError().getErrorType().getErrorNumber();
+        if(errorNumber.equals(AppConstants.ONE_ZERO_ONE)){
+            pairOfErrorMessageAndCode =  new Pair(resourcesProvider.getString(R.string.invalid_authentication_details), AppConstants.ONE_ZERO_ONE);
+        } else if(errorNumber.equals(AppConstants.ONE_ZERO_TWO)){
+            pairOfErrorMessageAndCode =  new Pair(resourcesProvider.getString(R.string.no_valid_branches_setup), AppConstants.ONE_ZERO_TWO);
+        }else if(errorNumber.equals(AppConstants.ONE_ZERO_THREE)){
+            pairOfErrorMessageAndCode =  new Pair(resourcesProvider.getString(R.string.credentials_not_accepted), AppConstants.ONE_ZERO_THREE);
+        }
+        return pairOfErrorMessageAndCode;
     }
 }

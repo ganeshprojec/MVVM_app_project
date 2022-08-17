@@ -3,12 +3,16 @@ package com.jlp.mvvm_jlp_project.utils;/*
  */
 
 public class AppConstants {
+
+    public static String USER_NAME = "";
+    public static String USER_ID = "";
+    public static String DELIVERY_CENTER_NUMBER = "";
+    public static String DELIVERY_CENTER_ID = "";
+    public static String PASSWORD = "";
+
     public static final int CONNECT_TIME_OUT_IN_MIN = 20;
     public static final int WRITE_TIME_OUT_IN_MIN = 2;
     public static final int READ_TIME_OUT_IN_MIN = 2;
-
-    public static final int MIN_PASSWORD_LENGTH = 6;
-    public static final int MAX_PASSWORD_LENGTH = 8;
 
     public static final int SESSION_TIME_OUT = 1200000; // 20 min
 
@@ -77,12 +81,11 @@ public class AppConstants {
     public static final boolean IS_SCANNER_ACTIVE  = true;
     
     //Error Codes for API from existing code
-    public static final String ERROR_NUMBER_FOR_PASSWORD_EXPIRES = "100";
     public static final String TWO_THOUSAND = "2000";
     public static final String FOUR_THOUSAND = "4000";
     public static final String FIVE_THOUSAND = "5000";
     public static final String ONE_ONE_ZERO_ZERO = "1100";
-    public static final String HUNDRED = "100";
+    public static final String HUNDRED = "100";                 // ERROR_NUMBER_FOR_PASSWORD_EXPIRES
     public static final String ONE_ZERO_ONE = "101";
     public static final String ONE_ZERO_TWO = "102";
     public static final String ONE_ZERO_THREE = "103";
@@ -96,5 +99,7 @@ public class AppConstants {
     public static final String APP_TIME_FORMAT = "kk:mm";
 
     public static final String APP_DATE_TIME_FORMAT = APP_DATE_FORMAT + " "+ APP_TIME_FORMAT;
+
+    public static final String PASSWORD_REGEXP = "^(?=.*\\d)(?=.*[a-zA-Z]).{6,8}$";
 
 }

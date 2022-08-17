@@ -26,7 +26,6 @@ import com.jlp.mvvm_jlp_project.model.request.change_password_and_logon.RequestD
 import com.jlp.mvvm_jlp_project.model.request.change_password_and_logon.RequestEnvelopeChangePasswordAndLogon;
 import com.jlp.mvvm_jlp_project.model.response.change_password.ResponseDataChangePassword;
 import com.jlp.mvvm_jlp_project.model.response.change_password_and_logon.ResponseDataChangePasswordAndLogon;
-import com.jlp.mvvm_jlp_project.pref.AppPreferencesHelper;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Resource;
@@ -41,9 +40,7 @@ import dagger.hilt.android.AndroidEntryPoint;
 
 @AndroidEntryPoint
 public class ChangePasswordFragment extends BaseFragment {
-
     private static final String TAG = ChangePasswordFragment.class.getSimpleName();
-
     private @NonNull
     FragmentChangePasswordBinding binding;
     private AuthViewModel authViewModel;
@@ -68,9 +65,6 @@ public class ChangePasswordFragment extends BaseFragment {
     ChangePasswordAndLogonDetails changePasswordAndLogonDetails;
 
     private String callFor;
-
-    @Inject
-    AppPreferencesHelper appPreferencesHelper;
 
 
     public ChangePasswordFragment(String callFor){
@@ -99,7 +93,6 @@ public class ChangePasswordFragment extends BaseFragment {
                 Helper.hideKeyboard(getActivity(), view);
                 if(isNetworkConnected()){
                     authViewModel.validateChangePassword(
-                            binding.inputUsername.getText().toString().trim(),
                             binding.inputOldPassword.getText().toString().trim(),
                             binding.inputNewPassword.getText().toString().trim(),
                             binding.inputConfirmPassword.getText().toString().trim());
@@ -161,7 +154,7 @@ public class ChangePasswordFragment extends BaseFragment {
                         case SUCCESS:{
                             clearViews();
                             Toast.makeText(getContext(), R.string.password_changed_successfully, Toast.LENGTH_LONG).show();
-                            Helper.handleResponseAndDoLogin(response.data.getAuthenticationDetails(), getActivity(), appPreferencesHelper);
+                            Helper.handleResponseAndDoLogin(response.data.getAuthenticationDetails(), getActivity());
                             break;
                         }
                     }
@@ -179,6 +172,7 @@ public class ChangePasswordFragment extends BaseFragment {
                             );
                 } else {
                     Utils.showErrorMessage(getActivity(), getResources().getString(validationResult.second));
+                    //Utils.showToastMessage(getActivity(), getResources().getString(validationResult.second));
                 }
             }
         });

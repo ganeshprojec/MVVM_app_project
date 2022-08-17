@@ -30,7 +30,6 @@ import com.jlp.mvvm_jlp_project.model.request.create_or_update_handover_details.
 import com.jlp.mvvm_jlp_project.model.request.create_component_handover_details.ComponentDetails;
 import com.jlp.mvvm_jlp_project.model.response.create_component_handover_details.ResponseDataCreateComponentHandoverDetails;
 import com.jlp.mvvm_jlp_project.model.response.find_deliveries_and_delivery_items.ResponseDataFindDeliveriesAndDeliveryItems;
-import com.jlp.mvvm_jlp_project.pref.AppPreferencesHelper;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Resource;
@@ -42,7 +41,6 @@ import com.jlp.mvvm_jlp_project.viewmodel.CarrierCollectionAndHandoverDetailsVie
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -63,8 +61,6 @@ public class CarrierHandoverDeliveryItemDetailsFragment extends BaseFragment{
     private List<TitleValueDataModel> titleValueDataList =  new ArrayList<>();
     private  LinkedHashMap<Integer, TitleValueDataModel> titleValueDataHashMap = new LinkedHashMap();
     private Hashtable hsDeliveryGoodItemCompLength;
-
-    @Inject AppPreferencesHelper appPreferencesHelper;
 
     @Inject RequestEnvelopeCreateComponentHandoverDetails requestEnvelopeCreateComponentHandoverDetails;
     @Inject RequestBodyCreateComponentHandoverDetails requestBodyCreateComponentHandoverDetails;
@@ -203,8 +199,8 @@ public class CarrierHandoverDeliveryItemDetailsFragment extends BaseFragment{
         createComponentHandoverDetails.setAgreedDelDate(createOrUpdateHandoverDetails.getAgreedDelDate());
         createComponentHandoverDetails.setLatestDelTime(createOrUpdateHandoverDetails.getLatestDelTime());
         createComponentHandoverDetails.setHandoverRef(createOrUpdateHandoverDetails.getHandoverRef());
-        createComponentHandoverDetails.setUserId(appPreferencesHelper.getUserId());
-        createComponentHandoverDetails.setUserName(appPreferencesHelper.getUsername());
+        createComponentHandoverDetails.setUserId(AppConstants.USER_ID);
+        createComponentHandoverDetails.setUserName(AppConstants.USER_NAME);
         requestDataCreateComponentHandoverDetails.setCreateComponentHandoverDetails(createComponentHandoverDetails);
         requestBodyCreateComponentHandoverDetails.setRequestDataCreateComponentHandoverDetails(requestDataCreateComponentHandoverDetails);
         requestEnvelopeCreateComponentHandoverDetails.setRequestBodyCreateComponentHandoverDetails(requestBodyCreateComponentHandoverDetails);

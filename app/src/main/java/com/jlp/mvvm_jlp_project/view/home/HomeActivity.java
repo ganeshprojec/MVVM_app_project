@@ -24,20 +24,13 @@ import com.jlp.mvvm_jlp_project.adapters.MenuAdapter;
 import com.jlp.mvvm_jlp_project.databinding.ActivityHomeMainBinding;
 import com.jlp.mvvm_jlp_project.interfaces.ClickListener;
 import com.jlp.mvvm_jlp_project.model.DrawerMenuItem;
-import com.jlp.mvvm_jlp_project.model.response.authenticate_user.DeliveryCentreNumber;
-import com.jlp.mvvm_jlp_project.model.response.authenticate_user.ResponseDataAuthenticateUser;
-import com.jlp.mvvm_jlp_project.pref.AppPreferencesHelper;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.SpacesItemDecoration;
-import com.jlp.mvvm_jlp_project.view.auth.ChangePasswordFragment;
 import com.jlp.mvvm_jlp_project.view.auth.LoginFragment;
 import com.jlp.mvvm_jlp_project.view.base.BaseActivity;
 import com.jlp.mvvm_jlp_project.viewmodel.HomeViewModel;
-
 import java.util.ArrayList;
-
-import javax.inject.Inject;
 
 import dagger.hilt.android.AndroidEntryPoint;
 
@@ -48,13 +41,9 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     private @NonNull
     ActivityHomeMainBinding binding;
     private HomeViewModel menuViewModel;
-    private ProgressDialog mDialog;
     private MenuAdapter adapter;
     private ArrayList<DrawerMenuItem> menuList = new ArrayList<>();
     private long endTime = 0;
-
-    @Inject
-    AppPreferencesHelper appPreferencesHelper;
 
     @Override
     protected void initViewBinding() {
@@ -66,7 +55,7 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
-            ((TextView) binding.navView.getHeaderView(0).findViewById(R.id.txtHeaderUsername)).setText(appPreferencesHelper.getUsername());
+            ((TextView) binding.navView.getHeaderView(0).findViewById(R.id.txtHeaderUsername)).setText(AppConstants.USER_NAME);
         } catch (Exception ex) {
             Log.e(TAG, "Exception: " + ex);
         }
@@ -181,8 +170,8 @@ public class HomeActivity extends BaseActivity implements NavigationView.OnNavig
 
 
     /**
-     * Show a dialog to select delivery center number
-     * @param response of type ResponseDataAuthenticateUser
+     * Show a dialog when client session expires
+     * @param context to show the dialog
      */
     private void sessionTimeOutDialog(Context context) {
         AlertDialog.Builder builder = new AlertDialog.Builder(context);

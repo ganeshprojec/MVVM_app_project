@@ -65,7 +65,6 @@ public class HomeViewModel extends BaseViewModel {
      * For click event of the menu from navigation drawer
      */
     public void loadMenu(int id, @ActivityContext Context context) {
-
         if (id == R.id.nav_item_enquiry) {
             onPressItemEnquiry(context);
         } else if (id == R.id.nav_item_movements) {
@@ -74,7 +73,6 @@ public class HomeViewModel extends BaseViewModel {
             onPressMovements(context);
         } else if (id == R.id.nav_reprint_labels) {
             onPressReprintLabels(context);
-
         } else if (id == R.id.nav_amend_lots) {
             onPressAmendLots(context);
         } else if (id == R.id.nav_route_management) {

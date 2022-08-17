@@ -19,7 +19,6 @@ import androidx.fragment.app.FragmentTransaction;
 import com.jlp.mvvm_jlp_project.R;
 import com.jlp.mvvm_jlp_project.interfaces.DialogListener;
 import com.jlp.mvvm_jlp_project.model.response.authenticate_user.AuthenticationDetails;
-import com.jlp.mvvm_jlp_project.pref.AppPreferencesHelper;
 import com.jlp.mvvm_jlp_project.view.auth.LoginFragment;
 import com.jlp.mvvm_jlp_project.view.base.BaseDialogFragment;
 import com.jlp.mvvm_jlp_project.view.home.HomeActivity;
@@ -120,11 +119,11 @@ public class Helper {
     }
 
     public static void handleResponseAndDoLogin(AuthenticationDetails authenticationDetails,
-                                                Activity activity, AppPreferencesHelper appPreferencesHelper) {
+                                                Activity activity) {
         if(isShowDeliveryCenterList(authenticationDetails)){
-            selectDeliveryCenter(authenticationDetails, activity, appPreferencesHelper);
+            selectDeliveryCenter(authenticationDetails, activity);
         }else{
-            updateSharedPref(appPreferencesHelper, authenticationDetails);
+            updateSharedPref(authenticationDetails);
             Helper.redirectToActivity(activity, HomeActivity.class, true);
         }
     }
@@ -146,7 +145,7 @@ public class Helper {
      * @param response of type ResponseDataAuthenticateUser
      */
     public static void selectDeliveryCenter(AuthenticationDetails authenticationDetails,
-                                      Activity activity, AppPreferencesHelper appPreferencesHelper) {
+                                      Activity activity) {
         AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle(activity.getResources().getString(R.string.choose_delivery_center));
         final int[] selectedItemPosition = {0};
@@ -161,7 +160,7 @@ public class Helper {
         builder.setPositiveButton(activity.getResources().getString(R.string.login), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                updateSharedPref(appPreferencesHelper, authenticationDetails);
+                updateSharedPref(authenticationDetails);
                 Helper.redirectToActivity(activity, HomeActivity.class, true);
             }
         });
@@ -186,13 +185,18 @@ public class Helper {
     /**
      * Update the shared preferences for further use
      * @param response of type ResponseDataAuthenticateUser to get the username and userId to store
-     * @param deliveryCentreId
-     * @param deliveryCentreName
+     * @param authenticationDetails
      */
-    public static void updateSharedPref(AppPreferencesHelper appPreferencesHelper, AuthenticationDetails authenticationDetails) {
-        appPreferencesHelper.setUsername(authenticationDetails.getUserName());
-        appPreferencesHelper.setUserId(authenticationDetails.getUserId());
-        appPreferencesHelper.setDeliveryCentreId(authenticationDetails.getDeliveryCentreNumber().get(0).getDeliveryCentreId());
-        appPreferencesHelper.setDeliveryCentreName(authenticationDetails.getDeliveryCentreNumber().get(0).getDeliveryCentreName());
+    public static void updateSharedPref(AuthenticationDetails authenticationDetails) {
+//        appPreferencesHelper.setUsername(authenticationDetails.getUserName());
+//        appPreferencesHelper.setUserId(authenticationDetails.getUserId());
+//        appPreferencesHelper.setDeliveryCentreId(authenticationDetails.getDeliveryCentreNumber().get(0).getDeliveryCentreId());
+//        appPreferencesHelper.setDeliveryCentreName(authenticationDetails.getDeliveryCentreNumber().get(0).getDeliveryCentreName());
+
+        AppConstants.USER_NAME = authenticationDetails.getUserName();
+        AppConstants.USER_ID = authenticationDetails.getUserId();
+        AppConstants.DELIVERY_CENTER_NUMBER = authenticationDetails.getDeliveryCentreNumber().get(0).getDeliveryCentreId();
+        AppConstants.DELIVERY_CENTER_ID = authenticationDetails.getDeliveryCentreNumber().get(0).getDeliveryCentreName();
+
     }
 }

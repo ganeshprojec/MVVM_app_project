@@ -44,12 +44,20 @@
     <string name="please_enter_user_id">Please enter user Id</string>
     <string name="please_enter_password">Please enter password</string>
     <string name="password_should_be">Password should be 6-8 characters long</string>
-    <string name="number_lots_mustbe_different">Number of lots must be different to current lots.</string>
+    <string name="number_lots_mustbe_different">Number of lots must be different to current lots</string>
+
+
+    <string name="invalid_authentication_details">Invalid authentication details</string>
+    <string name="no_valid_branches_setup">No valid branches setup</string>
+    <string name="credentials_not_accepted">Credentials not accepted</string>
 
     <string name="please_enter_old_password">Please enter old password</string>
-    <string name="please_enter_new_password_and_confirm">Please enter new and confirm password</string>
+    <string name="please_enter_new_password">Please enter new password</string>
+    <string name="please_enter_confirm_password">Please enter confirm password</string>
     <string name="new_password_and_confirm_password_mismatch">New password fields do not match</string>
-    <string name="new_password_should_be">New password should be 6-8 characters long</string>
+    <string name="new_password_and_old_password_should_not_be_same">New password and old password should not be same</string>
+    <string name="wrong_password_format">Invalid password. The Password should follow these rules \n- 6-8 characters long. \n- only alphanumeric characters allowed. \n- at least one alphabetic and one numeric character. \n- Not same as old password.</string>
+
     <string name="at_least_one_alpha_one_num_req">At least one alphabetic and one numeric character required</string>
     <string name="alert_error_message">Some Warning data not found..!</string>
 

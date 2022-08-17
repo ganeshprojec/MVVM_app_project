@@ -20,6 +20,7 @@ import com.jlp.mvvm_jlp_project.repository.UserRepository;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Resource;
 import com.jlp.mvvm_jlp_project.utils.StringUtils;
+import com.jlp.mvvm_jlp_project.utils.Utils;
 
 import javax.inject.Inject;
 
@@ -54,19 +55,21 @@ public class AuthViewModel extends BaseViewModel {
         validationResult.setValue(result);
     }
 
-    public void validateChangePassword(String username, String oldPassword,
+    public void validateChangePassword(String oldPassword,
                                        String newPassword, String confirmPassword) {
         Pair result = new Pair<>(true, 0);
         if (TextUtils.isEmpty(oldPassword)) {
             result = new Pair(false, R.string.please_enter_old_password);
-        } else if (TextUtils.isEmpty(newPassword) && TextUtils.isEmpty(confirmPassword)) {
-            result = new Pair(false, R.string.please_enter_new_password_and_confirm);
-        } else if (newPassword.length() < AppConstants.MIN_PASSWORD_LENGTH || newPassword.length() > AppConstants.MAX_PASSWORD_LENGTH) {
-            result = new Pair(false, R.string.new_password_should_be);
-        } else if (StringUtils.isValidPassword(newPassword)) {
-            result = new Pair(false, R.string.at_least_one_alpha_one_num_req);
-        } else if (!newPassword.equals(confirmPassword)) {
+        } else if (TextUtils.isEmpty(newPassword)) {
+            result = new Pair(false, R.string.please_enter_new_password);
+        } else if (TextUtils.isEmpty(confirmPassword)) {
+            result = new Pair(false, R.string.please_enter_confirm_password);
+        } else if (!newPassword.matches(AppConstants.PASSWORD_REGEXP)) {
+            result = new Pair(false, R.string.wrong_password_format);
+        }  else if (!newPassword.equals(confirmPassword)) {
             result = new Pair(false, R.string.new_password_and_confirm_password_mismatch);
+        } else if (newPassword.equals(AppConstants.PASSWORD)) {
+            result = new Pair(false, R.string.new_password_and_old_password_should_not_be_same);
         }
         validationResult.setValue(result);
     }

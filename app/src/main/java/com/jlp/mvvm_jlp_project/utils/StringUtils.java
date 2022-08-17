@@ -21,21 +21,6 @@ public class StringUtils {
     private static final String TAG = StringUtils.class.getSimpleName();
 
     /**
-     * Validate the password with at least one alphabet and one number
-     * @param password
-     * @return true or false
-     */
-    public static boolean isValidPassword(final String password) {
-        Pattern pattern;
-        Matcher matcher;
-        final String PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])$";
-        pattern = Pattern.compile(PASSWORD_PATTERN);
-        matcher = pattern.matcher(password);
-        return matcher.matches();
-
-    }
-
-    /**
      * Get today's date  in string format dd-MMM-yyyy
      * @return today's formatted date
      */

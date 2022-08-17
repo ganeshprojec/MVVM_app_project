@@ -41,7 +41,6 @@ import com.jlp.mvvm_jlp_project.model.response.find_location_details_for_barcode
 import com.jlp.mvvm_jlp_project.model.response.record_location_of_item.ResponseDataRecordLocationOfItem;
 import com.jlp.mvvm_jlp_project.model.response.reprint_label_detail.ResponseDataReprintLabel;
 import com.jlp.mvvm_jlp_project.model.response.update_number_of_lots_response.ResponseDataAmendLotNumerUpdate;
-import com.jlp.mvvm_jlp_project.pref.AppPreferencesHelper;
 import com.jlp.mvvm_jlp_project.utils.AppConstants;
 import com.jlp.mvvm_jlp_project.utils.Helper;
 import com.jlp.mvvm_jlp_project.utils.Resource;
@@ -104,9 +103,6 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
     PrinterDetails printerDetails;
     @Inject
     ReprintLabelDetailsReq reprintLabelDetailsReq;
-
-    @Inject
-    AppPreferencesHelper appPreferencesHelper;
 
 
     public CommonBarcodeScannerDetailsFragment(String callFor) {
@@ -250,8 +246,8 @@ public class CommonBarcodeScannerDetailsFragment extends BaseFragment{
     private void prepareRequestDataForRecordLocationOfItem(DeliveryItemProductDetails deliveryItemProductDetails,
                                                            LocationDetails locationDetails) {
         if(deliveryItemProductDetails!=null && locationDetails!=null){
-            locationItemDetails.setUserId(appPreferencesHelper.getUserId());
-            locationItemDetails.setUserName(appPreferencesHelper.getUsername());
+            locationItemDetails.setUserId(AppConstants.USER_ID);
+            locationItemDetails.setUserName(AppConstants.USER_NAME);
             locationItemDetails.setLocationId(locationDetails.getLocationId());
             locationItemDetails.setName15(locationDetails.getName15());
             locationItemDetails.setProductCode(deliveryItemProductDetails.getProductCode());

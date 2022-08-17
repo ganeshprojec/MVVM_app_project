@@ -7,14 +7,17 @@ import android.app.Dialog;
 
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.graphics.PorterDuff;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.net.ParseException;
+import android.view.Gravity;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -28,6 +31,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import com.jlp.mvvm_jlp_project.view.common_printer_list.CommonPrinterListFragment;
+
+import kotlin.text.Regex;
 
 
 public class Utils {
@@ -57,6 +62,18 @@ public class Utils {
         snackBarView.setBackgroundColor(activity.getResources().getColor(R.color.snackbar_background));
         snackbar.setTextColor(activity.getResources().getColor(R.color.red));
         snackbar.show();
+    }
+
+    public static void showToastMessage(Activity activity, String message) {
+        Toast toast = Toast.makeText(activity, message, Toast.LENGTH_LONG);
+        View view = toast.getView();
+        view.getBackground().setColorFilter(activity.getResources().getColor(R.color.black), PorterDuff.Mode.SRC_IN);
+
+        TextView text = view.findViewById(android.R.id.message);
+        text.setTextColor(activity.getResources().getColor(R.color.white));
+
+        toast.setGravity(Gravity.CENTER, 0, 0);
+        toast.show();
     }
 
     /**
