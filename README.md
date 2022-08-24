@@ -1,7 +1,7 @@
 # Demo Project For Initinal Setup
 > This project demonstrate the MVVM arch setup along with some adavanced features.
 
-## Table of Contents
+## Table of Content
 * [Technologies Used](#technologies-used)
 * [Features](#features)
 * [Usage](#usage)
